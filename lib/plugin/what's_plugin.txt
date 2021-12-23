@@ -1,0 +1,3 @@
+Flutter で実現できなかったことをネイティブで行うための plugin を記述。
+MethodChannel を使用してネイティブのメソッドを呼び出しています。
+MethodChannel は Dart からネイティブのメソッドを呼び出すか、ネイティブから Dart のメソッドを呼び出すためのAPI
