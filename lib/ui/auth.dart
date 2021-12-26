@@ -21,9 +21,6 @@ class AuthPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = ref.watch(emailProvider);
-    final password = ref.watch(passwordProvider);
-
     return Scaffold(
         backgroundColor: const Color(0xFF42A5F5),
         body: SingleChildScrollView(
@@ -44,12 +41,17 @@ class AuthPage extends ConsumerWidget {
 class _SignIn extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final email = ref.watch(emailProvider);
+    final password = ref.watch(passwordProvider);
+
     return Column(
       children: [
         Container(), // ロゴ表示領域
         TextFormField(
           decoration: InputDecoration(labelText: 'メールアドレス'),
-          onChanged: (String value) => => emailProvider.update((state) => state + 1),
+          onChanged: (String value) {
+            email.update();
+          },
         ), // メールアドレス入力ボックス
         SizedBox(), // スペーサー
         TextFormField(), // パスワード入力ボックス
