@@ -14,9 +14,7 @@ final infoTextProvider = StateProvider.autoDispose((ref) {
 
 // メールアドレスの受け渡しを行うためのProvider
 // ※ autoDisposeをつけることで自動的に値をリセットできます
-final emailProvider = StateProvider.autoDispose((ref) {
-  return '';
-});
+final emailProvider = StateProvider.autoDispose((ref) => '');
 
 // パスワードの受け渡しを行うためのProvider
 // ※ autoDisposeをつけることで自動的に値をリセットできます

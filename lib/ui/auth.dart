@@ -49,7 +49,7 @@ class _SignIn extends ConsumerWidget {
         Container(), // ロゴ表示領域
         TextFormField(
           decoration: InputDecoration(labelText: 'メールアドレス'),
-          onChanged: (String value) => ref.read(emailProvider),
+          onChanged: (String value) => => emailProvider.update((state) => state + 1),
         ), // メールアドレス入力ボックス
         SizedBox(), // スペーサー
         TextFormField(), // パスワード入力ボックス
