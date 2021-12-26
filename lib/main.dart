@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:seed_app/view_model/Provider_auth.dart';
+// ignore: unused_import
+import 'package:seed_app/ui/introduction.dart';
 import 'package:seed_app/ui/auth.dart';
 
 void main() async {
