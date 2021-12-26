@@ -15,10 +15,11 @@ class AuthPage extends ConsumerWidget {
 
     return Scaffold(
         backgroundColor: Color(0xFF42A5F5),
-        body: Container(
-            color: Colors.blue,
-            width: 300.0,
-            height: 300.0,
-            child: Text('word')));
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [],
+          ),
+        ));
   }
 }

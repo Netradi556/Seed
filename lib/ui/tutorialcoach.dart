@@ -1,0 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class TutorialCoachPage extends ConsumerWidget {
+  @Override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold();
+  }
+}
