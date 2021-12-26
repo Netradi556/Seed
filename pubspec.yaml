@@ -35,6 +35,12 @@ dependencies:
   flutter_riverpod: ^1.0.3
   freezed: ^1.1.0
   dio: ^4.0.4 # for API connection
+  flutter_screenutil: ^5.0.2 # 文字などの自動調整用
+  url_launcher: ^6.0.17 # URLをブラウザで開く用
+  shared_preferences: ^2.0.11 # 設定ファイルの読み書きパッケージ
+
+
+
 
 
   # The following adds the Cupertino Icons font to your application.
