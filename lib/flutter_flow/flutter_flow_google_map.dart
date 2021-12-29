@@ -82,19 +82,18 @@ class FlutterFlowGoogleMap extends StatefulWidget {
 
 class _FlutterFlowGoogleMapState extends State<FlutterFlowGoogleMap> {
   double get initialZoom => max(double.minPositive, widget.initialZoom);
-  LatLng get initialPosition =>
-      widget.initialLocation?.toGoogleMaps() ?? const LatLng(0.0, 0.0);
+  LatLng get initialPosition => widget.initialLocation.toGoogleMaps();
 
   late Completer<GoogleMapController> _controller;
   late LatLng currentMapCenter;
 
-  void onCameraIdle() => widget.onCameraIdle?.call(currentMapCenter.toLatLng());
+  void onCameraIdle() => widget.onCameraIdle.call(currentMapCenter.toLatLng());
 
   @override
   void initState() {
     super.initState();
     currentMapCenter = initialPosition;
-    _controller = widget.controller ?? Completer<GoogleMapController>();
+    _controller = widget.controller;
   }
 
   @override
@@ -126,7 +125,7 @@ class _FlutterFlowGoogleMapState extends State<FlutterFlowGoogleMap> {
                   icon: BitmapDescriptor.defaultMarkerWithHue(
                       googleMarkerColorMap[widget.markerColor]!),
                   onTap: () async {
-                    await m.onTap?.call();
+                    await m.onTap.call();
                     if (widget.centerMapOnMarkerTap) {
                       final controller = await _controller.future;
                       await controller.animateCamera(

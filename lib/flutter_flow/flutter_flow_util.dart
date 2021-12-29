@@ -63,6 +63,8 @@ String formatNumber(
 }) {
   var formattedValue = '';
   switch (formatType) {
+    case null:
+      break;
     case FormatType.decimal:
       switch (decimalType) {
         case DecimalType.automatic:
@@ -73,6 +75,8 @@ String formatNumber(
           break;
         case DecimalType.commaDecimal:
           formattedValue = NumberFormat.decimalPattern('es_PA').format(value);
+          break;
+        case null:
           break;
       }
       break;
