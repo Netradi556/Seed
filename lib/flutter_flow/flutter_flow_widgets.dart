@@ -104,20 +104,14 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
         width: widget.options.width,
         child: RaisedButton.icon(
           icon: Padding(
-            padding: widget.options.iconPadding ?? EdgeInsets.zero,
-            child: widget.icon ??
-                FaIcon(
-                  widget.iconData,
-                  size: widget.options.iconSize,
-                  color: widget.options.iconColor ??
-                      widget.options.textStyle.color,
-                ),
+            padding: widget.options.iconPadding,
+            child: widget.icon,
           ),
           label: textWidget,
           onPressed: onPressed,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(widget.options.borderRadius),
-            side: widget.options.borderSide ?? BorderSide.none,
+            side: widget.options.borderSide,
           ),
           color: widget.options.color,
           colorBrightness:
@@ -137,9 +131,8 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
       child: RaisedButton(
         onPressed: onPressed,
         shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.circular(widget.options.borderRadius ?? 28),
-          side: widget.options.borderSide ?? BorderSide.none,
+          borderRadius: BorderRadius.circular(widget.options.borderRadius),
+          side: widget.options.borderSide,
         ),
         textColor: widget.options.textStyle.color,
         color: widget.options.color,
