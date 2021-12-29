@@ -8,9 +8,15 @@ import 'package:seed_app/ui/usr_top.dart';
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:google_fonts/google_fonts.dart';
+/*
+  Todo(High)
+  サインイン・サインアップのロジック実装
+  画像などの差し替え
 
+  Todo(Low)
+  タブWidgetの分離
+
+ */
 final tabControllerProvider =
     StateProvider.autoDispose((ref) => _tabController);
 
