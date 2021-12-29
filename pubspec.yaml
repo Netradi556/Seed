@@ -50,7 +50,19 @@ dependencies:
   dart_ipify: ^1.1.1 # IPアドレス、MACアドレス取得用
   package_info: ^2.0.2 # アップデート矯正するために利用
   flutter_secure_storage: ^5.0.2 # ユーザーBAN用
+  google_fonts: ^2.1.1 # Google fonts
 
+
+  # flutter flowに合わせて入れたやつ
+  page_transition: ^2.0.4 # page transition
+  google_maps_flutter: ^2.1.1 # Google maps
+  json_path: ^0.3.1 # Json path
+  timeago: ^3.1.0 # タイムスタンプ用
+  auto_size_text: 3.0.0
+  font_awesome_flutter: 8.11.0
+  sign_in_with_apple: ^3.3.0
+  google_sign_in: ^5.2.1
+  rxdart: ^0.27.3 # 非同期処理の拡張？
 
 
 
