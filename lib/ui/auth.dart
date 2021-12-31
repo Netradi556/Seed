@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/ui/introduction.dart';
 import 'package:seed_app/view_model/Provider_auth.dart';
 import 'package:seed_app/ui/usr_top.dart';
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
@@ -207,7 +208,7 @@ class AuthPage extends ConsumerWidget {
                                                 .pushReplacement(
                                                     MaterialPageRoute(
                                                         builder: (context) {
-                                              return UserTopPage();
+                                              return IntroductionPage();
                                             }));
                                           } catch (e) {
                                             infoText.state =
@@ -659,7 +660,7 @@ class AuthPage extends ConsumerWidget {
                                                 .pushReplacement(
                                                     MaterialPageRoute(
                                                         builder: (context) {
-                                              return UserTopPage();
+                                              return IntroductionPage();
                                             }));
                                           } catch (e) {
                                             infoText.state =
