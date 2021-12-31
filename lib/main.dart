@@ -11,9 +11,14 @@ import 'package:seed_app/ui/auth.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(ProviderScope(
-      child:
-          ScreenUtilInit(designSize: Size(360, 690), builder: () => MyApp())));
+  runApp(
+    ProviderScope(
+      child: ScreenUtilInit(
+        designSize: Size(360, 690),
+        builder: () => MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AuthPage(),
+      home: IntroductionPage(),
     );
   }
 }
