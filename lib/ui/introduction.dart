@@ -15,7 +15,7 @@ class IntroductionPage extends ConsumerWidget {
   List<PageViewModel> getPages() {
     return [
       PageViewModel(
-        image: Image.network('/assets/images/demo.png'),
+        image: Image.asset('assets/images/demo.png'),
         title: "tutorial page1",
         body: "This page is tutorial No.1",
         footer: const Text(
@@ -25,7 +25,7 @@ class IntroductionPage extends ConsumerWidget {
         decoration: pageDecoration,
       ),
       PageViewModel(
-        image: Image.network('/assets/images/demo.png'),
+        image: Image.asset('assets/images/demo.png'),
         title: "tutorial page2",
         body: "This page is tutorial No.1",
         footer: const Text(
@@ -35,7 +35,7 @@ class IntroductionPage extends ConsumerWidget {
         decoration: pageDecoration,
       ),
       PageViewModel(
-        image: Image.network('/assets/images/demo.png'),
+        image: Image.asset('assets/images/demo.png'),
         title: "tutorial page3",
         body: "This page is tutorial No.1",
         footer: const Text(
@@ -45,7 +45,7 @@ class IntroductionPage extends ConsumerWidget {
         decoration: pageDecoration,
       ),
       PageViewModel(
-        image: Image.network('/assets/images/demo.png'),
+        image: Image.asset('assets/images/demo.png'),
         title: "tutorial page4",
         body: "This page is tutorial No.1",
         footer: const Text(
