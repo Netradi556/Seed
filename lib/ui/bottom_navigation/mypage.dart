@@ -1,5 +1,7 @@
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../flutter_flow/flutter_flow_theme.dart';
+import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,18 +14,11 @@ import 'package:google_fonts/google_fonts.dart';
 
  */
 
-class UserMenueWidget extends StatefulWidget {
-  const UserMenueWidget({Key? key}) : super(key: key);
-
-  @override
-  _UserMenueWidgetState createState() => _UserMenueWidgetState();
-}
-
-class _UserMenueWidgetState extends State<UserMenueWidget> {
+class MypagePageWidget extends ConsumerWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       key: scaffoldKey,
       body: SafeArea(

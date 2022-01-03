@@ -1,23 +1,44 @@
-// Login or Sing up
-
+// Packages
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seed_app/ui/introduction.dart';
-import 'package:seed_app/view_model/Provider_auth.dart';
-import 'package:seed_app/ui/usr_top.dart';
-import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+// PageWidgets
+import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
+import 'package:seed_app/ui/bottom_navigation/usr_top.dart';
+import 'package:seed_app/ui/introduction.dart';
+
+// Riverpod
+import 'package:seed_app/view_model/provider_auth.dart';
+
+/*
+  LoginとSing up画面のWidget
+
+
+
+*/
 
 /*
   Todo(High)
   サインイン・サインアップのロジック実装
+  Forgot passwor画面の実装
+  Email&Passwordログインで、パスワードの再入力チェック
+  パスワードの強弱チェック、Emailのすでにあるかどうかチェック
+  https://firebase.flutter.dev/docs/auth/usage/#registration
+
+  アカウント登録後のチェック画面の実装
+
+  Socialログインの実装
+  冗長になっているファイル名の記載を修正
   画像などの差し替え
 
   Todo(Low)
   タブWidgetの分離
 
- */
+*/
+
 final tabControllerProvider =
     StateProvider.autoDispose((ref) => _tabController);
 
@@ -27,6 +48,24 @@ class TabInfo {
   String label;
   Widget widget;
   TabInfo(this.label, this.widget);
+}
+
+// Googleを使ってサインイン
+Future<UserCredential> signInWithGoogle() async {
+  // 認証フローのトリガー
+  final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: [
+    'email',
+  ]).signIn();
+  // リクエストから、認証情報を取得
+  final GoogleSignInAuthentication? googleAuth =
+      await googleUser?.authentication;
+  // クレデンシャルを新しく作成
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth?.accessToken,
+    idToken: googleAuth?.idToken,
+  );
+  // サインインしたら、UserCredentialを返す
+  return FirebaseAuth.instance.signInWithCredential(credential);
 }
 
 class AuthPage extends ConsumerWidget {
@@ -44,6 +83,7 @@ class AuthPage extends ConsumerWidget {
     bool passowrdVisibility = true;
 
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 69, 208, 243),
       body: Column(
         children: [
           Row(
@@ -204,11 +244,17 @@ class AuthPage extends ConsumerWidget {
                                           try {
                                             final FirebaseAuth auth =
                                                 FirebaseAuth.instance;
+                                            final UserCredential user =
+                                                await auth
+                                                    .signInWithEmailAndPassword(
+                                                        email: email.state,
+                                                        password:
+                                                            password.state);
                                             await Navigator.of(context)
                                                 .pushReplacement(
                                                     MaterialPageRoute(
                                                         builder: (context) {
-                                              return IntroductionPage();
+                                              return NavigationController();
                                             }));
                                           } catch (e) {
                                             infoText.state =
@@ -334,7 +380,7 @@ class AuthPage extends ConsumerWidget {
                                                         shape: BoxShape.circle,
                                                       ),
                                                       child: SvgPicture.asset(
-                                                        'assets/images/svg/social_facebook.svg',
+                                                        'assets/svg/Twitter - Original.svg',
                                                       ),
                                                     ),
                                                   ),
@@ -394,7 +440,7 @@ class AuthPage extends ConsumerWidget {
                                                       shape: BoxShape.circle,
                                                     ),
                                                     child: SvgPicture.asset(
-                                                      'assets/images/social_GoogleWhite.svg',
+                                                      'assets/svg/Twitter - Original.svg',
                                                     ),
                                                   ),
                                                 ),
@@ -458,7 +504,7 @@ class AuthPage extends ConsumerWidget {
                                                         shape: BoxShape.circle,
                                                       ),
                                                       child: SvgPicture.asset(
-                                                        'assets/images/social_Apple.svg',
+                                                        'assets/svg/Twitter - Original.svg',
                                                       ),
                                                     ),
                                                   ),
@@ -497,7 +543,7 @@ class AuthPage extends ConsumerWidget {
                                   ],
                                 ),
 
-                                // Sing outのタブ
+                                // Sing upのタブ
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -646,16 +692,23 @@ class AuthPage extends ConsumerWidget {
                                             color: Colors.amber),
                                       ),
                                     ),
-                                    // Loginボタン
+                                    // Sign upボタン
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 24, 0, 0),
                                       child: ElevatedButton(
-                                        child: const Text('ログイン'),
+                                        child: const Text('アカウント作成'),
                                         onPressed: () async {
                                           try {
                                             final FirebaseAuth auth =
                                                 FirebaseAuth.instance;
+                                            final UserCredential
+                                                userCredential =
+                                                await FirebaseAuth.instance
+                                                    .createUserWithEmailAndPassword(
+                                                        email: email.state,
+                                                        password:
+                                                            password.state);
                                             await Navigator.of(context)
                                                 .pushReplacement(
                                                     MaterialPageRoute(
@@ -664,7 +717,7 @@ class AuthPage extends ConsumerWidget {
                                             }));
                                           } catch (e) {
                                             infoText.state =
-                                                "ログインに失敗しました${e.toString()}";
+                                                "アカウント作成に失敗しました${e.toString()}";
                                           }
                                         },
                                       ),
@@ -725,7 +778,7 @@ class AuthPage extends ConsumerWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          // FB ログイン実装
+/*                                           // FB ログイン実装
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -786,14 +839,14 @@ class AuthPage extends ConsumerWidget {
                                                         shape: BoxShape.circle,
                                                       ),
                                                       child: SvgPicture.asset(
-                                                        'assets/images/svg/social_facebook.svg',
+                                                        'assets/svg/Twitter - Original.svg',
                                                       ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
+                                          ), */
                                           // Google ログイン実装
                                           InkWell(
                                             /* onTap: () async {
@@ -822,21 +875,28 @@ class AuthPage extends ConsumerWidget {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(2, 2, 2, 2),
                                                 child: InkWell(
-                                                  /*                                         onTap: () async {
-                                                    final user =
-                                                        await signInWithGoogle(context);
-                                                    if (user == null) {
-                                                      return;
+                                                  onTap: () async {
+                                                    try {
+                                                      final userCredential =
+                                                          await signInWithGoogle();
+                                                    } on FirebaseAuthException catch (e) {
+                                                      print(
+                                                          'FirebaseAuthException');
+                                                      print('${e.code}');
+                                                    } on Exception catch (e) {
+                                                      print('Other Exception');
+                                                      print('${e.toString()}');
                                                     }
-                                                    await Navigator.pushAndRemoveUntil(
+                                                    await Navigator
+                                                        .pushAndRemoveUntil(
                                                       context,
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            LoginWidget(),
+                                                            UserTopWidget(),
                                                       ),
                                                       (r) => false,
                                                     );
-                                                  }, */
+                                                  },
                                                   child: Container(
                                                     width: 50,
                                                     height: 50,
@@ -846,14 +906,14 @@ class AuthPage extends ConsumerWidget {
                                                       shape: BoxShape.circle,
                                                     ),
                                                     child: SvgPicture.asset(
-                                                      'assets/images/social_GoogleWhite.svg',
+                                                      'assets/svg/Twitter - Original.svg',
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          // Apple ログイン実装
+                                          /* // Apple ログイン実装
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -910,15 +970,15 @@ class AuthPage extends ConsumerWidget {
                                                         shape: BoxShape.circle,
                                                       ),
                                                       child: SvgPicture.asset(
-                                                        'assets/images/social_Apple.svg',
+                                                        'assets/svg/Twitter - Original.svg',
                                                       ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          // Tel ログイン実装
+                                          ), */
+                                          /* // Tel ログイン実装
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -942,7 +1002,7 @@ class AuthPage extends ConsumerWidget {
                                                 ),
                                               ),
                                             ),
-                                          ),
+                                          ) */
                                         ],
                                       ),
                                     ),

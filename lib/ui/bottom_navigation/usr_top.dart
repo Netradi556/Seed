@@ -1,20 +1,14 @@
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
+import '../../flutter_flow/flutter_flow_theme.dart';
+import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UserTopWidget extends StatefulWidget {
-  const UserTopWidget({Key? key}) : super(key: key);
-
-  @override
-  _UserTopWidgetState createState() => _UserTopWidgetState();
-}
-
-class _UserTopWidgetState extends State<UserTopWidget> {
+class UserTopWidget extends ConsumerWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFFE5E3E3),
