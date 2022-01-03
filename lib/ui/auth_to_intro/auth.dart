@@ -5,13 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+// Riverpod
+import 'package:seed_app/view_model/provider_auth.dart';
+
 // PageWidgets
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:seed_app/ui/bottom_navigation/usr_top.dart';
-import 'package:seed_app/ui/introduction.dart';
-
-// Riverpod
-import 'package:seed_app/view_model/provider_auth.dart';
+import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
+import 'package:seed_app/ui/auth_to_intro/introduction.dart';
 
 /*
   LoginとSing up画面のWidget
@@ -319,75 +320,6 @@ class AuthPage extends ConsumerWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          // FB ログイン実装
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 8, 0),
-                                            // FBログイン実装
-                                            child: InkWell(
-                                              /* nTap: () async {
-                                                final user =
-                                                    await signInWithFacebook(context);
-                                                if (user == null) {
-                                                  return;
-                                                }
-                                                await Navigator.pushAndRemoveUntil(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => LoginWidget(),
-                                                  ),
-                                                  (r) => false,
-                                                );
-                                              } */
-                                              child: Card(
-                                                clipBehavior:
-                                                    Clip.antiAliasWithSaveLayer,
-                                                color: Color(0xFF090F13),
-                                                elevation: 3,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(2, 2, 2, 2),
-
-                                                  // FBログイン実装
-                                                  child: InkWell(
-                                                    /* onTap: () async {
-                                                      final user =
-                                                          await signInWithFacebook(
-                                                              context);
-                                                      if (user == null) {
-                                                        return;
-                                                      }
-                                                      await Navigator.pushAndRemoveUntil(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              LoginWidget(),
-                                                        ),
-                                                        (r) => false,
-                                                      );
-                                                    }, */
-                                                    child: Container(
-                                                      width: 50,
-                                                      height: 50,
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: SvgPicture.asset(
-                                                        'assets/svg/Twitter - Original.svg',
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
                                           // Google ログイン実装
                                           InkWell(
                                             /* onTap: () async {
@@ -443,96 +375,6 @@ class AuthPage extends ConsumerWidget {
                                                       'assets/svg/Twitter - Original.svg',
                                                     ),
                                                   ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          // Apple ログイン実装
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 0, 0),
-                                            child: InkWell(
-                                              // Apple ログイン実装
-                                              /*                                     onTap: () async {
-                                                final user =
-                                                    await signInWithApple(context);
-                                                if (user == null) {
-                                                  return;
-                                                }
-                                                await Navigator.pushAndRemoveUntil(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => LoginWidget(),
-                                                  ),
-                                                  (r) => false,
-                                                );
-                                              }, */
-                                              child: Card(
-                                                clipBehavior:
-                                                    Clip.antiAliasWithSaveLayer,
-                                                color: Color(0xFF090F13),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(2, 2, 2, 2),
-                                                  child: InkWell(
-                                                    /* onTap: () async {
-                                                      final user =
-                                                          await signInWithApple(context);
-                                                      if (user == null) {
-                                                        return;
-                                                      }
-                                                      await Navigator.pushAndRemoveUntil(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              LoginWidget(),
-                                                        ),
-                                                        (r) => false,
-                                                      );
-                                                    }, */
-                                                    child: Container(
-                                                      width: 50,
-                                                      height: 50,
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: SvgPicture.asset(
-                                                        'assets/svg/Twitter - Original.svg',
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          // Tel ログイン実装
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 0, 0),
-                                            child: Card(
-                                              clipBehavior:
-                                                  Clip.antiAliasWithSaveLayer,
-                                              color: Color(0xFF090F13),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(18, 18, 18, 18),
-                                                child: Icon(
-                                                  Icons.phone,
-                                                  color: FlutterFlowTheme
-                                                      .tertiaryColor,
-                                                  size: 20,
                                                 ),
                                               ),
                                             ),
@@ -771,114 +613,33 @@ class AuthPage extends ConsumerWidget {
                                     ),
                                     // Social Loginの一覧
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 16, 20, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              20, 16, 20, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-/*                                           // FB ログイン実装
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 8, 0),
-                                            // FBログイン実装
-                                            child: InkWell(
-                                              /* nTap: () async {
-                                                final user =
-                                                    await signInWithFacebook(context);
-                                                if (user == null) {
-                                                  return;
-                                                }
-                                                await Navigator.pushAndRemoveUntil(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => LoginWidget(),
-                                                  ),
-                                                  (r) => false,
-                                                );
-                                              } */
-                                              child: Card(
-                                                clipBehavior:
-                                                    Clip.antiAliasWithSaveLayer,
-                                                color: Color(0xFF090F13),
-                                                elevation: 3,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(2, 2, 2, 2),
-
-                                                  // FBログイン実装
-                                                  child: InkWell(
-                                                    /* onTap: () async {
-                                                      final user =
-                                                          await signInWithFacebook(
-                                                              context);
-                                                      if (user == null) {
-                                                        return;
-                                                      }
-                                                      await Navigator.pushAndRemoveUntil(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              LoginWidget(),
-                                                        ),
-                                                        (r) => false,
-                                                      );
-                                                    }, */
-                                                    child: Container(
-                                                      width: 50,
-                                                      height: 50,
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: SvgPicture.asset(
-                                                        'assets/svg/Twitter - Original.svg',
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ), */
                                           // Google ログイン実装
                                           InkWell(
-                                            /* onTap: () async {
-                                              final user =
-                                                  await signInWithGoogle(context);
-                                              if (user == null) {
-                                                return;
-                                              }
-                                              await Navigator.pushAndRemoveUntil(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) => LoginWidget(),
-                                                ),
-                                                (r) => false,
-                                              );
-                                            }, */
                                             child: Card(
                                               clipBehavior:
                                                   Clip.antiAliasWithSaveLayer,
-                                              color: Color(0xFF090F13),
+                                              color: const Color(0xFF090F13),
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(50),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(2, 2, 2, 2),
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(2, 2, 2, 2),
                                                 child: InkWell(
                                                   onTap: () async {
                                                     try {
-                                                      final userCredential =
-                                                          await signInWithGoogle();
+/*                                                       final userCredential = */
+                                                      await signInWithGoogle();
                                                     } on FirebaseAuthException catch (e) {
                                                       print(
                                                           'FirebaseAuthException');
@@ -892,7 +653,7 @@ class AuthPage extends ConsumerWidget {
                                                       context,
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            UserTopWidget(),
+                                                            NavigationController(),
                                                       ),
                                                       (r) => false,
                                                     );
@@ -913,72 +674,7 @@ class AuthPage extends ConsumerWidget {
                                               ),
                                             ),
                                           ),
-                                          /* // Apple ログイン実装
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 0, 0),
-                                            child: InkWell(
-                                              // Apple ログイン実装
-                                              /*                                     onTap: () async {
-                                                final user =
-                                                    await signInWithApple(context);
-                                                if (user == null) {
-                                                  return;
-                                                }
-                                                await Navigator.pushAndRemoveUntil(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => LoginWidget(),
-                                                  ),
-                                                  (r) => false,
-                                                );
-                                              }, */
-                                              child: Card(
-                                                clipBehavior:
-                                                    Clip.antiAliasWithSaveLayer,
-                                                color: Color(0xFF090F13),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(2, 2, 2, 2),
-                                                  child: InkWell(
-                                                    /* onTap: () async {
-                                                      final user =
-                                                          await signInWithApple(context);
-                                                      if (user == null) {
-                                                        return;
-                                                      }
-                                                      await Navigator.pushAndRemoveUntil(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              LoginWidget(),
-                                                        ),
-                                                        (r) => false,
-                                                      );
-                                                    }, */
-                                                    child: Container(
-                                                      width: 50,
-                                                      height: 50,
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: SvgPicture.asset(
-                                                        'assets/svg/Twitter - Original.svg',
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ), */
-                                          /* // Tel ログイン実装
+
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -1002,7 +698,7 @@ class AuthPage extends ConsumerWidget {
                                                 ),
                                               ),
                                             ),
-                                          ) */
+                                          )
                                         ],
                                       ),
                                     ),

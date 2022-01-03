@@ -11,7 +11,7 @@ class UserTopWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFE5E3E3),
+      backgroundColor: Color.fromARGB(255, 167, 86, 86),
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
