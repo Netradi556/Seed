@@ -13,6 +13,7 @@ import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:seed_app/ui/bottom_navigation/usr_top.dart';
 import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
 import 'package:seed_app/ui/auth_to_intro/introduction.dart';
+import 'userinfo_registration.dart';
 
 /*
   LoginとSing up画面のWidget
@@ -23,6 +24,7 @@ import 'package:seed_app/ui/auth_to_intro/introduction.dart';
 
 /*
   Todo(High)
+  ソーシャルログインの初回ログインってどうやって検知するの
   サインイン・サインアップのロジック実装
   Forgot passwor画面の実装
   Email&Passwordログインで、パスワードの再入力チェック
@@ -555,7 +557,7 @@ class AuthPage extends ConsumerWidget {
                                                 .pushReplacement(
                                                     MaterialPageRoute(
                                                         builder: (context) {
-                                              return IntroductionPage();
+                                              return RegistrationPageController();
                                             }));
                                           } catch (e) {
                                             infoText.state =

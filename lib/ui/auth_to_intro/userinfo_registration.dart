@@ -8,6 +8,7 @@ import 'package:introduction_screen/introduction_screen.dart';
 // Provider
 import 'package:seed_app/view_model/util_auth.dart';
 import 'package:seed_app/view_model/provider_auth.dart';
+import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
 
 // PageWidgets
 import 'auth.dart';
@@ -94,7 +95,7 @@ class RegistrationPageController extends ConsumerWidget {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => RegistrationPageController(),
+                      builder: (context) => NavigationPageController(),
                     ),
                   );
                 },
