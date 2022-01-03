@@ -11,7 +11,7 @@ import 'message.dart';
 import 'mypage.dart';
 
 class NavigationController extends ConsumerWidget {
-  List<ConsumerWidget> navigationPageList = [
+  List<Widget> navigationPageList = [
     UserTopWidget(),
     LikePageWidget(),
     EvetnPageWidget(),
@@ -21,9 +21,10 @@ class NavigationController extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final navigationIndex = ref.watch(navigationIndexProvider.notifier);
+    final navigationIndex = ref.watch(navigationIndexProvider);
 
     return Scaffold(
+      body: navigationPageList[navigationIndex],
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.black,
         selectedItemColor: Colors.amberAccent,
@@ -36,9 +37,9 @@ class NavigationController extends ConsumerWidget {
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'メッセージ'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'マイページ'),
         ],
-        currentIndex: navigationIndex.state,
+        currentIndex: navigationIndex,
         onTap: (index) {
-          navigationIndex.state = index;
+          ref.read(navigationIndexProvider.notifier).state = index;
         },
       ),
     );
