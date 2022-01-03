@@ -10,7 +10,7 @@ import 'event.dart';
 import 'message.dart';
 import 'mypage.dart';
 
-class NavigationController extends ConsumerWidget {
+class NavigationPageController extends ConsumerWidget {
   List<Widget> navigationPageList = [
     UserTopWidget(),
     LikePageWidget(),

@@ -255,7 +255,7 @@ class AuthPage extends ConsumerWidget {
                                                 .pushReplacement(
                                                     MaterialPageRoute(
                                                         builder: (context) {
-                                              return NavigationController();
+                                              return NavigationPageController();
                                             }));
                                           } catch (e) {
                                             infoText.state =
@@ -653,7 +653,7 @@ class AuthPage extends ConsumerWidget {
                                                       context,
                                                       MaterialPageRoute(
                                                         builder: (context) =>
-                                                            NavigationController(),
+                                                            NavigationPageController(),
                                                       ),
                                                       (r) => false,
                                                     );
