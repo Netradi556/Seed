@@ -10,6 +10,7 @@ import 'package:seed_app/view_model/provider_auth.dart';
 
 // PageWidgets
 import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
+import 'forgot_pass.dart';
 
 String _backgroundImagePath = 'assets/images/sea.jpeg';
 String _logoImagePath = 'assets/images/logo.jpg';
@@ -292,21 +293,21 @@ class AuthFoggotpassPaddingWidget extends StatelessWidget {
           const Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
             child: Text(
-              'メール・パスワードを忘れた方はこちら',
-              style: TextStyle(color: Colors.black26),
+              'Forgot mail/pass',
+              style: TextStyle(color: Colors.black),
             ),
           ),
           SizedBox(
-            width: 140,
+            width: 160,
             height: 40,
             child: ElevatedButton(
               onPressed: () async {
                 await Navigator.of(context)
-                    .pushReplacement(MaterialPageRoute(builder: (context) {
-                  return NavigationPageController();
+                    .push(MaterialPageRoute(builder: (context) {
+                  return ForgotPassPageWidget();
                 }));
               },
-              child: const Text('Foggot mail/password'),
+              child: const Text('メールアドレス・パスワードの再設定'),
               style: const ButtonStyle(),
             ),
           ),
