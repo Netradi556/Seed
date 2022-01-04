@@ -3,6 +3,23 @@ import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/*
+  マッチング相手を探す画面
+  BottomNavigationBarの「さがす」で表示
+
+
+
+*/
+
+/*
+  ToDo（High）
+  _TopHeaderContainerWidgetのAlighnを_TopMiddleContainerWidgetに移す
+  登録中のユーザーの動的表示
+
+
+
+*/
+
 class UserTopWidget extends ConsumerWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -17,9 +34,9 @@ class UserTopWidget extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: const [
-            TopHeaderContainerWidget(),
-            TopMiddleContainerWidget(),
-            TopUserExpandWidget(),
+            _TopHeaderContainerWidget(),
+            _TopMiddleContainerWidget(),
+            _TopUserExpandWidget(),
           ],
         ),
       ),
@@ -27,8 +44,90 @@ class UserTopWidget extends ConsumerWidget {
   }
 }
 
-class TopMiddleContainerWidget extends StatelessWidget {
-  const TopMiddleContainerWidget({
+class _TopHeaderContainerWidget extends StatelessWidget {
+  const _TopHeaderContainerWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 100,
+      decoration: const BoxDecoration(
+        color: Color(0xFFEEEEEE),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          // 検索ボックスに見せかけたコンテナ onTap()を実装予定
+          Container(
+            width: double.infinity,
+            height: 40,
+            decoration: const BoxDecoration(),
+            child: Align(
+              alignment: const AlignmentDirectional(1, -0.1),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 10, 0),
+                child: Container(
+                  width: 100,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFEE9AC),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
+                        child: Text(
+                          '絞り込み',
+                          style: FlutterFlowTheme.bodyText1,
+                        ),
+                      ),
+                      const Icon(
+                        Icons.search,
+                        color: Color(0xFFFFDA6F),
+                        size: 16,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // ロジック実装時に修正：_TopMiddleContainerWidgetに移す
+          Align(
+            alignment: const AlignmentDirectional(0.1, 0),
+            child: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 9, 0, 5),
+              child: Container(
+                width: double.infinity,
+                height: 35,
+                decoration: const BoxDecoration(),
+                child: const Align(
+                  alignment: AlignmentDirectional(-0.05, 0),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                    child: _TopCategoryListWidget(),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TopMiddleContainerWidget extends StatelessWidget {
+  const _TopMiddleContainerWidget({
     Key? key,
   }) : super(key: key);
 
@@ -127,87 +226,8 @@ class TopMiddleContainerWidget extends StatelessWidget {
   }
 }
 
-class TopHeaderContainerWidget extends StatelessWidget {
-  const TopHeaderContainerWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 100,
-      decoration: const BoxDecoration(
-        color: Color(0xFFEEEEEE),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-            width: double.infinity,
-            height: 40,
-            decoration: const BoxDecoration(),
-            child: Align(
-              alignment: const AlignmentDirectional(1, -0.1),
-              child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 10, 0),
-                child: Container(
-                  width: 100,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFEE9AC),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
-                        child: Text(
-                          '絞り込み',
-                          style: FlutterFlowTheme.bodyText1,
-                        ),
-                      ),
-                      const Icon(
-                        Icons.search,
-                        color: Color(0xFFFFDA6F),
-                        size: 16,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: const AlignmentDirectional(0.1, 0),
-            child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 9, 0, 5),
-              child: Container(
-                width: double.infinity,
-                height: 35,
-                decoration: const BoxDecoration(),
-                child: const Align(
-                  alignment: AlignmentDirectional(-0.05, 0),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: TopCategoryListWidget(),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TopUserExpandWidget extends ConsumerWidget {
-  const TopUserExpandWidget({
+class _TopUserExpandWidget extends ConsumerWidget {
+  const _TopUserExpandWidget({
     Key? key,
   }) : super(key: key);
 
@@ -289,8 +309,8 @@ class TopUserExpandWidget extends ConsumerWidget {
   }
 }
 
-class TopCategoryListWidget extends ConsumerWidget {
-  const TopCategoryListWidget({Key? key}) : super(key: key);
+class _TopCategoryListWidget extends ConsumerWidget {
+  const _TopCategoryListWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
