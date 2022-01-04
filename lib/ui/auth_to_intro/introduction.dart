@@ -80,7 +80,7 @@ class IntroductionPage extends ConsumerWidget {
           await prefs.setBool('haveSeenIntro', true);
           await Navigator.of(context)
               .pushReplacement(MaterialPageRoute(builder: (context) {
-            return AuthPage();
+            return AuthPageWidget();
           }));
         },
         next: const Text(
