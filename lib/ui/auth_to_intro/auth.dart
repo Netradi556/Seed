@@ -1,4 +1,6 @@
 // Package
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +13,7 @@ import 'package:seed_app/view_model/provider_auth.dart';
 // PageWidgets
 import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
 import 'forgot_pass.dart';
+import 'introduction.dart';
 
 String _backgroundImagePath = 'assets/images/sea.jpeg';
 String _logoImagePath = 'assets/images/logo.jpg';
@@ -29,7 +32,8 @@ Future<UserCredential> signInWithGoogle() async {
     accessToken: googleAuth?.accessToken,
     idToken: googleAuth?.idToken,
   );
-  // サインインしたら、UserCredentialを返す
+
+  // サインインしたら、userCredentialを返す
   return FirebaseAuth.instance.signInWithCredential(credential);
 }
 
@@ -238,10 +242,17 @@ class AuthLoginEbuttonWidget extends ConsumerWidget {
           final FirebaseAuth auth = FirebaseAuth.instance;
           final UserCredential user = await auth.signInWithEmailAndPassword(
               email: email.state, password: password.state);
-          await Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (context) {
-            return NavigationPageController();
-          }));
+          if (user.additionalUserInfo!.isNewUser) {
+            await Navigator.of(context)
+                .pushReplacement(MaterialPageRoute(builder: (context) {
+              return IntroductionPage();
+            }));
+          } else {
+            await Navigator.of(context)
+                .pushReplacement(MaterialPageRoute(builder: (context) {
+              return NavigationPageController();
+            }));
+          }
         } catch (e) {
           infoText.state = "ログインに失敗しました${e.toString()}";
         }
@@ -324,6 +335,8 @@ class AuthGoogleloginPaddingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isUserNew = true;
+
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
       child: SizedBox(
@@ -332,7 +345,25 @@ class AuthGoogleloginPaddingWidget extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () async {
             try {
-              await signInWithGoogle();
+              UserCredential? userCredential;
+              userCredential = await signInWithGoogle();
+              if (userCredential.additionalUserInfo!.isNewUser) {
+                await Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => IntroductionPage(),
+                  ),
+                  (r) => false,
+                );
+              } else {
+                await Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NavigationPageController(),
+                  ),
+                  (r) => false,
+                );
+              }
             } on FirebaseAuthException catch (e) {
               print('FirebaseAuthException');
               print('${e.code}');
@@ -340,13 +371,6 @@ class AuthGoogleloginPaddingWidget extends StatelessWidget {
               print('Other Exception');
               print('$e');
             }
-            await Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => NavigationPageController(),
-              ),
-              (r) => false,
-            );
           },
           child: const Text('Google Sign in'),
           style: const ButtonStyle(),
