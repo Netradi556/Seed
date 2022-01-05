@@ -14,14 +14,12 @@ import 'auth.dart';
 import 'introduction.dart';
 
 // 画像のパス格納用
-String upperImagefilePath = '';
+String upperImagefilePath = 'assets/images/sea.jpeg';
 
 class RegistrationPageController extends ConsumerWidget {
   PageController? pageViewController;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = ref.watch(emailProvider.notifier);
-    final password = ref.watch(passwordProvider.notifier);
     return Scaffold(
       backgroundColor: Colors.blueAccent,
       body: SafeArea(
@@ -47,30 +45,10 @@ class RegistrationPageController extends ConsumerWidget {
                               PageController(initialPage: 0),
                           scrollDirection: Axis.horizontal,
                           children: [
-                            Image.network(
-                              'https://picsum.photos/seed/222/600',
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-                            Image.network(
-                              'https://picsum.photos/seed/30/600',
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-                            Image.network(
-                              'https://picsum.photos/seed/543/600',
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-                            Image.network(
-                              'https://picsum.photos/seed/140/600',
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
+                            RegistrationPage1(),
+                            RegistrationPage2(),
+                            RegistrationPage3(),
+                            RegistrationPage4()
                           ],
                         ),
                       ),
@@ -110,8 +88,6 @@ class RegistrationPageController extends ConsumerWidget {
 class RegistrationPage1 extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = ref.watch(emailProvider.notifier);
-    final password = ref.watch(passwordProvider.notifier);
     return Scaffold();
   }
 }
@@ -119,8 +95,6 @@ class RegistrationPage1 extends ConsumerWidget {
 class RegistrationPage2 extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = ref.watch(emailProvider.notifier);
-    final password = ref.watch(passwordProvider.notifier);
     return Scaffold();
   }
 }
@@ -128,8 +102,6 @@ class RegistrationPage2 extends ConsumerWidget {
 class RegistrationPage3 extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = ref.watch(emailProvider.notifier);
-    final password = ref.watch(passwordProvider.notifier);
     return Scaffold();
   }
 }
@@ -137,8 +109,6 @@ class RegistrationPage3 extends ConsumerWidget {
 class RegistrationPage4 extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = ref.watch(emailProvider.notifier);
-    final password = ref.watch(passwordProvider.notifier);
     return Scaffold();
   }
 }
