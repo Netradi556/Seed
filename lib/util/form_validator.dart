@@ -13,9 +13,25 @@ class FormValidator extends ConsumerWidget {
 class ItemsWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: implement build
-    throw Card(
-      child: ListTile(),
+    String btnSelectValue = '';
+    throw SizedBox(
+      width: 300,
+      height: 80, 
+      child: 
+        Card(
+          style: TextStyle(),
+          fontsize: 20,
+          child: ListTile(
+            title: const Text('項目名');
+            trailing: DropdownButton<String>(
+              value: ,
+              onChanged: (String selectValue) {
+                btnSelectValue = selectValue;
+              },
+              items: ,
+            );
+          ),
+      ),
     );
   }
 }
