@@ -13,6 +13,9 @@ import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
 // PageWidgets
 import 'auth.dart';
 import 'introduction.dart';
+import 'userinfo_registration_page1.dart';
+import 'userinfo_registration_page2.dart';
+import 'userinfo_registration_page3.dart';
 
 // 画像のパス格納用
 String upperImagefilePath = 'assets/images/demo.png';
@@ -42,7 +45,6 @@ class RegistrationPageController extends ConsumerWidget {
                       RegistrationPage1(),
                       RegistrationPage2(),
                       RegistrationPage3(),
-                      RegistrationPage4(),
                     ],
                   ),
                 ),
@@ -55,7 +57,7 @@ class RegistrationPageController extends ConsumerWidget {
               child: Align(
                 child: SmoothPageIndicator(
                   controller: controller,
-                  count: 4,
+                  count: 3,
                   axisDirection: Axis.horizontal,
                   onDotClicked: (index) {
                     controller.animateToPage(index,
@@ -91,29 +93,5 @@ class RegistrationPage1 extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container();
-  }
-}
-
-class RegistrationPage2 extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      children: [Container(), Container(), Container()],
-    );
-  }
-}
-
-class RegistrationPage3 extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold();
-  }
-}
-
-class RegistrationPage4 extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold();
   }
 }

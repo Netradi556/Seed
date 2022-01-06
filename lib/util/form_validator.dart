@@ -30,16 +30,69 @@ class DropdownItemsWidget extends ConsumerWidget {
         )
         .toList();
 
-    return SizedBox(
-      width: boxWidth,
-      height: boxHeight,
-      child: ListTile(
-        title: Text(itemName),
-        trailing: DropdownButton(
-          items: _dropDownMenuItems,
-          onChanged: (value) {},
+    return Column(
+      children: [
+        // 項目１
+        SizedBox(
+          width: boxWidth,
+          height: boxHeight,
+          child: ListTile(
+            title: Text(itemName),
+            trailing: DropdownButton(
+              items: _dropDownMenuItems,
+              onChanged: (value) {},
+            ),
+          ),
         ),
-      ),
+        // 項目２
+        SizedBox(
+          width: boxWidth,
+          height: boxHeight,
+          child: ListTile(
+            title: Text(itemName),
+            trailing: DropdownButton(
+              items: _dropDownMenuItems,
+              onChanged: (value) {},
+            ),
+          ),
+        ),
+        // 項目３
+        SizedBox(
+          width: boxWidth,
+          height: boxHeight,
+          child: ListTile(
+            title: Text(itemName),
+            trailing: DropdownButton(
+              items: _dropDownMenuItems,
+              onChanged: (value) {},
+            ),
+          ),
+        ),
+        // 項目４
+        SizedBox(
+          width: boxWidth,
+          height: boxHeight,
+          child: ListTile(
+            title: Text(itemName),
+            trailing: DropdownButton(
+              items: _dropDownMenuItems,
+              onChanged: (value) {},
+            ),
+          ),
+        ),
+        // 項目５
+        SizedBox(
+          width: boxWidth,
+          height: boxHeight,
+          child: ListTile(
+            title: Text(itemName),
+            trailing: DropdownButton(
+              items: _dropDownMenuItems,
+              onChanged: (value) {},
+            ),
+          ),
+        )
+      ],
     );
   }
 }
