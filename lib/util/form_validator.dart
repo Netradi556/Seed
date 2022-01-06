@@ -14,6 +14,8 @@ class ItemsWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // TODO: implement build
-    throw UnimplementedError();
+    throw Card(
+      child: ListTile(),
+    );
   }
 }
