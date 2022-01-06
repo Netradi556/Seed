@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 // Riverpod
-import 'package:seed_app/view_model/provider_auth.dart';
+import 'package:seed_app/view_model/auth_provider.dart';
 
 // PageWidgets
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';

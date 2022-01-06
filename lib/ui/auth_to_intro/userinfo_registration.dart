@@ -6,8 +6,8 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 // Provider
-import 'package:seed_app/view_model/util_auth.dart';
-import 'package:seed_app/view_model/provider_auth.dart';
+import 'package:seed_app/view_model/util_provider.dart';
+import 'package:seed_app/view_model/auth_provider.dart';
 import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
 
 // PageWidgets
