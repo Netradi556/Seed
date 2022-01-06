@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // Riverpod
 
 // PageWidgets
-import 'userinfo_registration.dart';
+import 'userinfo_registration_controller.dart';
 
 /*
   Todo
