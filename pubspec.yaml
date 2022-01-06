@@ -52,6 +52,7 @@ dependencies:
   package_info: ^2.0.2 # アップデート矯正するために利用
   flutter_secure_storage: ^5.0.2 # ユーザーBAN用
   google_fonts: ^2.1.1 # Google fonts
+  smooth_page_indicator: ^1.0.0+2 # Pageviewと一緒に使うやつ
 
 
   # flutter flowに合わせて入れたやつ

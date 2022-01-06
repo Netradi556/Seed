@@ -1,9 +1,13 @@
-// only once appear
+// Packages
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:seed_app/ui/auth_to_intro/auth.dart';
+
+// Riverpod
+
+// PageWidgets
+import 'userinfo_registration.dart';
 
 /*
   Todo
@@ -15,8 +19,9 @@ import 'package:seed_app/ui/auth_to_intro/auth.dart';
 class IntroductionPage extends ConsumerWidget {
   final pageDecoration = PageDecoration(
     titleTextStyle:
-        PageDecoration().titleTextStyle.copyWith(color: Colors.black),
-    bodyTextStyle: PageDecoration().bodyTextStyle.copyWith(color: Colors.black),
+        const PageDecoration().titleTextStyle.copyWith(color: Colors.black),
+    bodyTextStyle:
+        const PageDecoration().bodyTextStyle.copyWith(color: Colors.black),
     titlePadding: const EdgeInsets.all(10),
   );
 
@@ -80,7 +85,7 @@ class IntroductionPage extends ConsumerWidget {
           await prefs.setBool('haveSeenIntro', true);
           await Navigator.of(context)
               .pushReplacement(MaterialPageRoute(builder: (context) {
-            return AuthPageWidget();
+            return RegistrationPageController();
           }));
         },
         next: const Text(
