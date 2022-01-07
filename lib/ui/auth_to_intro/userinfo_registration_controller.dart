@@ -36,23 +36,20 @@ class RegistrationPageController extends ConsumerWidget {
               child: Container(
                 color: Colors.white,
                 width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 50),
-                  child: PageView(
-                    controller: controller,
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      RegistrationPage1(),
-                      RegistrationPage2(),
-                      RegistrationPage3(),
-                    ],
-                  ),
+                child: PageView(
+                  controller: controller,
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    RegistrationPage1(),
+                    RegistrationPage2(),
+                    RegistrationPage3(),
+                  ],
                 ),
               ),
             ),
             Container(
               width: double.infinity,
-              height: 50,
+              height: 40,
               color: Colors.red,
               child: Align(
                 child: SmoothPageIndicator(
