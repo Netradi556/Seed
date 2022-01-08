@@ -121,7 +121,7 @@ class AuthEmailboxPaddingWidget extends ConsumerWidget {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: Colors.black12,
+          color: Colors.cyan,
           borderRadius: BorderRadius.circular(25),
         ),
         child: Padding(
@@ -151,7 +151,7 @@ class AuthEmailboxPaddingWidget extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
-              fillColor: Color(0x98FFFFFF),
+              fillColor: const Color(0x98FFFFFF),
               contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
             ),
             style: const TextStyle(color: Colors.amber),
