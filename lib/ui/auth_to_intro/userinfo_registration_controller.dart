@@ -21,7 +21,7 @@ import 'userinfo_registration_page3.dart';
 String upperImagefilePath = 'assets/images/demo.png';
 
 class RegistrationPageController extends ConsumerWidget {
-  final controller = PageController(initialPage: 1);
+  final controller = PageController(initialPage: 0);
 
   PageController? pageViewController;
   @override
@@ -83,12 +83,5 @@ class RegistrationPageController extends ConsumerWidget {
         ),
       ),
     );
-  }
-}
-
-class RegistrationPage1 extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
   }
 }

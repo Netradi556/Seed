@@ -1,6 +1,7 @@
 // Packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // PageWidgets
@@ -27,20 +28,22 @@ class RegistrationPage3 extends ConsumerWidget {
               color: Colors.amber,
             ),
           ),
-          Container(
-            width: double.infinity,
-            height: 100,
-            color: Colors.brown,
-            child: Align(
-              alignment: Alignment.center,
-              child: ElevatedButton(
-                child: Text('aaa'),
-                onPressed: () async {
-                  await Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                    return NavigationPageController();
-                  }));
-                },
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              height: 100,
+              color: Colors.brown,
+              child: Align(
+                alignment: Alignment.center,
+                child: ElevatedButton(
+                  child: Text('aaa'),
+                  onPressed: () async {
+                    await Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return NavigationPageController();
+                    }));
+                  },
+                ),
               ),
             ),
           ),
