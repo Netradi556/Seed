@@ -69,7 +69,7 @@ class DropdownItemsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final param = ref.watch(getProvider(itemName)!).state;
+    final param = ref.watch(getProvider(itemName)!.state);
 
     final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
         .map(
