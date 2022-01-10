@@ -11,27 +11,38 @@ import 'package:seed_app/view_model/profile_provider.dart';
 import 'package:seed_app/const/constants_profile.dart';
 
 class RegistrationPage1 extends ConsumerWidget {
+  const RegistrationPage1({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sex = ref.watch(profileSexProvider.notifier);
-    final age = ref.watch(profileAgeProvider.notifier);
     return Container(
       child: Column(
-        children: [
+        children: const [
+          // 性別の選択欄
           DropdownItemsWidget(
-            boxWidth: 300,
-            boxHeight: 70,
-            itemName: '住所',
-            menuItems: prefectrure.toList(),
-          ),
-          DropdownItemsWidget(
-            boxWidth: 300,
-            boxHeight: 70,
+            boxWidth: 330,
+            boxHeight: 40,
             itemName: '性別',
-            menuItems: const ['男性', '女性'],
+            menuItems: ['男性', '女性'],
           ),
-          const TextformItemsWidget(
-            boxWidth: 200,
+          // 血液型の選択欄
+          DropdownItemsWidget(
+            boxWidth: 330,
+            boxHeight: 40,
+            itemName: '血液型',
+            menuItems: ['A', 'B', 'O', 'AB'],
+          ),
+          // 兄弟姉妹の選択欄
+          DropdownItemsWidget(
+            boxWidth: 330,
+            boxHeight: 40,
+            itemName: '兄弟姉妹',
+            menuItems: ['いる', 'いない'],
+          ),
+
+          // ニックネームの入力欄
+          TextformItemsWidget(
+            boxWidth: 330,
             boxHeight: 70,
             itemName: 'ニックネーム',
           )
@@ -46,31 +57,37 @@ class DropdownItemsWidget extends ConsumerWidget {
     switch (category) {
       case '性別':
         return profileSexProvider;
-      case '年齢':
-        return profileAgeProvider;
+      case '血液型':
+        return profileBloodtypeProvider;
+      case '兄弟姉妹':
+        return profileFamilyProvider;
+      case '話せる言語':
+        return profileLanguageProvider;
+      case '居住地':
+        return profileLivingProvider;
+      case '出身地':
+        return profileBirthplaceProvider;
       default:
         break;
     }
   }
 
-  DropdownItemsWidget({
+  const DropdownItemsWidget({
     Key? key,
-    required this.menuItems,
-    required this.itemName,
-    required this.boxHeight,
     required this.boxWidth,
+    required this.boxHeight,
+    required this.itemName,
+    required this.menuItems,
   }) : super(key: key);
 
   final String itemName; // 項目名
   final List<String> menuItems; // ドロップダウンのリスト
   final double boxWidth;
   final double boxHeight;
-  String selectItem = '未選択';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final param = ref.watch(getProvider(itemName)!).state;
-
+    final param = ref.watch(getProvider(itemName)!.state);
     final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
         .map(
           (String value) => DropdownMenuItem(
