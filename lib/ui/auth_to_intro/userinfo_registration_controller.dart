@@ -17,6 +17,16 @@ import 'userinfo_registration_page1.dart';
 import 'userinfo_registration_page2.dart';
 import 'userinfo_registration_page3.dart';
 
+
+/* 
+  Todo（High）
+  Columnのchildrenに入っているContainer3つをflexを使ってheightの制御をする
+
+
+
+
+*/
+
 // 画像のパス格納用
 String upperImagefilePath = 'assets/images/demo.png';
 
