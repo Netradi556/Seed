@@ -7,8 +7,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 /*
   Todo
+  ・プロフィール画像はCircleAvatar Widgetを利用したほうがよさそう
+  ・アイコンをボタンにするときはIconButton Widgetを利用したほうがよさそう
+  ・Widgetの切り出し
   ・Riverpodの導入
-
+  ・アイコンの設定
+  ・
 
 
 
