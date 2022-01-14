@@ -17,8 +17,7 @@ import 'userinfo_registration_page1.dart';
 import 'userinfo_registration_page2.dart';
 import 'userinfo_registration_page3.dart';
 
-
-/* 
+/*
   Todo（High）
   Columnのchildrenに入っているContainer3つをflexを使ってheightの制御をする
 
@@ -43,6 +42,7 @@ class RegistrationPageController extends ConsumerWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
+              flex: 15,
               child: Container(
                 color: Colors.white,
                 width: double.infinity,
@@ -57,37 +57,43 @@ class RegistrationPageController extends ConsumerWidget {
                 ),
               ),
             ),
-            Container(
-              width: double.infinity,
-              height: 40,
-              color: Colors.red,
-              child: Align(
-                child: SmoothPageIndicator(
-                  controller: controller,
-                  count: 3,
-                  axisDirection: Axis.horizontal,
-                  onDotClicked: (index) {
-                    controller.animateToPage(index,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.ease);
-                  },
-                  effect: const ExpandingDotsEffect(
-                    expansionFactor: 2,
-                    spacing: 8,
-                    radius: 16,
-                    dotWidth: 16,
-                    dotHeight: 16,
-                    dotColor: Color(0xFF9E9E9E),
-                    activeDotColor: Color(0xFF3F51B5),
-                    paintStyle: PaintingStyle.fill,
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: double.infinity,
+                height: 40,
+                color: Colors.red,
+                child: Align(
+                  child: SmoothPageIndicator(
+                    controller: controller,
+                    count: 3,
+                    axisDirection: Axis.horizontal,
+                    onDotClicked: (index) {
+                      controller.animateToPage(index,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.ease);
+                    },
+                    effect: const ExpandingDotsEffect(
+                      expansionFactor: 2,
+                      spacing: 8,
+                      radius: 16,
+                      dotWidth: 16,
+                      dotHeight: 16,
+                      dotColor: Color(0xFF9E9E9E),
+                      activeDotColor: Color(0xFF3F51B5),
+                      paintStyle: PaintingStyle.fill,
+                    ),
                   ),
                 ),
               ),
             ),
-            Container(
-              width: double.infinity,
-              height: 150,
-              color: Colors.black,
+            Expanded(
+              flex: 2,
+              child: Container(
+                width: double.infinity,
+                height: 150,
+                color: Colors.black,
+              ),
             )
           ],
         ),

@@ -7,6 +7,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // PageWidgets
 import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
 
+/*
+  Todo(High)
+  「登録を完了する」ボタンを押下した時に、確認のポップアップを表示
+  確認内容には変更不可の属性を表示する
+
+
+*/
+
 class RegistrationPage3 extends ConsumerWidget {
   const RegistrationPage3({Key? key}) : super(key: key);
 
@@ -36,7 +44,7 @@ class RegistrationPage3 extends ConsumerWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
-                  child: Text('aaa'),
+                  child: const Text('登録を完了する'),
                   onPressed: () async {
                     await Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {

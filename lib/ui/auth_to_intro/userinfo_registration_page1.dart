@@ -15,39 +15,41 @@ class RegistrationPage1 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      child: Column(
-        children: const [
-          // 性別の選択欄
-          DropdownItemsWidget(
-            boxWidth: 330,
-            boxHeight: 40,
-            itemName: '性別',
-            menuItems: ['男性', '女性'],
-          ),
-          // 血液型の選択欄
-          DropdownItemsWidget(
-            boxWidth: 330,
-            boxHeight: 40,
-            itemName: '血液型',
-            menuItems: ['A', 'B', 'O', 'AB'],
-          ),
-          // 兄弟姉妹の選択欄
-          DropdownItemsWidget(
-            boxWidth: 330,
-            boxHeight: 40,
-            itemName: '兄弟姉妹',
-            menuItems: ['いる', 'いない'],
-          ),
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          height: 200,
+        ),
+        // 性別の選択欄
+        DropdownItemsWidget(
+          boxWidth: 330,
+          boxHeight: 40,
+          itemName: '性別',
+          menuItems: ['未選択', '男性', '女性'],
+        ),
+        // 血液型の選択欄
+        DropdownItemsWidget(
+          boxWidth: 330,
+          boxHeight: 40,
+          itemName: '血液型',
+          menuItems: ['未選択', 'A', 'B', 'O', 'AB'],
+        ),
+        // 兄弟姉妹の選択欄
+        DropdownItemsWidget(
+          boxWidth: 330,
+          boxHeight: 40,
+          itemName: '兄弟姉妹',
+          menuItems: ['未選択', 'いる', 'いない'],
+        ),
 
-          // ニックネームの入力欄
-          TextformItemsWidget(
-            boxWidth: 330,
-            boxHeight: 70,
-            itemName: 'ニックネーム',
-          )
-        ],
-      ),
+        // ニックネームの入力欄
+        const TextformItemsWidget(
+          boxWidth: 330,
+          boxHeight: 70,
+          itemName: 'ニックネーム',
+        )
+      ],
     );
   }
 }
@@ -72,7 +74,7 @@ class DropdownItemsWidget extends ConsumerWidget {
     }
   }
 
-  const DropdownItemsWidget({
+  DropdownItemsWidget({
     Key? key,
     required this.boxWidth,
     required this.boxHeight,
@@ -84,6 +86,7 @@ class DropdownItemsWidget extends ConsumerWidget {
   final List<String> menuItems; // ドロップダウンのリスト
   final double boxWidth;
   final double boxHeight;
+  String _selected = '未選択';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -103,11 +106,13 @@ class DropdownItemsWidget extends ConsumerWidget {
       child: ListTile(
         title: Text(itemName),
         trailing: DropdownButton(
-          value: _dropDownMenuItems[0].value,
+          value: _selected,
           items: _dropDownMenuItems,
           onChanged: (value) {
             param.state = value as String;
-          }, // 未実装
+            _selected = param.state; // 画面の再描写のチェック
+            print(_selected.toString());
+          },
         ),
       ),
     );

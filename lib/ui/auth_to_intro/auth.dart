@@ -43,21 +43,21 @@ class AuthPageWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Colors.amberAccent,
+      backgroundColor: Color(0xFCF9E12D),
       body: Align(
         alignment: AlignmentDirectional(-0.14, -0.08),
         child: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: BoxDecoration(
-            color: Color(0x19444D59),
+          /* decoration: BoxDecoration(
+            color: Color(0x19EF2EC5),
             image: DecorationImage(
               fit: BoxFit.fitWidth,
 
               // ロゴイメージ
               image: Image.asset(_backgroundImagePath).image,
             ),
-          ),
+          ), */
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 110),
             child: Column(
@@ -121,7 +121,7 @@ class AuthEmailboxPaddingWidget extends ConsumerWidget {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: Colors.cyan,
+          color: Color(0xE398D759),
           borderRadius: BorderRadius.circular(25),
         ),
         child: Padding(
@@ -132,13 +132,13 @@ class AuthEmailboxPaddingWidget extends ConsumerWidget {
             decoration: InputDecoration(
               labelText: 'メールアドレス',
               // Extensionを利用予定
-              labelStyle: TextStyle(color: Colors.amberAccent),
+              labelStyle: TextStyle(color: Color(0xFF000000)),
               hintText: 'Enter your email...',
               // Extensionを利用予定
-              hintStyle: TextStyle(color: Colors.amberAccent),
+              hintStyle: TextStyle(color: Color(0xFF000000)),
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                  color: Color(0x00000000),
+                  color: Color(0x00FFFFFF),
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(8),
@@ -151,7 +151,7 @@ class AuthEmailboxPaddingWidget extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
-              fillColor: const Color(0x98FFFFFF),
+              fillColor: const Color(0x00000000),
               contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
             ),
             style: const TextStyle(color: Colors.amber),
@@ -178,7 +178,7 @@ class AuthPassboxPaddingWidget extends ConsumerWidget {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: Colors.blueAccent,
+          color: Color(0xE398D759),
           borderRadius: BorderRadius.circular(25),
         ),
         child: Padding(
@@ -189,10 +189,10 @@ class AuthPassboxPaddingWidget extends ConsumerWidget {
             decoration: InputDecoration(
               labelText: 'パスワード',
               // Extensionを利用予定
-              labelStyle: TextStyle(color: Colors.amberAccent),
+              labelStyle: TextStyle(color: Color(0xFF000000)),
               hintText: 'Enter your password...',
               // Extensionを利用予定
-              hintStyle: TextStyle(color: Colors.amberAccent),
+              hintStyle: TextStyle(color: Color(0xFF000000)),
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: Color(0x00000000),
@@ -208,7 +208,7 @@ class AuthPassboxPaddingWidget extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
-              fillColor: Color(0x98FFFFFF),
+              fillColor: Color(0x00FFFFFF),
               contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
               suffixIcon: InkWell(
                 onTap: () => passowrdVisibility = !passowrdVisibility,

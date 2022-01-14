@@ -1,5 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/*
+  feezedを利用してイミュータブルなクラス？でUserオブジェクトを作成して
+  Providerを一纏めにするのあり？
+
+*/
+
 final profileSexProvider = StateProvider((ref) => '');
 final profileAgeProvider = StateProvider((ref) => '');
 final profileBloodtypeProvider = StateProvider((ref) => '');
