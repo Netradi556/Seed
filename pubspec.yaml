@@ -53,6 +53,7 @@ dependencies:
   flutter_secure_storage: ^5.0.2 # ユーザーBAN用
   google_fonts: ^2.1.1 # Google fonts
   smooth_page_indicator: ^1.0.0+2 # Pageviewと一緒に使うやつ
+  flutter_datetime_picker: ^1.5.1 # ドラムロールで年月日を選択するやつ
 
 
   # flutter flowに合わせて入れたやつ
@@ -61,7 +62,7 @@ dependencies:
   json_path: ^0.3.1 # Json path
   timeago: ^3.1.0 # タイムスタンプ用
   auto_size_text: 3.0.0
-  font_awesome_flutter: 8.11.0
+  font_awesome_flutter: ^9.2.0
   sign_in_with_apple: ^3.3.0
   google_sign_in: ^5.2.1
   rxdart: ^0.27.3 # 非同期処理の拡張？
