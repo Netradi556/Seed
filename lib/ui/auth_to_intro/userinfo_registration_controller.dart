@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:seed_app/ui/auth_to_intro/userinfo_registration_page3.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 // Provider
@@ -44,7 +45,7 @@ class RegistrationPageController extends ConsumerWidget {
             Expanded(
               flex: 15,
               child: Container(
-                color: Colors.white,
+                color: Color(0xFFD2F580),
                 width: double.infinity,
                 child: PageView(
                   controller: controller,
@@ -62,7 +63,7 @@ class RegistrationPageController extends ConsumerWidget {
               child: Container(
                 width: double.infinity,
                 height: 40,
-                color: Colors.red,
+                color: Color(0xFF9EDC68),
                 child: Align(
                   child: SmoothPageIndicator(
                     controller: controller,
@@ -92,7 +93,7 @@ class RegistrationPageController extends ConsumerWidget {
               child: Container(
                 width: double.infinity,
                 height: 150,
-                color: Colors.black,
+                color: Color(0xFF9EDC68),
               ),
             )
           ],

@@ -9,6 +9,25 @@ class MessagePageWidget extends ConsumerWidget {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: Color(0xFFD57575),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text('メッセージ'),
+                  Icon(Icons.access_alarm),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(color: Color(0xFF3EC922)),
+          ),
+        ],
+      ),
     );
   }
 }

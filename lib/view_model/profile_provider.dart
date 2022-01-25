@@ -13,3 +13,8 @@ final profileFamilyProvider = StateProvider((ref) => '');
 final profileLanguageProvider = StateProvider((ref) => '');
 final profileLivingProvider = StateProvider((ref) => '');
 final profileBirthplaceProvider = StateProvider((ref) => '');
+final profileEducationProvider = StateProvider((ref) => '');
+final profileJobProvider = StateProvider((ref) => '');
+final profileIncomeProvider = StateProvider((ref) => '');
+final profileHeightProvider = StateProvider((ref) => '');
+final profileBodyshapeProvider = StateProvider((ref) => '');

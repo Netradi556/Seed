@@ -81,7 +81,20 @@ class YearDateItemsWidget extends ConsumerWidget {
           IconButton(
             icon: const Icon(FontAwesomeIcons.calendarAlt),
             color: Colors.amber,
-            onPressed: () => param.state = '1',
+            onPressed: () async {
+              final selectedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(DateTime.now().year),
+                lastDate: DateTime(DateTime.now().year + 6),
+                initialDatePickerMode: DatePickerMode.year,
+              );
+
+              if (selectedDate != null) {
+                param.state = selectedDate.toString();
+                // do something
+              }
+            },
           )
         ],
       ),
