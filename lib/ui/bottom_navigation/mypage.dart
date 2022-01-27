@@ -137,6 +137,7 @@ class MypagePageWidget extends ConsumerWidget {
                                   decoration: BoxDecoration(
                                     color: Color(0xFFAB9494),
                                   ),
+                                  child: const Icon(Icons.access_alarm),
                                 ),
                                 Container(
                                   width: 100,
