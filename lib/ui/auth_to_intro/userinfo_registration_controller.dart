@@ -45,12 +45,12 @@ class RegistrationPageController extends ConsumerWidget {
             Expanded(
               flex: 15,
               child: Container(
-                color: Color(0xFFD2F580),
+                color: const Color(0xFFD2F580),
                 width: double.infinity,
                 child: PageView(
                   controller: controller,
                   scrollDirection: Axis.horizontal,
-                  children: [
+                  children: const [
                     RegistrationPage1(),
                     RegistrationPage2(),
                     RegistrationPage3(),
