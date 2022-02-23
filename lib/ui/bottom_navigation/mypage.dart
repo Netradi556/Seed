@@ -5,6 +5,8 @@ import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
+
 /*
   Todo
   ・プロフィール画像はCircleAvatar Widgetを利用したほうがよさそう
@@ -13,10 +15,16 @@ import 'package:google_fonts/google_fonts.dart';
   ・Riverpodの導入
   ・アイコンの設定
   ・
+*/
 
-
-
- */
+String profileImagePath = 'assets/images/logo.jpg';
+String footprintLogoPath = 'assets/icon/footprints.png';
+String thumbsLogoPath = 'assets/icon/thumbs-up.png';
+String likeLogoPath = 'assets/icon/star.png';
+String notificationLogoPath = 'assets/icon/notification.png';
+String licenseLogoPath = 'assets/icon/license.png';
+String settingLogoPath = 'assets/icon/setting.png';
+String helpLogoPath = 'assets/icon/help.png';
 
 class MypagePageWidget extends ConsumerWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -31,6 +39,7 @@ class MypagePageWidget extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // プロフィールメニュー
             Container(
               width: double.infinity,
               height: 150,
@@ -48,9 +57,7 @@ class MypagePageWidget extends ConsumerWidget {
                         color: Color(0xFFEEEEEE),
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: Image.network(
-                            'https://picsum.photos/seed/836/600',
-                          ).image,
+                          image: Image.asset(profileImagePath).image,
                         ),
                         shape: BoxShape.circle,
                       ),
@@ -91,6 +98,7 @@ class MypagePageWidget extends ConsumerWidget {
                 ],
               ),
             ),
+            // 告知欄
             Container(
               width: double.infinity,
               height: 50,
@@ -102,12 +110,13 @@ class MypagePageWidget extends ConsumerWidget {
                 style: FlutterFlowTheme.bodyText1,
               ),
             ),
+            // メニュー
             Align(
-              alignment: AlignmentDirectional(0.05, -0.1),
+              alignment: const AlignmentDirectional(0.05, -0.1),
               child: Container(
                 width: double.infinity,
                 height: 330,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xFFEEEEEE),
                 ),
                 child: Align(
@@ -118,10 +127,11 @@ class MypagePageWidget extends ConsumerWidget {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        // 1列目：足跡、自分からのいいね、お気に入り
                         Container(
                           width: double.infinity,
                           height: 100,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color(0xFFEEEEEE),
                           ),
                           child: Align(
@@ -131,36 +141,72 @@ class MypagePageWidget extends ConsumerWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFAB9494),
+                                // 足跡
+                                InkWell(
+                                  onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return FootprintPagesWidget();
+                                      },
+                                    ),
                                   ),
-                                  child: const Icon(Icons.access_alarm),
-                                ),
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFFC8585),
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 20, 20, 20),
+                                    child: Image(
+                                      image: AssetImage(footprintLogoPath),
+                                    ),
                                   ),
                                 ),
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFE9E076),
+                                // 自分からのいいね
+                                InkWell(
+                                  onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return YourlikePageWidget();
+                                      },
+                                    ),
+                                  ),
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 20, 20, 20),
+                                    child: Image(
+                                      image: AssetImage(thumbsLogoPath),
+                                    ),
+                                  ),
+                                ),
+                                // お気に入り
+                                InkWell(
+                                  onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return YourfavPageWidget();
+                                      },
+                                    ),
+                                  ),
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 20, 20, 20),
+                                    child: Image(
+                                      image: AssetImage(likeLogoPath),
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
                         ),
+                        // 2列目：お知らせ、会員ステータス、設定
                         Container(
                           width: double.infinity,
                           height: 100,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color(0xFFEEEEEE),
                           ),
                           child: Align(
@@ -170,35 +216,72 @@ class MypagePageWidget extends ConsumerWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFAB9494),
+                                // お知らせ
+                                InkWell(
+                                  onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return NotificationPageWidget();
+                                      },
+                                    ),
+                                  ),
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 20, 20, 20),
+                                    child: Image(
+                                      image: AssetImage(notificationLogoPath),
+                                    ),
                                   ),
                                 ),
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFFC8585),
+                                // 会員ステータス
+                                InkWell(
+                                  onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return LicensePageWidget();
+                                      },
+                                    ),
+                                  ),
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 20, 20, 20),
+                                    child: Image(
+                                      image: AssetImage(licenseLogoPath),
+                                    ),
                                   ),
                                 ),
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFE9E076),
+                                // 設定
+                                InkWell(
+                                  onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return SettingPageWidget();
+                                      },
+                                    ),
+                                  ),
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 20, 20, 20),
+                                    child: Image(
+                                      image: AssetImage(settingLogoPath),
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
                         ),
+                        // 3列目：ヘルプ
                         Container(
                           width: double.infinity,
                           height: 100,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color(0xFFEEEEEE),
                           ),
                           child: Align(
@@ -208,25 +291,36 @@ class MypagePageWidget extends ConsumerWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFAB9494),
+                                InkWell(
+                                  onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return HelpPageWidget();
+                                      },
+                                    ),
+                                  ),
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 20, 20, 20),
+                                    child: Image(
+                                      image: AssetImage(helpLogoPath),
+                                    ),
                                   ),
                                 ),
                                 Container(
                                   width: 100,
                                   height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFFC8585),
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFFFFFFF),
                                   ),
                                 ),
                                 Container(
                                   width: 100,
                                   height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFE9E076),
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFFFFFFF),
                                   ),
                                 ),
                               ],
