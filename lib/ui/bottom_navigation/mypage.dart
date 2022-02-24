@@ -43,28 +43,28 @@ class MypagePageWidget extends ConsumerWidget {
             Container(
               width: double.infinity,
               height: 150,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0x7AEBC24E),
               ),
               child: Stack(
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(-0.8, 0),
+                    alignment: const AlignmentDirectional(-0.8, 0),
                     child: Container(
                       width: 100,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Color(0xFFEEEEEE),
+                        color: const Color(0xFFEEEEEE),
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: Image.asset(profileImagePath).image,
+                          image: AssetImage(profileImagePath),
                         ),
                         shape: BoxShape.circle,
                       ),
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.3, -0.4),
+                    alignment: const AlignmentDirectional(0.3, -0.4),
                     child: Text(
                       'Handle Name',
                       style: FlutterFlowTheme.bodyText1.override(
@@ -75,23 +75,41 @@ class MypagePageWidget extends ConsumerWidget {
                   ),
                   Align(
                     alignment: AlignmentDirectional(-0.05, 0),
-                    child: Text(
-                      'edit profile',
-                      textAlign: TextAlign.start,
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: Color(0xFF646CF2),
+                    child: InkWell(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return UserProfilePageWidget();
+                          },
+                        ),
+                      ),
+                      child: Text(
+                        'edit profile',
+                        textAlign: TextAlign.start,
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Poppins',
+                          color: Color(0xFF646CF2),
+                        ),
                       ),
                     ),
                   ),
                   Align(
                     alignment: AlignmentDirectional(0.55, 0),
-                    child: Text(
-                      'view profile',
-                      textAlign: TextAlign.start,
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: Color(0xFF646CF2),
+                    child: InkWell(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return UserProfilePageWidget();
+                          },
+                        ),
+                      ),
+                      child: Text(
+                        'view profile',
+                        textAlign: TextAlign.start,
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Poppins',
+                          color: Color(0xFF646CF2),
+                        ),
                       ),
                     ),
                   ),
