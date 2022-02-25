@@ -29,7 +29,7 @@ class NotificationPageWidget extends ConsumerWidget {
                       onTap: () => Navigator.of(context).pop(),
                       child: Icon(Icons.arrow_back_ios_new),
                     ),
-                    Text('メッセージ'),
+                    Text('運営からのお知らせ'),
                     Icon(Icons.access_alarm),
                   ],
                 ),
@@ -38,7 +38,7 @@ class NotificationPageWidget extends ConsumerWidget {
             Expanded(
               flex: 100,
               child: Container(
-                color: Color(0xFF227EC9),
+                color: Color(0xFFF1F8F7),
                 child: Container(),
               ),
             ),

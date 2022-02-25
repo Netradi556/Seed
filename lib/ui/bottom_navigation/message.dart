@@ -24,12 +24,19 @@ class MessagePageWidget extends ConsumerWidget {
             Expanded(
               flex: 10,
               child: Container(
-                color: Color(0xFFD57575),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xB4FCBC00), Color(0xFFFDE283)],
+                    stops: [0, 1],
+                    begin: AlignmentDirectional(0.34, -1),
+                    end: AlignmentDirectional(-0.34, 1),
+                  ),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text('メッセージ'),
-                    Icon(Icons.access_alarm),
+                    Icon(Icons.shield),
                   ],
                 ),
               ),
@@ -45,7 +52,7 @@ class MessagePageWidget extends ConsumerWidget {
             Expanded(
               flex: 100,
               child: Container(
-                color: Color(0xFF227EC9),
+                color: Color(0xFFE9EFF4),
                 child: ListView.builder(
                   itemBuilder: (BuildContext context, int index) {
                     return Container(

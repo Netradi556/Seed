@@ -17,7 +17,7 @@ import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
   ・
 */
 
-String profileImagePath = 'assets/images/logo.jpg';
+String profileImagePath = 'assets/images/user1.jpg';
 String footprintLogoPath = 'assets/icon/footprints.png';
 String thumbsLogoPath = 'assets/icon/thumbs-up.png';
 String likeLogoPath = 'assets/icon/star.png';
@@ -134,9 +134,6 @@ class MypagePageWidget extends ConsumerWidget {
               child: Container(
                 width: double.infinity,
                 height: 330,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFEEEEEE),
-                ),
                 child: Align(
                   alignment: AlignmentDirectional(0, 0.05),
                   child: Padding(
@@ -149,9 +146,6 @@ class MypagePageWidget extends ConsumerWidget {
                         Container(
                           width: double.infinity,
                           height: 100,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFEEEEEE),
-                          ),
                           child: Align(
                             alignment: AlignmentDirectional(0, 0),
                             child: Row(
@@ -224,9 +218,6 @@ class MypagePageWidget extends ConsumerWidget {
                         Container(
                           width: double.infinity,
                           height: 100,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFEEEEEE),
-                          ),
                           child: Align(
                             alignment: AlignmentDirectional(0, 0),
                             child: Row(
@@ -299,9 +290,6 @@ class MypagePageWidget extends ConsumerWidget {
                         Container(
                           width: double.infinity,
                           height: 100,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFEEEEEE),
-                          ),
                           child: Align(
                             alignment: AlignmentDirectional(0, 0),
                             child: Row(
@@ -331,14 +319,14 @@ class MypagePageWidget extends ConsumerWidget {
                                   width: 100,
                                   height: 100,
                                   decoration: const BoxDecoration(
-                                    color: Color(0xFFFFFFFF),
+                                    color: Color(0x97000000),
                                   ),
                                 ),
                                 Container(
                                   width: 100,
                                   height: 100,
                                   decoration: const BoxDecoration(
-                                    color: Color(0xFFFFFFFF),
+                                    color: Color(0x97000000),
                                   ),
                                 ),
                               ],

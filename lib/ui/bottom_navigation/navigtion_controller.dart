@@ -14,7 +14,6 @@ class NavigationPageController extends ConsumerWidget {
   List<Widget> navigationPageList = [
     UserTopWidget(),
     LikePageWidget(),
-    EvetnPageWidget(),
     MessagePageWidget(),
     MypagePageWidget(),
   ];
@@ -32,8 +31,6 @@ class NavigationPageController extends ConsumerWidget {
           BottomNavigationBarItem(icon: Icon(Icons.search), label: '探す'),
           BottomNavigationBarItem(
               icon: Icon(Icons.volunteer_activism), label: 'いいね！'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_view_month), label: 'イベント'),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'メッセージ'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'マイページ'),
         ],

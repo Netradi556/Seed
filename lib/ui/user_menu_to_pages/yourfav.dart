@@ -31,7 +31,7 @@ class YourfavPageWidget extends ConsumerWidget {
                       onTap: () => Navigator.of(context).pop(),
                       child: Icon(Icons.arrow_back_ios_new),
                     ),
-                    Text('メッセージ'),
+                    Text('お気に入り'),
                     Icon(Icons.access_alarm),
                   ],
                 ),
