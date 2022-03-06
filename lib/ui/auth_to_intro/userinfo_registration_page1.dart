@@ -1,6 +1,7 @@
 // Packages
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Riverpod
 import 'package:seed_app/view_model/profile_provider.dart';
@@ -15,36 +16,85 @@ class RegistrationPage1 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      child: Column(
-        children: const [
-          // 性別の選択欄
-          DropdownItemsWidget(
-            boxWidth: 330,
-            boxHeight: 40,
-            itemName: '性別',
-            menuItems: ['男性', '女性'],
-          ),
-          // 血液型の選択欄
-          DropdownItemsWidget(
-            boxWidth: 330,
-            boxHeight: 40,
-            itemName: '血液型',
-            menuItems: ['A', 'B', 'O', 'AB'],
-          ),
-          // 兄弟姉妹の選択欄
-          DropdownItemsWidget(
-            boxWidth: 330,
-            boxHeight: 40,
-            itemName: '兄弟姉妹',
-            menuItems: ['いる', 'いない'],
-          ),
+    final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              height: 200,
+            ),
+            // ニックネームの入力欄
+            const TextformItemsWidget(
+              boxWidth: 330,
+              boxHeight: 100,
+              itemName: 'ニックネーム',
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+            ),
+            // 性別の選択欄
+            DropdownItemsWidget(
+              boxWidth: 330,
+              boxHeight: 60,
+              itemName: '性別',
+              menuItems: ['未選択', '男性', '女性'],
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+            ),
+            // 生年月日の入力欄
+            YearDateItemsWidget(
+              boxWidth: 330,
+              boxHeight: 60,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
-          // ニックネームの入力欄
-          TextformItemsWidget(
-            boxWidth: 330,
-            boxHeight: 70,
-            itemName: 'ニックネーム',
+class YearDateItemsWidget extends ConsumerWidget {
+  const YearDateItemsWidget({
+    Key? key,
+    required this.boxWidth,
+    required this.boxHeight,
+  }) : super(key: key);
+
+  final double boxWidth;
+  final double boxHeight;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final param = ref.watch(profileBirthdateProvider.state);
+    return SizedBox(
+      width: boxWidth,
+      height: boxHeight,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('生年月日'),
+          IconButton(
+            icon: const Icon(FontAwesomeIcons.calendarAlt),
+            color: Colors.amber,
+            onPressed: () async {
+              final selectedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(DateTime.now().year),
+                lastDate: DateTime(DateTime.now().year + 6),
+                initialDatePickerMode: DatePickerMode.year,
+              );
+
+              if (selectedDate != null) {
+                param.state = selectedDate.toString();
+                // do something
+              }
+            },
           )
         ],
       ),
@@ -72,7 +122,7 @@ class DropdownItemsWidget extends ConsumerWidget {
     }
   }
 
-  const DropdownItemsWidget({
+  DropdownItemsWidget({
     Key? key,
     required this.boxWidth,
     required this.boxHeight,
@@ -84,6 +134,7 @@ class DropdownItemsWidget extends ConsumerWidget {
   final List<String> menuItems; // ドロップダウンのリスト
   final double boxWidth;
   final double boxHeight;
+  String _selected = '未選択';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -100,15 +151,21 @@ class DropdownItemsWidget extends ConsumerWidget {
     return SizedBox(
       width: boxWidth,
       height: boxHeight,
-      child: ListTile(
-        title: Text(itemName),
-        trailing: DropdownButton(
-          value: _dropDownMenuItems[0].value,
-          items: _dropDownMenuItems,
-          onChanged: (value) {
-            param.state = value as String;
-          }, // 未実装
-        ),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(itemName),
+            trailing: DropdownButton(
+              value: _selected,
+              items: _dropDownMenuItems,
+              onChanged: (value) {
+                param.state = value as String;
+                _selected = param.state; // 画面の再描写のチェック
+                print(_selected.toString());
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -128,36 +185,33 @@ class TextformItemsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final param = ref.watch(profileNameProvider.state);
     return SizedBox(
       width: boxWidth,
       height: boxHeight,
-      child: TextFormField(
-        onChanged: (value) {},
-        obscureText: false,
-        decoration: InputDecoration(
-          labelText: 'メールアドレス',
-          labelStyle: TextStyle(color: Colors.amberAccent),
-          hintText: 'Enter your email...',
-          hintStyle: TextStyle(color: Colors.amberAccent),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Color(0x00000000),
-              width: 1,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('ニックネーム'),
+          ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxHeight: 70,
+              minHeight: 40,
             ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Color(0x00000000),
-              width: 1,
+            child: TextFormField(
+              onChanged: (String value) => param.state = value,
+              obscureText: false,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              maxLength: 10,
+              decoration: const InputDecoration(
+                filled: true,
+                fillColor: Color(0x98D4D5D8),
+                contentPadding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+              ),
+              style: const TextStyle(color: Color(0xC4000000)),
             ),
-            borderRadius: BorderRadius.circular(8),
           ),
-          filled: true,
-          fillColor: const Color(0x98FFFFFF),
-          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
-        ),
-        style: const TextStyle(color: Colors.amber),
+        ],
       ),
     );
   }

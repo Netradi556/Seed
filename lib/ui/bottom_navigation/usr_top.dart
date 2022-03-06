@@ -6,16 +6,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
   マッチング相手を探す画面
   BottomNavigationBarの「さがす」で表示
 
-
-
 */
 
 /*
   ToDo（High）
   _TopHeaderContainerWidgetのAlighnを_TopMiddleContainerWidgetに移す
   登録中のユーザーの動的表示
-
-
 
 */
 
@@ -32,9 +28,9 @@ class UserTopWidget extends ConsumerWidget {
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
-          children: const [
-            _TopHeaderContainerWidget(),
-            _TopMiddleContainerWidget(),
+          children: [
+            const _TopHeaderContainerWidget(),
+            const _TopMiddleContainerWidget(),
             _TopUserExpandWidget(),
           ],
         ),
@@ -226,9 +222,17 @@ class _TopMiddleContainerWidget extends StatelessWidget {
 }
 
 class _TopUserExpandWidget extends ConsumerWidget {
-  const _TopUserExpandWidget({
+  _TopUserExpandWidget({
     Key? key,
   }) : super(key: key);
+  String imagePath1 = 'assets/images/user1.jpg';
+  String imagePath2 = 'assets/images/user2.jpg';
+  String imagePath3 = 'assets/images/user3.jpg';
+  String imagePath4 = 'assets/images/user4.jpg';
+  String imagePath5 = 'assets/images/user5.jpg';
+  String imagePath6 = 'assets/images/user6.jpg';
+  String imagePath7 = 'assets/images/user7.jpg';
+  String imagePath8 = 'assets/images/user8.jpg';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -244,62 +248,817 @@ class _TopUserExpandWidget extends ConsumerWidget {
           child: Align(
             alignment: const AlignmentDirectional(0.05, 0),
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(5, 15, 5, 0),
               child: GridView(
                 padding: EdgeInsets.zero,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 20,
-                  childAspectRatio: 1,
+                  childAspectRatio: 0.7,
                 ),
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFEEEEEE),
+                  UserCardWidget(imagePath1: imagePath1),
+                  Transform.rotate(
+                    angle: 0.03,
+                    child: Container(
+                      width: 184,
+                      height: 300,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 184,
+                            height: 300,
+                            child: Material(
+                              color: Colors.white,
+                              elevation: 1,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: Color(0x000a0a0a),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 5,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 172,
+                                      height: 190,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Color(0x0f000000),
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 170,
+                                            height: 190,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(imagePath2),
+                                                  fit: BoxFit.fill),
+                                              border: Border.all(
+                                                width: 1,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 107,
+                                      height: 22,
+                                      child: Text(
+                                        "25歳  東京",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 156,
+                                      height: 41,
+                                      child: Text(
+                                        "このご時世ですが前向きに進めたいのでまた再開😄",
+                                        style: TextStyle(
+                                          color: Color(0x75000000),
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFEEEEEE),
+                  Transform.rotate(
+                    angle: -0.04,
+                    child: Container(
+                      width: 184,
+                      height: 300,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 184,
+                            height: 300,
+                            child: Material(
+                              color: Colors.white,
+                              elevation: 1,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: Color(0x000a0a0a),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 5,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 172,
+                                      height: 190,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Color(0x0f000000),
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 170,
+                                            height: 190,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(imagePath3),
+                                                  fit: BoxFit.fill),
+                                              border: Border.all(
+                                                width: 1,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 107,
+                                      height: 22,
+                                      child: Text(
+                                        "25歳  東京",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 156,
+                                      height: 41,
+                                      child: Text(
+                                        "このご時世ですが前向きに進めたいのでまた再開😄",
+                                        style: TextStyle(
+                                          color: Color(0x75000000),
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFEEEEEE),
+                  Transform.rotate(
+                    angle: -0.04,
+                    child: Container(
+                      width: 184,
+                      height: 300,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 184,
+                            height: 300,
+                            child: Material(
+                              color: Colors.white,
+                              elevation: 1,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: Color(0x000a0a0a),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 5,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 172,
+                                      height: 190,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Color(0x0f000000),
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 170,
+                                            height: 190,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(imagePath4),
+                                                  fit: BoxFit.fill),
+                                              border: Border.all(
+                                                width: 1,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 107,
+                                      height: 22,
+                                      child: Text(
+                                        "25歳  東京",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 156,
+                                      height: 41,
+                                      child: Text(
+                                        "このご時世ですが前向きに進めたいのでまた再開😄",
+                                        style: TextStyle(
+                                          color: Color(0x75000000),
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFEEEEEE),
+                  Transform.rotate(
+                    angle: -0.04,
+                    child: Container(
+                      width: 184,
+                      height: 300,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 184,
+                            height: 300,
+                            child: Material(
+                              color: Colors.white,
+                              elevation: 1,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: Color(0x000a0a0a),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 5,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 172,
+                                      height: 190,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Color(0x0f000000),
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 170,
+                                            height: 190,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(imagePath5),
+                                                  fit: BoxFit.fill),
+                                              border: Border.all(
+                                                width: 1,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 107,
+                                      height: 22,
+                                      child: Text(
+                                        "25歳  東京",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 156,
+                                      height: 41,
+                                      child: Text(
+                                        "このご時世ですが前向きに進めたいのでまた再開😄",
+                                        style: TextStyle(
+                                          color: Color(0x75000000),
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFEEEEEE),
+                  Transform.rotate(
+                    angle: -0.04,
+                    child: Container(
+                      width: 184,
+                      height: 300,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 184,
+                            height: 300,
+                            child: Material(
+                              color: Colors.white,
+                              elevation: 1,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: Color(0x000a0a0a),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 5,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 172,
+                                      height: 190,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Color(0x0f000000),
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 170,
+                                            height: 190,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(imagePath6),
+                                                  fit: BoxFit.fill),
+                                              border: Border.all(
+                                                width: 1,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 107,
+                                      height: 22,
+                                      child: Text(
+                                        "25歳  東京",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 156,
+                                      height: 41,
+                                      child: Text(
+                                        "このご時世ですが前向きに進めたいのでまた再開😄",
+                                        style: TextStyle(
+                                          color: Color(0x75000000),
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFEEEEEE),
+                  Transform.rotate(
+                    angle: -0.04,
+                    child: Container(
+                      width: 184,
+                      height: 300,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 184,
+                            height: 300,
+                            child: Material(
+                              color: Colors.white,
+                              elevation: 1,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: Color(0x000a0a0a),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 5,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 172,
+                                      height: 190,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Color(0x0f000000),
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 170,
+                                            height: 190,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(imagePath7),
+                                                  fit: BoxFit.fill),
+                                              border: Border.all(
+                                                width: 1,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 107,
+                                      height: 22,
+                                      child: Text(
+                                        "25歳  東京",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 156,
+                                      height: 41,
+                                      child: Text(
+                                        "このご時世ですが前向きに進めたいのでまた再開😄",
+                                        style: TextStyle(
+                                          color: Color(0x75000000),
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Transform.rotate(
+                    angle: -0.04,
+                    child: Container(
+                      width: 184,
+                      height: 300,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 184,
+                            height: 300,
+                            child: Material(
+                              color: Colors.white,
+                              elevation: 1,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  color: Color(0x000a0a0a),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 5,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 172,
+                                      height: 190,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Color(0x0f000000),
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 170,
+                                            height: 190,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(imagePath8),
+                                                  fit: BoxFit.fill),
+                                              border: Border.all(
+                                                width: 1,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 107,
+                                      height: 22,
+                                      child: Text(
+                                        "25歳  東京",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.50),
+                                    SizedBox(
+                                      width: 156,
+                                      height: 41,
+                                      child: Text(
+                                        "このご時世ですが前向きに進めたいのでまた再開😄",
+                                        style: TextStyle(
+                                          color: Color(0x75000000),
+                                          fontSize: 13,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class UserCardWidget extends StatelessWidget {
+  const UserCardWidget({
+    Key? key,
+    required this.imagePath1,
+  }) : super(key: key);
+
+  final String imagePath1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Transform.rotate(
+      angle: -0.04,
+      // 大枠
+      child: SizedBox(
+        width: 184,
+        height: 300,
+        // elevationプロパティで影をつける
+        // shapeプロパティで枠の形、太さ、色を決定
+        child: Material(
+          color: Colors.white,
+          elevation: 1,
+          shape: const RoundedRectangleBorder(
+            side: BorderSide(
+              width: 1,
+              color: Color(0x000a0a0a),
+            ),
+          ),
+          // 中枠の余白
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 5,
+            ),
+            // 中枠内の配置
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 172,
+                  height: 190,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color(0x0f000000),
+                      width: 1,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 170,
+                        height: 190,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(imagePath1), fit: BoxFit.fill),
+                          border: Border.all(
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 2.50),
+                const SizedBox(
+                  width: 107,
+                  height: 22,
+                  child: Text(
+                    "25歳  東京",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 13,
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 2.50),
+                const SizedBox(
+                  width: 156,
+                  height: 41,
+                  child: Text(
+                    "このご時世ですが前向きに進めたいのでまた再開😄",
+                    style: TextStyle(
+                      color: Color(0x75000000),
+                      fontSize: 13,
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

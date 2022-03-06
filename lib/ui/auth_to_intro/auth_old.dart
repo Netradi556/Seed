@@ -177,7 +177,7 @@ class AuthPage extends ConsumerWidget {
                                                 BorderRadius.circular(8),
                                           ),
                                           filled: true,
-                                          fillColor: Color(0x98FFFFFF),
+                                          fillColor: Color(0x98943C3C),
                                           contentPadding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   20, 24, 20, 24),
