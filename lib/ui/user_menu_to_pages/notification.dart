@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:seed_app/ui/user_menu_to_pages/notification_detail.dart';
+
 class NotificationPageWidget extends ConsumerWidget {
-  const NotificationPageWidget({Key? key}) : super(key: key);
+  NotificationPageWidget({Key? key}) : super(key: key);
+
+  var listItem = ['User 1', 'User 2', 'User 3'];
+  String imagePath = 'assets/images/user1.jpg';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,7 +44,35 @@ class NotificationPageWidget extends ConsumerWidget {
               flex: 100,
               child: Container(
                 color: Color(0xFFF1F8F7),
-                child: Container(),
+                child: Container(
+                  child: ListView.builder(
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(color: Color(0xFF434F4F)),
+                            ),
+                          ),
+                          child: ListTile(
+                            leading: Container(
+                              height: 30,
+                              width: 30,
+                              child: Icon(Icons.notifications),
+                            ),
+                            title: Text('お知らせ $index'),
+                            subtitle: Text('お知らせの1行目を表示'),
+                            onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return NotificationDetailPageWidget();
+                                },
+                              ),
+                            ),
+                          ));
+                    },
+                    itemCount: listItem.length,
+                  ),
+                ),
               ),
             ),
           ],
