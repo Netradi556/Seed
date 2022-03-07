@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/*
+  ヘルプやサービス提供に必要なお問い合わせ先などを表示する画面
+  静的なコンテンツで構成する
+
+
+
+*/
+
+/*
+  Todo
+  画面デザインの実装
+
+*/
 class HelpPageWidget extends ConsumerWidget {
   const HelpPageWidget({Key? key}) : super(key: key);
 

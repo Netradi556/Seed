@@ -3,6 +3,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:seed_app/ui/user_menu_to_pages/notification_detail.dart';
 
+/*
+  運営からの通知の一覧を表示する画面
+  ログイン中のユーザーに配信された通知の一覧（分類、タイトル、配信時間）を表示
+  データはログイン中のユーザーIDをもとに、FireStoreから取得する
+  タグの種類に応じて、タグのスタイル（背景色、フォント色）を変更する
+
+  一覧の中のアイテムをタップしたら詳細画面へ遷移する
+*/
+
+/*
+  Todo
+  ロゴを無くす
+  タグの表示領域を作成する
+  本文の表示領域を2行にする
+  配信時間の表示領域を作成する
+  FireStoreに配信データを作成する
+  FireStoreからデータを取得する処理を実装する
+  一覧をタップしたら詳細画面へ遷移する処理を実装する
+  詳細画面へ遷移する際に、通知に関するデータ（ID？）を渡す処理を実装する
+*/
+
 class NotificationPageWidget extends ConsumerWidget {
   NotificationPageWidget({Key? key}) : super(key: key);
 
