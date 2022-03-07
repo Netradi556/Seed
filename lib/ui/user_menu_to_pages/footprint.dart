@@ -5,6 +5,20 @@ import 'package:seed_app/ui/bottom_navigation/mypage.dart';
 
 import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
 
+/*
+  直近一週間の自分のプロフィールを閲覧したユーザーの一覧を日別に表示する画面
+  表示する訪問側のユーザーの情報はサムネ、ハンドルネーム、概要、年齢、エリア、訪問時間
+  表示する訪問側のユーザーの情報は、訪問者のユーザーIDを元にFireStoreの参照型を利用する
+
+*/
+
+/*
+  Todo
+  ユーザー
+
+
+*/
+
 class FootprintPagesWidget extends ConsumerWidget {
   FootprintPagesWidget({Key? key}) : super(key: key);
   var listItem = ['User 1', 'User 2', 'User 3'];

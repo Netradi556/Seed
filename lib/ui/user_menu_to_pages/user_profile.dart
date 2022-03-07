@@ -3,6 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 String imagePath = 'assets/images/user1.jpg';
 
+/*
+  ユーザーのプロフィールを表示する画面
+  登録済みのプロフィールを表示する他、ログインステータスの表示も反映する
+
+
+
+*/
+
+/*
+  Todo
+  ユーザークラスの定義
+  FireStoreのデータ構造を作成
+
+
+
+
+*/
+
 class UserProfilePageWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {

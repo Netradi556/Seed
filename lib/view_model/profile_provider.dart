@@ -18,3 +18,12 @@ final profileJobProvider = StateProvider((ref) => '');
 final profileIncomeProvider = StateProvider((ref) => '');
 final profileHeightProvider = StateProvider((ref) => '');
 final profileBodyshapeProvider = StateProvider((ref) => '');
+
+enum UserBasicProfile {
+  handleName,
+  sex,
+  birthDate,
+}
+
+final profileFirstRegistrationProvider =
+    StateProvider<UserBasicProfile>((ref) => UserBasicProfile.birthDate);
