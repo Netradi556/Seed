@@ -128,6 +128,7 @@ class LicensePageWidget extends ConsumerWidget {
                         ],
                       ),
                     ),
+                    // いいねの付与数について
                     const SizedBox(
                       width: 353,
                       height: 100,
@@ -136,6 +137,50 @@ class LicensePageWidget extends ConsumerWidget {
                         style: TextStyle(
                           color: Colors.black,
                         ),
+                      ),
+                    ),
+                    // 余白
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const SizedBox(
+                      width: 353,
+                      height: 450,
+                      child: Text(
+                        eachOption,
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 350,
+                      height: 60,
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text(
+                                'クレジットカードの情報変更',
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text(
+                                '有料会員の解約',
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ],
