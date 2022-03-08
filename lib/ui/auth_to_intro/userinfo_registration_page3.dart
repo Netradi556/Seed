@@ -1,4 +1,5 @@
 // Packages
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -48,6 +49,12 @@ class RegistrationPage3 extends ConsumerWidget {
                 child: ElevatedButton(
                   child: const Text('登録を完了する'),
                   onPressed: () async {
+                    await FirebaseFirestore.instance
+                        .collection('user')
+                        .doc()
+                        .set({
+                      'email': 'genkichi.yogi@gmail.com',
+                    });
                     await Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
                       return NavigationPageController();

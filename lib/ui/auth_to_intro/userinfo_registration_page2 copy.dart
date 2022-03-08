@@ -11,8 +11,8 @@ import 'package:seed_app/view_model/profile_provider.dart';
 // const
 import 'package:seed_app/const/constants_profile.dart';
 
-class RegistrationPage1 extends ConsumerWidget {
-  const RegistrationPage1({Key? key}) : super(key: key);
+class RegistrationPage2 extends ConsumerWidget {
+  const RegistrationPage2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,34 +26,37 @@ class RegistrationPage1 extends ConsumerWidget {
             Container(
               width: double.infinity,
               height: 200,
-              decoration: BoxDecoration(),
-              child: const Align(
-                  alignment: Alignment(0.2, 0.5),
-                  child: Text('最初に登録する情報は3つだけです！')),
             ),
-            // ニックネームの入力欄
-            const TextformItemsWidget(
-              boxWidth: 330,
-              boxHeight: 100,
-              itemName: 'ニックネーム',
-            ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-            ),
-            // 性別の選択欄
+            // 学歴の選択欄
             DropdownItemsWidget(
               boxWidth: 330,
               boxHeight: 60,
-              itemName: '性別',
-              menuItems: ['未選択', '男性', '女性'],
+              itemName: '学歴',
+              menuItems: ['未選択', '大学卒', '高卒'],
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-            ),
-            // 生年月日の入力欄
-            const YearDateItemsWidget(
+            DropdownItemsWidget(
               boxWidth: 330,
               boxHeight: 60,
+              itemName: '職種',
+              menuItems: ['未選択', 'いる', 'いない'],
+            ),
+            DropdownItemsWidget(
+              boxWidth: 330,
+              boxHeight: 60,
+              itemName: '年収',
+              menuItems: ['未選択', '英語', '中国語', '韓国語'],
+            ),
+            DropdownItemsWidget(
+              boxWidth: 330,
+              boxHeight: 60,
+              itemName: '身長',
+              menuItems: ['未選択', '東京', '埼玉', '千葉', '神奈川'],
+            ),
+            DropdownItemsWidget(
+              boxWidth: 330,
+              boxHeight: 60,
+              itemName: '体型',
+              menuItems: ['未選択', '普通', 'ぽっちゃり', '筋肉質', '細身'],
             ),
           ],
         ),
@@ -109,18 +112,16 @@ class YearDateItemsWidget extends ConsumerWidget {
 class DropdownItemsWidget extends ConsumerWidget {
   StateProvider? getProvider(category) {
     switch (category) {
-      case '性別':
-        return profileSexProvider;
-      case '血液型':
-        return profileBloodtypeProvider;
-      case '兄弟姉妹':
-        return profileFamilyProvider;
-      case '話せる言語':
-        return profileLanguageProvider;
-      case '居住地':
-        return profileLivingProvider;
-      case '出身地':
-        return profileBirthplaceProvider;
+      case '学歴':
+        return profileEducationProvider;
+      case '職種':
+        return profileJobProvider;
+      case '年収':
+        return profileIncomeProvider;
+      case '身長':
+        return profileHeightProvider;
+      case '体型':
+        return profileBodyshapeProvider;
       default:
         break;
     }
