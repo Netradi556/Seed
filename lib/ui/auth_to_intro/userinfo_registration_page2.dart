@@ -19,47 +19,25 @@ class RegistrationPage2 extends ConsumerWidget {
     final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: double.infinity,
-              height: 200,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: double.infinity,
+            height: 200,
+            child: const Align(
+              child: Text('''
+プロフィールを充実させていくほど
+検索されやすくなります
+証明書のアップロードでスコアがアップします'''),
             ),
-            // 学歴の選択欄
-            DropdownItemsWidget(
-              boxWidth: 330,
-              boxHeight: 60,
-              itemName: '学歴',
-              menuItems: ['未選択', '大学卒', '高卒'],
-            ),
-            DropdownItemsWidget(
-              boxWidth: 330,
-              boxHeight: 60,
-              itemName: '職種',
-              menuItems: ['未選択', 'いる', 'いない'],
-            ),
-            DropdownItemsWidget(
-              boxWidth: 330,
-              boxHeight: 60,
-              itemName: '年収',
-              menuItems: ['未選択', '英語', '中国語', '韓国語'],
-            ),
-            DropdownItemsWidget(
-              boxWidth: 330,
-              boxHeight: 60,
-              itemName: '身長',
-              menuItems: ['未選択', '東京', '埼玉', '千葉', '神奈川'],
-            ),
-            DropdownItemsWidget(
-              boxWidth: 330,
-              boxHeight: 60,
-              itemName: '体型',
-              menuItems: ['未選択', '普通', 'ぽっちゃり', '筋肉質', '細身'],
-            ),
-          ],
-        ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 200,
+            decoration: BoxDecoration(),
+          ),
+        ],
       ),
     );
   }
