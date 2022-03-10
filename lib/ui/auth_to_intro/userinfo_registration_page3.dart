@@ -51,7 +51,7 @@ class RegistrationPage3 extends ConsumerWidget {
                   onPressed: () async {
                     await FirebaseFirestore.instance
                         .collection('user')
-                        .doc()
+                        .doc('n6sqLiSrnCgMGChMMn9K')
                         .set({
                       'email': 'genkichi.yogi@gmail.com',
                     });
