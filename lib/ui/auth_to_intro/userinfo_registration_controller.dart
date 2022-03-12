@@ -6,10 +6,11 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:seed_app/ui/auth_to_intro/userinfo_registration_page3.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-// Provider
+// Riverpod
 import 'package:seed_app/view_model/util_provider.dart';
 import 'package:seed_app/view_model/auth_provider.dart';
 import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
+import 'package:seed_app/view_model/profile_provider.dart';
 
 // PageWidgets
 import 'auth.dart';
@@ -36,6 +37,7 @@ class RegistrationPageController extends ConsumerWidget {
   PageController? pageViewController;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(firstRegistrationProvider.state);
     return Scaffold(
       backgroundColor: Colors.blueAccent,
       body: SafeArea(

@@ -13,7 +13,6 @@ import 'package:seed_app/const/constants_profile.dart';
 
 class RegistrationPage1 extends ConsumerWidget {
   const RegistrationPage1({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
@@ -111,16 +110,6 @@ class DropdownItemsWidget extends ConsumerWidget {
     switch (category) {
       case '性別':
         return profileSexProvider;
-      case '血液型':
-        return profileBloodtypeProvider;
-      case '兄弟姉妹':
-        return profileFamilyProvider;
-      case '話せる言語':
-        return profileLanguageProvider;
-      case '居住地':
-        return profileLivingProvider;
-      case '出身地':
-        return profileBirthplaceProvider;
       default:
         break;
     }
