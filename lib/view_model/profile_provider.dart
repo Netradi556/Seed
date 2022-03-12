@@ -25,5 +25,5 @@ enum UserBasicProfile {
   birthDate,
 }
 
-final profileFirstRegistrationProvider =
+final firstRegistrationProvider =
     StateProvider<UserBasicProfile>((ref) => UserBasicProfile.birthDate);

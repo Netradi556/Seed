@@ -17,6 +17,7 @@ class RegistrationPage2 extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
+    final param = ref.watch(profileSexProvider.state);
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
       child: Column(
@@ -36,6 +37,9 @@ class RegistrationPage2 extends ConsumerWidget {
             width: double.infinity,
             height: 200,
             decoration: BoxDecoration(),
+            child: InkWell(
+              child: Text(param.state),
+            ),
           ),
         ],
       ),
