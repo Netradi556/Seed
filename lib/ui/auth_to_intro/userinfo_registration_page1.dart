@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 // Riverpod
 import 'package:seed_app/view_model/profile_provider.dart';
@@ -50,7 +52,7 @@ class RegistrationPage1 extends ConsumerWidget {
               padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
             ),
             // 生年月日の入力欄
-            const YearDateItemsWidget(
+            YearDateItemsWidget(
               boxWidth: 330,
               boxHeight: 60,
             ),
@@ -62,7 +64,7 @@ class RegistrationPage1 extends ConsumerWidget {
 }
 
 class YearDateItemsWidget extends ConsumerWidget {
-  const YearDateItemsWidget({
+  YearDateItemsWidget({
     Key? key,
     required this.boxWidth,
     required this.boxHeight,
@@ -70,6 +72,7 @@ class YearDateItemsWidget extends ConsumerWidget {
 
   final double boxWidth;
   final double boxHeight;
+  var now = DateTime.now();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -81,19 +84,31 @@ class YearDateItemsWidget extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text('生年月日'),
+          // DateFormat.yMMMMEEEEd('ja').format(now).toString()
+          // param.state.toString()
+          Text(DateFormat('yyyy-MM-dd').format(now).toString()),
           IconButton(
             icon: const Icon(FontAwesomeIcons.calendarAlt),
             color: Colors.amber,
             onPressed: () async {
               final selectedDate = await showDatePicker(
                 context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(DateTime.now().year),
-                lastDate: DateTime(DateTime.now().year + 6),
-                initialDatePickerMode: DatePickerMode.year,
+                initialDatePickerMode: DatePickerMode.year, // 最初に年から入力
+                initialDate: DateTime(DateTime.now().year - 22),
+                firstDate: DateTime(
+                  DateTime.now().year - 100,
+                  DateTime.now().month,
+                  DateTime.now().day,
+                ), // 選択可能な最も古い日付
+                lastDate: DateTime(
+                  DateTime.now().year - 20,
+                  DateTime.now().month,
+                  DateTime.now().day,
+                ), // 選択可能な最も新しい日付
               );
 
               if (selectedDate != null) {
+                now = selectedDate;
                 param.state = selectedDate.toString();
                 // do something
               }
@@ -131,6 +146,7 @@ class DropdownItemsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final param1 = ref.watch(firstRegistrationProvider.state);
     final param = ref.watch(getProvider(itemName)!.state);
     final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
         .map(

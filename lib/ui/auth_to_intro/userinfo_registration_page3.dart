@@ -1,5 +1,6 @@
 // Packages
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,6 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // PageWidgets
 import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
+
+// Riverpod
+import 'package:seed_app/view_model/profile_provider.dart';
 
 /*
   Todo(High)
@@ -21,6 +25,11 @@ class RegistrationPage3 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final paramBirthDate = ref.watch(profileBirthdateProvider.state);
+    final paramSex = ref.watch(profileSexProvider.state);
+    final paramName = ref.watch(profileNameProvider.state);
+    final String? userId = FirebaseAuth.instance.currentUser?.uid;
+
     return Scaffold(
       backgroundColor: Color(0xFFFFF153),
       body: Column(
@@ -51,9 +60,12 @@ class RegistrationPage3 extends ConsumerWidget {
                   onPressed: () async {
                     await FirebaseFirestore.instance
                         .collection('user')
-                        .doc('n6sqLiSrnCgMGChMMn9K')
+                        .doc(userId)
                         .set({
                       'email': 'genkichi.yogi@gmail.com',
+                      'handleName': paramName.state.toString(),
+                      'sex': paramSex.state.toString(),
+                      'birthDate': paramBirthDate.state.toString(),
                     });
                     await Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {

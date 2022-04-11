@@ -1,3 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
@@ -6,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
+
+// Riverpod
+import 'package:seed_app/view_model/profile_provider.dart';
 
 /*
   Todo
@@ -29,8 +35,11 @@ String helpLogoPath = 'assets/icon/help.png';
 class MypagePageWidget extends ConsumerWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  MypagePageWidget();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final paramName = ref.watch(profileNameProvider.state);
     return Scaffold(
       key: scaffoldKey,
       body: SafeArea(
@@ -48,6 +57,7 @@ class MypagePageWidget extends ConsumerWidget {
               ),
               child: Stack(
                 children: [
+                  // プロフィール画像
                   Align(
                     alignment: const AlignmentDirectional(-0.8, 0),
                     child: Container(
@@ -63,16 +73,18 @@ class MypagePageWidget extends ConsumerWidget {
                       ),
                     ),
                   ),
+                  // ハンドルネーム
                   Align(
                     alignment: const AlignmentDirectional(0.3, -0.4),
                     child: Text(
-                      'Handle Name',
+                      GetUserName('aaa').toString(), // paramName.state,
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',
                         fontSize: 24,
                       ),
                     ),
                   ),
+                  // プロフィール編集ボタン
                   Align(
                     alignment: AlignmentDirectional(-0.05, 0),
                     child: InkWell(
@@ -342,6 +354,39 @@ class MypagePageWidget extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class GetUserName extends StatelessWidget {
+  final String documentId;
+
+  GetUserName(this.documentId);
+
+  @override
+  Widget build(BuildContext context) {
+    CollectionReference user = FirebaseFirestore.instance.collection('user');
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: user.doc(documentId).get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
+        }
+
+        if (snapshot.hasData && !snapshot.data!.exists) {
+          return Text("Document does not exist");
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data =
+              snapshot.data!.data() as Map<String, dynamic>;
+          return Text("Full Name: ${data['full_name']} ${data['last_name']}");
+        }
+
+        return Text("loading");
+      },
     );
   }
 }
