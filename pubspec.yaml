@@ -55,6 +55,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2 # Pageviewと一緒に使うやつ
   flutter_datetime_picker: ^1.5.1 # ドラムロールで年月日を選択するやつ
   intl: ^0.17.0 # 日付フォーマットを利用するやつ
+  json_serializable: ^6.1.6
 
 
   # flutter flowに合わせて入れたやつ
