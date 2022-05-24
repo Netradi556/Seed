@@ -1,10 +1,8 @@
 // Package
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 // Riverpod
@@ -43,10 +41,10 @@ class AuthPageWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Color(0xFCF9E12D),
+      backgroundColor: const Color(0xFCF9E12D),
       body: Align(
-        alignment: AlignmentDirectional(-0.14, -0.08),
-        child: Container(
+        alignment: const AlignmentDirectional(-0.14, -0.08),
+        child: SizedBox(
           width: double.infinity,
           height: double.infinity,
           /* decoration: BoxDecoration(
@@ -59,7 +57,7 @@ class AuthPageWidget extends ConsumerWidget {
             ),
           ), */
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 110),
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 110),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
@@ -95,7 +93,7 @@ class AuthLogoPaddingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 24),
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 24),
       child: Image.asset(
         _logoImagePath,
         width: 160,
@@ -116,26 +114,26 @@ class AuthEmailboxPaddingWidget extends ConsumerWidget {
     final email = ref.watch(emailProvider.notifier);
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
+      padding: const EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
       child: Container(
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: Color(0xE398D759),
+          color: const Color(0xE398D759),
           borderRadius: BorderRadius.circular(25),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(12, 0, 20, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 20, 0),
           child: TextFormField(
             onChanged: (String value) => email.state = value,
             obscureText: false,
             decoration: InputDecoration(
               labelText: 'メールアドレス',
               // Extensionを利用予定
-              labelStyle: TextStyle(color: Color(0xFF000000)),
+              labelStyle: const TextStyle(color: Color(0xFF000000)),
               hintText: 'Enter your email...',
               // Extensionを利用予定
-              hintStyle: TextStyle(color: Color(0xFF000000)),
+              hintStyle: const TextStyle(color: Color(0xFF000000)),
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: Color(0x00FFFFFF),
@@ -152,7 +150,7 @@ class AuthEmailboxPaddingWidget extends ConsumerWidget {
               ),
               filled: true,
               fillColor: const Color(0x00000000),
-              contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+              contentPadding: const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
             ),
             style: const TextStyle(color: Colors.amber),
           ),
@@ -173,26 +171,26 @@ class AuthPassboxPaddingWidget extends ConsumerWidget {
 
     bool passowrdVisibility = true;
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
+      padding: const EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
       child: Container(
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: Color(0xE398D759),
+          color: const Color(0xE398D759),
           borderRadius: BorderRadius.circular(25),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(12, 0, 20, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 20, 0),
           child: TextFormField(
             onChanged: (String value) => password.state = value,
             obscureText: passowrdVisibility,
             decoration: InputDecoration(
               labelText: 'パスワード',
               // Extensionを利用予定
-              labelStyle: TextStyle(color: Color(0xFF000000)),
+              labelStyle: const TextStyle(color: Color(0xFF000000)),
               hintText: 'Enter your password...',
               // Extensionを利用予定
-              hintStyle: TextStyle(color: Color(0xFF000000)),
+              hintStyle: const TextStyle(color: Color(0xFF000000)),
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: Color(0x00000000),
@@ -208,8 +206,8 @@ class AuthPassboxPaddingWidget extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
-              fillColor: Color(0x00FFFFFF),
-              contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+              fillColor: const Color(0x00FFFFFF),
+              contentPadding: const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
               suffixIcon: InkWell(
                 onTap: () => passowrdVisibility = !passowrdVisibility,
                 child: Icon(passowrdVisibility
@@ -269,7 +267,7 @@ class AuthCreatePaddingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
       child: SizedBox(
         width: 140,
         height: 40,
@@ -296,7 +294,7 @@ class AuthFoggotpassPaddingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -315,7 +313,7 @@ class AuthFoggotpassPaddingWidget extends StatelessWidget {
               onPressed: () async {
                 await Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return ForgotPassPageWidget();
+                  return const ForgotPassPageWidget();
                 }));
               },
               child: const Text('メールアドレス・パスワードの再設定'),
@@ -338,7 +336,7 @@ class AuthGoogleloginPaddingWidget extends StatelessWidget {
     bool isUserNew = true;
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
       child: SizedBox(
         width: 140,
         height: 40,
@@ -366,7 +364,7 @@ class AuthGoogleloginPaddingWidget extends StatelessWidget {
               }
             } on FirebaseAuthException catch (e) {
               print('FirebaseAuthException');
-              print('${e.code}');
+              print(e.code);
             } on Exception catch (e) {
               print('Other Exception');
               print('$e');

@@ -1,9 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
-import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
 
@@ -74,7 +72,7 @@ class MypagePageWidget extends ConsumerWidget {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(-0.05, 0),
+                    alignment: const AlignmentDirectional(-0.05, 0),
                     child: InkWell(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
@@ -88,13 +86,13 @@ class MypagePageWidget extends ConsumerWidget {
                         textAlign: TextAlign.start,
                         style: FlutterFlowTheme.bodyText1.override(
                           fontFamily: 'Poppins',
-                          color: Color(0xFF646CF2),
+                          color: const Color(0xFF646CF2),
                         ),
                       ),
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.55, 0),
+                    alignment: const AlignmentDirectional(0.55, 0),
                     child: InkWell(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
@@ -108,7 +106,7 @@ class MypagePageWidget extends ConsumerWidget {
                         textAlign: TextAlign.start,
                         style: FlutterFlowTheme.bodyText1.override(
                           fontFamily: 'Poppins',
-                          color: Color(0xFF646CF2),
+                          color: const Color(0xFF646CF2),
                         ),
                       ),
                     ),
@@ -120,7 +118,7 @@ class MypagePageWidget extends ConsumerWidget {
             Container(
               width: double.infinity,
               height: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xFFFC8585),
               ),
               child: Text(
@@ -138,9 +136,9 @@ class MypagePageWidget extends ConsumerWidget {
                   color: Color(0xFFEEEEEE),
                 ),
                 child: Align(
-                  alignment: AlignmentDirectional(0, 0.05),
+                  alignment: const AlignmentDirectional(0, 0.05),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -153,7 +151,7 @@ class MypagePageWidget extends ConsumerWidget {
                             color: Color(0xFFEEEEEE),
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(0, 0),
+                            alignment: const AlignmentDirectional(0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -183,7 +181,7 @@ class MypagePageWidget extends ConsumerWidget {
                                   onTap: () => Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) {
-                                        return YourlikePageWidget();
+                                        return const YourlikePageWidget();
                                       },
                                     ),
                                   ),
@@ -202,7 +200,7 @@ class MypagePageWidget extends ConsumerWidget {
                                   onTap: () => Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) {
-                                        return YourfavPageWidget();
+                                        return const YourfavPageWidget();
                                       },
                                     ),
                                   ),
@@ -228,7 +226,7 @@ class MypagePageWidget extends ConsumerWidget {
                             color: Color(0xFFEEEEEE),
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(0, 0),
+                            alignment: const AlignmentDirectional(0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -258,7 +256,7 @@ class MypagePageWidget extends ConsumerWidget {
                                   onTap: () => Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) {
-                                        return LicensePageWidget();
+                                        return const LicensePageWidget();
                                       },
                                     ),
                                   ),
@@ -277,7 +275,7 @@ class MypagePageWidget extends ConsumerWidget {
                                   onTap: () => Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) {
-                                        return SettingPageWidget();
+                                        return const SettingPageWidget();
                                       },
                                     ),
                                   ),
@@ -303,7 +301,7 @@ class MypagePageWidget extends ConsumerWidget {
                             color: Color(0xFFEEEEEE),
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(0, 0),
+                            alignment: const AlignmentDirectional(0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -313,7 +311,7 @@ class MypagePageWidget extends ConsumerWidget {
                                   onTap: () => Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) {
-                                        return HelpPageWidget();
+                                        return const HelpPageWidget();
                                       },
                                     ),
                                   ),

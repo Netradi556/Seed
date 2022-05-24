@@ -83,9 +83,9 @@ class TextformItemsWidget extends ConsumerWidget {
         obscureText: false,
         decoration: InputDecoration(
           labelText: 'メールアドレス',
-          labelStyle: TextStyle(color: Colors.amberAccent),
+          labelStyle: const TextStyle(color: Colors.amberAccent),
           hintText: 'Enter your email...',
-          hintStyle: TextStyle(color: Colors.amberAccent),
+          hintStyle: const TextStyle(color: Colors.amberAccent),
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(
               color: Color(0x00000000),
@@ -102,7 +102,7 @@ class TextformItemsWidget extends ConsumerWidget {
           ),
           filled: true,
           fillColor: const Color(0x98FFFFFF),
-          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+          contentPadding: const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
         ),
         style: const TextStyle(color: Colors.amber),
       ),

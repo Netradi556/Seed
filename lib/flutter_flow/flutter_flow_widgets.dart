@@ -1,4 +1,3 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -65,7 +64,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
   Widget build(BuildContext context) {
     Widget textWidget = loading
         ? Center(
-            child: Container(
+            child: SizedBox(
               width: 23,
               height: 23,
               child: CircularProgressIndicator(
@@ -99,7 +98,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
 
     if (widget.icon != null || widget.iconData != null) {
       textWidget = Flexible(child: textWidget);
-      return Container(
+      return SizedBox(
         height: widget.options.height,
         width: widget.options.width,
         child: RaisedButton.icon(
@@ -125,7 +124,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
       );
     }
 
-    return Container(
+    return SizedBox(
       height: widget.options.height,
       width: widget.options.width,
       child: RaisedButton(

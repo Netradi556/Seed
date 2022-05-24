@@ -9,14 +9,14 @@ class LikePageWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
               flex: 10,
               child: Container(
-                color: Color(0xFFD57575),
+                color: const Color(0xFFD57575),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
@@ -29,12 +29,12 @@ class LikePageWidget extends ConsumerWidget {
             Expanded(
               flex: 12,
               child: Container(
-                child: Text('広告orコンテンツ表示欄'),
+                child: const Text('広告orコンテンツ表示欄'),
                 width: double.infinity,
-                color: Color(0xFF3EC922),
+                color: const Color(0xFF3EC922),
               ),
             ),
-            _LikeExpandWidget(),
+            const _LikeExpandWidget(),
           ],
         ),
       ),
@@ -89,28 +89,28 @@ class _LikeExpandWidget extends ConsumerWidget {
                 Container(
                   width: 100,
                   height: 100,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xFFEEEEEE),
                   ),
                 ),
                 Container(
                   width: 100,
                   height: 100,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xFFEEEEEE),
                   ),
                 ),
                 Container(
                   width: 100,
                   height: 100,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xFFEEEEEE),
                   ),
                 ),
                 Container(
                   width: 100,
                   height: 100,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xFFEEEEEE),
                   ),
                 ),

@@ -8,7 +8,7 @@ class HelpTopPage extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [],
+          children: const [],
         ),
       ),
     );

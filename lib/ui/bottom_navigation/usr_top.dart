@@ -156,7 +156,7 @@ class _TopMiddleContainerWidget extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(25, 0, 0, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 0, 0),
               child: GridView(
                 padding: EdgeInsets.zero,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -179,7 +179,7 @@ class _TopMiddleContainerWidget extends StatelessWidget {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0, 0),
+                    alignment: const AlignmentDirectional(0, 0),
                     child: Container(
                       width: 80,
                       height: 80,
@@ -263,7 +263,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                   UserCardWidget(imagePath1: imagePath1),
                   Transform.rotate(
                     angle: 0.03,
-                    child: Container(
+                    child: SizedBox(
                       width: 184,
                       height: 300,
                       child: Row(
@@ -277,7 +277,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                             child: Material(
                               color: Colors.white,
                               elevation: 1,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 side: BorderSide(
                                   width: 1,
                                   color: Color(0x000a0a0a),
@@ -297,7 +297,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                       height: 190,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                          color: Color(0x0f000000),
+                                          color: const Color(0x0f000000),
                                           width: 1,
                                         ),
                                       ),
@@ -323,8 +323,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 107,
                                       height: 22,
                                       child: Text(
@@ -337,8 +337,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 156,
                                       height: 41,
                                       child: Text(
@@ -362,7 +362,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                   ),
                   Transform.rotate(
                     angle: -0.04,
-                    child: Container(
+                    child: SizedBox(
                       width: 184,
                       height: 300,
                       child: Row(
@@ -376,7 +376,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                             child: Material(
                               color: Colors.white,
                               elevation: 1,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 side: BorderSide(
                                   width: 1,
                                   color: Color(0x000a0a0a),
@@ -396,7 +396,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                       height: 190,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                          color: Color(0x0f000000),
+                                          color: const Color(0x0f000000),
                                           width: 1,
                                         ),
                                       ),
@@ -422,8 +422,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 107,
                                       height: 22,
                                       child: Text(
@@ -436,8 +436,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 156,
                                       height: 41,
                                       child: Text(
@@ -461,7 +461,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                   ),
                   Transform.rotate(
                     angle: -0.04,
-                    child: Container(
+                    child: SizedBox(
                       width: 184,
                       height: 300,
                       child: Row(
@@ -475,7 +475,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                             child: Material(
                               color: Colors.white,
                               elevation: 1,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 side: BorderSide(
                                   width: 1,
                                   color: Color(0x000a0a0a),
@@ -495,7 +495,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                       height: 190,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                          color: Color(0x0f000000),
+                                          color: const Color(0x0f000000),
                                           width: 1,
                                         ),
                                       ),
@@ -521,8 +521,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 107,
                                       height: 22,
                                       child: Text(
@@ -535,8 +535,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 156,
                                       height: 41,
                                       child: Text(
@@ -560,7 +560,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                   ),
                   Transform.rotate(
                     angle: -0.04,
-                    child: Container(
+                    child: SizedBox(
                       width: 184,
                       height: 300,
                       child: Row(
@@ -574,7 +574,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                             child: Material(
                               color: Colors.white,
                               elevation: 1,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 side: BorderSide(
                                   width: 1,
                                   color: Color(0x000a0a0a),
@@ -594,7 +594,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                       height: 190,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                          color: Color(0x0f000000),
+                                          color: const Color(0x0f000000),
                                           width: 1,
                                         ),
                                       ),
@@ -620,8 +620,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 107,
                                       height: 22,
                                       child: Text(
@@ -634,8 +634,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 156,
                                       height: 41,
                                       child: Text(
@@ -659,7 +659,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                   ),
                   Transform.rotate(
                     angle: -0.04,
-                    child: Container(
+                    child: SizedBox(
                       width: 184,
                       height: 300,
                       child: Row(
@@ -673,7 +673,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                             child: Material(
                               color: Colors.white,
                               elevation: 1,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 side: BorderSide(
                                   width: 1,
                                   color: Color(0x000a0a0a),
@@ -693,7 +693,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                       height: 190,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                          color: Color(0x0f000000),
+                                          color: const Color(0x0f000000),
                                           width: 1,
                                         ),
                                       ),
@@ -719,8 +719,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 107,
                                       height: 22,
                                       child: Text(
@@ -733,8 +733,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 156,
                                       height: 41,
                                       child: Text(
@@ -758,7 +758,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                   ),
                   Transform.rotate(
                     angle: -0.04,
-                    child: Container(
+                    child: SizedBox(
                       width: 184,
                       height: 300,
                       child: Row(
@@ -772,7 +772,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                             child: Material(
                               color: Colors.white,
                               elevation: 1,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 side: BorderSide(
                                   width: 1,
                                   color: Color(0x000a0a0a),
@@ -792,7 +792,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                       height: 190,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                          color: Color(0x0f000000),
+                                          color: const Color(0x0f000000),
                                           width: 1,
                                         ),
                                       ),
@@ -818,8 +818,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 107,
                                       height: 22,
                                       child: Text(
@@ -832,8 +832,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 156,
                                       height: 41,
                                       child: Text(
@@ -857,7 +857,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                   ),
                   Transform.rotate(
                     angle: -0.04,
-                    child: Container(
+                    child: SizedBox(
                       width: 184,
                       height: 300,
                       child: Row(
@@ -871,7 +871,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                             child: Material(
                               color: Colors.white,
                               elevation: 1,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 side: BorderSide(
                                   width: 1,
                                   color: Color(0x000a0a0a),
@@ -891,7 +891,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                       height: 190,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                          color: Color(0x0f000000),
+                                          color: const Color(0x0f000000),
                                           width: 1,
                                         ),
                                       ),
@@ -917,8 +917,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 107,
                                       height: 22,
                                       child: Text(
@@ -931,8 +931,8 @@ class _TopUserExpandWidget extends ConsumerWidget {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 2.50),
-                                    SizedBox(
+                                    const SizedBox(height: 2.50),
+                                    const SizedBox(
                                       width: 156,
                                       height: 41,
                                       child: Text(

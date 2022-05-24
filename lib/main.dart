@@ -7,16 +7,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // ignore: unused_import
 import 'package:seed_app/ui/auth_to_intro/introduction.dart';
 import 'package:seed_app/ui/auth_to_intro/auth.dart';
+import 'package:seed_app/locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  setupServices();
   runApp(
     ProviderScope(
-      child: ScreenUtilInit(
-        designSize: Size(360, 690),
-        builder: () => MyApp(),
-      ),
+      child: MyApp(),
     ),
   );
 }
@@ -24,12 +23,14 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Seed',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ScreenUtilInit(
+      builder: (context, child) => MaterialApp(
+        title: 'Seed',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: AuthPageWidget(),
       ),
-      home: AuthPageWidget(),
     );
   }
 }

@@ -8,7 +8,7 @@ class EvetnPageWidget extends ConsumerWidget {
   Widget build(BuildContext contextm, WidgetRef ref) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF5F5F5),
     );
   }
 }

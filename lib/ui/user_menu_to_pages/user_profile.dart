@@ -46,14 +46,14 @@ class UserProfilePageWidget extends ConsumerWidget {
                   children: [
                     InkWell(
                       onTap: () => Navigator.of(context).pop(),
-                      child: Icon(Icons.arrow_back_ios_new),
+                      child: const Icon(Icons.arrow_back_ios_new),
                     ),
                   ],
                 ),
               ),
               // プロフ画像
               Padding(
-                padding: EdgeInsets.fromLTRB(10, 15, 15, 10),
+                padding: const EdgeInsets.fromLTRB(10, 15, 15, 10),
                 child: Container(
                   height: 450,
                   decoration: BoxDecoration(
@@ -67,7 +67,7 @@ class UserProfilePageWidget extends ConsumerWidget {
                 ),
               ),
               // 概要欄
-              Container(
+              SizedBox(
                 width: 381,
                 height: 250,
                 child: Stack(
@@ -79,9 +79,9 @@ class UserProfilePageWidget extends ConsumerWidget {
                           width: 369,
                           height: 220,
                           child: Material(
-                            color: Color(0x7FD4D6D8),
+                            color: const Color(0x7FD4D6D8),
                             shape: RoundedRectangleBorder(
-                              side: BorderSide(
+                              side: const BorderSide(
                                 width: 4,
                                 color: Color(0xbcfabe66),
                               ),
@@ -99,7 +99,7 @@ class UserProfilePageWidget extends ConsumerWidget {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 107,
                                     height: 22,
                                     child: Text(
@@ -112,8 +112,8 @@ class UserProfilePageWidget extends ConsumerWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height: 21),
-                                  SizedBox(
+                                  const SizedBox(height: 21),
+                                  const SizedBox(
                                     width: 350,
                                     height: 56,
                                     child: Text(
@@ -126,8 +126,8 @@ class UserProfilePageWidget extends ConsumerWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height: 21),
-                                  Container(
+                                  const SizedBox(height: 21),
+                                  SizedBox(
                                     width: 250,
                                     height: 25,
                                     child: Row(
@@ -136,7 +136,7 @@ class UserProfilePageWidget extends ConsumerWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 8,
                                           height: 25,
                                           child: Material(
@@ -144,8 +144,8 @@ class UserProfilePageWidget extends ConsumerWidget {
                                             shape: CircleBorder(),
                                           ),
                                         ),
-                                        SizedBox(width: 16.33),
-                                        SizedBox(
+                                        const SizedBox(width: 16.33),
+                                        const SizedBox(
                                           width: 69,
                                           height: 25,
                                           child: Text(
@@ -158,21 +158,21 @@ class UserProfilePageWidget extends ConsumerWidget {
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: 15),
+                                        const SizedBox(width: 15),
                                         Container(
                                           width: 19,
                                           height: 25,
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             border: Border.all(
-                                              color: Color(0xfff9be65),
+                                              color: const Color(0xfff9be65),
                                               width: 1,
                                             ),
                                           ),
-                                          child: FlutterLogo(size: 12),
+                                          child: const FlutterLogo(size: 12),
                                         ),
-                                        SizedBox(width: 16.33),
-                                        SizedBox(
+                                        const SizedBox(width: 16.33),
+                                        const SizedBox(
                                           width: 75,
                                           height: 25,
                                           child: Text(
@@ -195,7 +195,7 @@ class UserProfilePageWidget extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    Positioned.fill(
+                    const Positioned.fill(
                       child: Align(
                         alignment: Alignment.topRight,
                         child: SizedBox(
@@ -216,11 +216,11 @@ class UserProfilePageWidget extends ConsumerWidget {
                     Positioned(
                       left: 198,
                       top: 46,
-                      child: Container(
+                      child: SizedBox(
                         width: 179,
                         height: 19,
                         child: Stack(
-                          children: [
+                          children: const [
                             Positioned.fill(
                               child: Align(
                                 alignment: Alignment.topLeft,
@@ -257,7 +257,7 @@ class UserProfilePageWidget extends ConsumerWidget {
                 ),
               ),
               // プロフィールスコア
-              Container(
+              SizedBox(
                 width: 351,
                 height: 500,
                 child: Column(
@@ -265,7 +265,7 @@ class UserProfilePageWidget extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 351,
                       height: 45,
                       child: Text(
@@ -284,9 +284,9 @@ class UserProfilePageWidget extends ConsumerWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: FlutterLogo(size: 25),
+                      child: const FlutterLogo(size: 25),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
@@ -306,10 +306,10 @@ class UserProfilePageWidget extends ConsumerWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(3),
                         border: Border.all(
-                          color: Color(0xfffabf66),
+                          color: const Color(0xfffabf66),
                           width: 2,
                         ),
-                        color: Color(0x28f9be65),
+                        color: const Color(0x28f9be65),
                       ),
                       padding: const EdgeInsets.only(
                         left: 12,
@@ -321,7 +321,7 @@ class UserProfilePageWidget extends ConsumerWidget {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                        children: const [
                           SizedBox(
                             width: 330,
                             height: 667,
@@ -341,11 +341,11 @@ class UserProfilePageWidget extends ConsumerWidget {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 width: 356,
                 height: 358,
                 child: Stack(
-                  children: [
+                  children: const [
                     Positioned.fill(
                       child: Align(
                         alignment: Alignment.bottomRight,
@@ -631,11 +631,11 @@ class UserProfilePageWidget extends ConsumerWidget {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 width: 356,
                 height: 231,
                 child: Stack(
-                  children: [
+                  children: const [
                     Positioned.fill(
                       child: Align(
                         alignment: Alignment.bottomRight,
@@ -835,11 +835,11 @@ class UserProfilePageWidget extends ConsumerWidget {
                 ),
               ),
               // プロフパラメータ
-              Container(
+              SizedBox(
                 width: 356,
                 height: 309,
                 child: Stack(
-                  children: [
+                  children: const [
                     Positioned.fill(
                       child: Align(
                         alignment: Alignment.bottomRight,
@@ -1108,11 +1108,11 @@ class UserProfilePageWidget extends ConsumerWidget {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 width: 356,
                 height: 315,
                 child: Stack(
-                  children: [
+                  children: const [
                     Positioned.fill(
                       child: Align(
                         alignment: Alignment.bottomRight,

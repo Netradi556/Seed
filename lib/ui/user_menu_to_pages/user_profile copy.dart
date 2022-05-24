@@ -28,14 +28,14 @@ class UserProfilePageWidget extends ConsumerWidget {
                   children: [
                     InkWell(
                       onTap: () => Navigator.of(context).pop(),
-                      child: Icon(Icons.arrow_back_ios_new),
+                      child: const Icon(Icons.arrow_back_ios_new),
                     ),
                   ],
                 ),
               ),
               // プロフ画像
               Padding(
-                padding: EdgeInsets.fromLTRB(10, 15, 15, 10),
+                padding: const EdgeInsets.fromLTRB(10, 15, 15, 10),
                 child: Container(
                   height: 450,
                   decoration: BoxDecoration(
@@ -54,7 +54,7 @@ class UserProfilePageWidget extends ConsumerWidget {
                 width: double.infinity,
                 color: Colors.black,
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(10, 15, 15, 0),
+                  padding: const EdgeInsets.fromLTRB(10, 15, 15, 0),
                   child: Container(
                     color: Colors.blueAccent,
                   ),

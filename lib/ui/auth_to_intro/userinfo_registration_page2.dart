@@ -9,7 +9,6 @@ import 'package:seed_app/view_model/profile_provider.dart';
 // PageWidget
 
 // const
-import 'package:seed_app/const/constants_profile.dart';
 
 class RegistrationPage2 extends ConsumerWidget {
   const RegistrationPage2({Key? key}) : super(key: key);
@@ -23,10 +22,10 @@ class RegistrationPage2 extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
+          const SizedBox(
             width: double.infinity,
             height: 200,
-            child: const Align(
+            child: Align(
               child: Text('''
 プロフィールを充実させていくほど
 検索されやすくなります
@@ -36,7 +35,7 @@ class RegistrationPage2 extends ConsumerWidget {
           Container(
             width: double.infinity,
             height: 200,
-            decoration: BoxDecoration(),
+            decoration: const BoxDecoration(),
             child: InkWell(
               child: Text(param.state),
             ),
@@ -107,6 +106,7 @@ class DropdownItemsWidget extends ConsumerWidget {
       default:
         break;
     }
+    return null;
   }
 
   DropdownItemsWidget({

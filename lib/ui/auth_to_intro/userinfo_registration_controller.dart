@@ -2,19 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:introduction_screen/introduction_screen.dart';
 import 'package:seed_app/ui/auth_to_intro/userinfo_registration_page3.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 // Riverpod
-import 'package:seed_app/view_model/util_provider.dart';
-import 'package:seed_app/view_model/auth_provider.dart';
-import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
 import 'package:seed_app/view_model/profile_provider.dart';
 
 // PageWidgets
-import 'auth.dart';
-import 'introduction.dart';
 import 'userinfo_registration_page1.dart';
 import 'userinfo_registration_page2.dart';
 import 'userinfo_registration_page3.dart';
@@ -39,7 +33,7 @@ class RegistrationPageController extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(firstRegistrationProvider.state);
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -65,7 +59,7 @@ class RegistrationPageController extends ConsumerWidget {
               child: Container(
                 width: double.infinity,
                 height: 40,
-                color: Color(0xFF9EDC68),
+                color: const Color(0xFF9EDC68),
                 child: Align(
                   child: SmoothPageIndicator(
                     controller: controller,
@@ -95,7 +89,7 @@ class RegistrationPageController extends ConsumerWidget {
               child: Container(
                 width: double.infinity,
                 height: 150,
-                color: Color(0xFF9EDC68),
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
             )
           ],

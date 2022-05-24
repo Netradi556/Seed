@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 // Riverpod
 import 'package:seed_app/view_model/profile_provider.dart';
@@ -11,7 +10,6 @@ import 'package:seed_app/view_model/profile_provider.dart';
 // PageWidget
 
 // const
-import 'package:seed_app/const/constants_profile.dart';
 
 class RegistrationPage1 extends ConsumerWidget {
   const RegistrationPage1({Key? key}) : super(key: key);
@@ -27,7 +25,7 @@ class RegistrationPage1 extends ConsumerWidget {
             Container(
               width: double.infinity,
               height: 200,
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: const Align(
                   alignment: Alignment(0.2, 0.5),
                   child: Text('最初に登録する情報は3つだけです！')),
@@ -46,7 +44,7 @@ class RegistrationPage1 extends ConsumerWidget {
               boxWidth: 330,
               boxHeight: 60,
               itemName: '性別',
-              menuItems: ['未選択', '男性', '女性'],
+              menuItems: const ['未選択', '男性', '女性'],
             ),
             const Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
@@ -128,6 +126,7 @@ class DropdownItemsWidget extends ConsumerWidget {
       default:
         break;
     }
+    return null;
   }
 
   DropdownItemsWidget({

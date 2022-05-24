@@ -33,7 +33,7 @@ class NotificationPageWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
         child: Column(
           children: [
@@ -53,10 +53,10 @@ class NotificationPageWidget extends ConsumerWidget {
                   children: [
                     InkWell(
                       onTap: () => Navigator.of(context).pop(),
-                      child: Icon(Icons.arrow_back_ios_new),
+                      child: const Icon(Icons.arrow_back_ios_new),
                     ),
-                    Text('運営からのお知らせ'),
-                    Icon(Icons.access_alarm),
+                    const Text('運営からのお知らせ'),
+                    const Icon(Icons.access_alarm),
                   ],
                 ),
               ),
@@ -64,7 +64,7 @@ class NotificationPageWidget extends ConsumerWidget {
             Expanded(
               flex: 100,
               child: Container(
-                color: Color(0xFFF1F8F7),
+                color: const Color(0xFFF1F8F7),
                 child: Container(
                   child: ListView.builder(
                     itemBuilder: (BuildContext context, int index) {
@@ -75,17 +75,17 @@ class NotificationPageWidget extends ConsumerWidget {
                             ),
                           ),
                           child: ListTile(
-                            leading: Container(
+                            leading: const SizedBox(
                               height: 30,
                               width: 30,
                               child: Icon(Icons.notifications),
                             ),
                             title: Text('お知らせ $index'),
-                            subtitle: Text('お知らせの1行目を表示'),
+                            subtitle: const Text('お知らせの1行目を表示'),
                             onTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return NotificationDetailPageWidget();
+                                  return const NotificationDetailPageWidget();
                                 },
                               ),
                             ),

@@ -7,7 +7,7 @@ class SettingPageWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
         child: Column(
           children: [
@@ -27,10 +27,10 @@ class SettingPageWidget extends ConsumerWidget {
                   children: [
                     InkWell(
                       onTap: () => Navigator.of(context).pop(),
-                      child: Icon(Icons.arrow_back_ios_new),
+                      child: const Icon(Icons.arrow_back_ios_new),
                     ),
-                    Text('アプリ設定'),
-                    Icon(Icons.access_alarm),
+                    const Text('アプリ設定'),
+                    const Icon(Icons.access_alarm),
                   ],
                 ),
               ),
@@ -38,7 +38,7 @@ class SettingPageWidget extends ConsumerWidget {
             Expanded(
               flex: 100,
               child: Container(
-                color: Color(0xFFF1F8F7),
+                color: const Color(0xFFF1F8F7),
                 child: Container(),
               ),
             ),

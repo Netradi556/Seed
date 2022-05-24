@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:seed_app/ui/bottom_navigation/mypage.dart';
 
 import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
 
@@ -27,7 +26,7 @@ class FootprintPagesWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
         child: Column(
           children: [
@@ -47,10 +46,10 @@ class FootprintPagesWidget extends ConsumerWidget {
                   children: [
                     InkWell(
                       onTap: () => Navigator.of(context).pop(),
-                      child: Icon(Icons.arrow_back_ios_new),
+                      child: const Icon(Icons.arrow_back_ios_new),
                     ),
-                    Text('プロフィールを閲覧したユーザー'),
-                    Icon(Icons.access_alarm),
+                    const Text('プロフィールを閲覧したユーザー'),
+                    const Icon(Icons.access_alarm),
                   ],
                 ),
               ),
@@ -58,15 +57,15 @@ class FootprintPagesWidget extends ConsumerWidget {
             Expanded(
               flex: 12,
               child: Container(
-                child: Text('広告orコンテンツ表示欄'),
+                child: const Text('広告orコンテンツ表示欄'),
                 width: double.infinity,
-                color: Color(0xFF3EC922),
+                color: const Color(0xFF3EC922),
               ),
             ),
             Expanded(
               flex: 100,
               child: Container(
-                color: Color(0xFFF1F8F7),
+                color: const Color(0xFFF1F8F7),
                 child: Container(
                   child: ListView.builder(
                     itemBuilder: (BuildContext context, int index) {
@@ -90,7 +89,7 @@ class FootprintPagesWidget extends ConsumerWidget {
                               ),
                             ),
                             title: Text('ユーザー名 $index'),
-                            subtitle: Text('プロフィールの1行目を表示'),
+                            subtitle: const Text('プロフィールの1行目を表示'),
                             onTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) {

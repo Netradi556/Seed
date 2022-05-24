@@ -24,6 +24,6 @@ class UserModel extends ChangeNotifier {
     final String? userId = user?.uid;
     final docRef =
         FirebaseFirestore.instance.collection('user').doc(userId).get();
-    this.handleName = '';
+    handleName = '';
   }
 }

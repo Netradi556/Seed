@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:seed_app/ui/bottom_navigation/mypage.dart';
 
 class YourfavPageWidget extends ConsumerWidget {
   const YourfavPageWidget({Key? key}) : super(key: key);
@@ -29,10 +28,10 @@ class YourfavPageWidget extends ConsumerWidget {
                   children: [
                     InkWell(
                       onTap: () => Navigator.of(context).pop(),
-                      child: Icon(Icons.arrow_back_ios_new),
+                      child: const Icon(Icons.arrow_back_ios_new),
                     ),
-                    Text('お気に入り'),
-                    Icon(Icons.access_alarm),
+                    const Text('お気に入り'),
+                    const Icon(Icons.access_alarm),
                   ],
                 ),
               ),
@@ -40,7 +39,7 @@ class YourfavPageWidget extends ConsumerWidget {
             Expanded(
               flex: 100,
               child: Container(
-                color: Color(0xFFF1F8F7),
+                color: const Color(0xFFF1F8F7),
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 0),
                   child: GridView(
@@ -72,28 +71,28 @@ class YourfavPageWidget extends ConsumerWidget {
                       Container(
                         width: 100,
                         height: 100,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color(0xFFEEEEEE),
                         ),
                       ),
                       Container(
                         width: 100,
                         height: 100,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color(0xFFEEEEEE),
                         ),
                       ),
                       Container(
                         width: 100,
                         height: 100,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color(0xFFEEEEEE),
                         ),
                       ),
                       Container(
                         width: 100,
                         height: 100,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color(0xFFEEEEEE),
                         ),
                       ),

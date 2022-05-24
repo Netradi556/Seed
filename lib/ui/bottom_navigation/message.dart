@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'message_screen.dart';
+
 /*
  Listviewのロジック
   List A：マッチングしているユーザー情報オブジェクトが格納されたリスト
@@ -34,18 +36,9 @@ class MessagePageWidget extends ConsumerWidget {
           )
         ],
       ),
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              leading: CircleAvatar(),
-              trailing: Text('3分前'),
-              title: Text('Mentaくん'),
-              subtitle: Text('Flutter面白い'),
-            )
-          ],
-        ),
+        child: MessageScreenWidget(),
       ),
     );
   }
@@ -74,7 +67,7 @@ class NewWidget extends StatelessWidget {
         Expanded(
           flex: 100,
           child: Container(
-            color: Color(0xFFE9EFF4),
+            color: const Color(0xFFE9EFF4),
             child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 return Container(
@@ -86,7 +79,7 @@ class NewWidget extends StatelessWidget {
                     child: ListTile(
                       leading: const Icon(Icons.person),
                       title: Text('userNo. $index'),
-                      subtitle: Text('lastMessageText'),
+                      subtitle: const Text('lastMessageText'),
                       onTap: () {/* react to the tile being tapped */},
                     ));
               },

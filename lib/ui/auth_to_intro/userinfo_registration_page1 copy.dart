@@ -8,7 +8,6 @@ import 'package:seed_app/view_model/profile_provider.dart';
 // PageWidget
 
 // const
-import 'package:seed_app/const/constants_profile.dart';
 
 class RegistrationPage1 extends ConsumerWidget {
   const RegistrationPage1({Key? key}) : super(key: key);
@@ -19,7 +18,7 @@ class RegistrationPage1 extends ConsumerWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
+          const SizedBox(
             width: double.infinity,
             height: 200,
           ),
@@ -28,21 +27,21 @@ class RegistrationPage1 extends ConsumerWidget {
             boxWidth: 330,
             boxHeight: 40,
             itemName: '性別',
-            menuItems: ['未選択', '男性', '女性'],
+            menuItems: const ['未選択', '男性', '女性'],
           ),
           // 血液型の選択欄
           DropdownItemsWidget(
             boxWidth: 330,
             boxHeight: 40,
             itemName: '血液型',
-            menuItems: ['未選択', 'A', 'B', 'O', 'AB'],
+            menuItems: const ['未選択', 'A', 'B', 'O', 'AB'],
           ),
           // 兄弟姉妹の選択欄
           DropdownItemsWidget(
             boxWidth: 330,
             boxHeight: 40,
             itemName: '兄弟姉妹',
-            menuItems: ['未選択', 'いる', 'いない'],
+            menuItems: const ['未選択', 'いる', 'いない'],
           ),
 
           // ニックネームの入力欄
@@ -75,6 +74,7 @@ class DropdownItemsWidget extends ConsumerWidget {
       default:
         break;
     }
+    return null;
   }
 
   DropdownItemsWidget({
@@ -144,9 +144,9 @@ class TextformItemsWidget extends ConsumerWidget {
         obscureText: false,
         decoration: InputDecoration(
           labelText: 'メールアドレス',
-          labelStyle: TextStyle(color: Colors.amberAccent),
+          labelStyle: const TextStyle(color: Colors.amberAccent),
           hintText: 'Enter your email...',
-          hintStyle: TextStyle(color: Colors.amberAccent),
+          hintStyle: const TextStyle(color: Colors.amberAccent),
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(
               color: Color(0x00000000),
@@ -163,7 +163,7 @@ class TextformItemsWidget extends ConsumerWidget {
           ),
           filled: true,
           fillColor: const Color(0x98FFFFFF),
-          contentPadding: EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+          contentPadding: const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
         ),
         style: const TextStyle(color: Colors.amber),
       ),

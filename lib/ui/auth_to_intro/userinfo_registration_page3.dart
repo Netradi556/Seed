@@ -1,9 +1,7 @@
 // Packages
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // PageWidgets
@@ -31,28 +29,28 @@ class RegistrationPage3 extends ConsumerWidget {
     final String? userId = FirebaseAuth.instance.currentUser?.uid;
 
     return Scaffold(
-      backgroundColor: Color(0xFFFFF153),
+      backgroundColor: const Color(0xFFFFF153),
       body: Column(
         children: [
           Container(
             width: double.infinity,
             height: 100,
-            color: Color(0xFFD2F580),
+            color: const Color(0xFFD2F580),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
             child: Container(
               child: Image.asset('assets/images/logo.jpg'),
               width: 400, // 余白にフィットさせる方法？
               height: 300,
-              color: Color(0xFFD2F580),
+              color: const Color(0xFFD2F580),
             ),
           ),
           Expanded(
             child: Container(
               width: double.infinity,
               height: 100,
-              color: Color(0xFFD2F580),
+              color: const Color(0xFFD2F580),
               child: Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
@@ -60,9 +58,8 @@ class RegistrationPage3 extends ConsumerWidget {
                   onPressed: () async {
                     await FirebaseFirestore.instance
                         .collection('user')
-                        .doc(userId)
+                        .doc(userId.toString())
                         .set({
-                      'email': 'genkichi.yogi@gmail.com',
                       'handleName': paramName.state.toString(),
                       'sex': paramSex.state.toString(),
                       'birthDate': paramBirthDate.state.toString(),

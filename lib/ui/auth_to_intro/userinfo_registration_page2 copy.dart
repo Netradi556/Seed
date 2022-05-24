@@ -9,7 +9,6 @@ import 'package:seed_app/view_model/profile_provider.dart';
 // PageWidget
 
 // const
-import 'package:seed_app/const/constants_profile.dart';
 
 class RegistrationPage2 extends ConsumerWidget {
   const RegistrationPage2({Key? key}) : super(key: key);
@@ -23,7 +22,7 @@ class RegistrationPage2 extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            const SizedBox(
               width: double.infinity,
               height: 200,
             ),
@@ -32,31 +31,31 @@ class RegistrationPage2 extends ConsumerWidget {
               boxWidth: 330,
               boxHeight: 60,
               itemName: '学歴',
-              menuItems: ['未選択', '大学卒', '高卒'],
+              menuItems: const ['未選択', '大学卒', '高卒'],
             ),
             DropdownItemsWidget(
               boxWidth: 330,
               boxHeight: 60,
               itemName: '職種',
-              menuItems: ['未選択', 'いる', 'いない'],
+              menuItems: const ['未選択', 'いる', 'いない'],
             ),
             DropdownItemsWidget(
               boxWidth: 330,
               boxHeight: 60,
               itemName: '年収',
-              menuItems: ['未選択', '英語', '中国語', '韓国語'],
+              menuItems: const ['未選択', '英語', '中国語', '韓国語'],
             ),
             DropdownItemsWidget(
               boxWidth: 330,
               boxHeight: 60,
               itemName: '身長',
-              menuItems: ['未選択', '東京', '埼玉', '千葉', '神奈川'],
+              menuItems: const ['未選択', '東京', '埼玉', '千葉', '神奈川'],
             ),
             DropdownItemsWidget(
               boxWidth: 330,
               boxHeight: 60,
               itemName: '体型',
-              menuItems: ['未選択', '普通', 'ぽっちゃり', '筋肉質', '細身'],
+              menuItems: const ['未選択', '普通', 'ぽっちゃり', '筋肉質', '細身'],
             ),
           ],
         ),
@@ -125,6 +124,7 @@ class DropdownItemsWidget extends ConsumerWidget {
       default:
         break;
     }
+    return null;
   }
 
   DropdownItemsWidget({
