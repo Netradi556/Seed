@@ -178,27 +178,6 @@ class MypagePageWidget extends ConsumerWidget {
   }
 }
 
-class OldProfileImage extends StatelessWidget {
-  const OldProfileImage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 100,
-      decoration: BoxDecoration(
-        color: const Color(0xFFEEEEEE),
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage(profileImagePath),
-        ),
-        shape: BoxShape.circle,
-      ),
-    );
-  }
-}
 
 class Avatar extends StatelessWidget {
   final String? avatarUrl;
