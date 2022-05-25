@@ -6,7 +6,6 @@ import 'package:seed_app/view_model/util_provider.dart';
 // PageWidgets
 import 'usr_top.dart';
 import 'like.dart';
-import 'event.dart';
 import 'message.dart';
 import 'mypage.dart';
 

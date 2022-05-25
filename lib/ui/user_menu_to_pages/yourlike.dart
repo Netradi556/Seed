@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:seed_app/ui/bottom_navigation/mypage.dart';
 
 class YourlikePageWidget extends ConsumerWidget {
   const YourlikePageWidget({Key? key}) : super(key: key);
@@ -9,7 +8,7 @@ class YourlikePageWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
         child: Column(
           children: [
@@ -29,10 +28,10 @@ class YourlikePageWidget extends ConsumerWidget {
                   children: [
                     InkWell(
                       onTap: () => Navigator.of(context).pop(),
-                      child: Icon(Icons.arrow_back_ios_new),
+                      child: const Icon(Icons.arrow_back_ios_new),
                     ),
-                    Text('自分からのいいね'),
-                    Icon(Icons.access_alarm),
+                    const Text('自分からのいいね'),
+                    const Icon(Icons.access_alarm),
                   ],
                 ),
               ),
@@ -40,15 +39,15 @@ class YourlikePageWidget extends ConsumerWidget {
             Expanded(
               flex: 12,
               child: Container(
-                child: Text('広告orコンテンツ表示欄'),
+                child: const Text('広告orコンテンツ表示欄'),
                 width: double.infinity,
-                color: Color(0xFF3EC922),
+                color: const Color(0xFF3EC922),
               ),
             ),
             Expanded(
               flex: 100,
               child: Container(
-                color: Color(0xFFF1F8F7),
+                color: const Color(0xFFF1F8F7),
                 child: Container(),
               ),
             ),

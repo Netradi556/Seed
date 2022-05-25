@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 // Riverpod
 import 'package:seed_app/view_model/profile_provider.dart';
@@ -9,7 +10,6 @@ import 'package:seed_app/view_model/profile_provider.dart';
 // PageWidget
 
 // const
-import 'package:seed_app/const/constants_profile.dart';
 
 class RegistrationPage1 extends ConsumerWidget {
   const RegistrationPage1({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class RegistrationPage1 extends ConsumerWidget {
             Container(
               width: double.infinity,
               height: 200,
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: const Align(
                   alignment: Alignment(0.2, 0.5),
                   child: Text('最初に登録する情報は3つだけです！')),
@@ -44,13 +44,13 @@ class RegistrationPage1 extends ConsumerWidget {
               boxWidth: 330,
               boxHeight: 60,
               itemName: '性別',
-              menuItems: ['未選択', '男性', '女性'],
+              menuItems: const ['未選択', '男性', '女性'],
             ),
             const Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
             ),
             // 生年月日の入力欄
-            const YearDateItemsWidget(
+            YearDateItemsWidget(
               boxWidth: 330,
               boxHeight: 60,
             ),
@@ -62,7 +62,7 @@ class RegistrationPage1 extends ConsumerWidget {
 }
 
 class YearDateItemsWidget extends ConsumerWidget {
-  const YearDateItemsWidget({
+  YearDateItemsWidget({
     Key? key,
     required this.boxWidth,
     required this.boxHeight,
@@ -70,6 +70,7 @@ class YearDateItemsWidget extends ConsumerWidget {
 
   final double boxWidth;
   final double boxHeight;
+  var now = DateTime.now();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -81,19 +82,31 @@ class YearDateItemsWidget extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text('生年月日'),
+          // DateFormat.yMMMMEEEEd('ja').format(now).toString()
+          // param.state.toString()
+          Text(DateFormat('yyyy-MM-dd').format(now).toString()),
           IconButton(
             icon: const Icon(FontAwesomeIcons.calendarAlt),
             color: Colors.amber,
             onPressed: () async {
               final selectedDate = await showDatePicker(
                 context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(DateTime.now().year),
-                lastDate: DateTime(DateTime.now().year + 6),
-                initialDatePickerMode: DatePickerMode.year,
+                initialDatePickerMode: DatePickerMode.year, // 最初に年から入力
+                initialDate: DateTime(DateTime.now().year - 22),
+                firstDate: DateTime(
+                  DateTime.now().year - 100,
+                  DateTime.now().month,
+                  DateTime.now().day,
+                ), // 選択可能な最も古い日付
+                lastDate: DateTime(
+                  DateTime.now().year - 20,
+                  DateTime.now().month,
+                  DateTime.now().day,
+                ), // 選択可能な最も新しい日付
               );
 
               if (selectedDate != null) {
+                now = selectedDate;
                 param.state = selectedDate.toString();
                 // do something
               }
@@ -113,6 +126,7 @@ class DropdownItemsWidget extends ConsumerWidget {
       default:
         break;
     }
+    return null;
   }
 
   DropdownItemsWidget({
@@ -131,6 +145,7 @@ class DropdownItemsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final param1 = ref.watch(firstRegistrationProvider.state);
     final param = ref.watch(getProvider(itemName)!.state);
     final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
         .map(

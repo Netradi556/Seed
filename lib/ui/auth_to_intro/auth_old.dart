@@ -10,9 +10,7 @@ import 'package:seed_app/view_model/auth_provider.dart';
 
 // PageWidgets
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
-import 'package:seed_app/ui/bottom_navigation/usr_top.dart';
 import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
-import 'package:seed_app/ui/auth_to_intro/introduction.dart';
 import 'userinfo_registration_controller.dart';
 
 /*
@@ -86,7 +84,7 @@ class AuthPage extends ConsumerWidget {
     bool passowrdVisibility = true;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 69, 208, 243),
+      backgroundColor: const Color.fromARGB(255, 69, 208, 243),
       body: Column(
         children: [
           Row(
@@ -100,12 +98,12 @@ class AuthPage extends ConsumerWidget {
                       fit: BoxFit.fitWidth),
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 40),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 40),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -121,7 +119,7 @@ class AuthPage extends ConsumerWidget {
                       ),
                       Expanded(
                           child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                         child: DefaultTabController(
                           length: 2,
                           initialIndex: 0,
@@ -145,7 +143,7 @@ class AuthPage extends ConsumerWidget {
                                   children: [
                                     // Emailアドレスの入力ボックス
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0, 20, 0, 0),
                                       child: TextFormField(
                                         onChanged: (String value) =>
@@ -154,11 +152,11 @@ class AuthPage extends ConsumerWidget {
                                         decoration: InputDecoration(
                                           labelText: 'メールアドレス',
                                           // Extensionを利用予定
-                                          labelStyle: TextStyle(
+                                          labelStyle: const TextStyle(
                                               color: Colors.amberAccent),
                                           hintText: 'Enter your email...',
                                           // Extensionを利用予定
-                                          hintStyle: TextStyle(
+                                          hintStyle: const TextStyle(
                                               color: Colors.amberAccent),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
@@ -177,9 +175,9 @@ class AuthPage extends ConsumerWidget {
                                                 BorderRadius.circular(8),
                                           ),
                                           filled: true,
-                                          fillColor: Color(0x98943C3C),
+                                          fillColor: const Color(0x98943C3C),
                                           contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20, 24, 20, 24),
                                         ),
                                         style: const TextStyle(
@@ -188,7 +186,7 @@ class AuthPage extends ConsumerWidget {
                                     ),
                                     // パスワードの入力ボックス
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0, 20, 0, 0),
                                       child: TextFormField(
                                         onChanged: (String value) =>
@@ -197,11 +195,11 @@ class AuthPage extends ConsumerWidget {
                                         decoration: InputDecoration(
                                           labelText: 'パスワード',
                                           // Extensionを利用予定
-                                          labelStyle: TextStyle(
+                                          labelStyle: const TextStyle(
                                               color: Colors.amberAccent),
                                           hintText: 'Enter your email...',
                                           // Extensionを利用予定
-                                          hintStyle: TextStyle(
+                                          hintStyle: const TextStyle(
                                               color: Colors.amberAccent),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
@@ -220,9 +218,9 @@ class AuthPage extends ConsumerWidget {
                                                 BorderRadius.circular(8),
                                           ),
                                           filled: true,
-                                          fillColor: Color(0x98FFFFFF),
+                                          fillColor: const Color(0x98FFFFFF),
                                           contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20, 24, 20, 24),
                                           suffixIcon: InkWell(
                                             onTap: () => passowrdVisibility =
@@ -239,7 +237,7 @@ class AuthPage extends ConsumerWidget {
                                     ),
                                     // Loginボタン
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0, 24, 0, 0),
                                       child: ElevatedButton(
                                         child: const Text('ログイン'),
@@ -290,7 +288,7 @@ class AuthPage extends ConsumerWidget {
                                     ),
                                     // "Social Login"の文字列
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           20, 0, 20, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -299,14 +297,14 @@ class AuthPage extends ConsumerWidget {
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0, 12, 0, 0),
                                             child: Text(
                                               'Or use a social account to login',
                                               style: FlutterFlowTheme.bodyText1
                                                   .override(
                                                 fontFamily: 'Poppins',
-                                                color: Color(0x98FFFFFF),
+                                                color: const Color(0x98FFFFFF),
                                               ),
                                             ),
                                           ),
@@ -315,7 +313,7 @@ class AuthPage extends ConsumerWidget {
                                     ),
                                     // Social Loginの一覧
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           20, 16, 20, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -341,13 +339,13 @@ class AuthPage extends ConsumerWidget {
                                             child: Card(
                                               clipBehavior:
                                                   Clip.antiAliasWithSaveLayer,
-                                              color: Color(0xFF090F13),
+                                              color: const Color(0xFF090F13),
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(50),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(2, 2, 2, 2),
                                                 child: InkWell(
                                                   /*                                         onTap: () async {
@@ -370,7 +368,7 @@ class AuthPage extends ConsumerWidget {
                                                     height: 50,
                                                     clipBehavior:
                                                         Clip.antiAlias,
-                                                    decoration: BoxDecoration(
+                                                    decoration: const BoxDecoration(
                                                       shape: BoxShape.circle,
                                                     ),
                                                     child: SvgPicture.asset(
@@ -393,7 +391,7 @@ class AuthPage extends ConsumerWidget {
                                   children: [
                                     // Emailアドレスの入力ボックス
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0, 20, 0, 0),
                                       child: TextFormField(
                                         onChanged: (String value) =>
@@ -402,11 +400,11 @@ class AuthPage extends ConsumerWidget {
                                         decoration: InputDecoration(
                                           labelText: 'メールアドレス',
                                           // Extensionを利用予定
-                                          labelStyle: TextStyle(
+                                          labelStyle: const TextStyle(
                                               color: Colors.amberAccent),
                                           hintText: 'Enter your email...',
                                           // Extensionを利用予定
-                                          hintStyle: TextStyle(
+                                          hintStyle: const TextStyle(
                                               color: Colors.amberAccent),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
@@ -425,9 +423,9 @@ class AuthPage extends ConsumerWidget {
                                                 BorderRadius.circular(8),
                                           ),
                                           filled: true,
-                                          fillColor: Color(0x98FFFFFF),
+                                          fillColor: const Color(0x98FFFFFF),
                                           contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20, 24, 20, 24),
                                         ),
                                         style: const TextStyle(
@@ -436,7 +434,7 @@ class AuthPage extends ConsumerWidget {
                                     ),
                                     // パスワードの入力ボックス
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0, 20, 0, 0),
                                       child: TextFormField(
                                         onChanged: (String value) =>
@@ -445,11 +443,11 @@ class AuthPage extends ConsumerWidget {
                                         decoration: InputDecoration(
                                           labelText: 'パスワード',
                                           // Extensionを利用予定
-                                          labelStyle: TextStyle(
+                                          labelStyle: const TextStyle(
                                               color: Colors.amberAccent),
                                           hintText: 'Enter your password...',
                                           // Extensionを利用予定
-                                          hintStyle: TextStyle(
+                                          hintStyle: const TextStyle(
                                               color: Colors.amberAccent),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
@@ -468,9 +466,9 @@ class AuthPage extends ConsumerWidget {
                                                 BorderRadius.circular(8),
                                           ),
                                           filled: true,
-                                          fillColor: Color(0x98FFFFFF),
+                                          fillColor: const Color(0x98FFFFFF),
                                           contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20, 24, 20, 24),
                                           suffixIcon: InkWell(
                                             onTap: () => passowrdVisibility =
@@ -487,7 +485,7 @@ class AuthPage extends ConsumerWidget {
                                     ),
                                     // パスワードの入力ボックス
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0, 20, 0, 0),
                                       child: TextFormField(
                                         onChanged: (String value) =>
@@ -496,11 +494,11 @@ class AuthPage extends ConsumerWidget {
                                         decoration: InputDecoration(
                                           labelText: 'パスワード',
                                           // Extensionを利用予定
-                                          labelStyle: TextStyle(
+                                          labelStyle: const TextStyle(
                                               color: Colors.amberAccent),
                                           hintText: 'Enter your password...',
                                           // Extensionを利用予定
-                                          hintStyle: TextStyle(
+                                          hintStyle: const TextStyle(
                                               color: Colors.amberAccent),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
@@ -519,9 +517,9 @@ class AuthPage extends ConsumerWidget {
                                                 BorderRadius.circular(8),
                                           ),
                                           filled: true,
-                                          fillColor: Color(0x98FFFFFF),
+                                          fillColor: const Color(0x98FFFFFF),
                                           contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   20, 24, 20, 24),
                                           suffixIcon: InkWell(
                                             onTap: () => passowrdVisibility =
@@ -538,7 +536,7 @@ class AuthPage extends ConsumerWidget {
                                     ),
                                     // Sign upボタン
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0, 24, 0, 0),
                                       child: ElevatedButton(
                                         child: const Text('アカウント作成'),
@@ -590,7 +588,7 @@ class AuthPage extends ConsumerWidget {
                                     ),
                                     // "Social Login"の文字列
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           20, 0, 20, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -599,14 +597,14 @@ class AuthPage extends ConsumerWidget {
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0, 12, 0, 0),
                                             child: Text(
                                               'Or use a social account to login',
                                               style: FlutterFlowTheme.bodyText1
                                                   .override(
                                                 fontFamily: 'Poppins',
-                                                color: Color(0x98FFFFFF),
+                                                color: const Color(0x98FFFFFF),
                                               ),
                                             ),
                                           ),
@@ -645,10 +643,10 @@ class AuthPage extends ConsumerWidget {
                                                     } on FirebaseAuthException catch (e) {
                                                       print(
                                                           'FirebaseAuthException');
-                                                      print('${e.code}');
+                                                      print(e.code);
                                                     } on Exception catch (e) {
                                                       print('Other Exception');
-                                                      print('${e.toString()}');
+                                                      print(e.toString());
                                                     }
                                                     await Navigator
                                                         .pushAndRemoveUntil(
@@ -665,7 +663,7 @@ class AuthPage extends ConsumerWidget {
                                                     height: 50,
                                                     clipBehavior:
                                                         Clip.antiAlias,
-                                                    decoration: BoxDecoration(
+                                                    decoration: const BoxDecoration(
                                                       shape: BoxShape.circle,
                                                     ),
                                                     child: SvgPicture.asset(
@@ -679,17 +677,17 @@ class AuthPage extends ConsumerWidget {
 
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     8, 0, 0, 0),
                                             child: Card(
                                               clipBehavior:
                                                   Clip.antiAliasWithSaveLayer,
-                                              color: Color(0xFF090F13),
+                                              color: const Color(0xFF090F13),
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(50),
                                               ),
-                                              child: Padding(
+                                              child: const Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(18, 18, 18, 18),
                                                 child: Icon(
@@ -760,7 +758,7 @@ class _SignIn extends ConsumerWidget {
                 child: Text(infoText.state),
               ),
               // ユーザー登録ボタン
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   child: const Text('ログイン'),

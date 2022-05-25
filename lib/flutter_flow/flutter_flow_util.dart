@@ -7,7 +7,6 @@ import 'package:json_path/json_path.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
 
-import 'lat_lng.dart';
 
 export 'dart:math' show min, max;
 export 'package:page_transition/page_transition.dart';
@@ -147,12 +146,12 @@ void showSnackbar(
       content: Row(
         children: [
           if (loading)
-            Padding(
+            const Padding(
               padding: EdgeInsetsDirectional.only(end: 10.0),
-              child: Container(
+              child: SizedBox(
                 height: 20,
                 width: 20,
-                child: const CircularProgressIndicator(
+                child: CircularProgressIndicator(
                   color: Colors.white,
                 ),
               ),
@@ -168,7 +167,7 @@ void showSnackbar(
 extension FFStringExt on String {
   String maybeHandleOverflow(
           {required int maxChars, String replacement = ''}) =>
-      maxChars != null && length > maxChars
+      length > maxChars
           ? replaceRange(maxChars, null, replacement)
           : this;
 }

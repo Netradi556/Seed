@@ -81,7 +81,7 @@ class ForgotPassPageWidget extends ConsumerWidget {
             ),
             // リセットボタン
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
               child: SizedBox(
                 width: 200,
                 height: 40,

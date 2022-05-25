@@ -30,10 +30,10 @@ class LicensePageWidget extends ConsumerWidget {
                   children: [
                     InkWell(
                       onTap: () => Navigator.of(context).pop(),
-                      child: Icon(Icons.arrow_back_ios_new),
+                      child: const Icon(Icons.arrow_back_ios_new),
                     ),
-                    Text('会員ステータス'),
-                    Icon(Icons.access_alarm),
+                    const Text('会員ステータス'),
+                    const Icon(Icons.access_alarm),
                   ],
                 ),
               ),
