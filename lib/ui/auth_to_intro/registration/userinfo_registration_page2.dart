@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Riverpod
-import 'package:seed_app/view_model/profile_provider.dart';
+import 'package:seed_app/provider/profile_provider.dart';
 
 // PageWidget
 
@@ -16,49 +16,31 @@ class RegistrationPage2 extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
+    final param = ref.watch(profileSexProvider.state);
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              width: double.infinity,
-              height: 200,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            width: double.infinity,
+            height: 200,
+            child: Align(
+              child: Text('''
+プロフィールを充実させていくほど
+検索されやすくなります
+証明書のアップロードでスコアがアップします'''),
             ),
-            // 学歴の選択欄
-            DropdownItemsWidget(
-              boxWidth: 330,
-              boxHeight: 60,
-              itemName: '学歴',
-              menuItems: const ['未選択', '大学卒', '高卒'],
+          ),
+          Container(
+            width: double.infinity,
+            height: 200,
+            decoration: const BoxDecoration(),
+            child: InkWell(
+              child: Text(param.state),
             ),
-            DropdownItemsWidget(
-              boxWidth: 330,
-              boxHeight: 60,
-              itemName: '職種',
-              menuItems: const ['未選択', 'いる', 'いない'],
-            ),
-            DropdownItemsWidget(
-              boxWidth: 330,
-              boxHeight: 60,
-              itemName: '年収',
-              menuItems: const ['未選択', '英語', '中国語', '韓国語'],
-            ),
-            DropdownItemsWidget(
-              boxWidth: 330,
-              boxHeight: 60,
-              itemName: '身長',
-              menuItems: const ['未選択', '東京', '埼玉', '千葉', '神奈川'],
-            ),
-            DropdownItemsWidget(
-              boxWidth: 330,
-              boxHeight: 60,
-              itemName: '体型',
-              menuItems: const ['未選択', '普通', 'ぽっちゃり', '筋肉質', '細身'],
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

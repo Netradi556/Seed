@@ -6,12 +6,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 // Riverpod
-import 'package:seed_app/view_model/auth_provider.dart';
+import 'package:seed_app/provider/auth_provider.dart';
 
 // PageWidgets
-import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
+import 'package:seed_app/ui/navigtion_controller.dart';
 import 'forgot_pass.dart';
-import 'introduction.dart';
+import '../intro/introduction.dart';
 
 String _backgroundImagePath = 'assets/images/sea.jpeg';
 String _logoImagePath = 'assets/images/logo.jpg';
@@ -150,7 +150,8 @@ class AuthEmailboxPaddingWidget extends ConsumerWidget {
               ),
               filled: true,
               fillColor: const Color(0x00000000),
-              contentPadding: const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+              contentPadding:
+                  const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
             ),
             style: const TextStyle(color: Colors.amber),
           ),
@@ -207,7 +208,8 @@ class AuthPassboxPaddingWidget extends ConsumerWidget {
               ),
               filled: true,
               fillColor: const Color(0x00FFFFFF),
-              contentPadding: const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+              contentPadding:
+                  const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
               suffixIcon: InkWell(
                 onTap: () => passowrdVisibility = !passowrdVisibility,
                 child: Icon(passowrdVisibility

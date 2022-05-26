@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:seed_app/ui/bottom_navigation/chat_screen.dart';
+import 'package:seed_app/ui/message/chat_screen.dart';
 
 import 'package:seed_app/view_model/chat_model.dart';
 

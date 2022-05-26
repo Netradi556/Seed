@@ -1,13 +1,13 @@
 // Packages
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seed_app/view_model/util_provider.dart';
+import 'package:seed_app/provider/util_provider.dart';
 
 // PageWidgets
-import 'usr_top.dart';
-import 'like.dart';
-import 'message.dart';
-import 'mypage.dart';
+import 'user_top/usr_top.dart';
+import 'like/like.dart';
+import 'message/message.dart';
+import 'mypage/mypage.dart';
 
 class NavigationPageController extends ConsumerWidget {
   List<Widget> navigationPageList = [

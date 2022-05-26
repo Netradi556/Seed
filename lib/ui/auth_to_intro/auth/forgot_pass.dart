@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Riverpod
-import 'package:seed_app/view_model/auth_provider.dart';
+import 'package:seed_app/provider/auth_provider.dart';
 
 String _backgroundImagePath = 'assets/images/logo.jpg';
 

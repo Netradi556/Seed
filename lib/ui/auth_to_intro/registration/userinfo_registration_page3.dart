@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // PageWidgets
-import 'package:seed_app/ui/bottom_navigation/navigtion_controller.dart';
+import 'package:seed_app/ui/navigtion_controller.dart';
 
 // Riverpod
-import 'package:seed_app/view_model/profile_provider.dart';
+import 'package:seed_app/provider/profile_provider.dart';
 
 /*
   Todo(High)
