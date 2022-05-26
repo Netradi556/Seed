@@ -28,6 +28,8 @@ class UserProfilePageWidget extends ConsumerWidget {
     return MaterialApp(
       home: SafeArea(
         child: Scaffold(
+
+
           // AppBarのデザイン修正
           // SilverAppBarに変更、丸みを帯びたデザインに変更
           appBar: GradientAppBar(
@@ -44,7 +46,7 @@ class UserProfilePageWidget extends ConsumerWidget {
               ),
               elevation: .6,
               title: const Text(
-                'UserProfile',
+                'マイプロフィール',
                 style: TextStyle(color: Colors.black87),
               ),
               backgroundColor: Colors.transparent,
@@ -266,34 +268,6 @@ class UserProfilePageWidget extends ConsumerWidget {
   }
 }
 
-// AppBarのグラディエーション対応
-class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
-  GradientAppBar({
-    Key? key,
-    required this.gradient,
-    required this.appBar,
-  })  : preferredSize = appBar.preferredSize,
-        super(key: key);
-
-  final Gradient gradient;
-  final AppBar appBar;
-
-  @override
-  final Size preferredSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(gradient: gradient),
-          height: preferredSize.height,
-        ),
-        appBar,
-      ],
-    );
-  }
-}
 
 // 性格・趣味・生活
 class LifeStyleInfo extends StatelessWidget {
@@ -1488,4 +1462,42 @@ class Introduction extends StatelessWidget {
       ),
     );
   }
+
+
+
+
+
+// 完成---------------------------------------------------------------------------------------------
+  // AppBarのグラディエーション対応
+class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
+  GradientAppBar({
+    Key? key,
+    required this.gradient,
+    required this.appBar,
+  })  : preferredSize = appBar.preferredSize,
+        super(key: key);
+
+  final Gradient gradient;
+  final AppBar appBar;
+
+  @override
+  final Size preferredSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(gradient: gradient),
+          height: preferredSize.height,
+        ),
+        appBar,
+      ],
+    );
+  }
+}
+
+
+
+
 }
