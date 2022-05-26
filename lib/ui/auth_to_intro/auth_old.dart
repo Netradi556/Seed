@@ -638,7 +638,7 @@ class AuthPage extends ConsumerWidget {
                                                 child: InkWell(
                                                   onTap: () async {
                                                     try {
-/*                                                       final userCredential = */
+
                                                       await signInWithGoogle();
                                                     } on FirebaseAuthException catch (e) {
                                                       print(
