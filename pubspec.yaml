@@ -58,6 +58,7 @@ dependencies:
   intl: ^0.17.0 # 日付フォーマットを利用するやつ
   json_serializable: ^6.1.6
   get_it: ^7.2.0
+  syncfusion_flutter_gauges: ^20.1.57 # サークルゲージのやつ
 
 
   # flutter flowに合わせて入れたやつ
