@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:seed_app/ui/auth_to_intro/registration/userinfo_registration_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Riverpod
 
 // PageWidgets
-import 'userinfo_registration_controller.dart';
 
 /*
   Todo

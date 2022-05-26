@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seed_app/ui/auth_to_intro/userinfo_registration_page3.dart';
+import 'package:seed_app/ui/auth_to_intro/registration/userinfo_registration_page1.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 // Riverpod
-import 'package:seed_app/view_model/profile_provider.dart';
+import 'package:seed_app/provider/profile_provider.dart';
 
 // PageWidgets
 import 'userinfo_registration_page1.dart';

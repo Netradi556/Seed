@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: unused_import
-import 'package:seed_app/ui/auth_to_intro/introduction.dart';
-import 'package:seed_app/ui/auth_to_intro/auth.dart';
+import 'package:seed_app/ui/auth_to_intro/intro/introduction.dart';
+import 'package:seed_app/ui/auth_to_intro/auth/auth.dart';
 import 'package:seed_app/locator.dart';
 
 void main() async {

@@ -11,11 +11,11 @@ import 'package:flutter/material.dart';
 
 import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
 import 'package:seed_app/models/user_models.dart';
-import 'package:seed_app/view_controller/user_controller.dart';
+import 'package:seed_app/view_model/user_controller.dart';
 import 'package:seed_app/locator.dart';
 
 // Riverpod
-import 'package:seed_app/view_model/profile_provider.dart';
+import 'package:seed_app/provider/profile_provider.dart';
 
 /*
   Todo
@@ -177,7 +177,6 @@ class MypagePageWidget extends ConsumerWidget {
     );
   }
 }
-
 
 class Avatar extends StatelessWidget {
   final String? avatarUrl;
