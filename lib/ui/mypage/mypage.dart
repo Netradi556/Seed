@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:seed_app/ui/user_menu_to_pages/user_profile/user_profile_edit.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,6 @@ import 'package:seed_app/provider/profile_provider.dart';
   ・アイコンの設定
   ・
 */
-
 
 class MypagePageWidget extends ConsumerWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -86,9 +86,9 @@ class MypagePageWidget extends ConsumerWidget {
                   Align(
                     alignment: const AlignmentDirectional(-0.05, 0),
                     child: InkWell(
-                      onTap: () => 
-                      // Providerの初期化処理を挟む===========================================
-                      Navigator.of(context).push(
+                      onTap: () =>
+                          // Providerの初期化処理を挟む===========================================
+                          Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
                             return UserProfileEditPageWidget();
@@ -96,7 +96,7 @@ class MypagePageWidget extends ConsumerWidget {
                         ),
                       ),
                       child: Text(
-                        'プロフィールの更新',
+                        'Edit profile',
                         textAlign: TextAlign.start,
                         style: FlutterFlowTheme.bodyText1.override(
                           fontFamily: 'Poppins',
@@ -116,25 +116,21 @@ class MypagePageWidget extends ConsumerWidget {
                         ),
                       ),
                       child: InkWell(
-                        onTap: () => 
-                        // Providerの初期化処理
-                        final something = 'プロバイダーの初期化処理';
-                        
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return UserProfileEditPageWidget();
-                            }
-                          )
-                        )
+                        onTap: () =>
+                            // Providerの初期化処理
+
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                          return UserProfilePageWidget();
+                        })),
                         child: Text(
-                        'マイプロフィール',
-                        textAlign: TextAlign.start,
-                        style: FlutterFlowTheme.bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: const Color(0xFF646CF2),
+                          'my profile',
+                          textAlign: TextAlign.start,
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: const Color(0xFF646CF2),
+                          ),
                         ),
-                      ),
                       ),
                     ),
                   ),
@@ -161,8 +157,6 @@ class MypagePageWidget extends ConsumerWidget {
     );
   }
 }
-
-
 
 // 完成-----------------------------------------
 class Avatar extends StatelessWidget {

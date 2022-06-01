@@ -1,4 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:seed_app/ui/user_menu_to_pages/footprint.dart';
+import 'package:seed_app/ui/user_menu_to_pages/help.dart';
+import 'package:seed_app/ui/user_menu_to_pages/license.dart';
+import 'package:seed_app/ui/user_menu_to_pages/setting.dart';
+import 'package:seed_app/ui/user_menu_to_pages/yourfav.dart';
+import 'package:seed_app/ui/user_menu_to_pages/yourlike.dart';
+
+import '../user_menu_to_pages/notification/notification.dart';
 
 class MyPageMenu extends StatelessWidget {
   MyPageMenu();
@@ -7,37 +17,39 @@ class MyPageMenu extends StatelessWidget {
   final String footprintLogoPath = 'assets/icon/footprints.png';
   final String thumbsLogoPath = 'assets/icon/thumbs-up.png';
   final String likeLogoPath = 'assets/icon/star.png';
-  final List<String> row1_ImagePath = [
-    footprintLogoPath,
-    thumbsLogoPath,
-    likeLogoPath,
-  ];
-  final List<Widget> row1_nextPageWidget = [
-    FootprintPagesWidget,
-    YourlikePageWidget,
-    YourfavPageWidget
-  ];
 
   // 2行目
   final String notificationLogoPath = 'assets/icon/notification.png';
   final String licenseLogoPath = 'assets/icon/license.png';
   final String settingLogoPath = 'assets/icon/setting.png';
-  final List<String> row2_ImagePath = [
-    notificationLogoPath,
-    licenseLogoPath,
-    settingLogoPath,
-  ];
-  final List<Widget> row2_nextPageWidget = [
-    NotificationPageWidget,
-    LicensePageWidget,
-    SettingPageWidget
-  ];
 
   // 3行目
   final String helpLogoPath = 'assets/icon/help.png';
 
   @override
   Widget build(BuildContext context) {
+    final List<String> row1_ImagePath = [
+      footprintLogoPath,
+      thumbsLogoPath,
+      likeLogoPath,
+    ];
+    final List<Widget> row1_nextPageWidget = [
+      FootprintPagesWidget(),
+      YourlikePageWidget(),
+      YourfavPageWidget(),
+    ];
+
+    final List<String> row2_ImagePath = [
+      notificationLogoPath,
+      licenseLogoPath,
+      settingLogoPath,
+    ];
+    final List<Widget> row2_nextPageWidget = [
+      NotificationPageWidget(),
+      LicensePageWidget(),
+      SettingPageWidget(),
+    ];
+
     return Align(
       alignment: const AlignmentDirectional(0.05, -0.1),
       child: SizedBox(
@@ -69,7 +81,7 @@ class MyPageMenu extends StatelessWidget {
                   children: [
                     menuIconWidget(
                       iconImagePath: helpLogoPath,
-                      nextPageWidget HelpPageWidget,
+                      nextPageWidget: HelpPageWidget(),
                     ),
                     Container(
                       width: 100,
@@ -96,9 +108,9 @@ class MyPageMenu extends StatelessWidget {
   }
 }
 
-
 class menuRowWidget extends StatelessWidget {
-  menuRowWidget(this.iconImagePath, this.nextPageWidget)
+  menuRowWidget(
+      {Key? key, required this.iconImagePath, required this.nextPageWidget})
       : menuItems = {
           'LeftIconPath': iconImagePath[0],
           'LeftIconWidget': nextPageWidget[0],
@@ -106,7 +118,8 @@ class menuRowWidget extends StatelessWidget {
           'CenterIconWidget': nextPageWidget[1],
           'RightIconPath': iconImagePath[2],
           'RightIconWidget': nextPageWidget[2],
-        };
+        },
+        super(key: key);
 
   final List<String> iconImagePath;
   final List<Widget> nextPageWidget;
