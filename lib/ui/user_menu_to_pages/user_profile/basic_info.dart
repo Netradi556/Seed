@@ -20,7 +20,7 @@ class BasicInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 356,
-      height: 358,
+      height: 250,
       child: ProfileItemsList(
         itemName: '基本情報',
         itemsList: paramName,

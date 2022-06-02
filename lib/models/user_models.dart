@@ -1,7 +1,7 @@
 class UserModel {
   String uid;
   String? displayName;
-  String? avatarUrl;
+  String avatarUrl;
 
-  UserModel(this.uid, {this.displayName, this.avatarUrl});
+  UserModel(this.uid, {this.displayName, required this.avatarUrl});
 }

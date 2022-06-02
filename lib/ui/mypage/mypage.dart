@@ -59,14 +59,7 @@ class MypagePageWidget extends ConsumerWidget {
                     alignment: AlignmentDirectional(-0.8, 0),
                     child: Avatar(
                       avatarUrl: _currentUser?.avatarUrl,
-                      onTap: () async {
-                        XFile? image = await ImagePicker.platform
-                            .getImage(source: ImageSource.gallery);
-                        File xfileToFile = File(image!.path);
-                        await locator
-                            .get<UserController>()
-                            .uploadProfilePicture(xfileToFile);
-                      },
+                      onTap: () {},
                     ),
                   ),
                   // ハンドルネーム

@@ -12,20 +12,31 @@ class ProfileItemsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(itemName),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            itemName,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+        ),
         ListView.builder(
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: itemsList.length,
           itemBuilder: (BuildContext context, index) {
             return SizedBox(
               width: 80,
-              height: 30,
+              height: 35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(itemsList[index].toString(),
