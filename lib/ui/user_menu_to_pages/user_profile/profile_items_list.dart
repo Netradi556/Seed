@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class ProfileItemsList extends StatelessWidget {
   const ProfileItemsList({
+    Key? key,
     required this.itemName,
     required this.itemsList,
-  });
+  }) : super(key: key);
 
   final String itemName;
   final List<String> itemsList;

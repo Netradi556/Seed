@@ -36,7 +36,7 @@ class ProfileScore extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border.all(),
             ),
-            child: CircleGauge(),
+            child: const CircleGauge(),
           ),
           const SizedBox(
             height: 30,

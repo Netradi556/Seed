@@ -13,7 +13,11 @@ import 'message_screen.dart';
 
 class MessagePageWidget extends ConsumerWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  var listItem = ['User 1', 'User 2', 'User 3'];
+
+  final Color appBarIconColor = const Color.fromARGB(255, 0, 0, 0);
+  final Color backgroundColor = const Color(0xFFF5F5F5);
+
+  MessagePageWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,72 +26,19 @@ class MessagePageWidget extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).canvasColor,
         elevation: .6,
-        title: const Text(
-          'メッセージ',
-          style: TextStyle(color: Colors.black87),
-        ),
+        title: const Text('メッセージ', style: TextStyle(color: Colors.black87)),
         actions: <Widget>[
           IconButton(
             onPressed: () {},
-            icon: const Icon(
-              Icons.shield,
-            ),
-            color: Colors.black87,
+            icon: const Icon(Icons.shield),
+            color: appBarIconColor,
           )
         ],
       ),
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: MessageScreenWidget(),
       ),
-    );
-  }
-}
-
-class NewWidget extends StatelessWidget {
-  const NewWidget({
-    Key? key,
-    required this.listItem,
-  }) : super(key: key);
-
-  final List<String> listItem;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          flex: 12,
-          child: Container(
-            child: const Text('広告orコンテンツ表示欄'),
-            width: double.infinity,
-            color: const Color.fromARGB(255, 185, 217, 178),
-          ),
-        ),
-        Expanded(
-          flex: 100,
-          child: Container(
-            color: const Color(0xFFE9EFF4),
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(color: Color(0xFF434F4F)),
-                      ),
-                    ),
-                    child: ListTile(
-                      leading: const Icon(Icons.person),
-                      title: Text('userNo. $index'),
-                      subtitle: const Text('lastMessageText'),
-                      onTap: () {/* react to the tile being tapped */},
-                    ));
-              },
-              itemCount: listItem.length,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

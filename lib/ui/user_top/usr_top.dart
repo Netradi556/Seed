@@ -1,6 +1,7 @@
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/ui/user_top/user_top_middle.dart';
 
 /*
   マッチング相手を探す画面
@@ -22,18 +23,21 @@ class UserTopWidget extends ConsumerWidget {
 
   UserTopWidget({Key? key}) : super(key: key);
 
+  // white
+  final Color backgroundColor = const Color.fromARGB(255, 255, 255, 255);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            const _TopHeaderContainerWidget(),
-            const _TopMiddleContainerWidget(),
-            _TopUserExpandWidget(),
+            const _UserTopHeaderArea(),
+            const UserTopMiddleArea(),
+            _UserTopSearchArea(),
           ],
         ),
       ),
@@ -41,10 +45,13 @@ class UserTopWidget extends ConsumerWidget {
   }
 }
 
-class _TopHeaderContainerWidget extends StatelessWidget {
-  const _TopHeaderContainerWidget({
+class _UserTopHeaderArea extends StatelessWidget {
+  const _UserTopHeaderArea({
     Key? key,
   }) : super(key: key);
+
+  final Color searchBoxColor = const Color(0xFFFEE9AC);
+  final Color searchIconColor = const Color(0xFFFFDA6F);
 
   @override
   Widget build(BuildContext context) {
@@ -57,22 +64,30 @@ class _TopHeaderContainerWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          // 検索ボックスに見せかけたコンテナ onTap()を実装予定
-          Container(
+          const SizedBox(height: 5),
+          // 検索ボックスを格納しているSizedBox
+          SizedBox(
             width: double.infinity,
             height: 40,
-            decoration: const BoxDecoration(),
             child: Align(
-              alignment: const AlignmentDirectional(1, -0.1),
-              child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 10, 0),
+              alignment: const AlignmentDirectional(0.95, 0),
+              // 検索ボックス
+              child: InkWell(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const SearchOption();
+                    },
+                  ),
+                ),
                 child: Container(
                   width: 100,
                   height: 30,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFEE9AC),
+                    color: searchBoxColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
+                  // 文字とアイコン
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -81,16 +96,9 @@ class _TopHeaderContainerWidget extends StatelessWidget {
                       Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
-                        child: Text(
-                          '絞り込み',
-                          style: FlutterFlowTheme.bodyText1,
-                        ),
+                        child: Text('絞り込み', style: FlutterFlowTheme.bodyText1),
                       ),
-                      const Icon(
-                        Icons.search,
-                        color: Color(0xFFFFDA6F),
-                        size: 16,
-                      ),
+                      Icon(Icons.search, color: searchIconColor, size: 16),
                     ],
                   ),
                 ),
@@ -98,21 +106,17 @@ class _TopHeaderContainerWidget extends StatelessWidget {
             ),
           ),
 
-          // ロジック実装時に修正：_TopMiddleContainerWidgetに移す
-          Align(
-            alignment: const AlignmentDirectional(0.1, 0),
+          // カテゴリーを格納しているSizedBox
+          const SizedBox(
+            width: double.infinity,
+            height: 40,
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 9, 0, 5),
-              child: Container(
-                width: double.infinity,
-                height: 35,
-                decoration: const BoxDecoration(),
-                child: const Align(
-                  alignment: AlignmentDirectional(-0.05, 0),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: _TopCategoryListWidget(),
-                  ),
+              padding: EdgeInsetsDirectional.fromSTEB(0, 9, 0, 0),
+              child: Align(
+                alignment: AlignmentDirectional(-0.05, 0),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                  child: _TopCategoryListWidget(),
                 ),
               ),
             ),
@@ -123,108 +127,59 @@ class _TopHeaderContainerWidget extends StatelessWidget {
   }
 }
 
-class _TopMiddleContainerWidget extends StatelessWidget {
-  const _TopMiddleContainerWidget({
-    Key? key,
-  }) : super(key: key);
+class _TopCategoryListWidget extends ConsumerWidget {
+  const _TopCategoryListWidget({Key? key}) : super(key: key);
+
+  final Color categoryButtonColor = const Color(0xFFFEE9AC);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 120,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xB4FCBC00), Color(0xFFFDE283)],
-          stops: [0, 1],
-          begin: AlignmentDirectional(0.34, -1),
-          end: AlignmentDirectional(-0.34, 1),
-        ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10, 7, 0, 0),
+  Widget build(BuildContext context, WidgetRef ref) {
+    // カテゴリーの選択状態を反映させるProviderを実装
+
+    return ListView(
+      padding: EdgeInsets.zero,
+      scrollDirection: Axis.horizontal,
+      children: [
+        categoryMenu('地域が一緒'),
+        categoryMenu('年齢が近い'),
+        categoryMenu('共通の趣味'),
+        categoryMenu('地域が一緒'),
+      ],
+    );
+  }
+
+  Padding categoryMenu(String categoryName) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+      child: InkWell(
+        /*
+          カテゴリの状態を反映させるProviderの処理を実装
+
+        */
+        onTap: () {},
+        child: Container(
+          width: 100,
+          height: 1,
+          decoration: BoxDecoration(
+            color: categoryButtonColor,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Align(
+            alignment: const AlignmentDirectional(0, 0),
             child: Text(
-              '似た条件のユーザー',
-              textAlign: TextAlign.center,
-              style: FlutterFlowTheme.bodyText1.override(
-                fontFamily: 'Poppins',
-                fontSize: 13,
-              ),
+              categoryName,
+              textAlign: TextAlign.start,
+              style: FlutterFlowTheme.bodyText1,
             ),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(25, 0, 0, 0),
-              child: GridView(
-                padding: EdgeInsets.zero,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  crossAxisSpacing: 1,
-                  mainAxisSpacing: 0,
-                  childAspectRatio: 1,
-                ),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  Align(
-                    alignment: const AlignmentDirectional(0, 0),
-                    child: Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFEEEEEE),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: const AlignmentDirectional(0, 0),
-                    child: Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFEEEEEE),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: const AlignmentDirectional(0, 0),
-                    child: Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFEEEEEE),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: const AlignmentDirectional(0, 0),
-                    child: Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFEEEEEE),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 }
 
-class _TopUserExpandWidget extends ConsumerWidget {
-  _TopUserExpandWidget({
+class _UserTopSearchArea extends ConsumerWidget {
+  _UserTopSearchArea({
     Key? key,
   }) : super(key: key);
   String imagePath1 = 'assets/images/user1.jpg';
@@ -248,7 +203,7 @@ class _TopUserExpandWidget extends ConsumerWidget {
             color: Color(0xFFF1F8F7),
           ),
           child: GridView(
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 10,
@@ -284,6 +239,7 @@ class UserCard extends StatelessWidget {
   // CardWidgetの枠線の色を指定
   final Color borderlineOutsideCard = const Color.fromARGB(0, 255, 255, 255);
   final Color borderlineShadow = const Color.fromARGB(144, 108, 108, 108);
+  final Color userCardBackground = const Color.fromARGB(255, 198, 162, 162);
 
   @override
   Widget build(BuildContext context) {
@@ -297,7 +253,7 @@ class UserCard extends StatelessWidget {
         // elevationプロパティで影をつける
         // shapeプロパティで枠の形、太さ、色を決定
         child: Material(
-          color: Color.fromARGB(255, 198, 162, 162),
+          color: userCardBackground,
           elevation: 1,
           shape: RoundedRectangleBorder(
             side: BorderSide(
@@ -317,7 +273,7 @@ class UserCard extends StatelessWidget {
                 Material(
                   elevation: 0.8,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(30, 0, 10, 0),
+                    padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
                     width: 165,
                     height: 170,
                     decoration: BoxDecoration(
@@ -370,207 +326,34 @@ class UserCard extends StatelessWidget {
   }
 }
 
-class UserCardWidget2 extends StatelessWidget {
-  UserCardWidget2({
-    Key? key,
-    required this.imagePath1,
-  }) : super(key: key);
-
-  final String imagePath1;
-  final Color borderline_outside_card = Color.fromARGB(232, 242, 13, 13);
-  final Color borderline_outside_picture = Color.fromARGB(235, 35, 235, 88);
-
-  @override
-  Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: -0.04,
-      // 大枠
-      child: SizedBox(
-        width: 184,
-        height: 300,
-        // elevationプロパティで影をつける
-        // shapeプロパティで枠の形、太さ、色を決定
-        child: Material(
-          color: Colors.white,
-          elevation: 1,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-              width: 1,
-              color: borderline_outside_card,
-            ),
-          ),
-          // 中枠の余白
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 5,
-            ),
-            // 中枠内の配置
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: 172,
-                  height: 190,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: borderline_outside_picture,
-                      width: 1,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 170,
-                        height: 190,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(imagePath1), fit: BoxFit.fill),
-                          border: Border.all(
-                            color: Color.fromARGB(235, 0, 13, 255),
-                            width: 1,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 2.50),
-                const SizedBox(
-                  width: 107,
-                  height: 22,
-                  child: Text(
-                    "25歳  東京",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 13,
-                      fontFamily: "Roboto",
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 2.50),
-                const SizedBox(
-                  width: 156,
-                  height: 41,
-                  child: Text(
-                    "このご時世ですが前向きに進めたいのでまた再開😄",
-                    style: TextStyle(
-                      color: Color(0x75000000),
-                      fontSize: 13,
-                      fontFamily: "Roboto",
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _TopCategoryListWidget extends ConsumerWidget {
-  const _TopCategoryListWidget({Key? key}) : super(key: key);
+// 完成-------------------------------------------------------
+class SearchOption extends ConsumerWidget {
+  const SearchOption({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ListView(
-      padding: EdgeInsets.zero,
-      scrollDirection: Axis.horizontal,
-      children: [
-        Align(
-          alignment: const AlignmentDirectional(0, 0),
-          child: Container(
-            width: 100,
-            height: 30,
-            decoration: BoxDecoration(
-              color: const Color(0xFFFEE9AC),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Align(
-              alignment: const AlignmentDirectional(0, 0),
-              child: Text(
-                '地域が一緒',
-                textAlign: TextAlign.start,
-                style: FlutterFlowTheme.bodyText1,
-              ),
-            ),
-          ),
-        ),
-        Align(
-          alignment: const AlignmentDirectional(0, 0),
-          child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-            child: Container(
-              width: 100,
-              height: 30,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFEE9AC),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Align(
-                alignment: const AlignmentDirectional(0, 0),
-                child: Text(
-                  '年齢が近い',
-                  textAlign: TextAlign.start,
-                  style: FlutterFlowTheme.bodyText1,
-                ),
-              ),
-            ),
-          ),
-        ),
-        Align(
-          alignment: const AlignmentDirectional(0, 0),
-          child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-            child: Container(
-              width: 100,
-              height: 30,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFEE9AC),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Align(
-                alignment: const AlignmentDirectional(0, 0),
-                child: Text(
-                  '共通の趣味',
-                  textAlign: TextAlign.start,
-                  style: FlutterFlowTheme.bodyText1,
-                ),
-              ),
-            ),
-          ),
-        ),
-        Align(
-          alignment: const AlignmentDirectional(0, 0),
-          child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-            child: Container(
-              width: 100,
-              height: 30,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFEE9AC),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Align(
-                alignment: const AlignmentDirectional(0, 0),
-                child: Text(
-                  '地域が一緒',
-                  textAlign: TextAlign.start,
-                  style: FlutterFlowTheme.bodyText1,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
+    // 検索状態を保存するProviderを実装
+
+    const Color pageNameTextColor = Color.fromARGB(255, 0, 0, 0);
+    const Color appBarIconColor = Color.fromARGB(255, 0, 0, 0);
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).canvasColor,
+        elevation: .6,
+        title: const Text('検索条件', style: TextStyle(color: pageNameTextColor)),
+        iconTheme: const IconThemeData(color: appBarIconColor),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.help),
+            color: appBarIconColor,
+          )
+        ],
+      ),
+      body: SafeArea(
+        child: Column(),
+      ),
     );
   }
 }

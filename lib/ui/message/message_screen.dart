@@ -18,7 +18,7 @@ class MessageScreenWidget extends StatelessWidget {
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
           return const Center(
-            child: const CircularProgressIndicator(),
+            child: CircularProgressIndicator(),
           );
         }
         if (snapshot.hasError) {
@@ -29,11 +29,13 @@ class MessageScreenWidget extends StatelessWidget {
             return Card(
               child: ListTile(
                 onTap: () {
+                  // チャットの内容（名前・メッセージ）はStreamで取得
                   chatDatabaseMethod.getUserByUsername('');
+
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return ChatScreen();
+                        return const ChatScreen();
                       },
                     ),
                   );

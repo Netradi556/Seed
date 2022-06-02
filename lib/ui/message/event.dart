@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class EvetnPageWidget extends ConsumerWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  EvetnPageWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext contextm, WidgetRef ref) {
     return Scaffold(

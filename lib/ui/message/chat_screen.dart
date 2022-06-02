@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
+  const ChatScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,16 +32,16 @@ class ChatScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: const <Widget>[
-                    rightBalloon(),
-                    leftBalloon(),
-                    rightBalloon(),
-                    leftBalloon(),
-                    rightBalloon(),
+                    RightBalloon(),
+                    LeftBalloon(),
+                    RightBalloon(),
+                    LeftBalloon(),
+                    RightBalloon(),
                   ],
                 ),
               ),
             ),
-            const textInputWidget(),
+            TextInputWidget(),
           ],
         ),
       ),
@@ -45,8 +49,36 @@ class ChatScreen extends StatelessWidget {
   }
 }
 
-class leftBalloon extends StatelessWidget {
-  const leftBalloon({
+/* class ChatTest extends StatelessWidget{
+   ChatTest({Key? key}) : super(key: key);
+
+// https://muchilog.com/flutter-create-listview-lilke-talkapp/
+// scrollControllerインスタンスのanimateTo()を0.0と指定すると一番下(トークの最新値)の場所まで飛べる様になります。
+ScrollController scrollController= ScrollController();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      reverse: true,
+      controller: ,
+      itemBuilder: (BuildContext context, int index){
+            if (index > itemListOrderByNewDesc.length - 1) return null;
+    else return _chatItemBuilder( itemListOrderByNewDesc[index]);
+      },
+    );
+  }
+
+
+Widget _chatItemBuilder(String text){
+  return if
+}
+
+} */
+
+class LeftBalloon extends StatelessWidget {
+  const LeftBalloon({
     Key? key,
   }) : super(key: key);
 
@@ -80,8 +112,8 @@ class leftBalloon extends StatelessWidget {
   }
 }
 
-class rightBalloon extends StatelessWidget {
-  const rightBalloon({
+class RightBalloon extends StatelessWidget {
+  const RightBalloon({
     Key? key,
   }) : super(key: key);
 
@@ -125,10 +157,14 @@ class rightBalloon extends StatelessWidget {
   }
 }
 
-class textInputWidget extends StatelessWidget {
-  const textInputWidget({
+class TextInputWidget extends StatelessWidget {
+  TextInputWidget({
     Key? key,
   }) : super(key: key);
+
+  final TextEditingController _editingController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final Color sendIconColor = const Color.fromARGB(255, 70, 232, 84);
 
   @override
   Widget build(BuildContext context) {
@@ -155,17 +191,31 @@ class textInputWidget extends StatelessWidget {
                 color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(48),
               ),
-              child: const TextField(
-                autofocus: true,
-                decoration: InputDecoration(border: InputBorder.none),
+              child: TextFormField(
+                key: _formKey,
+                controller: _editingController,
+                autofocus: false,
+                decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.send),
+                    onPressed: () {
+                      FirebaseFirestore.instance.collection('chatsample').add(
+                        {
+                          'message': _editingController.text.toString(),
+                          'timestamp': DateTime.now().millisecondsSinceEpoch,
+                          'sender':
+                              FirebaseAuth.instance.currentUser?.uid.toString(),
+                        },
+                      );
+                      _editingController.clear();
+                    },
+                  ),
+                  suffixIconColor: sendIconColor,
+                  border: const OutlineInputBorder(),
+                  hintText: 'Type here',
+                ),
               ),
             ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.mic),
-            color: Colors.black54,
-            iconSize: 28,
-            onPressed: () {},
           ),
         ],
       ),

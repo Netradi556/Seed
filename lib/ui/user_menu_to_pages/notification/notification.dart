@@ -65,34 +65,32 @@ class NotificationPageWidget extends ConsumerWidget {
               flex: 100,
               child: Container(
                 color: const Color(0xFFF1F8F7),
-                child: Container(
-                  child: ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                          decoration: const BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(color: Color(0xFF434F4F)),
+                child: ListView.builder(
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: Color(0xFF434F4F)),
+                          ),
+                        ),
+                        child: ListTile(
+                          leading: const SizedBox(
+                            height: 30,
+                            width: 30,
+                            child: Icon(Icons.notifications),
+                          ),
+                          title: Text('お知らせ $index'),
+                          subtitle: const Text('お知らせの1行目を表示'),
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const NotificationDetailPageWidget();
+                              },
                             ),
                           ),
-                          child: ListTile(
-                            leading: const SizedBox(
-                              height: 30,
-                              width: 30,
-                              child: Icon(Icons.notifications),
-                            ),
-                            title: Text('お知らせ $index'),
-                            subtitle: const Text('お知らせの1行目を表示'),
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return const NotificationDetailPageWidget();
-                                },
-                              ),
-                            ),
-                          ));
-                    },
-                    itemCount: listItem.length,
-                  ),
+                        ));
+                  },
+                  itemCount: listItem.length,
                 ),
               ),
             ),
