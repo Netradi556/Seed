@@ -5,6 +5,8 @@ class LikePageWidget extends ConsumerWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var listItem = ['User 1', 'User 2', 'User 3'];
 
+  LikePageWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(

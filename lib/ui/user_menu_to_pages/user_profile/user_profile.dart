@@ -51,7 +51,7 @@ class UserProfilePageWidget extends ConsumerWidget {
           // プロフの項目別にWidget切り出し→実装
           body: SingleChildScrollView(
             child: Column(
-              children: const [
+              children: [
                 // プロフ画像
                 ProfilePictures(),
                 // 概要欄
@@ -60,10 +60,13 @@ class UserProfilePageWidget extends ConsumerWidget {
                 ProfileScore(),
                 // 自由記述欄
                 Introduction(),
+                // 基本情報
                 BasicInfo(),
+                // 学歴・職種・外見
                 SocialInfo(),
-                // プロフパラメータ
+                // 性格・趣味・生活
                 LifeStyleInfo(),
+                // 恋愛・結婚について
                 ViewOfLove()
               ],
             ),

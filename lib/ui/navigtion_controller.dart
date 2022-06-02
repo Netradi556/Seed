@@ -17,6 +17,8 @@ class NavigationPageController extends ConsumerWidget {
     MypagePageWidget(),
   ];
 
+  NavigationPageController({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final navigationIndex = ref.watch(navigationIndexProvider);

@@ -23,7 +23,8 @@ class AuthRepo {
   }
 
   Future<UserModel> getUser() async {
-    var firebaseUser = await _auth.currentUser!;
-    return UserModel(firebaseUser.uid, displayName: firebaseUser.displayName);
+    var firebaseUser = _auth.currentUser!;
+    return UserModel(firebaseUser.uid,
+        displayName: firebaseUser.displayName, avatarUrl: '');
   }
 }

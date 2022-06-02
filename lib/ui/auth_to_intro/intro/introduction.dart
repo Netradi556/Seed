@@ -25,6 +25,8 @@ class IntroductionPage extends ConsumerWidget {
     titlePadding: const EdgeInsets.all(10),
   );
 
+  IntroductionPage({Key? key}) : super(key: key);
+
   List<PageViewModel> getPages() {
     return [
       PageViewModel(
