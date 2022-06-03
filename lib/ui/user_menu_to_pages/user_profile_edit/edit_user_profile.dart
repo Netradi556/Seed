@@ -143,6 +143,7 @@ class ProfilePicturesEdit extends ConsumerWidget {
   }) : super(key: key);
 
   final UserModel? _currentUser = locator.get<UserController>().currentUser;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -151,22 +152,22 @@ class ProfilePicturesEdit extends ConsumerWidget {
       child: InkWell(
         onTap: () async {
           try {
-            XFile? image = await ImagePicker.platform
-                .getImage(source: ImageSource.gallery);
-
-            if (image == null) {
+            XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+            /* if (image == null) {
               // do nothing
+              print('ここまでOK 3');
               return;
             }
+            */
 
-            final imageTemporary = File(image.path);
+            final imageTemporary = File(image!.path);
+            await locator
+                .get<UserController>()
+                .saveLocalProfilePicture(imageTemporary);
 
             await locator
                 .get<UserController>()
                 .uploadProfilePicture(imageTemporary);
-            await locator
-                .get<UserController>()
-                .saveLocalProfilePicture(imageTemporary);
           } catch (e) {
             Navigator.of(context).push(
               MaterialPageRoute(

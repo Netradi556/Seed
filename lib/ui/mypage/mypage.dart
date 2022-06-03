@@ -36,7 +36,6 @@ class MypagePageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    locator.get<UserController>().initializeLocalProfilePicturePath();
     return Scaffold(
       key: scaffoldKey,
       body: SafeArea(

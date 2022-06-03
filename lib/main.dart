@@ -12,7 +12,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   setupServices();
-
   runApp(
     ProviderScope(
       child: MyApp(),

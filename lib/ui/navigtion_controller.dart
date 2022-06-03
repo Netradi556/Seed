@@ -24,7 +24,6 @@ class NavigationPageController extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final navigationIndex = ref.watch(navigationIndexProvider);
-    locator.get<UserController>().initializeLocalProfilePicturePath();
 
     return Scaffold(
       body: navigationPageList[navigationIndex],
