@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/locator.dart';
@@ -23,6 +25,8 @@ class UserProfilePageWidget extends ConsumerWidget {
 
   final Color appBarTextColor = const Color.fromARGB(223, 0, 0, 0);
   final Color appBarBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
+
+  final UserModel? _currentUser = locator.get<UserController>().currentUser;
 
   final List<String> basicInfo = [
     'ニックネーム',
@@ -94,7 +98,9 @@ class UserProfilePageWidget extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // プロフ画像
-              ProfilePictures(),
+              ProfilePictures(
+                avatarUrl: _currentUser?.avatarUrl,
+              ),
               // 概要欄
               const IntroductionCard(),
               // プロフィールスコア
@@ -132,7 +138,9 @@ class UserProfilePageWidget extends ConsumerWidget {
 // 完成---------------------------------------------------------------------------------------------
 // プロフィール画像
 class ProfilePictures extends ConsumerWidget {
+  final String? avatarUrl;
   ProfilePictures({
+    this.avatarUrl,
     Key? key,
   }) : super(key: key);
 
@@ -148,7 +156,10 @@ class ProfilePictures extends ConsumerWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
-              image: NetworkImage(_currentUser!.avatarUrl), fit: BoxFit.fill),
+              image: avatarUrl == null
+                  ? Image.asset('assets/images/user1.jpg').image
+                  : Image.file(File(avatarUrl!)).image,
+              fit: BoxFit.fill),
         ),
       ),
     );

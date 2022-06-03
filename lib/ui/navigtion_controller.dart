@@ -1,7 +1,9 @@
 // Packages
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/locator.dart';
 import 'package:seed_app/provider/util_provider.dart';
+import 'package:seed_app/view_model/user_controller.dart';
 
 // PageWidgets
 import 'user_top/usr_top.dart';
@@ -22,6 +24,7 @@ class NavigationPageController extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final navigationIndex = ref.watch(navigationIndexProvider);
+    locator.get<UserController>().initializeLocalProfilePicturePath();
 
     return Scaffold(
       body: navigationPageList[navigationIndex],

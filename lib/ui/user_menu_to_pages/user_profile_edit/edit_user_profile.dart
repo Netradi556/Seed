@@ -26,6 +26,8 @@ class UserProfileEditPageWidget extends ConsumerWidget {
   final Color appBarTextColor = const Color.fromARGB(223, 0, 0, 0);
   final Color appBarBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
 
+  final UserModel? _currentUser = locator.get<UserController>().currentUser;
+
   final List<String> basicInfo = [
     'ニックネーム',
     '年齢',
@@ -93,7 +95,9 @@ class UserProfileEditPageWidget extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ProfilePicturesEdit(),
+              ProfilePicturesEdit(
+                avatarUrl: _currentUser?.avatarUrl,
+              ),
               EditProfileItemsList(
                 itemName: '基本情報',
                 itemsList: basicInfo,
@@ -122,7 +126,19 @@ class UserProfileEditPageWidget extends ConsumerWidget {
 }
 
 class ProfilePicturesEdit extends ConsumerWidget {
+/*
+  参考情報
+  Flutter Tutorial - Image Picker From Camera & Gallery | The Right Way [2021] Pick Images & Videos
+  https://www.youtube.com/watch?v=MSv38jO4EJk&t=55&ab_channel=JohannesMilke
+
+
+
+*/
+
+  final String? avatarUrl;
+
   ProfilePicturesEdit({
+    this.avatarUrl,
     Key? key,
   }) : super(key: key);
 
@@ -137,10 +153,20 @@ class ProfilePicturesEdit extends ConsumerWidget {
           try {
             XFile? image = await ImagePicker.platform
                 .getImage(source: ImageSource.gallery);
-            File xfileToFile = File(image!.path);
+
+            if (image == null) {
+              // do nothing
+              return;
+            }
+
+            final imageTemporary = File(image.path);
+
             await locator
                 .get<UserController>()
-                .uploadProfilePicture(xfileToFile);
+                .uploadProfilePicture(imageTemporary);
+            await locator
+                .get<UserController>()
+                .saveLocalProfilePicture(imageTemporary);
           } catch (e) {
             Navigator.of(context).push(
               MaterialPageRoute(
@@ -157,7 +183,10 @@ class ProfilePicturesEdit extends ConsumerWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
-                image: NetworkImage(_currentUser!.avatarUrl), fit: BoxFit.fill),
+                image: avatarUrl == null
+                    ? Image.asset('assets/images/user1.jpg').image
+                    : Image.file(File(avatarUrl!)).image,
+                fit: BoxFit.fill),
           ),
         ),
       ),

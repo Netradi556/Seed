@@ -11,8 +11,6 @@ class StorageRepo {
       FirebaseStorage.instanceFor(bucket: "gs://our-first-seed.appspot.com");
   final AuthRepo _authRepo = locator.get<AuthRepo>();
 
-
-
   // プロフィール画像のUpDl処理----------------------
   Future<String> uploadFile(File file) async {
     UserModel user = await _authRepo.getUser();
@@ -30,8 +28,5 @@ class StorageRepo {
   }
 
   // 各種証明書のアップロード処理----------------------
-
-
-
 
 }
