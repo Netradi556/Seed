@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seed_app/ui/user_menu_to_pages/user_profile/basic_info.dart';
+import 'package:seed_app/locator.dart';
+import 'package:seed_app/models/user_models.dart';
+
 import 'package:seed_app/ui/user_menu_to_pages/user_profile/introduction.dart';
 import 'package:seed_app/ui/user_menu_to_pages/user_profile/introduction_card.dart';
-import 'package:seed_app/ui/user_menu_to_pages/user_profile/lifestyle_info.dart';
-import 'package:seed_app/ui/user_menu_to_pages/user_profile/profile_picture.dart';
-import 'package:seed_app/ui/user_menu_to_pages/user_profile/profile_score.dart';
-import 'package:seed_app/ui/user_menu_to_pages/user_profile/social_info.dart';
-import 'package:seed_app/ui/user_menu_to_pages/user_profile/view_of_love.dart';
+
+import 'package:seed_app/ui/user_menu_to_pages/user_profile/items_list.dart';
+import 'package:seed_app/ui/user_menu_to_pages/user_profile/score.dart';
+import 'package:seed_app/view_model/user_controller.dart';
 
 /*
   ユーザーのプロフィールを表示する画面
@@ -18,56 +19,117 @@ import 'package:seed_app/ui/user_menu_to_pages/user_profile/view_of_love.dart';
 */
 
 class UserProfilePageWidget extends ConsumerWidget {
-  const UserProfilePageWidget({Key? key}) : super(key: key);
+  UserProfilePageWidget({Key? key}) : super(key: key);
+
+  final Color appBarTextColor = const Color.fromARGB(223, 0, 0, 0);
+  final Color appBarBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
+
+  final List<String> basicInfo = [
+    'ニックネーム',
+    '年齢',
+    '血液型',
+    '話せる言語',
+    '居住地',
+    '出身地',
+  ];
+
+  final List<String> lifeStyleInfo = [
+    '性格・タイプ',
+    '子供の有無',
+    '結婚に対する意思',
+    '子供がほしいか',
+    '家事・育児',
+    '出会うまでの希望',
+    '初回デート費用',
+  ];
+
+  final List<String> socialInfo = [
+    '学歴',
+    '職種',
+    '年収',
+    '身長',
+    '体型',
+  ];
+
+  final List<String> viewOfLove = [
+    '性格・タイプ',
+    '子供の有無',
+    '結婚に対する意思',
+    '子供がほしいか',
+    '家事・育児',
+    '出会うまでの希望',
+    '初回デート費用',
+  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       home: SafeArea(
         child: Scaffold(
+          backgroundColor: const Color(0xFFF5F5F5),
           // AppBarのデザイン修正
           // SilverAppBarに変更、丸みを帯びたデザインに変更
-          appBar: GradientAppBar(
-            gradient: const LinearGradient(
-              colors: [Color(0xB4FCBC00), Color(0xFFFDE283)],
-              stops: [0, 1],
-              begin: AlignmentDirectional(0.34, -1),
-              end: AlignmentDirectional(-0.34, 1),
+          appBar: AppBar(
+            leading: InkWell(
+              onTap: () => Navigator.of(context).pop(),
+              child: const Icon(Icons.arrow_back_ios_new),
             ),
-            appBar: AppBar(
-              leading: InkWell(
-                onTap: () => Navigator.of(context).pop(),
-                child: const Icon(Icons.arrow_back_ios_new),
+            elevation: .6,
+            title: Text('マイプロフィール', style: TextStyle(color: appBarTextColor)),
+            backgroundColor: appBarBackgroundColor,
+            flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xB4FCBC00), Color(0xFFFDE283)],
+                  stops: [0, 1],
+                  begin: AlignmentDirectional(0.34, -1),
+                  end: AlignmentDirectional(-0.34, 1),
+                ),
               ),
-              elevation: .6,
-              title: const Text(
-                'マイプロフィール',
-                style: TextStyle(color: Colors.black87),
-              ),
-              backgroundColor: Colors.transparent,
             ),
           ),
 
           // プロフの項目別にWidget切り出し→実装
           body: SingleChildScrollView(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // プロフ画像
                 ProfilePictures(),
                 // 概要欄
-                IntroductionCard(),
+                const IntroductionCard(),
                 // プロフィールスコア
                 ProfileScore(),
                 // 自由記述欄
                 Introduction(),
                 // 基本情報
-                BasicInfo(),
+                ProfileItemsList(
+                  width: 350,
+                  height: 300,
+                  itemName: '基本情報',
+                  itemsList: basicInfo,
+                ),
                 // 学歴・職種・外見
-                SocialInfo(),
+                ProfileItemsList(
+                  width: 350,
+                  height: 250,
+                  itemName: '学歴・職種・外見',
+                  itemsList: socialInfo,
+                ),
                 // 性格・趣味・生活
-                LifeStyleInfo(),
+                ProfileItemsList(
+                  width: 350,
+                  height: 300,
+                  itemName: '性格・趣味・生活',
+                  itemsList: lifeStyleInfo,
+                ),
                 // 恋愛・結婚について
-                ViewOfLove()
+                ProfileItemsList(
+                  width: 350,
+                  height: 300,
+                  itemName: '恋愛・結婚について',
+                  itemsList: viewOfLove,
+                )
               ],
             ),
           ),
@@ -78,32 +140,27 @@ class UserProfilePageWidget extends ConsumerWidget {
 }
 
 // 完成---------------------------------------------------------------------------------------------
-
-// AppBarのグラディエーション対応
-class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
-  GradientAppBar({
+// プロフィール画像
+class ProfilePictures extends ConsumerWidget {
+  ProfilePictures({
     Key? key,
-    required this.gradient,
-    required this.appBar,
-  })  : preferredSize = appBar.preferredSize,
-        super(key: key);
+  }) : super(key: key);
 
-  final Gradient gradient;
-  final AppBar appBar;
+  final UserModel? _currentUser = locator.get<UserController>().currentUser;
 
   @override
-  final Size preferredSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(gradient: gradient),
-          height: preferredSize.height,
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 15, 15, 10),
+      child: Container(
+        height: 400,
+        width: 350,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(
+              image: NetworkImage(_currentUser!.avatarUrl), fit: BoxFit.fill),
         ),
-        appBar,
-      ],
+      ),
     );
   }
 }
