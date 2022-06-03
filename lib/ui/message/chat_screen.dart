@@ -47,11 +47,10 @@ class ChatTest extends StatelessWidget {
 // https://muchilog.com/flutter-create-listview-lilke-talkapp/
 // scrollControllerインスタンスのanimateTo()を0.0と指定すると一番下(トークの最新値)の場所まで飛べる様になります。
   ScrollController scrollController = ScrollController();
-  List itemListOrderByNewDesc = [];
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
+    return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('chatsample')
           .orderBy('timestamp', descending: true)
@@ -68,19 +67,14 @@ class ChatTest extends StatelessWidget {
             ),
           );
         }
-
-        var docs = snapshot.data;
+        var docs = snapshot.data!;
         return ListView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
-          reverse: true,
-          itemCount: 2, // ----------------------------------docs.lengthに修正
+          reverse: false,
+          itemCount: 3, // ----------------------------------docs.lengthに修正
           itemBuilder: (context, index) {
-            return Container(
-              width: 100,
-              height: 30,
-              decoration: BoxDecoration(color: Colors.red),
-            );
+            return Text('aaa');
           },
         );
       },
