@@ -64,74 +64,64 @@ class UserProfilePageWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      home: SafeArea(
-        child: Scaffold(
-          backgroundColor: const Color(0xFFF5F5F5),
-          // AppBarのデザイン修正
-          // SilverAppBarに変更、丸みを帯びたデザインに変更
-          appBar: AppBar(
-            leading: InkWell(
-              onTap: () => Navigator.of(context).pop(),
-              child: const Icon(Icons.arrow_back_ios_new),
-            ),
-            elevation: .6,
-            title: Text('マイプロフィール', style: TextStyle(color: appBarTextColor)),
-            backgroundColor: appBarBackgroundColor,
-            flexibleSpace: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xB4FCBC00), Color(0xFFFDE283)],
-                  stops: [0, 1],
-                  begin: AlignmentDirectional(0.34, -1),
-                  end: AlignmentDirectional(-0.34, 1),
-                ),
+      home: Scaffold(
+        backgroundColor: const Color(0xFFF5F5F5),
+        // AppBarのデザイン修正
+        // SilverAppBarに変更、丸みを帯びたデザインに変更
+        appBar: AppBar(
+          leading: InkWell(
+            onTap: () => Navigator.of(context).pop(),
+            child: const Icon(Icons.arrow_back_ios_new),
+          ),
+          elevation: .6,
+          title: Text('マイプロフィール', style: TextStyle(color: appBarTextColor)),
+          backgroundColor: appBarBackgroundColor,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xB4FCBC00), Color(0xFFFDE283)],
+                stops: [0, 1],
+                begin: AlignmentDirectional(0.34, -1),
+                end: AlignmentDirectional(-0.34, 1),
               ),
             ),
           ),
+        ),
 
-          // プロフの項目別にWidget切り出し→実装
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // プロフ画像
-                ProfilePictures(),
-                // 概要欄
-                const IntroductionCard(),
-                // プロフィールスコア
-                ProfileScore(),
-                // 自由記述欄
-                Introduction(),
-                // 基本情報
-                ProfileItemsList(
-                  width: 350,
-                  height: 300,
-                  itemName: '基本情報',
-                  itemsList: basicInfo,
-                ),
-                // 学歴・職種・外見
-                ProfileItemsList(
-                  width: 350,
-                  height: 250,
-                  itemName: '学歴・職種・外見',
-                  itemsList: socialInfo,
-                ),
-                // 性格・趣味・生活
-                ProfileItemsList(
-                  width: 350,
-                  height: 300,
-                  itemName: '性格・趣味・生活',
-                  itemsList: lifeStyleInfo,
-                ),
-                // 恋愛・結婚について
-                ProfileItemsList(
-                  width: 350,
-                  height: 300,
-                  itemName: '恋愛・結婚について',
-                  itemsList: viewOfLove,
-                )
-              ],
-            ),
+        // プロフの項目別にWidget切り出し→実装
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // プロフ画像
+              ProfilePictures(),
+              // 概要欄
+              const IntroductionCard(),
+              // プロフィールスコア
+              ProfileScore(),
+              // 自由記述欄
+              Introduction(),
+              // 基本情報
+              ProfileItemsList(
+                itemName: '基本情報',
+                itemsList: basicInfo,
+              ),
+              // 学歴・職種・外見
+              ProfileItemsList(
+                itemName: '学歴・職種・外見',
+                itemsList: socialInfo,
+              ),
+              // 性格・趣味・生活
+              ProfileItemsList(
+                itemName: '性格・趣味・生活',
+                itemsList: lifeStyleInfo,
+              ),
+              // 恋愛・結婚について
+              ProfileItemsList(
+                itemName: '恋愛・結婚について',
+                itemsList: viewOfLove,
+              )
+            ],
           ),
         ),
       ),

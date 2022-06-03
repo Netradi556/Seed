@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ProfileItemsList extends StatelessWidget {
-  const ProfileItemsList({
+class EditProfileItemsList extends StatelessWidget {
+  const EditProfileItemsList({
     Key? key,
     required this.itemName,
     required this.itemsList,
