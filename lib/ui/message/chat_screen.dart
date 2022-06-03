@@ -30,15 +30,7 @@ class ChatScreen extends StatelessWidget {
                   horizontal: 16.0,
                   vertical: 32.0,
                 ),
-                child: Column(
-                  children: const <Widget>[
-                    RightBalloon(),
-                    LeftBalloon(),
-                    RightBalloon(),
-                    LeftBalloon(),
-                    RightBalloon(),
-                  ],
-                ),
+                child: ChatTest(),
               ),
             ),
             TextInputWidget(),
@@ -49,33 +41,67 @@ class ChatScreen extends StatelessWidget {
   }
 }
 
-/* class ChatTest extends StatelessWidget{
-   ChatTest({Key? key}) : super(key: key);
+class ChatTest extends StatelessWidget {
+  ChatTest({Key? key}) : super(key: key);
 
 // https://muchilog.com/flutter-create-listview-lilke-talkapp/
 // scrollControllerインスタンスのanimateTo()を0.0と指定すると一番下(トークの最新値)の場所まで飛べる様になります。
-ScrollController scrollController= ScrollController();
+  ScrollController scrollController = ScrollController();
+  List itemListOrderByNewDesc = [];
 
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection('chatsample')
+          .orderBy('timestamp', descending: true)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(child: Text('$snapshot.error'));
+        } else if (!snapshot.hasData) {
+          return const Center(
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+
+        var docs = snapshot.data;
+        return ListView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          reverse: true,
+          itemCount: 2, // ----------------------------------docs.lengthに修正
+          itemBuilder: (context, index) {
+            return Container(
+              width: 100,
+              height: 30,
+              decoration: BoxDecoration(color: Colors.red),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  /* ListView newMethod() {
     return ListView.builder(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       reverse: true,
       controller: ,
       itemBuilder: (BuildContext context, int index){
-            if (index > itemListOrderByNewDesc.length - 1) return null;
-    else return _chatItemBuilder( itemListOrderByNewDesc[index]);
+            if (index > itemListOrderByNewDesc.length - 1) {
+              return null;
+            } else {
+              return _chatItemBuilder( itemListOrderByNewDesc[index]);
+            }
       },
-    );
-  }
-
-
-Widget _chatItemBuilder(String text){
-  return if
+    ); */
 }
-
-} */
 
 class LeftBalloon extends StatelessWidget {
   const LeftBalloon({
@@ -219,6 +245,25 @@ class TextInputWidget extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class OldChatScreen extends StatelessWidget {
+  const OldChatScreen({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: const <Widget>[
+        RightBalloon(),
+        LeftBalloon(),
+        RightBalloon(),
+        LeftBalloon(),
+        RightBalloon(),
+      ],
     );
   }
 }

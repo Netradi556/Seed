@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:seed_app/error_announce.dart';
 import 'package:seed_app/locator.dart';
 import 'package:seed_app/ui/mypage/mypage.dart';
 import 'package:seed_app/view_model/user_controller.dart';
@@ -23,10 +24,22 @@ class ProfilePictures extends ConsumerWidget {
       padding: const EdgeInsets.fromLTRB(10, 15, 15, 10),
       child: InkWell(
         onTap: () async {
-          XFile? image =
-              await ImagePicker.platform.getImage(source: ImageSource.gallery);
-          File xfileToFile = File(image!.path);
-          await locator.get<UserController>().uploadProfilePicture(xfileToFile);
+          try {
+            XFile? image = await ImagePicker.platform
+                .getImage(source: ImageSource.gallery);
+            File xfileToFile = File(image!.path);
+            await locator
+                .get<UserController>()
+                .uploadProfilePicture(xfileToFile);
+          } catch (e) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return ErrorPage();
+                },
+              ),
+            );
+          }
         },
         child: Container(
           height: 400,
