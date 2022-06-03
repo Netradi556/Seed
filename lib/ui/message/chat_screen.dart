@@ -30,15 +30,7 @@ class ChatScreen extends StatelessWidget {
                   horizontal: 16.0,
                   vertical: 32.0,
                 ),
-                child: Column(
-                  children: const <Widget>[
-                    RightBalloon(),
-                    LeftBalloon(),
-                    RightBalloon(),
-                    LeftBalloon(),
-                    RightBalloon(),
-                  ],
-                ),
+                child: ChatTest(),
               ),
             ),
             TextInputWidget(),
@@ -49,38 +41,67 @@ class ChatScreen extends StatelessWidget {
   }
 }
 
-/* class ChatTest extends StatelessWidget{
-   ChatTest({Key? key}) : super(key: key);
+class ChatTest extends StatelessWidget {
+  ChatTest({Key? key}) : super(key: key);
 
 // https://muchilog.com/flutter-create-listview-lilke-talkapp/
 // scrollControllerインスタンスのanimateTo()を0.0と指定すると一番下(トークの最新値)の場所まで飛べる様になります。
-ScrollController scrollController= ScrollController();
+  ScrollController scrollController = ScrollController();
+  final String userID = FirebaseAuth.instance.currentUser!.uid.toString();
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      reverse: true,
-      controller: ,
-      itemBuilder: (BuildContext context, int index){
-            if (index > itemListOrderByNewDesc.length - 1) return null;
-    else return _chatItemBuilder( itemListOrderByNewDesc[index]);
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('chatsample')
+          .orderBy('timestamp', descending: true)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(child: Text('$snapshot.error'));
+        } else if (!snapshot.hasData) {
+          return const Center(
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+        var docs = snapshot.data!.docs;
+        return ListView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          reverse: true,
+          itemCount: docs.length,
+          itemBuilder: (context, index) {
+            var text = '${docs[index]['message']}';
+
+            /* 'メッセージ：'
+                '${docs[index]['message']} \n'
+                '送信者：'
+                '${docs[index]['sender']} \n';
+ */
+            if (docs[index]['sender'] == userID) {
+              return RightBalloon(message: text);
+            } else {
+              return LeftBalloon(message: text);
+            }
+          },
+        );
       },
     );
   }
-
-
-Widget _chatItemBuilder(String text){
-  return if
 }
-
-} */
 
 class LeftBalloon extends StatelessWidget {
   const LeftBalloon({
+    required this.message,
     Key? key,
   }) : super(key: key);
+
+  final String message;
+  final Color textColor = const Color.fromARGB(255, 6, 6, 6);
 
   @override
   Widget build(BuildContext context) {
@@ -101,9 +122,14 @@ class LeftBalloon extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               color: const Color.fromARGB(255, 233, 233, 233),
             ),
-            child: const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('すごい速度でUIが組み上がっていて楽しい!'),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                message,
+                style: TextStyle(
+                  color: textColor,
+                ),
+              ),
             ),
           ),
         ],
@@ -114,8 +140,12 @@ class LeftBalloon extends StatelessWidget {
 
 class RightBalloon extends StatelessWidget {
   const RightBalloon({
+    required this.message,
     Key? key,
   }) : super(key: key);
+
+  final String message;
+  final Color textColor = const Color.fromARGB(255, 255, 255, 255);
 
   @override
   Widget build(BuildContext context) {
@@ -143,12 +173,12 @@ class RightBalloon extends StatelessWidget {
                 ],
               ),
             ),
-            child: const Padding(
-              padding: EdgeInsets.all(16.0),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Text(
-                'Flutterって便利だね!',
+                message,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                 ),
               ),
             )),
