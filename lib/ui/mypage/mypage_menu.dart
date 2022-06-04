@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:seed_app/ui/user_menu_to_pages/footprint.dart';
 import 'package:seed_app/ui/user_menu_to_pages/help.dart';
 import 'package:seed_app/ui/user_menu_to_pages/license.dart';
@@ -11,7 +9,7 @@ import 'package:seed_app/ui/user_menu_to_pages/yourlike.dart';
 import '../user_menu_to_pages/notification/notification.dart';
 
 class MyPageMenu extends StatelessWidget {
-  MyPageMenu();
+  const MyPageMenu({Key? key}) : super(key: key);
 
   // 1行目
   final String footprintLogoPath = 'assets/icon/footprints.png';
@@ -28,26 +26,26 @@ class MyPageMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> row1_ImagePath = [
+    final List<String> firstRowImagePath = [
       footprintLogoPath,
       thumbsLogoPath,
       likeLogoPath,
     ];
-    final List<Widget> row1_nextPageWidget = [
+    final List<Widget> firstRowNextPageWidget = [
       FootprintPagesWidget(),
-      YourlikePageWidget(),
-      YourfavPageWidget(),
+      const YourlikePageWidget(),
+      const YourfavPageWidget(),
     ];
 
-    final List<String> row2_ImagePath = [
+    final List<String> secondRowImagePath = [
       notificationLogoPath,
       licenseLogoPath,
       settingLogoPath,
     ];
-    final List<Widget> row2_nextPageWidget = [
+    final List<Widget> secondRowNextPageWidget = [
       NotificationPageWidget(),
-      LicensePageWidget(),
-      SettingPageWidget(),
+      const LicensePageWidget(),
+      const SettingPageWidget(),
     ];
 
     return Align(
@@ -64,14 +62,14 @@ class MyPageMenu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // 1列目：足跡、自分からのいいね、お気に入り
-                menuRowWidget(
-                  iconImagePath: row1_ImagePath,
-                  nextPageWidget: row1_nextPageWidget,
+                MenuRowWidget(
+                  iconImagePath: firstRowImagePath,
+                  nextPageWidget: firstRowNextPageWidget,
                 ),
                 // 2列目：お知らせ、会員ステータス、設定
-                menuRowWidget(
-                  iconImagePath: row2_ImagePath,
-                  nextPageWidget: row2_nextPageWidget,
+                MenuRowWidget(
+                  iconImagePath: secondRowImagePath,
+                  nextPageWidget: secondRowNextPageWidget,
                 ),
                 // 3列目：ヘルプ
                 Row(
@@ -79,7 +77,7 @@ class MyPageMenu extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    menuIconWidget(
+                    MenuIconWidget(
                       iconImagePath: helpLogoPath,
                       nextPageWidget: HelpPageWidget(),
                     ),
@@ -108,8 +106,8 @@ class MyPageMenu extends StatelessWidget {
   }
 }
 
-class menuRowWidget extends StatelessWidget {
-  menuRowWidget(
+class MenuRowWidget extends StatelessWidget {
+  MenuRowWidget(
       {Key? key, required this.iconImagePath, required this.nextPageWidget})
       : menuItems = {
           'LeftIconPath': iconImagePath[0],
@@ -138,17 +136,17 @@ class menuRowWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // 左アイコン
-            menuIconWidget(
+            MenuIconWidget(
               iconImagePath: menuItems['LeftIconPath'],
               nextPageWidget: menuItems['LeftIconWidget'],
             ),
             // 中央アイコン
-            menuIconWidget(
+            MenuIconWidget(
               iconImagePath: menuItems['CenterIconPath'],
               nextPageWidget: menuItems['CenterIconWidget'],
             ),
             // 右アイコン
-            menuIconWidget(
+            MenuIconWidget(
               iconImagePath: menuItems['RightIconPath'],
               nextPageWidget: menuItems['RightIconWidget'],
             ),
@@ -159,15 +157,17 @@ class menuRowWidget extends StatelessWidget {
   }
 }
 
-class menuIconWidget extends StatelessWidget {
-  const menuIconWidget({
+class MenuIconWidget extends StatelessWidget {
+  const MenuIconWidget({
+    Key? key,
     required this.iconImagePath,
     required this.nextPageWidget,
-  });
+  }) : super(key: key);
 
   final String iconImagePath;
   final Widget nextPageWidget;
 
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Navigator.of(context).push(

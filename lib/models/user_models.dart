@@ -1,5 +1,6 @@
 class UserModel {
   String uid;
+  String? handleName;
   String? displayName;
   String? avatarUrl;
   String? avatarUrlOnCloud;

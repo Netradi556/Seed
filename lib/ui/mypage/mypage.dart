@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/repository/auth_repo.dart';
 import 'package:seed_app/ui/user_menu_to_pages/user_profile_edit/edit_user_profile.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
@@ -13,9 +13,6 @@ import 'package:seed_app/ui/mypage/mypage_menu.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/controller/user_controller.dart';
 import 'package:seed_app/locator.dart';
-
-// Riverpod
-import 'package:seed_app/provider/profile_provider.dart';
 
 /*
   Todo
@@ -29,7 +26,6 @@ import 'package:seed_app/provider/profile_provider.dart';
 
 class MypagePageWidget extends ConsumerWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final String? userId = FirebaseAuth.instance.currentUser?.uid;
   final UserModel? _currentUser = locator.get<UserController>().currentUser;
 
   MypagePageWidget({Key? key}) : super(key: key);
@@ -65,9 +61,7 @@ class MypagePageWidget extends ConsumerWidget {
                   Align(
                     alignment: const AlignmentDirectional(0.3, -0.4),
                     child: Text(
-                      GetUserName(
-                        documentId: userId.toString(),
-                      ).toString(), // paramName.state,
+                      _currentUser!.displayName.toString(),
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',
                         fontSize: 24,
@@ -78,9 +72,7 @@ class MypagePageWidget extends ConsumerWidget {
                   Align(
                     alignment: const AlignmentDirectional(-0.05, 0),
                     child: InkWell(
-                      onTap: () =>
-                          // Providerの初期化処理を挟む===========================================
-                          Navigator.of(context).push(
+                      onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
                             return UserProfileEditPageWidget();
