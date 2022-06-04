@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:seed_app/repository/firestore_repo.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -47,15 +48,15 @@ class ChatTest extends StatelessWidget {
 // https://muchilog.com/flutter-create-listview-lilke-talkapp/
 // scrollControllerインスタンスのanimateTo()を0.0と指定すると一番下(トークの最新値)の場所まで飛べる様になります。
   ScrollController scrollController = ScrollController();
+
+  final FireStoreRepo fireStoreRepo = FireStoreRepo();
+
   final String userID = FirebaseAuth.instance.currentUser!.uid.toString();
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('chatsample')
-          .orderBy('timestamp', descending: true)
-          .snapshots(),
+      stream: fireStoreRepo.getChatStream(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(child: Text('$snapshot.error'));

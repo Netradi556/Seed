@@ -8,6 +8,7 @@ import 'package:seed_app/locator.dart';
 
 // Riverpod
 import 'package:seed_app/provider/auth_provider.dart';
+import 'package:seed_app/repository/auth_repo.dart';
 
 // PageWidgets
 import 'package:seed_app/ui/navigation_controller.dart';
@@ -18,23 +19,80 @@ import '../intro/introduction.dart';
 String _backgroundImagePath = 'assets/images/sea.jpeg';
 String _logoImagePath = 'assets/images/logo.jpg';
 
-// Googleを使ってサインインするメソッド
-Future<UserCredential> signInWithGoogle() async {
-  // 認証フローのトリガー
-  final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: [
-    'email',
-  ]).signIn();
-  // リクエストから、認証情報を取得
-  final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
-  // クレデンシャルを新しく作成
-  final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
-    idToken: googleAuth?.idToken,
-  );
+class AuthGoogleloginPaddingWidget extends StatelessWidget {
+  AuthGoogleloginPaddingWidget({
+    Key? key,
+  }) : super(key: key);
 
-  // サインインしたら、userCredentialを返す
-  return FirebaseAuth.instance.signInWithCredential(credential);
+  final AuthRepo authRepo = AuthRepo();
+
+  @override
+  Widget build(BuildContext context) {
+    bool isUserNew = true;
+
+    return Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+      child: SizedBox(
+        width: 140,
+        height: 40,
+        child: ElevatedButton(
+          onPressed: () async {
+            try {
+              UserCredential? userCredential;
+              userCredential = await signInWithGoogle();
+              if (userCredential.additionalUserInfo!.isNewUser) {
+                await Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => IntroductionPage(),
+                  ),
+                  (r) => false,
+                );
+              } else {
+                locator
+                    .get<UserController>()
+                    .initializeLocalProfilePicturePath();
+                await Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NavigationPageController(),
+                  ),
+                  (r) => false,
+                );
+              }
+            } on FirebaseAuthException catch (e) {
+              print('FirebaseAuthException');
+              print(e.code);
+            } on Exception catch (e) {
+              print('Other Exception');
+              print('$e');
+            }
+          },
+          child: const Text('Google Sign in'),
+          style: const ButtonStyle(),
+        ),
+      ),
+    );
+  }
+
+// Googleを使ってサインインするメソッド
+  Future<UserCredential> signInWithGoogle() async {
+    // 認証フローのトリガー
+    final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: [
+      'email',
+    ]).signIn();
+    // リクエストから、認証情報を取得
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+    // クレデンシャルを新しく作成
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // サインインしたら、userCredentialを返す
+    return authRepo.auth.signInWithCredential(credential);
+  }
 }
 
 class AuthPageWidget extends ConsumerWidget {
@@ -325,61 +383,6 @@ class AuthFoggotpassPaddingWidget extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class AuthGoogleloginPaddingWidget extends StatelessWidget {
-  const AuthGoogleloginPaddingWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    bool isUserNew = true;
-
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
-      child: SizedBox(
-        width: 140,
-        height: 40,
-        child: ElevatedButton(
-          onPressed: () async {
-            try {
-              UserCredential? userCredential;
-              userCredential = await signInWithGoogle();
-              if (userCredential.additionalUserInfo!.isNewUser) {
-                await Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => IntroductionPage(),
-                  ),
-                  (r) => false,
-                );
-              } else {
-                locator
-                    .get<UserController>()
-                    .initializeLocalProfilePicturePath();
-                await Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => NavigationPageController(),
-                  ),
-                  (r) => false,
-                );
-              }
-            } on FirebaseAuthException catch (e) {
-              print('FirebaseAuthException');
-              print(e.code);
-            } on Exception catch (e) {
-              print('Other Exception');
-              print('$e');
-            }
-          },
-          child: const Text('Google Sign in'),
-          style: const ButtonStyle(),
-        ),
       ),
     );
   }

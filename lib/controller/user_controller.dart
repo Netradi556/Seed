@@ -4,11 +4,13 @@ import 'package:path_provider/path_provider.dart';
 import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/repository/auth_repo.dart';
+import 'package:seed_app/repository/firestore_repo.dart';
 import 'package:seed_app/repository/storage_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController {
   UserModel? _currentUser;
+  final FireStoreRepo fireStoreRepo = locator.get<FireStoreRepo>();
   final AuthRepo? _authRepo = locator.get<AuthRepo>();
   final StorageRepo? _storageRepo = locator.get<StorageRepo>();
 
