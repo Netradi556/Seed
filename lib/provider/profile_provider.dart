@@ -5,9 +5,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
   Providerを一纏めにするのあり？
 
 */
+
+// 初回登録
 final profileNameProvider = StateProvider((ref) => '');
 final profileSexProvider = StateProvider((ref) => '');
 final profileBirthdateProvider = StateProvider((ref) => '');
+
+// プロフィールの更新有無チェック
+final profileIsChanged = StateProvider<bool>((ref) {
+  return false;
+});
 
 // 基本情報
 final profileBloodTypeProvider = StateProvider((ref) => '');

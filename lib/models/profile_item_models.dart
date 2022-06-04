@@ -72,6 +72,9 @@ class ProfileItemDetail {
   final List<String> personality =
       c.personality.toList() + ['選択しない', 'default'];
 
+  // 休日
+  final List<String> offDay = c.offDay.toList() + ['選択しない', 'default'];
+
   // 好きな食べ物
   final List<String> name = c.prefectrure.toList() + ['選択しない', 'default'];
 

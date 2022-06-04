@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/provider/profile_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,14 +16,12 @@ class EditProfileItemsList extends StatelessWidget {
   final String itemName;
   final List<String> itemsList;
 
-  final Color itemTextColor = const Color.fromARGB(255, 0, 0, 0);
+  final ProfileItemDetail detailItem = ProfileItemDetail();
 
-  final List<String> bloodType = ['A', 'B', 'O', 'AB'];
+  final Color itemTextColor = const Color.fromARGB(255, 0, 0, 0);
 
   @override
   Widget build(BuildContext context) {
-    String someText = 'testMessage';
-
     return SizedBox(
       width: width,
       child: Column(
@@ -66,9 +65,19 @@ class EditProfileItemsList extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.centerRight,
                         // itemsList[index]の情報をもとにローカルから値を取得----------------------
-                        child: _DropdownItemsWidget(
-                          itemName: '話せる言語',
-                          menuItems: getList('話せる言語'),
+                        child: FutureBuilder(
+                          future: initialize(itemsList[index]),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<String> snapshot) {
+                            if (snapshot.hasData) {
+                              return _DropdownItemsWidget(
+                                itemName: itemsList[index],
+                                menuItems: getList(itemsList[index].toString()),
+                                selected: snapshot.data.toString(),
+                              );
+                            }
+                            return Container();
+                          },
                         ),
                       ),
                     ),
@@ -84,24 +93,84 @@ class EditProfileItemsList extends StatelessWidget {
 
   List<String> getList(itemName) {
     switch (itemName) {
+      // 基本情報=============================
+      case 'ニックネーム':
+        return ['default'];
+      case '年齢':
+        return ['default'];
       case '血液型':
-        return ['A', 'B', 'O', 'AB', 'default'];
+        return detailItem.bloodType;
       case '話せる言語':
-        return ['日本語', '英語', '中国語', 'それ以外', 'default'];
+        return detailItem.language;
       case '居住地':
-        return ['東京', '千葉', '埼玉', '横浜', 'default'];
+        return detailItem.livingPlace;
       case '出身地':
-        return ['北海道', '沖縄', 'default'];
+        return detailItem.birthPlace;
+
+      // 学歴・職歴・外見======================
+      case '学歴':
+        return detailItem.education;
+      case '職種':
+        return detailItem.job;
+      case '年収':
+        return detailItem.income;
+      case '身長':
+        return detailItem.height;
+      case '体型':
+        return detailItem.bodyShape;
+
+      // 性格・趣味・生活======================
+      case '性格・タイプ':
+        return detailItem.personality;
+      case '休日':
+        return detailItem.offDay;
+      case '趣味・好きなこと':
+        return detailItem.hobby;
+      case '同居している人・ペット':
+        return detailItem.livingWith;
+      case '喫煙':
+        return detailItem.smoke;
+      case 'お酒':
+        return detailItem.drink;
+
+      // 恋愛・結婚について=====================
+      case '子供の有無':
+        return detailItem.haveChild;
+      case '結婚に対する意思':
+        return detailItem.marriageWill;
+      case '子供がほしいか':
+        return detailItem.wantKids;
+      case '家事・育児':
+        return detailItem.housework;
+      case '出会うまでの希望':
+        return detailItem.howMeet;
+      case 'デート費用':
+        return detailItem.datingCost;
       default:
         return ['default'];
     }
   }
 }
 
+Future<String> initialize(String itemName) async {
+  String nowParam = 'a';
+  try {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    nowParam = pref.getString(itemName)!;
+  } catch (e) {
+    print(e);
+  }
+  return nowParam;
+}
+
 class _DropdownItemsWidget extends ConsumerWidget {
   StateProvider? getProvider(category) {
     switch (category) {
       // 基本情報=============================
+      case 'ニックネーム':
+        return profileBloodTypeProvider;
+      case '年齢':
+        return profileBloodTypeProvider;
       case '血液型':
         return profileBloodTypeProvider;
       case '話せる言語':
@@ -157,21 +226,23 @@ class _DropdownItemsWidget extends ConsumerWidget {
     return null;
   }
 
-  _DropdownItemsWidget({
-    Key? key,
-    required this.itemName,
-    required this.menuItems,
-  }) : super(key: key);
+  _DropdownItemsWidget(
+      {Key? key,
+      required this.itemName,
+      required this.menuItems,
+      required this.selected})
+      : super(key: key);
 
   final String itemName; // 項目名
   final List<String> menuItems; // ドロップダウンのリスト
-  final double boxWidth = 100;
+  final double boxWidth = 110;
   final double boxHeight = 50;
-  String _selected = 'default';
+  String selected; // = 'default';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final param = ref.watch(getProvider(itemName)!.state);
+    final isChanged = ref.watch(profileIsChanged.state);
     final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
         .map(
           (String value) => DropdownMenuItem(
@@ -185,13 +256,20 @@ class _DropdownItemsWidget extends ConsumerWidget {
       width: boxWidth,
       height: boxHeight,
       child: DropdownButton(
-        value: _selected,
+        isExpanded: true,
+        value: selected,
         items: _dropDownMenuItems,
-        onChanged: (value) {
+        onChanged: (value) async {
+          final SharedPreferences pref = await SharedPreferences.getInstance();
+
           param.state = value as String;
-          _selected = param.state; // 画面の再描写のチェック
-          print(_selected.toString());
-          print(param.hashCode.toString());
+          isChanged.state = true;
+          selected = param.state; // 画面の再描写のチェック
+
+          pref.setString(itemName, param.state);
+          print(pref.getString(itemName)! +
+              ' 変更あり ' +
+              isChanged.state.toString());
         },
       ),
     );

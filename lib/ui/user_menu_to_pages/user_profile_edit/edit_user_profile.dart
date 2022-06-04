@@ -1,15 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:seed_app/error_announce.dart';
 import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/models/user_models.dart';
+import 'package:seed_app/provider/profile_provider.dart';
 import 'package:seed_app/ui/user_menu_to_pages/user_profile_edit/edit_items_list.dart';
 import 'package:seed_app/view_model/user_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /*
     GekiteniusYogi/Seed/lib/ui/mypage/mypage.dart
@@ -32,6 +33,7 @@ class UserProfileEditPageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isChanged = ref.watch(profileIsChanged.state);
     return Material(
       child: Scaffold(
         backgroundColor: const Color(0xFFF5F5F5),
@@ -39,7 +41,14 @@ class UserProfileEditPageWidget extends ConsumerWidget {
         // SilverAppBarに変更、丸みを帯びたデザインに変更
         appBar: AppBar(
           leading: InkWell(
-            onTap: () => Navigator.of(context).pop(),
+            onTap: () {
+              if (isChanged.state == true) {
+                isChanged.state = false;
+                Navigator.of(context).pop();
+              } else {
+                Navigator.of(context).pop();
+              }
+            },
             child: const Icon(Icons.arrow_back_ios_new),
           ),
           elevation: .6,
@@ -81,6 +90,38 @@ class UserProfileEditPageWidget extends ConsumerWidget {
               EditProfileItemsList(
                 itemName: '恋愛・結婚について',
                 itemsList: profileItem.viewOfLove,
+              ),
+              Container(
+                width: double.infinity,
+                height: 100,
+                decoration:
+                    BoxDecoration(color: Color.fromARGB(255, 230, 232, 212)),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        final SharedPreferences pref =
+                            await SharedPreferences.getInstance();
+
+                        print('test');
+                      } catch (e) {}
+
+                      if (1 == 1) {
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: const SizedBox(
+                      height: 50,
+                      width: 200,
+                      child: Center(
+                          child: Text(
+                        '編集内容を決定',
+                        style: TextStyle(fontSize: 18),
+                      )),
+                    ),
+                  ),
+                ),
               )
             ],
           ),
