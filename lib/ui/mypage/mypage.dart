@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
 import 'package:seed_app/ui/mypage/mypage_menu.dart';
 import 'package:seed_app/models/user_models.dart';
-import 'package:seed_app/view_model/user_controller.dart';
+import 'package:seed_app/controller/user_controller.dart';
 import 'package:seed_app/locator.dart';
 
 // Riverpod

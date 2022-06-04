@@ -1,4 +1,0 @@
-ui層と同じ要領で、LoginViewModelなどを作成
-
-状態管理するProviderクラスを格納する？？？
-

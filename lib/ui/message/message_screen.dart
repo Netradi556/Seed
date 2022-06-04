@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:seed_app/repository/firestore_repo.dart';
 import 'package:seed_app/ui/message/chat_screen.dart';
-
-import 'package:seed_app/view_model/chat_model.dart';
 
 class MessageScreenWidget extends StatelessWidget {
   MessageScreenWidget({
     Key? key,
   }) : super(key: key);
 
-  ChatDatabaseMethod chatDatabaseMethod = ChatDatabaseMethod();
+  FireStoreRepo fireStoreRepo = FireStoreRepo();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class MessageScreenWidget extends StatelessWidget {
               child: ListTile(
                 onTap: () {
                   // チャットの内容（名前・メッセージ）はStreamで取得
-                  chatDatabaseMethod.getUserByUsername('');
+                  fireStoreRepo.getUserByUsername('');
 
                   Navigator.of(context).push(
                     MaterialPageRoute(

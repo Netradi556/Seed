@@ -10,7 +10,7 @@ import 'package:seed_app/ui/user_menu_to_pages/user_profile/introduction_card.da
 
 import 'package:seed_app/ui/user_menu_to_pages/user_profile/items_list.dart';
 import 'package:seed_app/ui/user_menu_to_pages/user_profile/score.dart';
-import 'package:seed_app/view_model/user_controller.dart';
+import 'package:seed_app/controller/user_controller.dart';
 
 /*
   ユーザーのプロフィールを表示する画面

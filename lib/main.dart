@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:seed_app/ui/auth_to_intro/auth/auth.dart';
 import 'package:seed_app/locator.dart';
-import 'package:seed_app/view_model/user_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

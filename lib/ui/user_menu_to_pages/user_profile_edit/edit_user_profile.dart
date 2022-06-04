@@ -9,7 +9,7 @@ import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/provider/profile_provider.dart';
 import 'package:seed_app/ui/user_menu_to_pages/user_profile_edit/edit_items_list.dart';
-import 'package:seed_app/view_model/user_controller.dart';
+import 'package:seed_app/controller/user_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /*
@@ -41,9 +41,37 @@ class UserProfileEditPageWidget extends ConsumerWidget {
         // SilverAppBarに変更、丸みを帯びたデザインに変更
         appBar: AppBar(
           leading: InkWell(
-            onTap: () {
+            onTap: () async {
               if (isChanged.state == true) {
                 isChanged.state = false;
+
+                final SharedPreferences pref =
+                    await SharedPreferences.getInstance();
+
+                final List<String> allItemName = profileItem.basicInfo +
+                    profileItem.lifeStyleInfo +
+                    profileItem.socialInfo +
+                    profileItem.viewOfLove;
+
+                Map<String, String> editedContents = {};
+
+                for (var i = 0; i < allItemName.length; i++) {
+                  String? param = pref.getString(allItemName[i]);
+
+                  if (param == null) {
+                    param = '';
+                  } else {
+                    // do nothing
+                  }
+                  editedContents.addAll({
+                    allItemName[i]: param,
+                  });
+                }
+
+                await locator
+                    .get<UserController>()
+                    .uploadEditedContents(editedContents);
+
                 Navigator.of(context).pop();
               } else {
                 Navigator.of(context).pop();
@@ -104,8 +132,12 @@ class UserProfileEditPageWidget extends ConsumerWidget {
                         final SharedPreferences pref =
                             await SharedPreferences.getInstance();
 
+                        // ignore: avoid_print
                         print('test');
-                      } catch (e) {}
+                      } catch (e) {
+                        // ignore: avoid_print
+                        print(e);
+                      }
 
                       if (1 == 1) {
                         Navigator.of(context).pop();
@@ -148,7 +180,7 @@ class ProfilePicturesEdit extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final UserModel? _currentUser = locator.get<UserController>().currentUser;
+  // final UserModel? _currentUser = locator.get<UserController>().currentUser;
   final ImagePicker _picker = ImagePicker();
 
   @override

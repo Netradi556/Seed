@@ -10,8 +10,8 @@ import 'package:seed_app/locator.dart';
 import 'package:seed_app/provider/auth_provider.dart';
 
 // PageWidgets
-import 'package:seed_app/ui/navigtion_controller.dart';
-import 'package:seed_app/view_model/user_controller.dart';
+import 'package:seed_app/ui/navigation_controller.dart';
+import 'package:seed_app/controller/user_controller.dart';
 import 'forgot_pass.dart';
 import '../intro/introduction.dart';
 
