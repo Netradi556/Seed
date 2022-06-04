@@ -39,12 +39,11 @@ class UserProfilePageWidget extends ConsumerWidget {
 
   final List<String> lifeStyleInfo = [
     '性格・タイプ',
-    '子供の有無',
-    '結婚に対する意思',
-    '子供がほしいか',
-    '家事・育児',
-    '出会うまでの希望',
-    '初回デート費用',
+    '好きな食べ物',
+    '趣味・好きなこと',
+    'ペット',
+    '喫煙',
+    'お酒',
   ];
 
   final List<String> socialInfo = [
@@ -56,7 +55,6 @@ class UserProfilePageWidget extends ConsumerWidget {
   ];
 
   final List<String> viewOfLove = [
-    '性格・タイプ',
     '子供の有無',
     '結婚に対する意思',
     '子供がほしいか',

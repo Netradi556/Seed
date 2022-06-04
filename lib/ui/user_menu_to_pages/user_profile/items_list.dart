@@ -39,7 +39,7 @@ class ProfileItemsList extends StatelessWidget {
             itemBuilder: (BuildContext context, index) {
               return SizedBox(
                 width: 80,
-                height: 35,
+                height: 38,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

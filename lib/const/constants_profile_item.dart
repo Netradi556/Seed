@@ -1,8 +1,1 @@
-const basicInfo = [
-  'ニックネーム',
-  '年齢',
-  '血液型',
-  '話せる言語',
-  '居住地',
-  '出身地',
-];
+// TODO Implement this library.

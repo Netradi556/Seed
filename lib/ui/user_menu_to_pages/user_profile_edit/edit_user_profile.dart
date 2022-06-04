@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:seed_app/error_announce.dart';
 import 'package:seed_app/locator.dart';
+import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/ui/user_menu_to_pages/user_profile_edit/edit_items_list.dart';
 import 'package:seed_app/view_model/user_controller.dart';
@@ -27,43 +28,7 @@ class UserProfileEditPageWidget extends ConsumerWidget {
   final Color appBarBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
 
   final UserModel? _currentUser = locator.get<UserController>().currentUser;
-
-  final List<String> basicInfo = [
-    'ニックネーム',
-    '年齢',
-    '血液型',
-    '話せる言語',
-    '居住地',
-    '出身地',
-  ];
-
-  final List<String> lifeStyleInfo = [
-    '性格・タイプ',
-    '子供の有無',
-    '結婚に対する意思',
-    '子供がほしいか',
-    '家事・育児',
-    '出会うまでの希望',
-    '初回デート費用',
-  ];
-
-  final List<String> socialInfo = [
-    '学歴',
-    '職種',
-    '年収',
-    '身長',
-    '体型',
-  ];
-
-  final List<String> viewOfLove = [
-    '性格・タイプ',
-    '子供の有無',
-    '結婚に対する意思',
-    '子供がほしいか',
-    '家事・育児',
-    '出会うまでの希望',
-    '初回デート費用',
-  ];
+  final ProfileItem profileItem = ProfileItem();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -100,22 +65,22 @@ class UserProfileEditPageWidget extends ConsumerWidget {
               ),
               EditProfileItemsList(
                 itemName: '基本情報',
-                itemsList: basicInfo,
+                itemsList: profileItem.basicInfo,
               ),
               // 学歴・職種・外見
               EditProfileItemsList(
                 itemName: '学歴・職種・外見',
-                itemsList: socialInfo,
+                itemsList: profileItem.socialInfo,
               ),
               // 性格・趣味・生活
               EditProfileItemsList(
                 itemName: '性格・趣味・生活',
-                itemsList: lifeStyleInfo,
+                itemsList: profileItem.lifeStyleInfo,
               ),
               // 恋愛・結婚について
               EditProfileItemsList(
                 itemName: '恋愛・結婚について',
-                itemsList: viewOfLove,
+                itemsList: profileItem.viewOfLove,
               )
             ],
           ),
@@ -153,12 +118,6 @@ class ProfilePicturesEdit extends ConsumerWidget {
         onTap: () async {
           try {
             XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-            /* if (image == null) {
-              // do nothing
-              print('ここまでOK 3');
-              return;
-            }
-            */
 
             final imageTemporary = File(image!.path);
             await locator
