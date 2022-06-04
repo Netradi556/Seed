@@ -11,7 +11,7 @@ import 'package:seed_app/provider/auth_provider.dart';
 
 // PageWidgets
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
-import 'package:seed_app/ui/navigtion_controller.dart';
+import 'package:seed_app/ui/navigation_controller.dart';
 
 /*
   LoginとSing up画面のWidget
