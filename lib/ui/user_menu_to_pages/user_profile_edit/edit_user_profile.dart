@@ -53,6 +53,7 @@ class UserProfileEditPageWidget extends ConsumerWidget {
                     profileItem.socialInfo +
                     profileItem.viewOfLove;
 
+                // ==============================================================任意で追加したかったらここ
                 Map<String, String> editedContents = {};
 
                 for (var i = 0; i < allItemName.length; i++) {
@@ -124,34 +125,16 @@ class UserProfileEditPageWidget extends ConsumerWidget {
                 height: 100,
                 decoration:
                     BoxDecoration(color: Color.fromARGB(255, 230, 232, 212)),
-                child: Align(
+                child: const Align(
                   alignment: Alignment.topCenter,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        final SharedPreferences pref =
-                            await SharedPreferences.getInstance();
-
-                        // ignore: avoid_print
-                        print('test');
-                      } catch (e) {
-                        // ignore: avoid_print
-                        print(e);
-                      }
-
-                      if (1 == 1) {
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    child: const SizedBox(
-                      height: 50,
-                      width: 200,
-                      child: Center(
-                          child: Text(
-                        '編集内容を決定',
-                        style: TextStyle(fontSize: 18),
-                      )),
-                    ),
+                  child: SizedBox(
+                    height: 50,
+                    width: 200,
+                    child: Center(
+                        child: Text(
+                      '自己紹介文の編集欄',
+                      style: TextStyle(fontSize: 18),
+                    )),
                   ),
                 ),
               )

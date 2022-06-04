@@ -20,12 +20,8 @@ String _backgroundImagePath = 'assets/images/sea.jpeg';
 String _logoImagePath = 'assets/images/logo.jpg';
 
 class AuthGoogleloginPaddingWidget extends StatelessWidget {
-  AuthGoogleloginPaddingWidget({
-    Key? key,
-  }) : super(key: key);
-
+  AuthGoogleloginPaddingWidget({Key? key}) : super(key: key);
   final AuthRepo authRepo = AuthRepo();
-
   @override
   Widget build(BuildContext context) {
     bool isUserNew = true;
@@ -91,7 +87,7 @@ class AuthGoogleloginPaddingWidget extends StatelessWidget {
     );
 
     // サインインしたら、userCredentialを返す
-    return authRepo.auth.signInWithCredential(credential);
+    return authRepo.auth1.signInWithCredential(credential);
   }
 }
 
@@ -121,19 +117,19 @@ class AuthPageWidget extends ConsumerWidget {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
-              children: const [
+              children: [
                 // ロゴ表示
-                AuthLogoPaddingWidget(),
+                const AuthLogoPaddingWidget(),
                 // メールアドレス入力
-                AuthEmailboxPaddingWidget(),
+                const AuthEmailboxPaddingWidget(),
                 // パスワード入力
-                AuthPassboxPaddingWidget(),
+                const AuthPassboxPaddingWidget(),
                 // ログインボタン
-                AuthLoginEbuttonWidget(),
+                const AuthLoginEbuttonWidget(),
                 // "アカウントを持ってない場合？"のテキスト
-                AuthFoggotpassPaddingWidget(),
+                const AuthFootpadsPaddingWidget(),
                 // アカウント新規登録のボタン
-                AuthCreatePaddingWidget(),
+                const AuthCreatePaddingWidget(),
                 // Googleログインのボタン
                 AuthGoogleloginPaddingWidget(),
               ],
@@ -348,8 +344,8 @@ class AuthCreatePaddingWidget extends StatelessWidget {
   }
 }
 
-class AuthFoggotpassPaddingWidget extends StatelessWidget {
-  const AuthFoggotpassPaddingWidget({
+class AuthFootpadsPaddingWidget extends StatelessWidget {
+  const AuthFootpadsPaddingWidget({
     Key? key,
   }) : super(key: key);
 

@@ -4,7 +4,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepo {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // _authとプライベートアクセスに変更すること：セキュリティ面の理由から
+  final FirebaseAuth auth1 = FirebaseAuth.instance;
 
   AuthRepo();
 
@@ -18,12 +20,12 @@ class AuthRepo {
       idToken: googleAuth?.idToken,
     );
 
-    final User? user = (await _auth.signInWithCredential(credential)).user;
+    final User? user = (await auth1.signInWithCredential(credential)).user;
     return user;
   }
 
   Future<UserModel> getUser() async {
-    var firebaseUser = _auth.currentUser!;
+    var firebaseUser = auth1.currentUser!;
     return UserModel(firebaseUser.uid,
         displayName: firebaseUser.displayName, avatarUrl: '');
   }

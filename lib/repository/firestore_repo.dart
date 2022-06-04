@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:seed_app/locator.dart';
+import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/repository/auth_repo.dart';
 
 class FireStoreRepo {
@@ -24,12 +25,15 @@ class FireStoreRepo {
 // ユーザープロフィール関係の処理=====================================================
   // ユーザープロファイルの情報をアップロード
   Future<void> updateProfile(Map<String, String> editedContents) async {
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc('')
-        .update({'name': 'ymktmk'});
+    UserModel user = await _authRepo.getUser();
+    var userId = user.uid;
 
-    print('');
+    FirebaseFirestore.instance
+        .collection('user')
+        .doc(userId)
+        .update(editedContents);
+
+    print('実行');
   }
 
   // TOP画面でユーザー情報を取得するときの処理
