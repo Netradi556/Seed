@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:seed_app/locator.dart';
 
 // Riverpod
 import 'package:seed_app/provider/auth_provider.dart';
 
 // PageWidgets
-import 'package:seed_app/ui/navigtion_controller.dart';
+import 'package:seed_app/ui/navigation_controller.dart';
+import 'package:seed_app/controller/user_controller.dart';
 import 'forgot_pass.dart';
 import '../intro/introduction.dart';
 
@@ -356,6 +358,9 @@ class AuthGoogleloginPaddingWidget extends StatelessWidget {
                   (r) => false,
                 );
               } else {
+                locator
+                    .get<UserController>()
+                    .initializeLocalProfilePicturePath();
                 await Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(

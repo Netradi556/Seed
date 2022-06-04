@@ -1,11 +1,9 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:seed_app/ui/user_menu_to_pages/user_profile_edit/user_profile_edit.dart';
+import 'package:seed_app/ui/user_menu_to_pages/user_profile_edit/edit_user_profile.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
 import 'package:seed_app/ui/mypage/mypage_menu.dart';
 import 'package:seed_app/models/user_models.dart';
-import 'package:seed_app/view_model/user_controller.dart';
+import 'package:seed_app/controller/user_controller.dart';
 import 'package:seed_app/locator.dart';
 
 // Riverpod
@@ -34,9 +32,10 @@ class MypagePageWidget extends ConsumerWidget {
   final String? userId = FirebaseAuth.instance.currentUser?.uid;
   final UserModel? _currentUser = locator.get<UserController>().currentUser;
 
+  MypagePageWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final paramName = ref.watch(profileNameProvider.state);
     return Scaffold(
       key: scaffoldKey,
       body: SafeArea(
@@ -56,7 +55,7 @@ class MypagePageWidget extends ConsumerWidget {
                 children: [
                   // プロフィール画像
                   Align(
-                    alignment: AlignmentDirectional(-0.8, 0),
+                    alignment: const AlignmentDirectional(-0.8, 0),
                     child: Avatar(
                       avatarUrl: _currentUser?.avatarUrl,
                       onTap: () {},
@@ -101,28 +100,21 @@ class MypagePageWidget extends ConsumerWidget {
                   Align(
                     alignment: const AlignmentDirectional(0.55, 0),
                     child: InkWell(
-                      onTap: () => Navigator.of(context).push(
+                      onTap: () =>
+                          // Providerの初期化処理
+                          Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
                             return UserProfilePageWidget();
                           },
                         ),
                       ),
-                      child: InkWell(
-                        onTap: () =>
-                            // Providerの初期化処理
-
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                          return UserProfilePageWidget();
-                        })),
-                        child: Text(
-                          'my profile',
-                          textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Poppins',
-                            color: const Color(0xFF646CF2),
-                          ),
+                      child: Text(
+                        'my profile',
+                        textAlign: TextAlign.start,
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Poppins',
+                          color: const Color(0xFF646CF2),
                         ),
                       ),
                     ),
@@ -156,7 +148,11 @@ class Avatar extends StatelessWidget {
   final String? avatarUrl;
   final void Function()? onTap;
 
-  const Avatar({this.avatarUrl, this.onTap});
+  const Avatar({
+    Key? key,
+    this.avatarUrl,
+    this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +166,7 @@ class Avatar extends StatelessWidget {
               )
             : CircleAvatar(
                 radius: 50.0,
-                backgroundImage: NetworkImage(avatarUrl!),
+                backgroundImage: Image.file(File(avatarUrl!)).image,
               ),
       ),
     );
@@ -180,7 +176,10 @@ class Avatar extends StatelessWidget {
 // 未完成・整理予定------------------------------
 
 class GetUserName extends StatelessWidget {
-  const GetUserName({required this.documentId});
+  const GetUserName({
+    Key? key,
+    required this.documentId,
+  }) : super(key: key);
 
   final String documentId;
 

@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 class ProfileItemsList extends StatelessWidget {
   const ProfileItemsList({
     Key? key,
-    required this.height,
-    required this.width,
     required this.itemName,
     required this.itemsList,
   }) : super(key: key);
 
-  final double width;
-  final double height;
+  final double width = 350;
 
   final String itemName;
   final List<String> itemsList;
@@ -21,10 +18,10 @@ class ProfileItemsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: height,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          const SizedBox(height: 30),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -42,7 +39,7 @@ class ProfileItemsList extends StatelessWidget {
             itemBuilder: (BuildContext context, index) {
               return SizedBox(
                 width: 80,
-                height: 35,
+                height: 38,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

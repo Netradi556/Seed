@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // PageWidgets
-import 'package:seed_app/ui/navigtion_controller.dart';
+import 'package:seed_app/ui/navigation_controller.dart';
 
 // Riverpod
 import 'package:seed_app/provider/profile_provider.dart';
