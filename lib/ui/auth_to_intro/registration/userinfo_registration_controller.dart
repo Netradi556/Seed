@@ -47,9 +47,9 @@ class RegistrationPageController extends ConsumerWidget {
                 child: PageView(
                   controller: controller,
                   scrollDirection: Axis.horizontal,
-                  children: const [
-                    RegistrationPage1(),
-                    RegistrationPage2(),
+                  children: [
+                    const RegistrationPage1(),
+                    const RegistrationPage2(),
                     RegistrationPage3(),
                   ],
                 ),

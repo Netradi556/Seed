@@ -40,19 +40,19 @@ class RegistrationPage1 extends ConsumerWidget {
               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
             ),
             // 性別の選択欄
-            DropdownItemsWidget(
+            const DropdownItemsWidget(
               boxWidth: double.infinity,
               boxHeight: 60,
               itemName: '性別',
-              menuItems: const ['未選択', '男性', '女性'],
+              menuItems: ['未選択', '男性', '女性'],
             ),
             const Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
             ),
             // 生年月日の入力欄
-            YearDateItemsWidget(
+            const YearDateItemsWidget(
               boxWidth: 330,
-              boxHeight: 60,
+              boxHeight: 120,
             ),
           ],
         ),
@@ -132,7 +132,7 @@ class DropdownItemsWidget extends ConsumerWidget {
     return null;
   }
 
-  DropdownItemsWidget({
+  const DropdownItemsWidget({
     Key? key,
     required this.boxWidth,
     required this.boxHeight,
@@ -144,10 +144,10 @@ class DropdownItemsWidget extends ConsumerWidget {
   final List<String> menuItems; // ドロップダウンのリスト
   final double boxWidth;
   final double boxHeight;
-  String _selected = '未選択';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    String _selected = '未選択';
     final param1 = ref.watch(firstRegistrationProvider.state);
     final param = ref.watch(getProvider(itemName)!.state);
 
@@ -166,8 +166,13 @@ class DropdownItemsWidget extends ConsumerWidget {
       child: Column(
         children: [
           ListTile(
-            title: Text(itemName),
+            contentPadding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+            title: Text(
+              itemName,
+              style: const TextStyle(fontSize: 20),
+            ),
             trailing: DropdownButton(
+              style: const TextStyle(fontSize: 20, color: Colors.black),
               value: _selected,
               items: _dropDownMenuItems,
               onChanged: (value) {
@@ -184,7 +189,7 @@ class DropdownItemsWidget extends ConsumerWidget {
 }
 
 class YearDateItemsWidget extends ConsumerWidget {
-  YearDateItemsWidget({
+  const YearDateItemsWidget({
     Key? key,
     required this.boxWidth,
     required this.boxHeight,
@@ -192,48 +197,61 @@ class YearDateItemsWidget extends ConsumerWidget {
 
   final double boxWidth;
   final double boxHeight;
-  var now = DateTime.now();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var now = DateTime.now();
     final param = ref.watch(profileBirthdateProvider.state);
+
     return SizedBox(
       width: boxWidth,
       height: boxHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text('生年月日'),
+          const Text('生年月日', style: TextStyle(fontSize: 20)),
           // DateFormat.yMMMMEEEEd('ja').format(now).toString()
           // param.state.toString()
-          Text(DateFormat('yyyy-MM-dd').format(now).toString()),
-          IconButton(
-            icon: const Icon(FontAwesomeIcons.calendarAlt),
-            color: Colors.amber,
-            onPressed: () async {
-              final selectedDate = await showDatePicker(
-                context: context,
-                initialDatePickerMode: DatePickerMode.year, // 最初に年から入力
-                initialDate: DateTime(DateTime.now().year - 22),
-                firstDate: DateTime(
-                  DateTime.now().year - 100,
-                  DateTime.now().month,
-                  DateTime.now().day,
-                ), // 選択可能な最も古い日付
-                lastDate: DateTime(
-                  DateTime.now().year - 20,
-                  DateTime.now().month,
-                  DateTime.now().day,
-                ), // 選択可能な最も新しい日付
-              );
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(
+                  FontAwesomeIcons.calendarAlt,
+                ),
+                iconSize: 35,
+                color: Colors.amber,
+                onPressed: () async {
+                  final selectedDate = await showDatePicker(
+                    context: context,
+                    initialDatePickerMode: DatePickerMode.year, // 最初に年から入力
+                    initialDate: DateTime(DateTime.now().year - 22),
+                    firstDate: DateTime(
+                      DateTime.now().year - 100,
+                      DateTime.now().month,
+                      DateTime.now().day,
+                    ), // 選択可能な最も古い日付
+                    lastDate: DateTime(
+                      DateTime.now().year - 20,
+                      DateTime.now().month,
+                      DateTime.now().day,
+                    ), // 選択可能な最も新しい日付
+                  );
 
-              if (selectedDate != null) {
-                now = selectedDate;
-                param.state = selectedDate.toString();
-                // do something
-              }
-            },
-          )
+                  if (selectedDate != null) {
+                    now = selectedDate;
+                    param.state = selectedDate.toString();
+                    // do something
+
+                  }
+                },
+              ),
+              Text(
+                DateFormat('yyyy-MM-dd').format(now).toString(),
+                style: const TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
         ],
       ),
     );
