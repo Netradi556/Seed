@@ -1,5 +1,3 @@
-import 'package:seed_app/const/constants_profile_item.dart';
-
 const bloodType = {
   'A',
   'B',

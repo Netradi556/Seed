@@ -26,7 +26,6 @@ class ProfileItem {
   ];
 
   final List<String> viewOfLove = [
-    '性格・タイプ',
     '子供の有無',
     '結婚に対する意思',
     '子供がほしいか',

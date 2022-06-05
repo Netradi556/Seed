@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:seed_app/locator.dart';
 
 // Riverpod
@@ -164,7 +163,7 @@ class EmailTextForm extends ConsumerWidget {
               contentPadding:
                   const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
             ),
-            style: const TextStyle(color: Colors.amber),
+            style: const TextStyle(color: Color.fromARGB(255, 8, 8, 8)),
           ),
         ),
       ),
@@ -228,7 +227,7 @@ class PasswordTextForm extends ConsumerWidget {
                     : Icons.visibility_off_outlined),
               ),
             ),
-            style: const TextStyle(color: Colors.amber),
+            style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
           ),
         ),
       ),
@@ -264,6 +263,7 @@ class MailAddressLogInButton extends ConsumerWidget {
         child: InkWell(
           child: const Text('ログイン'),
           onTap: () async {
+            print(password.state.toString());
             try {
               final UserCredential userCredential =
                   await authRepo.signInWithEmailAddress(
@@ -282,7 +282,7 @@ class MailAddressLogInButton extends ConsumerWidget {
                 await Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) {
-                      return NavigationPageController();
+                      return IntroductionPage();
                     },
                   ),
                 );

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -228,7 +230,7 @@ class _UserTopSearchArea extends ConsumerWidget {
 }
 
 class UserCard extends StatelessWidget {
-  const UserCard({
+  UserCard({
     Key? key,
     required this.imagePath,
   }) : super(key: key);
@@ -243,87 +245,97 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double angle = doubleInRange(Random(), -0.04, 0.04);
+    print(angle.toString());
+
     return Transform.rotate(
       alignment: Alignment.center,
-      angle: -0.04,
+      angle: angle,
+
       // 大枠
-      child: SizedBox(
-        width: 170,
-        height: 300,
-        // elevationプロパティで影をつける
-        // shapeプロパティで枠の形、太さ、色を決定
-        child: Material(
-          color: userCardBackground,
-          elevation: 1,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-              width: 1,
-              color: borderlineOutsideCard,
+      child: InkWell(
+        onTap: () {},
+        child: SizedBox(
+          width: 170,
+          height: 300,
+          // elevationプロパティで影をつける
+          // shapeプロパティで枠の形、太さ、色を決定
+          child: Material(
+            color: userCardBackground,
+            elevation: 1,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                width: 1,
+                color: borderlineOutsideCard,
+              ),
             ),
-          ),
-          // 中枠の余白
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(3, 8, 3, 2),
-            // 中枠内の配置
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // 影の作成のためにMaterialWidgetを利用
-                Material(
-                  elevation: 0.8,
-                  child: Container(
-                    padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
-                    width: 165,
-                    height: 170,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(imagePath),
-                        fit: BoxFit.fitWidth,
+            // 中枠の余白
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(3, 8, 3, 2),
+              // 中枠内の配置
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // 影の作成のためにMaterialWidgetを利用
+                  Material(
+                    elevation: 0.8,
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
+                      width: 165,
+                      height: 170,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(imagePath),
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 2),
-                // 年齢 居住地
-                const SizedBox(
-                  width: 160,
-                  height: 22,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
+                  const SizedBox(height: 2),
+                  // 年齢 居住地
+                  const SizedBox(
+                    width: 160,
+                    height: 22,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "25歳  東京",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 13,
+                          fontFamily: "Roboto",
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  // 挨拶文
+                  const SizedBox(
+                    width: 165,
+                    height: 41,
                     child: Text(
-                      "25歳  東京",
+                      "このご時世ですが前向きに進めたいのでまた再開😄",
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Color(0x75000000),
                         fontSize: 13,
                         fontFamily: "Roboto",
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 2),
-                // 挨拶文
-                const SizedBox(
-                  width: 165,
-                  height: 41,
-                  child: Text(
-                    "このご時世ですが前向きに進めたいのでまた再開😄",
-                    style: TextStyle(
-                      color: Color(0x75000000),
-                      fontSize: 13,
-                      fontFamily: "Roboto",
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
   }
+
+  double doubleInRange(Random source, num start, num end) =>
+      source.nextDouble() * (end - start) + start;
 }
 
 // 完成-------------------------------------------------------

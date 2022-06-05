@@ -36,6 +36,18 @@ class FireStoreRepo {
     print('実行');
   }
 
+  Future<void> setProfile(Map<String, String> editedContents) async {
+    UserModel user = await _authRepo.getUser();
+    var userId = user.uid;
+
+    FirebaseFirestore.instance
+        .collection('user')
+        .doc(userId)
+        .set(editedContents);
+
+    print('実行');
+  }
+
   // TOP画面でユーザー情報を取得するときの処理
 
   // ユーザーが「いいね！」を押したときの処理

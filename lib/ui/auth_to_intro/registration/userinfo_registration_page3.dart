@@ -1,6 +1,4 @@
 // Packages
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/controller/user_controller.dart';
@@ -29,7 +27,6 @@ class RegistrationPage3 extends ConsumerWidget {
     final paramBirthDate = ref.watch(profileBirthdateProvider.state);
     final paramSex = ref.watch(profileSexProvider.state);
     final paramName = ref.watch(profileNameProvider.state);
-    final String? userId = FirebaseAuth.instance.currentUser?.uid;
 
     return Scaffold(
       backgroundColor: const Color(0xFFFFF153),
@@ -59,11 +56,17 @@ class RegistrationPage3 extends ConsumerWidget {
                 child: ElevatedButton(
                   child: const Text('登録を完了する'),
                   onPressed: () async {
-                    if (paramSex.state.toString() != '未選択' ||
+                    if (paramSex.state.toString() == '未選択' ||
                         paramName.state.toString() == '' ||
-                        paramBirthDate.state == '') {
+                        paramBirthDate.state.toString() == '') {
                       // ================================情報が選択されていなかった場合は、警告を表示し登録させない
 
+                      // ignore: avoid_print
+                      print(paramSex.state.toString());
+                      // ignore: avoid_print
+                      print(paramName.state.toString());
+                      // ignore: avoid_print
+                      print(paramBirthDate.state.toString());
                     } else {
                       try {
                         final SharedPreferences pref =
@@ -75,25 +78,25 @@ class RegistrationPage3 extends ConsumerWidget {
                         pref.setString(
                             'birthDate', paramBirthDate.state.toString());
 
-                        await userController.uploadEditedContents(
+                        await userController.firstUploadEditedContents(
                           {
                             'handleName': paramName.state.toString(),
                             'sex': paramSex.state.toString(),
                             'birthDate': paramBirthDate.state.toString(),
                           },
                         );
+
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return NavigationPageController();
+                            },
+                          ),
+                        );
                       } catch (e) {
                         // ignore: avoid_print
                         print(e);
                       }
-
-                      await Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return NavigationPageController();
-                          },
-                        ),
-                      );
                     }
                   },
                 ),

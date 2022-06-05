@@ -33,6 +33,12 @@ class UserController {
     print('到達');
   }
 
+  Future<void> firstUploadEditedContents(
+      Map<String, String> editingContents) async {
+    await _fireStoreRepo.setProfile(editingContents);
+    print('到達');
+  }
+
   // 画像保存の処理==============================================================
 
   Future<void> uploadProfilePicture(File image) async {
