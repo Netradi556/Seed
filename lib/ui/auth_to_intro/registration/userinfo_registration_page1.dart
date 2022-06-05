@@ -15,7 +15,6 @@ class RegistrationPage1 extends ConsumerWidget {
   const RegistrationPage1({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
       child: SingleChildScrollView(
@@ -31,7 +30,7 @@ class RegistrationPage1 extends ConsumerWidget {
                   child: Text('最初に登録する情報は3つだけです！')),
             ),
             // ニックネームの入力欄
-            const TextformItemsWidget(
+            TextFormItemsWidget(
               boxWidth: 330,
               boxHeight: 100,
               itemName: 'ニックネーム',
@@ -41,7 +40,7 @@ class RegistrationPage1 extends ConsumerWidget {
             ),
             // 性別の選択欄
             DropdownItemsWidget(
-              boxWidth: 330,
+              boxWidth: double.infinity,
               boxHeight: 60,
               itemName: '性別',
               menuItems: const ['未選択', '男性', '女性'],
@@ -52,7 +51,7 @@ class RegistrationPage1 extends ConsumerWidget {
             // 生年月日の入力欄
             YearDateItemsWidget(
               boxWidth: 330,
-              boxHeight: 60,
+              boxHeight: 120,
             ),
           ],
         ),
@@ -61,74 +60,77 @@ class RegistrationPage1 extends ConsumerWidget {
   }
 }
 
-class YearDateItemsWidget extends ConsumerWidget {
-  YearDateItemsWidget({
+// ignore: must_be_immutable
+class TextFormItemsWidget extends ConsumerWidget {
+  TextFormItemsWidget({
     Key? key,
-    required this.boxWidth,
+    required this.itemName,
     required this.boxHeight,
+    required this.boxWidth,
   }) : super(key: key);
 
+  final String itemName; // 項目名
   final double boxWidth;
   final double boxHeight;
-  var now = DateTime.now();
 
+  String defaultParam = '';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final param = ref.watch(profileBirthdateProvider.state);
+    final param = ref.watch(profileNameProvider.state);
+
+    defaultParam = param.state;
+
     return SizedBox(
       width: boxWidth,
       height: boxHeight,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('生年月日'),
-          // DateFormat.yMMMMEEEEd('ja').format(now).toString()
-          // param.state.toString()
-          Text(DateFormat('yyyy-MM-dd').format(now).toString()),
-          IconButton(
-            icon: const Icon(FontAwesomeIcons.calendarAlt),
-            color: Colors.amber,
-            onPressed: () async {
-              final selectedDate = await showDatePicker(
-                context: context,
-                initialDatePickerMode: DatePickerMode.year, // 最初に年から入力
-                initialDate: DateTime(DateTime.now().year - 22),
-                firstDate: DateTime(
-                  DateTime.now().year - 100,
-                  DateTime.now().month,
-                  DateTime.now().day,
-                ), // 選択可能な最も古い日付
-                lastDate: DateTime(
-                  DateTime.now().year - 20,
-                  DateTime.now().month,
-                  DateTime.now().day,
-                ), // 選択可能な最も新しい日付
-              );
-
-              if (selectedDate != null) {
-                now = selectedDate;
-                param.state = selectedDate.toString();
-                // do something
-              }
-            },
-          )
+          Row(
+            children: const [
+              Text(
+                'アプリ内での表示名',
+                style: TextStyle(fontSize: 17),
+              ),
+              Text(
+                '（後から変更できません）',
+                style: TextStyle(fontSize: 13),
+              ),
+            ],
+          ),
+          ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxHeight: 80,
+              minHeight: 40,
+            ),
+            child: TextFormField(
+              initialValue: defaultParam,
+              onChanged: (String value) {
+                param.state = value;
+                defaultParam = value;
+              },
+              obscureText: false,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              maxLength: 10,
+              decoration: const InputDecoration(
+                filled: true,
+                fillColor: Color(0x98D4D5D8),
+                contentPadding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+              ),
+              style: const TextStyle(
+                color: Color(0xC4000000),
+                fontSize: 25,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
+// ignore: must_be_immutable
 class DropdownItemsWidget extends ConsumerWidget {
-  StateProvider? getProvider(category) {
-    switch (category) {
-      case '性別':
-        return profileSexProvider;
-      default:
-        break;
-    }
-    return null;
-  }
-
   DropdownItemsWidget({
     Key? key,
     required this.boxWidth,
@@ -145,8 +147,11 @@ class DropdownItemsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final param1 = ref.watch(firstRegistrationProvider.state);
-    final param = ref.watch(getProvider(itemName)!.state);
+    final param = ref.watch(profileSexProvider.state);
+    if (param.state != '') {
+      _selected = param.state;
+    }
+
     final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
         .map(
           (String value) => DropdownMenuItem(
@@ -162,14 +167,20 @@ class DropdownItemsWidget extends ConsumerWidget {
       child: Column(
         children: [
           ListTile(
-            title: Text(itemName),
+            contentPadding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+            title: Text(
+              itemName,
+              style: const TextStyle(fontSize: 20),
+            ),
             trailing: DropdownButton(
+              style: const TextStyle(fontSize: 20, color: Colors.black),
               value: _selected,
               items: _dropDownMenuItems,
               onChanged: (value) {
                 param.state = value as String;
-                _selected = param.state; // 画面の再描写のチェック
-                print(_selected.toString());
+                _selected = param.state;
+                // ignore: avoid_print
+                print(param.state.toString());
               },
             ),
           ),
@@ -179,45 +190,70 @@ class DropdownItemsWidget extends ConsumerWidget {
   }
 }
 
-class TextformItemsWidget extends ConsumerWidget {
-  const TextformItemsWidget({
+// ignore: must_be_immutable
+class YearDateItemsWidget extends ConsumerWidget {
+  YearDateItemsWidget({
     Key? key,
-    required this.itemName,
-    required this.boxHeight,
     required this.boxWidth,
+    required this.boxHeight,
   }) : super(key: key);
 
-  final String itemName; // 項目名
   final double boxWidth;
   final double boxHeight;
-
+  DateTime now = DateTime.now();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final param = ref.watch(profileNameProvider.state);
+    final param = ref.watch(profileBirthdateProvider.state);
+    if (param.state != '') {
+      now = DateTime.parse(param.state);
+    }
+
     return SizedBox(
       width: boxWidth,
       height: boxHeight,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text('ニックネーム'),
-          ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxHeight: 70,
-              minHeight: 40,
-            ),
-            child: TextFormField(
-              onChanged: (String value) => param.state = value,
-              obscureText: false,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              maxLength: 10,
-              decoration: const InputDecoration(
-                filled: true,
-                fillColor: Color(0x98D4D5D8),
-                contentPadding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+          const Text('生年月日', style: TextStyle(fontSize: 20)),
+          // DateFormat.yMMMMEEEEd('ja').format(now).toString()
+          // param.state.toString()
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(
+                  FontAwesomeIcons.calendarAlt,
+                ),
+                iconSize: 35,
+                color: Colors.amber,
+                onPressed: () async {
+                  final selectedDate = await showDatePicker(
+                    context: context,
+                    initialDatePickerMode: DatePickerMode.year, // 最初に年から入力
+                    initialDate: DateTime(DateTime.now().year - 22),
+                    firstDate: DateTime(
+                      DateTime.now().year - 100,
+                      DateTime.now().month,
+                      DateTime.now().day,
+                    ), // 選択可能な最も古い日付
+                    lastDate: DateTime(
+                      DateTime.now().year - 20,
+                      DateTime.now().month,
+                      DateTime.now().day,
+                    ), // 選択可能な最も新しい日付
+                  );
+
+                  if (selectedDate != null) {
+                    now = selectedDate;
+                    param.state = selectedDate.toString();
+                  }
+                },
               ),
-              style: const TextStyle(color: Color(0xC4000000)),
-            ),
+              Text(
+                DateFormat('yyyy-MM-dd').format(now).toString(),
+                style: const TextStyle(fontSize: 16),
+              ),
+            ],
           ),
         ],
       ),

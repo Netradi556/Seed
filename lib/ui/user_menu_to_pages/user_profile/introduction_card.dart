@@ -1,6 +1,9 @@
 // イントロダクションカード
 // ハンドルネーム、バッジ、ステータスコメント、ログイン状況など
 import 'package:flutter/material.dart';
+import 'package:seed_app/controller/user_controller.dart';
+import 'package:seed_app/locator.dart';
+import 'package:seed_app/models/user_models.dart';
 
 class IntroductionCard extends StatelessWidget {
   const IntroductionCard({
@@ -10,17 +13,22 @@ class IntroductionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [_IntroductionCard(), SizedBox(height: 30)],
+      children: [
+        _IntroductionCard(),
+        const SizedBox(height: 30),
+      ],
     );
   }
 }
 
 class _IntroductionCard extends StatelessWidget {
-  const _IntroductionCard({Key? key}) : super(key: key);
+  _IntroductionCard({Key? key}) : super(key: key);
 
   final Color borderColor = const Color(0xFFFABF66);
   final Color testColor1 = const Color.fromARGB(94, 102, 104, 250);
   final Color testColor2 = const Color.fromARGB(94, 235, 87, 64);
+
+  final UserModel? _currentUser = locator.get<UserController>().currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +51,8 @@ class _IntroductionCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Name', style: TextStyle(fontSize: 30)),
+                  Text(_currentUser!.displayName.toString(),
+                      style: const TextStyle(fontSize: 25)),
                   const Divider(),
                   Row(
                     children: [
@@ -64,7 +73,8 @@ class _IntroductionCard extends StatelessWidget {
                   Container(
                     width: 350,
                     height: 110,
-                    child: Text('introduction'),
+                    child: const Text(
+                        'introduction'), // ==========================SharedPreferencesから
                     color: testColor2,
                   ),
                   SizedBox(

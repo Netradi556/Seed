@@ -1,14 +1,14 @@
 // Packages
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/controller/user_controller.dart';
 
 // PageWidgets
 import 'package:seed_app/ui/navigation_controller.dart';
 
 // Riverpod
 import 'package:seed_app/provider/profile_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /*
   Todo(High)
@@ -19,14 +19,14 @@ import 'package:seed_app/provider/profile_provider.dart';
 */
 
 class RegistrationPage3 extends ConsumerWidget {
-  const RegistrationPage3({Key? key}) : super(key: key);
+  RegistrationPage3({Key? key}) : super(key: key);
 
+  final UserController userController = UserController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final paramBirthDate = ref.watch(profileBirthdateProvider.state);
     final paramSex = ref.watch(profileSexProvider.state);
     final paramName = ref.watch(profileNameProvider.state);
-    final String? userId = FirebaseAuth.instance.currentUser?.uid;
 
     return Scaffold(
       backgroundColor: const Color(0xFFFFF153),
@@ -56,18 +56,48 @@ class RegistrationPage3 extends ConsumerWidget {
                 child: ElevatedButton(
                   child: const Text('登録を完了する'),
                   onPressed: () async {
-                    await FirebaseFirestore.instance
-                        .collection('user')
-                        .doc(userId.toString())
-                        .set({
-                      'handleName': paramName.state.toString(),
-                      'sex': paramSex.state.toString(),
-                      'birthDate': paramBirthDate.state.toString(),
-                    });
-                    await Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return NavigationPageController();
-                    }));
+                    if (paramSex.state.toString() == '未選択' ||
+                        paramName.state.toString() == '' ||
+                        paramBirthDate.state.toString() == '') {
+                      // ================================情報が選択されていなかった場合は、警告を表示し登録させない
+
+                      // ignore: avoid_print
+                      print(paramSex.state.toString());
+                      // ignore: avoid_print
+                      print(paramName.state.toString());
+                      // ignore: avoid_print
+                      print(paramBirthDate.state.toString());
+                    } else {
+                      try {
+                        final SharedPreferences pref =
+                            await SharedPreferences.getInstance();
+
+                        pref.setString(
+                            'handleName', paramName.state.toString());
+                        pref.setString('sex', paramSex.state.toString());
+                        pref.setString(
+                            'birthDate', paramBirthDate.state.toString());
+
+                        await userController.firstUploadEditedContents(
+                          {
+                            'handleName': paramName.state.toString(),
+                            'sex': paramSex.state.toString(),
+                            'birthDate': paramBirthDate.state.toString(),
+                          },
+                        );
+
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return NavigationPageController();
+                            },
+                          ),
+                        );
+                      } catch (e) {
+                        // ignore: avoid_print
+                        print(e);
+                      }
+                    }
                   },
                 ),
               ),

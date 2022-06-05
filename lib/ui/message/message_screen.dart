@@ -13,7 +13,7 @@ class MessageScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('user').snapshots(),
+      stream: fireStoreRepo.firestore.collection('user').snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
           return const Center(

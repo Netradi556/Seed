@@ -265,7 +265,8 @@ class _DropdownItemsWidget extends ConsumerWidget {
           param.state = value as String;
           isChanged.state = true;
           selected = param.state; // 画面の再描写のチェック
-
+          // ======================================================================任意で追加したかったらここ
+          // pref.setString('handleName', '男性１「たけし」');
           pref.setString(itemName, param.state);
           print(pref.getString(itemName)! +
               ' 変更あり ' +

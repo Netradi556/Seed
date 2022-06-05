@@ -28,69 +28,64 @@ String upperImagefilePath = 'assets/images/demo.png';
 class RegistrationPageController extends ConsumerWidget {
   final controller = PageController(initialPage: 0);
 
+  final Color backgroundColor = const Color.fromARGB(237, 238, 249, 39);
+
   PageController? pageViewController;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(firstRegistrationProvider.state);
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
-              flex: 15,
               child: Container(
-                color: const Color(0xFFD2F580),
-                width: double.infinity,
+                color: Colors.white70,
                 child: PageView(
                   controller: controller,
                   scrollDirection: Axis.horizontal,
-                  children: const [
-                    RegistrationPage1(),
-                    RegistrationPage2(),
+                  children: [
+                    const RegistrationPage1(),
+                    const RegistrationPage2(),
                     RegistrationPage3(),
                   ],
                 ),
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                width: double.infinity,
-                height: 40,
-                color: const Color(0xFF9EDC68),
-                child: Align(
-                  child: SmoothPageIndicator(
-                    controller: controller,
-                    count: 3,
-                    axisDirection: Axis.horizontal,
-                    onDotClicked: (index) {
-                      controller.animateToPage(index,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.ease);
-                    },
-                    effect: const ExpandingDotsEffect(
-                      expansionFactor: 2,
-                      spacing: 8,
-                      radius: 16,
-                      dotWidth: 16,
-                      dotHeight: 16,
-                      dotColor: Color(0xFF9E9E9E),
-                      activeDotColor: Color(0xFF3F51B5),
-                      paintStyle: PaintingStyle.fill,
-                    ),
+            Container(
+              width: double.infinity,
+              height: 30,
+              color: const Color(0xFF9EDC68),
+              child: Align(
+                child: SmoothPageIndicator(
+                  controller: controller,
+                  count: 3,
+                  axisDirection: Axis.horizontal,
+                  onDotClicked: (index) {
+                    controller.animateToPage(index,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.ease);
+                  },
+                  effect: const ExpandingDotsEffect(
+                    expansionFactor: 2,
+                    spacing: 8,
+                    radius: 16,
+                    dotWidth: 16,
+                    dotHeight: 16,
+                    dotColor: Color(0xFF9E9E9E),
+                    activeDotColor: Color(0xFF3F51B5),
+                    paintStyle: PaintingStyle.fill,
                   ),
                 ),
               ),
             ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                width: double.infinity,
-                height: 150,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
+            Container(
+              width: double.infinity,
+              height: 80,
+              color: backgroundColor,
             )
           ],
         ),
