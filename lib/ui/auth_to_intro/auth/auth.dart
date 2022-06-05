@@ -9,6 +9,7 @@ import 'package:seed_app/locator.dart';
 // Riverpod
 import 'package:seed_app/provider/auth_provider.dart';
 import 'package:seed_app/repository/auth_repo.dart';
+import 'package:seed_app/ui/auth_to_intro/auth/create_account.dart';
 
 // PageWidgets
 import 'package:seed_app/ui/navigation_controller.dart';
@@ -19,149 +20,103 @@ import '../intro/introduction.dart';
 String _backgroundImagePath = 'assets/images/sea.jpeg';
 String _logoImagePath = 'assets/images/logo.jpg';
 
-class AuthGoogleloginPaddingWidget extends StatelessWidget {
-  AuthGoogleloginPaddingWidget({Key? key}) : super(key: key);
+class AuthPageWidget extends ConsumerWidget {
+  const AuthPageWidget({Key? key}) : super(key: key);
+
+  final Color backgroundColor = const Color.fromRGBO(249, 225, 45, 0.988);
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      backgroundColor: backgroundColor,
+      body: Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            // ロゴ表示
+            Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 24),
+                child: Image.asset(_logoImagePath,
+                    width: 160, height: 140, fit: BoxFit.cover)),
+            // メールアドレス入力
+            const EmailTextForm(),
+            // パスワード入力
+            const PasswordTextForm(),
+            // ログインボタン
+            MailAddressLogInButton(),
+            Container(
+                height: 35,
+                child: const Text('or'),
+                alignment: Alignment.center),
+            // Googleログインのボタン
+            GoogleSignInButton(),
+
+            // アカウント新規登録のボタン
+            const CreateAccount(),
+            const SizedBox(height: 40),
+            const AuthFootpadsPaddingWidget(),
+            const SizedBox(height: 10)
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class GoogleSignInButton extends StatelessWidget {
+  GoogleSignInButton({Key? key}) : super(key: key);
+
   final AuthRepo authRepo = AuthRepo();
+
   @override
   Widget build(BuildContext context) {
     bool isUserNew = true;
 
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
-      child: SizedBox(
-        width: 140,
-        height: 40,
-        child: ElevatedButton(
-          onPressed: () async {
-            try {
-              UserCredential? userCredential;
-              userCredential = await signInWithGoogle();
-              if (userCredential.additionalUserInfo!.isNewUser) {
-                await Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => IntroductionPage(),
-                  ),
-                  (r) => false,
-                );
-              } else {
-                locator
-                    .get<UserController>()
-                    .initializeLocalProfilePicturePath();
-                await Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => NavigationPageController(),
-                  ),
-                  (r) => false,
-                );
-              }
-            } on FirebaseAuthException catch (e) {
-              print('FirebaseAuthException');
-              print(e.code);
-            } on Exception catch (e) {
-              print('Other Exception');
-              print('$e');
+    return SizedBox(
+      width: 150,
+      height: 40,
+      child: ElevatedButton(
+        onPressed: () async {
+          try {
+            final UserCredential userCredential =
+                await authRepo.signInWithGoogle();
+
+            if (userCredential.additionalUserInfo!.isNewUser) {
+              await Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => IntroductionPage(),
+                ),
+                (r) => false,
+              );
+            } else {
+              locator.get<UserController>().initializeLocalProfilePicturePath();
+              await Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NavigationPageController(),
+                ),
+                (r) => false,
+              );
             }
-          },
-          child: const Text('Google Sign in'),
-          style: const ButtonStyle(),
-        ),
-      ),
-    );
-  }
-
-// Googleを使ってサインインするメソッド
-  Future<UserCredential> signInWithGoogle() async {
-    // 認証フローのトリガー
-    final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: [
-      'email',
-    ]).signIn();
-    // リクエストから、認証情報を取得
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-    // クレデンシャルを新しく作成
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-
-    // サインインしたら、userCredentialを返す
-    return authRepo.auth1.signInWithCredential(credential);
-  }
-}
-
-class AuthPageWidget extends ConsumerWidget {
-  const AuthPageWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      backgroundColor: const Color(0xFCF9E12D),
-      body: Align(
-        alignment: const AlignmentDirectional(-0.14, -0.08),
-        child: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          /* decoration: BoxDecoration(
-            color: Color(0x19EF2EC5),
-            image: DecorationImage(
-              fit: BoxFit.fitWidth,
-
-              // ロゴイメージ
-              image: Image.asset(_backgroundImagePath).image,
-            ),
-          ), */
-          child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 110),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                // ロゴ表示
-                const AuthLogoPaddingWidget(),
-                // メールアドレス入力
-                const AuthEmailboxPaddingWidget(),
-                // パスワード入力
-                const AuthPassboxPaddingWidget(),
-                // ログインボタン
-                const AuthLoginEbuttonWidget(),
-                // "アカウントを持ってない場合？"のテキスト
-                const AuthFootpadsPaddingWidget(),
-                // アカウント新規登録のボタン
-                const AuthCreatePaddingWidget(),
-                // Googleログインのボタン
-                AuthGoogleloginPaddingWidget(),
-              ],
-            ),
-          ),
-        ),
+          } on FirebaseAuthException catch (e) {
+            print('FirebaseAuthException');
+            print(e.code);
+          } on Exception catch (e) {
+            print('Other Exception');
+            print('$e');
+          }
+        },
+        child: const Text('Google Sign in'),
+        style: const ButtonStyle(),
       ),
     );
   }
 }
 
-class AuthLogoPaddingWidget extends StatelessWidget {
-  const AuthLogoPaddingWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 24),
-      child: Image.asset(
-        _logoImagePath,
-        width: 160,
-        height: 140,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
-}
-
-class AuthEmailboxPaddingWidget extends ConsumerWidget {
-  const AuthEmailboxPaddingWidget({
+class EmailTextForm extends ConsumerWidget {
+  const EmailTextForm({
     Key? key,
   }) : super(key: key);
 
@@ -217,8 +172,8 @@ class AuthEmailboxPaddingWidget extends ConsumerWidget {
   }
 }
 
-class AuthPassboxPaddingWidget extends ConsumerWidget {
-  const AuthPassboxPaddingWidget({
+class PasswordTextForm extends ConsumerWidget {
+  const PasswordTextForm({
     Key? key,
   }) : super(key: key);
 
@@ -281,65 +236,103 @@ class AuthPassboxPaddingWidget extends ConsumerWidget {
   }
 }
 
-class AuthLoginEbuttonWidget extends ConsumerWidget {
-  const AuthLoginEbuttonWidget({
+class MailAddressLogInButton extends ConsumerWidget {
+  MailAddressLogInButton({
     Key? key,
   }) : super(key: key);
 
+  final Color backgroundColor = const Color.fromARGB(250, 127, 249, 45);
+
+  final AuthRepo authRepo = AuthRepo();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Provider
     final infoText = ref.watch(infoTextProvider.notifier);
     final email = ref.watch(emailProvider.notifier);
     final password = ref.watch(passwordProvider.notifier);
-    return ElevatedButton(
-      child: const Text('ログイン'),
-      onPressed: () async {
-        try {
-          final FirebaseAuth auth = FirebaseAuth.instance;
-          final UserCredential user = await auth.signInWithEmailAndPassword(
-              email: email.state, password: password.state);
-          if (user.additionalUserInfo!.isNewUser) {
-            await Navigator.of(context)
-                .pushReplacement(MaterialPageRoute(builder: (context) {
-              return IntroductionPage();
-            }));
-          } else {
-            await Navigator.of(context)
-                .pushReplacement(MaterialPageRoute(builder: (context) {
-              return NavigationPageController();
-            }));
-          }
-        } catch (e) {
-          infoText.state = "ログインに失敗しました${e.toString()}";
-        }
-      },
+
+    return Container(
+      width: double.infinity,
+      height: 40,
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        width: 150,
+        height: 40,
+        decoration: BoxDecoration(color: backgroundColor),
+        alignment: Alignment.center,
+        child: InkWell(
+          child: const Text('ログイン'),
+          onTap: () async {
+            try {
+              final UserCredential userCredential =
+                  await authRepo.signInWithEmailAddress(
+                email.state,
+                password.state,
+              );
+              if (userCredential.additionalUserInfo!.isNewUser) {
+                await Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return IntroductionPage();
+                    },
+                  ),
+                );
+              } else {
+                await Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return NavigationPageController();
+                    },
+                  ),
+                );
+              }
+            } catch (e) {
+              infoText.state = "ログインに失敗しました${e.toString()}";
+            }
+          },
+        ),
+      ),
     );
   }
 }
 
-class AuthCreatePaddingWidget extends StatelessWidget {
-  const AuthCreatePaddingWidget({
+class CreateAccount extends StatelessWidget {
+  const CreateAccount({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
-      child: SizedBox(
-        width: 140,
-        height: 40,
-        child: ElevatedButton(
-          onPressed: () async {
-            await Navigator.of(context)
-                .pushReplacement(MaterialPageRoute(builder: (context) {
-              return NavigationPageController();
-            }));
-          },
-          child: const Text('アカウント新規作成'),
-          style: const ButtonStyle(),
+    return Column(
+      children: [
+        const SizedBox(height: 45),
+        Container(
+          width: 250,
+          height: 40,
+          decoration: BoxDecoration(
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromARGB(85, 231, 225, 225),
+                offset: Offset(0.0, 1.0), //(x,y)
+                blurRadius: 6.0,
+              ),
+            ],
+            borderRadius: BorderRadius.circular(8),
+            color: Colors.black38,
+          ),
+          alignment: Alignment.center,
+          child: InkWell(
+            child: const Text('アカウントを新しく作る'),
+            onTap: () async {
+              await Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) {
+                return CreateAccountPage();
+              }));
+            },
+          ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -351,35 +344,18 @@ class AuthFootpadsPaddingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
-            child: Text(
-              'Forgot mail/pass',
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
-          SizedBox(
-            width: 160,
-            height: 40,
-            child: ElevatedButton(
-              onPressed: () async {
-                await Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return const ForgotPassPageWidget();
-                }));
-              },
-              child: const Text('メールアドレス・パスワードの再設定'),
-              style: const ButtonStyle(),
-            ),
-          ),
-        ],
-      ),
-    );
+    return Container(
+        width: 200,
+        height: 40,
+        alignment: Alignment.center,
+        child: InkWell(
+          child: const Text('パスワードの再設定はこちら'),
+          onTap: () async {
+            await Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) {
+              return const ForgotPassPageWidget();
+            }));
+          },
+        ));
   }
 }

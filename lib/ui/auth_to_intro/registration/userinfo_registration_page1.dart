@@ -31,7 +31,7 @@ class RegistrationPage1 extends ConsumerWidget {
                   child: Text('最初に登録する情報は3つだけです！')),
             ),
             // ニックネームの入力欄
-            const TextformItemsWidget(
+            const TextFormItemsWidget(
               boxWidth: 330,
               boxHeight: 100,
               itemName: 'ニックネーム',
@@ -41,7 +41,7 @@ class RegistrationPage1 extends ConsumerWidget {
             ),
             // 性別の選択欄
             DropdownItemsWidget(
-              boxWidth: 330,
+              boxWidth: double.infinity,
               boxHeight: 60,
               itemName: '性別',
               menuItems: const ['未選択', '男性', '女性'],
@@ -56,6 +56,128 @@ class RegistrationPage1 extends ConsumerWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class TextFormItemsWidget extends ConsumerWidget {
+  const TextFormItemsWidget({
+    Key? key,
+    required this.itemName,
+    required this.boxHeight,
+    required this.boxWidth,
+  }) : super(key: key);
+
+  final String itemName; // 項目名
+  final double boxWidth;
+  final double boxHeight;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final param = ref.watch(profileNameProvider.state);
+    return SizedBox(
+      width: boxWidth,
+      height: boxHeight,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: const [
+              Text(
+                'アプリ内での表示名',
+                style: TextStyle(fontSize: 17),
+              ),
+              Text(
+                '（後から変更できません）',
+                style: TextStyle(fontSize: 13),
+              ),
+            ],
+          ),
+          ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxHeight: 80,
+              minHeight: 40,
+            ),
+            child: TextFormField(
+              onChanged: (String value) => param.state = value,
+              obscureText: false,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              maxLength: 10,
+              decoration: const InputDecoration(
+                filled: true,
+                fillColor: Color(0x98D4D5D8),
+                contentPadding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+              ),
+              style: const TextStyle(
+                color: Color(0xC4000000),
+                fontSize: 25,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DropdownItemsWidget extends ConsumerWidget {
+  StateProvider? getProvider(category) {
+    switch (category) {
+      case '性別':
+        return profileSexProvider;
+      default:
+        break;
+    }
+    return null;
+  }
+
+  DropdownItemsWidget({
+    Key? key,
+    required this.boxWidth,
+    required this.boxHeight,
+    required this.itemName,
+    required this.menuItems,
+  }) : super(key: key);
+
+  final String itemName; // 項目名
+  final List<String> menuItems; // ドロップダウンのリスト
+  final double boxWidth;
+  final double boxHeight;
+  String _selected = '未選択';
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final param1 = ref.watch(firstRegistrationProvider.state);
+    final param = ref.watch(getProvider(itemName)!.state);
+
+    final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
+        .map(
+          (String value) => DropdownMenuItem(
+            value: value,
+            child: Text(value),
+          ),
+        )
+        .toList();
+
+    return SizedBox(
+      width: boxWidth,
+      height: boxHeight,
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(itemName),
+            trailing: DropdownButton(
+              value: _selected,
+              items: _dropDownMenuItems,
+              onChanged: (value) {
+                param.state = value as String;
+                _selected = param.state; // 画面の再描写のチェック
+                print(_selected.toString());
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -112,113 +234,6 @@ class YearDateItemsWidget extends ConsumerWidget {
               }
             },
           )
-        ],
-      ),
-    );
-  }
-}
-
-class DropdownItemsWidget extends ConsumerWidget {
-  StateProvider? getProvider(category) {
-    switch (category) {
-      case '性別':
-        return profileSexProvider;
-      default:
-        break;
-    }
-    return null;
-  }
-
-  DropdownItemsWidget({
-    Key? key,
-    required this.boxWidth,
-    required this.boxHeight,
-    required this.itemName,
-    required this.menuItems,
-  }) : super(key: key);
-
-  final String itemName; // 項目名
-  final List<String> menuItems; // ドロップダウンのリスト
-  final double boxWidth;
-  final double boxHeight;
-  String _selected = '未選択';
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final param1 = ref.watch(firstRegistrationProvider.state);
-    final param = ref.watch(getProvider(itemName)!.state);
-    final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
-        .map(
-          (String value) => DropdownMenuItem(
-            value: value,
-            child: Text(value),
-          ),
-        )
-        .toList();
-
-    return SizedBox(
-      width: boxWidth,
-      height: boxHeight,
-      child: Column(
-        children: [
-          ListTile(
-            title: Text(itemName),
-            trailing: DropdownButton(
-              value: _selected,
-              items: _dropDownMenuItems,
-              onChanged: (value) {
-                param.state = value as String;
-                _selected = param.state; // 画面の再描写のチェック
-                print(_selected.toString());
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TextformItemsWidget extends ConsumerWidget {
-  const TextformItemsWidget({
-    Key? key,
-    required this.itemName,
-    required this.boxHeight,
-    required this.boxWidth,
-  }) : super(key: key);
-
-  final String itemName; // 項目名
-  final double boxWidth;
-  final double boxHeight;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final param = ref.watch(profileNameProvider.state);
-    return SizedBox(
-      width: boxWidth,
-      height: boxHeight,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('ニックネーム'),
-          ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxHeight: 70,
-              minHeight: 40,
-            ),
-            child: TextFormField(
-              onChanged: (String value) => param.state = value,
-              obscureText: false,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              maxLength: 10,
-              decoration: const InputDecoration(
-                filled: true,
-                fillColor: Color(0x98D4D5D8),
-                contentPadding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-              ),
-              style: const TextStyle(color: Color(0xC4000000)),
-            ),
-          ),
         ],
       ),
     );

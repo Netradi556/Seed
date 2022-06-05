@@ -4,14 +4,23 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepo {
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
   // _authとプライベートアクセスに変更すること：セキュリティ面の理由から
   final FirebaseAuth auth1 = FirebaseAuth.instance;
 
   AuthRepo();
 
-  Future<User?> signInWithGoogle() async {
+  Future signInWithEmailAddress(String email, String password) async {
+    final UserCredential userCredential =
+        await auth1.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return userCredential;
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
@@ -21,8 +30,9 @@ class AuthRepo {
       idToken: googleAuth?.idToken,
     );
 
-    final User? user = (await auth1.signInWithCredential(credential)).user;
-    return user;
+    final UserCredential userCredential =
+        await auth1.signInWithCredential(credential);
+    return userCredential;
   }
 
   Future<UserModel> getUser() async {
