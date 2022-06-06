@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:seed_app/controller/user_controller.dart';
+import 'package:seed_app/locator.dart';
+import 'package:seed_app/models/user_models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileItemsList extends StatelessWidget {
-  const ProfileItemsList({
+  ProfileItemsList({
     Key? key,
     required this.itemName,
     required this.itemsList,
   }) : super(key: key);
 
   final double width = 350;
-
   final String itemName;
   final List<String> itemsList;
 
+  final UserModel? _currentUser = locator.get<UserController>().currentUser;
   final Color itemTextColor = const Color.fromARGB(255, 0, 0, 0);
 
   @override
@@ -62,16 +65,17 @@ class ProfileItemsList extends StatelessWidget {
                           alignment: Alignment.centerRight,
                           // itemsList[index]の情報をもとにローカルから値を取得----------------------
                           child: FutureBuilder(
-                              future: initialize(itemsList[index]),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<String> snapshot) {
-                                if (snapshot.hasData) {
-                                  return Text(
-                                    snapshot.data.toString(),
-                                  );
-                                }
-                                return Container();
-                              }),
+                            future: initialize(itemsList[index]),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<String> snapshot) {
+                              if (snapshot.hasData) {
+                                return Text(
+                                  snapshot.data.toString(),
+                                );
+                              }
+                              return Container();
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -85,11 +89,13 @@ class ProfileItemsList extends StatelessWidget {
     );
   }
 
+  // ========================================================================プロフ更新処理で修正
   Future<String> initialize(String itemName) async {
     String nowParam = 'a';
     try {
       final SharedPreferences pref = await SharedPreferences.getInstance();
-      nowParam = pref.getString(itemName)!;
+      nowParam =
+          pref.getString(_currentUser!.handleName.toString() + itemName)!;
     } catch (e) {
       print(e);
     }

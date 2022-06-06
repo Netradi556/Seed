@@ -33,6 +33,7 @@ class FireStoreRepo {
         .doc(userId)
         .update(editedContents);
 
+    // ignore: avoid_print
     print('実行');
   }
 
@@ -45,6 +46,7 @@ class FireStoreRepo {
         .doc(userId)
         .set(editedContents);
 
+    // ignore: avoid_print
     print('実行');
   }
 

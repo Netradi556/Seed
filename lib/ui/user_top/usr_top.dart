@@ -1,10 +1,7 @@
-import 'dart:math';
-
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/ui/user_top/top_gridview.dart';
-import 'package:seed_app/ui/user_top/user_profile_page.dart';
 import 'package:seed_app/ui/user_top/user_top_middle.dart';
 
 /*
@@ -186,14 +183,6 @@ class _UserTopSearchArea extends ConsumerWidget {
   const _UserTopSearchArea({
     Key? key,
   }) : super(key: key);
-  final String imagePath1 = 'assets/images/user1.jpg';
-  final String imagePath2 = 'assets/images/user2.jpg';
-  final String imagePath3 = 'assets/images/user3.jpg';
-  final String imagePath4 = 'assets/images/user4.jpg';
-  final String imagePath5 = 'assets/images/user5.jpg';
-  final String imagePath6 = 'assets/images/user6.jpg';
-  final String imagePath7 = 'assets/images/user7.jpg';
-  final String imagePath8 = 'assets/images/user8.jpg';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

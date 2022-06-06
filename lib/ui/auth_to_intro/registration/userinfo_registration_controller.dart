@@ -5,9 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/ui/auth_to_intro/registration/userinfo_registration_page1.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-// Riverpod
-import 'package:seed_app/provider/profile_provider.dart';
-
 // PageWidgets
 import 'userinfo_registration_page1.dart';
 import 'userinfo_registration_page2.dart';
@@ -30,10 +27,9 @@ class RegistrationPageController extends ConsumerWidget {
 
   final Color backgroundColor = const Color.fromARGB(237, 238, 249, 39);
 
-  PageController? pageViewController;
+  RegistrationPageController({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(firstRegistrationProvider.state);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(

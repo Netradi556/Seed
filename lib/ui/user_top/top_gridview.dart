@@ -36,12 +36,9 @@ class InfiniteGridView extends ConsumerWidget {
           // データを増やす際にFireStoreから取得しないといけない
           // 一度に取得する情報を多くするのが最適？？
 
-          print(param.state);
-
           // 要素を20ずつ増やしていく
           items.addAll(List.generate(20, (index) => items.length + index));
           param.state = !param.state;
-          print(param.state);
         }
       },
     );
@@ -116,7 +113,7 @@ class UserCard extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return UserProfilePage();
+                return const UserProfilePage();
               },
             ),
           );

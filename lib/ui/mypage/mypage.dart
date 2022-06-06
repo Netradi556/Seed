@@ -60,7 +60,7 @@ class MypagePageWidget extends ConsumerWidget {
                   Align(
                     alignment: const AlignmentDirectional(0.3, -0.4),
                     child: Text(
-                      _currentUser!.displayName.toString(),
+                      _currentUser!.handleName.toString(),
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',
                         fontSize: 24,
@@ -124,7 +124,7 @@ class MypagePageWidget extends ConsumerWidget {
               ),
             ),
             // メニュー
-            MyPageMenu(),
+            const MyPageMenu(),
           ],
         ),
       ),

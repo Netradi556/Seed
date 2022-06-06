@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/controller/user_controller.dart';
+import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/profile_item_models.dart';
+import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/provider/profile_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -53,11 +56,13 @@ class EditProfileItemsList extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(itemsList[index].toString(),
-                            style: TextStyle(
-                              color: itemTextColor,
-                              fontSize: 16,
-                            )),
+                        child: Text(
+                          itemsList[index].toString(),
+                          style: TextStyle(
+                            color: itemTextColor,
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
@@ -150,19 +155,21 @@ class EditProfileItemsList extends StatelessWidget {
         return ['default'];
     }
   }
-}
 
-Future<String> initialize(String itemName) async {
-  String nowParam = 'a';
-  try {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    nowParam = pref.getString(itemName)!;
-  } catch (e) {
-    print(e);
+  Future<String> initialize(String itemName) async {
+    String nowParam = 'a';
+    try {
+      final SharedPreferences pref = await SharedPreferences.getInstance();
+      nowParam = pref.getString(itemName)!;
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
+    return nowParam;
   }
-  return nowParam;
 }
 
+// ignore: must_be_immutable
 class _DropdownItemsWidget extends ConsumerWidget {
   StateProvider? getProvider(category) {
     switch (category) {
@@ -238,6 +245,7 @@ class _DropdownItemsWidget extends ConsumerWidget {
   final double boxWidth = 110;
   final double boxHeight = 50;
   String selected; // = 'default';
+  final UserModel? user = locator.get<UserController>().currentUser;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -265,10 +273,15 @@ class _DropdownItemsWidget extends ConsumerWidget {
           param.state = value as String;
           isChanged.state = true;
           selected = param.state; // 画面の再描写のチェック
+
           // ======================================================================任意で追加したかったらここ
           // pref.setString('handleName', '男性１「たけし」');
-          pref.setString(itemName, param.state);
-          print(pref.getString(itemName)! +
+          // user?.handleName = 'Chiyo';
+          String newKey = user!.handleName.toString() + itemName;
+          pref.setString(itemName, value);
+          pref.setString(newKey, param.state);
+          print(newKey +
+              pref.getString(newKey)! +
               ' 変更あり ' +
               isChanged.state.toString());
         },

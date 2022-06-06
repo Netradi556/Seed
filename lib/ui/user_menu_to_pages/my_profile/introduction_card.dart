@@ -51,7 +51,7 @@ class _IntroductionCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(_currentUser!.displayName.toString(),
+                  Text(_currentUser!.handleName.toString(),
                       style: const TextStyle(fontSize: 25)),
                   const Divider(),
                   Row(

@@ -123,8 +123,8 @@ class MyProfileEditPageWidget extends ConsumerWidget {
               Container(
                 width: double.infinity,
                 height: 100,
-                decoration:
-                    BoxDecoration(color: Color.fromARGB(255, 230, 232, 212)),
+                decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 230, 232, 212)),
                 child: const Align(
                   alignment: Alignment.topCenter,
                   child: SizedBox(

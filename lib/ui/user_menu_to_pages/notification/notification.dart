@@ -27,8 +27,8 @@ import 'package:seed_app/ui/user_menu_to_pages/notification/notification_detail.
 class NotificationPageWidget extends ConsumerWidget {
   NotificationPageWidget({Key? key}) : super(key: key);
 
-  var listItem = ['User 1', 'User 2', 'User 3'];
-  String imagePath = 'assets/images/user1.jpg';
+  final listItem = ['User 1', 'User 2', 'User 3'];
+  final String imagePath = 'assets/images/user1.jpg';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
