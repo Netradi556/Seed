@@ -70,8 +70,6 @@ class GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isUserNew = true;
-
     return SizedBox(
       width: 150,
       height: 40,

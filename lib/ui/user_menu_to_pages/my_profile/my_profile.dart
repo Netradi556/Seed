@@ -69,9 +69,9 @@ class UserProfilePageWidget extends ConsumerWidget {
               // 概要欄
               const IntroductionCard(),
               // プロフィールスコア
-              ProfileScore(),
+              const ProfileScore(),
               // 自由記述欄
-              Introduction(),
+              const Introduction(),
               // 基本情報
               ProfileItemsList(
                 itemName: '基本情報',

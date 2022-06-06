@@ -91,9 +91,7 @@ class MypagePageWidget extends ConsumerWidget {
                   Align(
                     alignment: const AlignmentDirectional(0.55, 0),
                     child: InkWell(
-                      onTap: () =>
-                          // Providerの初期化処理
-                          Navigator.of(context).push(
+                      onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
                             return UserProfilePageWidget();

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/ui/user_top/user_profile_page.dart';
 import 'package:seed_app/ui/user_top/user_top_middle.dart';
 
 /*
@@ -181,17 +182,17 @@ class _TopCategoryListWidget extends ConsumerWidget {
 }
 
 class _UserTopSearchArea extends ConsumerWidget {
-  _UserTopSearchArea({
+  const _UserTopSearchArea({
     Key? key,
   }) : super(key: key);
-  String imagePath1 = 'assets/images/user1.jpg';
-  String imagePath2 = 'assets/images/user2.jpg';
-  String imagePath3 = 'assets/images/user3.jpg';
-  String imagePath4 = 'assets/images/user4.jpg';
-  String imagePath5 = 'assets/images/user5.jpg';
-  String imagePath6 = 'assets/images/user6.jpg';
-  String imagePath7 = 'assets/images/user7.jpg';
-  String imagePath8 = 'assets/images/user8.jpg';
+  final String imagePath1 = 'assets/images/user1.jpg';
+  final String imagePath2 = 'assets/images/user2.jpg';
+  final String imagePath3 = 'assets/images/user3.jpg';
+  final String imagePath4 = 'assets/images/user4.jpg';
+  final String imagePath5 = 'assets/images/user5.jpg';
+  final String imagePath6 = 'assets/images/user6.jpg';
+  final String imagePath7 = 'assets/images/user7.jpg';
+  final String imagePath8 = 'assets/images/user8.jpg';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -230,7 +231,7 @@ class _UserTopSearchArea extends ConsumerWidget {
 }
 
 class UserCard extends StatelessWidget {
-  UserCard({
+  const UserCard({
     Key? key,
     required this.imagePath,
   }) : super(key: key);
@@ -254,7 +255,15 @@ class UserCard extends StatelessWidget {
 
       // 大枠
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return const UserProfilePage();
+              },
+            ),
+          );
+        },
         child: SizedBox(
           width: 170,
           height: 300,
