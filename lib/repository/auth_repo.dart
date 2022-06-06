@@ -40,7 +40,7 @@ class AuthRepo {
     var firebaseUser = auth1.currentUser!;
     return UserModel(
       firebaseUser.uid,
-      displayName: pref.getString('handleName'),
+      handleName: pref.getString(firebaseUser.uid.toString()),
       avatarUrl: '',
     );
   }

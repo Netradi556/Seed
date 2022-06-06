@@ -13,11 +13,7 @@ import 'package:seed_app/controller/user_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /*
-    GekiteniusYogi/Seed/lib/ui/mypage/mypage.dart
-    から編集画面に遷移
-    遷移時に編集内容を保持するProviderの初期化処理を実装
-    　初期化処理：ローカルデータの情報でProviderの値を上書き
-    編集確定時には、保持している情報をローカルとFirestoreの両方に書き込み
+
 
 
 */

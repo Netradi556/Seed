@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/controller/user_controller.dart';
@@ -275,8 +277,13 @@ class _DropdownItemsWidget extends ConsumerWidget {
           selected = param.state; // 画面の再描写のチェック
 
           // ======================================================================任意で追加したかったらここ
-          // pref.setString('handleName', '男性１「たけし」');
-          // user?.handleName = 'Chiyo';
+          // pref.setString('handleName', 'たけし');
+/*           user?.handleName = 'Akari';
+          String UID = 'hfzPUOf5DhRiTvJKn2QNcUfWwAn2';
+          String NAME = 'Akari';
+          pref.setString(UID, NAME);
+          print(pref.getString(UID)); */
+
           String newKey = user!.handleName.toString() + itemName;
           pref.setString(itemName, value);
           pref.setString(newKey, param.state);
