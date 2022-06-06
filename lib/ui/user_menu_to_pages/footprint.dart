@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
 
 /*
@@ -93,7 +92,7 @@ class FootprintPagesWidget extends ConsumerWidget {
                             onTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return UserProfilePageWidget();
+                                  return MyProfilePageWidget();
                                 },
                               ),
                             ),

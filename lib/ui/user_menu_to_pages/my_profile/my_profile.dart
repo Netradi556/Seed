@@ -21,8 +21,8 @@ import 'package:seed_app/controller/user_controller.dart';
 
 */
 
-class UserProfilePageWidget extends ConsumerWidget {
-  UserProfilePageWidget({Key? key}) : super(key: key);
+class MyProfilePageWidget extends ConsumerWidget {
+  MyProfilePageWidget({Key? key}) : super(key: key);
 
   final Color appBarTextColor = const Color.fromARGB(223, 0, 0, 0);
   final Color appBarBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
