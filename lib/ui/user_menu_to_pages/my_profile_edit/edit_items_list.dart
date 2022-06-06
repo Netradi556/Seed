@@ -280,6 +280,7 @@ class _DropdownItemsWidget extends ConsumerWidget {
           String newKey = user!.handleName.toString() + itemName;
           pref.setString(itemName, value);
           pref.setString(newKey, param.state);
+          // ignore: avoid_print
           print(newKey +
               pref.getString(newKey)! +
               ' 変更あり ' +

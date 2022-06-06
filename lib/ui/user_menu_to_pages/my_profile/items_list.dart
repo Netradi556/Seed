@@ -97,6 +97,7 @@ class ProfileItemsList extends StatelessWidget {
       nowParam =
           pref.getString(_currentUser!.handleName.toString() + itemName)!;
     } catch (e) {
+      // ignore: avoid_print
       print(e);
     }
     return nowParam;

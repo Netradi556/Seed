@@ -97,10 +97,14 @@ class GoogleSignInButton extends StatelessWidget {
               );
             }
           } on FirebaseAuthException catch (e) {
+            // ignore: avoid_print
             print('FirebaseAuthException');
+            // ignore: avoid_print
             print(e.code);
           } on Exception catch (e) {
+            // ignore: avoid_print
             print('Other Exception');
+            // ignore: avoid_print
             print('$e');
           }
         },
@@ -260,6 +264,7 @@ class MailAddressLogInButton extends ConsumerWidget {
         child: InkWell(
           child: const Text('ログイン'),
           onTap: () async {
+            // ignore: avoid_print
             print(password.state.toString());
             try {
               final UserCredential userCredential =
