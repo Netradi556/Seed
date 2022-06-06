@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seed_app/repository/auth_repo.dart';
-import 'package:seed_app/ui/user_menu_to_pages/user_profile_edit/edit_user_profile.dart';
+import 'package:seed_app/ui/user_menu_to_pages/my_profile_edit/edit_my_profile.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +74,7 @@ class MypagePageWidget extends ConsumerWidget {
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
-                            return UserProfileEditPageWidget();
+                            return MyProfileEditPageWidget();
                           },
                         ),
                       ),

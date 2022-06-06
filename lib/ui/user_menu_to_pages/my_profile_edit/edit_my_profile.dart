@@ -8,7 +8,7 @@ import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/provider/profile_provider.dart';
-import 'package:seed_app/ui/user_menu_to_pages/user_profile_edit/edit_items_list.dart';
+import 'package:seed_app/ui/user_menu_to_pages/my_profile_edit/edit_items_list.dart';
 import 'package:seed_app/controller/user_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,8 +22,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 */
 
-class UserProfileEditPageWidget extends ConsumerWidget {
-  UserProfileEditPageWidget({Key? key}) : super(key: key);
+class MyProfileEditPageWidget extends ConsumerWidget {
+  MyProfileEditPageWidget({Key? key}) : super(key: key);
 
   final Color appBarTextColor = const Color.fromARGB(223, 0, 0, 0);
   final Color appBarBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
