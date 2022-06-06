@@ -79,7 +79,7 @@ class MyPageMenu extends StatelessWidget {
                   children: [
                     MenuIconWidget(
                       iconImagePath: helpLogoPath,
-                      nextPageWidget: HelpPageWidget(),
+                      nextPageWidget: const HelpPageWidget(),
                     ),
                     Container(
                       width: 100,

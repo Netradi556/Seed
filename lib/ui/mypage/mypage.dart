@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seed_app/repository/auth_repo.dart';
-import 'package:seed_app/ui/user_menu_to_pages/user_profile_edit/edit_user_profile.dart';
+import 'package:seed_app/ui/user_menu_to_pages/my_profile_edit/edit_my_profile.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +60,7 @@ class MypagePageWidget extends ConsumerWidget {
                   Align(
                     alignment: const AlignmentDirectional(0.3, -0.4),
                     child: Text(
-                      _currentUser!.displayName.toString(),
+                      _currentUser!.handleName.toString(),
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',
                         fontSize: 24,
@@ -75,7 +74,7 @@ class MypagePageWidget extends ConsumerWidget {
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
-                            return UserProfileEditPageWidget();
+                            return MyProfileEditPageWidget();
                           },
                         ),
                       ),
@@ -92,12 +91,10 @@ class MypagePageWidget extends ConsumerWidget {
                   Align(
                     alignment: const AlignmentDirectional(0.55, 0),
                     child: InkWell(
-                      onTap: () =>
-                          // Providerの初期化処理
-                          Navigator.of(context).push(
+                      onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
-                            return UserProfilePageWidget();
+                            return MyProfilePageWidget();
                           },
                         ),
                       ),
@@ -127,7 +124,7 @@ class MypagePageWidget extends ConsumerWidget {
               ),
             ),
             // メニュー
-            MyPageMenu(),
+            const MyPageMenu(),
           ],
         ),
       ),

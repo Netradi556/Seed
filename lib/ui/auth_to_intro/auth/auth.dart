@@ -16,7 +16,6 @@ import 'package:seed_app/controller/user_controller.dart';
 import 'forgot_pass.dart';
 import '../intro/introduction.dart';
 
-String _backgroundImagePath = 'assets/images/sea.jpeg';
 String _logoImagePath = 'assets/images/logo.jpg';
 
 class AuthPageWidget extends ConsumerWidget {
@@ -70,8 +69,6 @@ class GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isUserNew = true;
-
     return SizedBox(
       width: 150,
       height: 40,
@@ -100,10 +97,14 @@ class GoogleSignInButton extends StatelessWidget {
               );
             }
           } on FirebaseAuthException catch (e) {
+            // ignore: avoid_print
             print('FirebaseAuthException');
+            // ignore: avoid_print
             print(e.code);
           } on Exception catch (e) {
+            // ignore: avoid_print
             print('Other Exception');
+            // ignore: avoid_print
             print('$e');
           }
         },
@@ -180,7 +181,7 @@ class PasswordTextForm extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final password = ref.watch(passwordProvider.notifier);
 
-    bool passowrdVisibility = true;
+    bool passwordVisibility = true;
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
       child: Container(
@@ -194,7 +195,7 @@ class PasswordTextForm extends ConsumerWidget {
           padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 20, 0),
           child: TextFormField(
             onChanged: (String value) => password.state = value,
-            obscureText: passowrdVisibility,
+            obscureText: passwordVisibility,
             decoration: InputDecoration(
               labelText: 'パスワード',
               // Extensionを利用予定
@@ -221,8 +222,8 @@ class PasswordTextForm extends ConsumerWidget {
               contentPadding:
                   const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
               suffixIcon: InkWell(
-                onTap: () => passowrdVisibility = !passowrdVisibility,
-                child: Icon(passowrdVisibility
+                onTap: () => passwordVisibility = !passwordVisibility,
+                child: Icon(passwordVisibility
                     ? Icons.visibility_outlined
                     : Icons.visibility_off_outlined),
               ),
@@ -263,6 +264,7 @@ class MailAddressLogInButton extends ConsumerWidget {
         child: InkWell(
           child: const Text('ログイン'),
           onTap: () async {
+            // ignore: avoid_print
             print(password.state.toString());
             try {
               final UserCredential userCredential =
@@ -282,7 +284,7 @@ class MailAddressLogInButton extends ConsumerWidget {
                 await Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) {
-                      return IntroductionPage();
+                      return NavigationPageController();
                     },
                   ),
                 );
@@ -327,7 +329,7 @@ class CreateAccount extends StatelessWidget {
             onTap: () async {
               await Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) {
-                return CreateAccountPage();
+                return const CreateAccountPage();
               }));
             },
           ),

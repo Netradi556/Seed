@@ -1,9 +1,8 @@
 // Packages
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seed_app/locator.dart';
+
 import 'package:seed_app/provider/util_provider.dart';
-import 'package:seed_app/controller/user_controller.dart';
 
 // PageWidgets
 import 'user_top/usr_top.dart';
@@ -12,7 +11,7 @@ import 'message/message.dart';
 import 'mypage/mypage.dart';
 
 class NavigationPageController extends ConsumerWidget {
-  List<Widget> navigationPageList = [
+  final List<Widget> navigationPageList = [
     UserTopWidget(),
     LikePageWidget(),
     MessagePageWidget(),

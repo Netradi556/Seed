@@ -47,7 +47,6 @@ class ChatTest extends StatelessWidget {
 
 // https://muchilog.com/flutter-create-listview-lilke-talkapp/
 // scrollControllerインスタンスのanimateTo()を0.0と指定すると一番下(トークの最新値)の場所まで飛べる様になります。
-  ScrollController scrollController = ScrollController();
 
   final FireStoreRepo fireStoreRepo = FireStoreRepo();
 

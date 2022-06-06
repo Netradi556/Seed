@@ -8,7 +8,7 @@ class MessageScreenWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  FireStoreRepo fireStoreRepo = FireStoreRepo();
+  final FireStoreRepo fireStoreRepo = FireStoreRepo();
 
   @override
   Widget build(BuildContext context) {

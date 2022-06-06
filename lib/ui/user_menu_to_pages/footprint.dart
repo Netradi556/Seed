@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
 
 /*
@@ -20,8 +19,8 @@ import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
 
 class FootprintPagesWidget extends ConsumerWidget {
   FootprintPagesWidget({Key? key}) : super(key: key);
-  var listItem = ['User 1', 'User 2', 'User 3'];
-  String imagePath = 'assets/images/user1.jpg';
+  final listItem = ['User 1', 'User 2', 'User 3'];
+  final String imagePath = 'assets/images/user1.jpg';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -66,41 +65,39 @@ class FootprintPagesWidget extends ConsumerWidget {
               flex: 100,
               child: Container(
                 color: const Color(0xFFF1F8F7),
-                child: Container(
-                  child: ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                          decoration: const BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(color: Color(0xFF434F4F)),
+                child: ListView.builder(
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: Color(0xFF434F4F)),
+                          ),
+                        ),
+                        child: ListTile(
+                          leading: Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(imagePath),
+                                  fit: BoxFit.fill),
+                              border: Border.all(
+                                width: 1,
+                              ),
                             ),
                           ),
-                          child: ListTile(
-                            leading: Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(imagePath),
-                                    fit: BoxFit.fill),
-                                border: Border.all(
-                                  width: 1,
-                                ),
-                              ),
+                          title: Text('ユーザー名 $index'),
+                          subtitle: const Text('プロフィールの1行目を表示'),
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return MyProfilePageWidget();
+                              },
                             ),
-                            title: Text('ユーザー名 $index'),
-                            subtitle: const Text('プロフィールの1行目を表示'),
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return UserProfilePageWidget();
-                                },
-                              ),
-                            ),
-                          ));
-                    },
-                    itemCount: listItem.length,
-                  ),
+                          ),
+                        ));
+                  },
+                  itemCount: listItem.length,
                 ),
               ),
             ),

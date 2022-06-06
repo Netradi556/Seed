@@ -45,7 +45,7 @@ final profileHouseworkProvider = StateProvider((ref) => ''); // 家事・育児
 final profileHowMeetProvider = StateProvider((ref) => ''); // 出会うまでの希望
 final profileDatingCostProvider = StateProvider((ref) => ''); // 初回デート費用
 
-enum UserBasicProfile {
+/* enum UserBasicProfile {
   handleName,
   sex,
   birthDate,
@@ -53,3 +53,4 @@ enum UserBasicProfile {
 
 final firstRegistrationProvider =
     StateProvider<UserBasicProfile>((ref) => UserBasicProfile.birthDate);
+ */

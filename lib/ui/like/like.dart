@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LikePageWidget extends ConsumerWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  var listItem = ['User 1', 'User 2', 'User 3'];
 
   LikePageWidget({Key? key}) : super(key: key);
 
@@ -42,7 +41,7 @@ class LikePageWidget extends ConsumerWidget {
                 color: const Color(0xFF3EC922),
               ),
             ),
-            _LikeExpandWidget(),
+            const _LikeExpandWidget(),
           ],
         ),
       ),
@@ -51,17 +50,19 @@ class LikePageWidget extends ConsumerWidget {
 }
 
 class _LikeExpandWidget extends ConsumerWidget {
-  _LikeExpandWidget({
+  const _LikeExpandWidget({
     Key? key,
   }) : super(key: key);
-  String imagePath1 = 'assets/images/user1.jpg';
-  String imagePath2 = 'assets/images/user2.jpg';
-  String imagePath3 = 'assets/images/user3.jpg';
-  String imagePath4 = 'assets/images/user4.jpg';
-  String imagePath5 = 'assets/images/user5.jpg';
-  String imagePath6 = 'assets/images/user6.jpg';
-  String imagePath7 = 'assets/images/user7.jpg';
-  String imagePath8 = 'assets/images/user8.jpg';
+
+  final String imagePath1 = 'assets/images/user1.jpg';
+  final String imagePath2 = 'assets/images/user2.jpg';
+  final String imagePath3 = 'assets/images/user3.jpg';
+  final String imagePath4 = 'assets/images/user4.jpg';
+  final String imagePath5 = 'assets/images/user5.jpg';
+  final String imagePath6 = 'assets/images/user6.jpg';
+  final String imagePath7 = 'assets/images/user7.jpg';
+  final String imagePath8 = 'assets/images/user8.jpg';
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Expanded(

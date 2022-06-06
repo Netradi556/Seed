@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:seed_app/locator.dart';
@@ -30,12 +29,14 @@ class UserController {
   // プロフィールの項目アップデートの処理============================================
   Future<void> uploadEditedContents(Map<String, String> editingContents) async {
     await _fireStoreRepo.updateProfile(editingContents);
+    // ignore: avoid_print
     print('到達');
   }
 
   Future<void> firstUploadEditedContents(
       Map<String, String> editingContents) async {
     await _fireStoreRepo.setProfile(editingContents);
+    // ignore: avoid_print
     print('到達');
   }
 
