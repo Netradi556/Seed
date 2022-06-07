@@ -3,7 +3,10 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/locator.dart';
+import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/provider/util_provider.dart';
+import 'package:seed_app/repository/firestore_repo.dart';
 import 'package:seed_app/ui/user_top/user_profile_page.dart';
 
 const String imagePath1 = 'assets/images/user1.jpg';
@@ -15,7 +18,7 @@ const String imagePath6 = 'assets/images/user6.jpg';
 const String imagePath7 = 'assets/images/user7.jpg';
 const String imagePath8 = 'assets/images/user0.jpg';
 
-/* 
+/*
   GridViewの更新処理ロジック
   ・FireStoreからのドキュメント取得は60件ずつ
   ・Widgetの作成は20件ずつ
@@ -51,28 +54,30 @@ class InfiniteGridView extends ConsumerWidget {
   // スクロール検知用のScrollController
   final ScrollController _scrollController = ScrollController();
 
+  // FireStoreからSnapShot
+  final FireStoreRepo fireStoreRepo = FireStoreRepo();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final param = ref.watch(gridViewStateProvider.state);
+
+    Future<QuerySnapshot> querySnapshot = fireStoreRepo.getQuerySnapshot();
 
     // ScrollControllerにイベントリスナーを設定：イベント検知
     _scrollController.addListener(
       () {
         // =====================================================================取得できたSnapShotのLength分だけ伸ばすようにする
 
-
-        /*   
+        /*
            スクロール可能な範囲マイナス300Pixcelを検出
            要素数を＋20
            画面のリビルド
         */
         if (_scrollController.position.maxScrollExtent.toInt() - 300 <
-            _scrollController.position.pixels.toInt()) {                    
+            _scrollController.position.pixels.toInt()) {
           items.addAll(List.generate(20, (index) => items.length + index));
           param.state = !param.state;
         }
-
-        
       },
     );
 

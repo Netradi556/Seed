@@ -26,7 +26,7 @@ class UserController {
     return _currentUser;
   }
 
-  // プロフィールの項目アップデートの処理============================================
+  // プロフィールの項目アップデートの処理==========================================================================
   Future<void> uploadEditedContents(Map<String, String> editingContents) async {
     await _fireStoreRepo.updateProfile(editingContents);
     // ignore: avoid_print
@@ -40,8 +40,7 @@ class UserController {
     print('到達');
   }
 
-  // 画像保存の処理==============================================================
-
+  // 画像保存の処理============================================================================================
   Future<void> uploadProfilePicture(File image) async {
     // クラウド上への保存処理
     // FireStorageにアップロード

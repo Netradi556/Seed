@@ -8,7 +8,7 @@ class FireStoreRepo {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final AuthRepo _authRepo = locator.get<AuthRepo>();
 
-// Chat関係の処理================================================================
+// Chat関係の処理============================================================================================
   // 1つのチャットルーム内のドキュメントを取得
   Stream<QuerySnapshot> getChatStream() {
     return firestore
@@ -22,8 +22,8 @@ class FireStoreRepo {
     firestore.collection("users").where("name", isEqualTo: username).get();
   }
 
-// ユーザープロフィール関係の処理=====================================================
-  // ユーザープロファイルの情報をアップロード
+// ユーザープロフィール関係の処理=================================================================================
+  // ユーザープロファイルの情報をアップロード：ProfileEdit
   Future<void> updateProfile(Map<String, String> editedContents) async {
     UserModel user = await _authRepo.getUser();
     var userId = user.uid;
@@ -37,6 +37,7 @@ class FireStoreRepo {
     print('実行');
   }
 
+  // ユーザープロファイルの情報を新規作成：初回登録時に実行 Auth
   Future<void> setProfile(Map<String, String> editedContents) async {
     UserModel user = await _authRepo.getUser();
     var userId = user.uid;
@@ -50,7 +51,14 @@ class FireStoreRepo {
     print('実行');
   }
 
-  // TOP画面でユーザー情報を取得するときの処理
+  // TOP画面でユーザー情報を取得するときの処理：女性ユーザーのみ
+  Future<QuerySnapshot> getQuerySnapshot() async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('user')
+        .where('sex', isEqualTo: '女性')
+        .get();
+    return snapshot;
+  }
 
   // ユーザーが「いいね！」を押したときの処理
 
