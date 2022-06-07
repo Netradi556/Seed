@@ -3,8 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seed_app/locator.dart';
-import 'package:seed_app/models/user_models.dart';
+
 import 'package:seed_app/provider/util_provider.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
 import 'package:seed_app/ui/user_top/user_profile_page.dart';
@@ -39,6 +38,10 @@ const String imagePath8 = 'assets/images/user0.jpg';
   ・取得したSnapshotはアプリ内で保持する
   ・スクロール位置を戻しても（要素数No.が若いところに戻っても）ドキュメントを取得しない
 
+  CardWidgetの初回生成条件：
+  初回のドキュメントリスト取得時に、要素数が20件（初回のリストの要素数）未満の可能性あり
+  Listの定義をドキュメントリスト取得の後に変更する
+
 
 
 
@@ -48,20 +51,23 @@ const String imagePath8 = 'assets/images/user0.jpg';
 class InfiniteGridView extends ConsumerWidget {
   InfiniteGridView({Key? key}) : super(key: key);
 
-  // 表示するデータのList、初期値として20件
-  final List<int> items = List.generate(20, (index) => index);
-
   // スクロール検知用のScrollController
   final ScrollController _scrollController = ScrollController();
 
   // FireStoreからSnapShot
   final FireStoreRepo fireStoreRepo = FireStoreRepo();
 
+  // 一回の読み込みでクエリするドキュメントの数＝生成したいCardWidgetの数
+  final int loadCard = 5;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final param = ref.watch(gridViewStateProvider.state);
+    // 表示するデータのList、初期値として20件
+    List<int> items = List.generate(20, (index) => index);
 
-    Future<QuerySnapshot> querySnapshot = fireStoreRepo.getQuerySnapshot();
+    Future<QuerySnapshot> querySnapshot =
+        fireStoreRepo.getQuerySnapshotAtUserTop();
 
     // ScrollControllerにイベントリスナーを設定：イベント検知
     _scrollController.addListener(
@@ -69,13 +75,18 @@ class InfiniteGridView extends ConsumerWidget {
         // =====================================================================取得できたSnapShotのLength分だけ伸ばすようにする
 
         /*
-           スクロール可能な範囲マイナス300Pixcelを検出
-           要素数を＋20
+           スクロール可能な範囲マイナス300Pixelを検出
+           追加する要素数はloadCard<int>で制御
            画面のリビルド
         */
         if (_scrollController.position.maxScrollExtent.toInt() - 300 <
             _scrollController.position.pixels.toInt()) {
-          items.addAll(List.generate(20, (index) => items.length + index));
+          items
+              .addAll(List.generate(loadCard, (index) => items.length + index));
+
+          fireStoreRepo.addQueryDocumentSnapshotAtUserTop(
+              querySnapshot, loadCard);
+
           param.state = !param.state;
         }
       },
@@ -83,7 +94,7 @@ class InfiniteGridView extends ConsumerWidget {
 
     return Scaffold(
       body: FutureBuilder(
-        future: getQuerySnapshot(),
+        future: querySnapshot,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           final List<QueryDocumentSnapshot<Object?>>? queryDocumentSnapshot =
               snapshot.data?.docs;
@@ -139,25 +150,6 @@ class InfiniteGridView extends ConsumerWidget {
 
   double doubleInRange(Random source, num start, num end) =>
       source.nextDouble() * (end - start) + start;
-
-  Future<QuerySnapshot> getQuerySnapshot() async {
-    // ================================================================異性のみのドキュメントを取得するように変更
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('user')
-        .where('sex', isEqualTo: '女性')
-        .get();
-
-/*     FirebaseFirestore.instance
-        .collection('user')
-        .where('sex', isEqualTo: '女性')
-        .get()
-        .then(
-            (QuerySnapshot querySnapshot) => querySnapshot.docs.forEach((doc) {
-                  print(doc["handleName"]);
-                })); */
-
-    return snapshot;
-  }
 }
 
 class UserCard extends StatelessWidget {

@@ -52,12 +52,29 @@ class FireStoreRepo {
   }
 
   // TOP画面でユーザー情報を取得するときの処理：女性ユーザーのみ
-  Future<QuerySnapshot> getQuerySnapshot() async {
+  // 性別判定をどこでやるか、異性のみ取得したい
+  // ------------------------------------------------------------------------------動作確認で5件に絞ってみる
+  Future<QuerySnapshot> getQuerySnapshotAtUserTop() async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('user')
         .where('sex', isEqualTo: '女性')
+        .limit(20)
         .get();
     return snapshot;
+  }
+
+  Future<void> addQueryDocumentSnapshotAtUserTop(
+      Future<QuerySnapshot> querySnapshot, int loadCard) async {
+    querySnapshot.then((documentSnapshot) {
+      // 取得済みのドキュメントのうち、最後のドキュメント
+      final lastVisible = documentSnapshot.docs[documentSnapshot.size - 1];
+      // ignore: unused_local_variable
+      final next = FirebaseFirestore.instance
+          .collection('user')
+          .startAfter([lastVisible]).limit(loadCard);
+    });
+    // ignore: avoid_print
+    print('取得成功');
   }
 
   // ユーザーが「いいね！」を押したときの処理
