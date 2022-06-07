@@ -14,7 +14,10 @@ class MessageScreenWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: fireStoreRepo.firestore.collection('user').snapshots(),
-      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      builder: (
+        context,
+        AsyncSnapshot<QuerySnapshot> snapshot,
+      ) {
         if (!snapshot.hasData) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -23,33 +26,41 @@ class MessageScreenWidget extends StatelessWidget {
         if (snapshot.hasError) {
           return const Text('Something went wrong');
         }
-        return ListView(
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            return Card(
-              child: ListTile(
-                onTap: () {
-                  // チャットの内容（名前・メッセージ）はStreamで取得
-                  fireStoreRepo.getUserByUsername('');
+        return ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            snapshot.data!.docs.map(
+              (DocumentSnapshot document) {
+                return Card(
+                  child: ListTile(
+                    onTap: () {
+                      // チャットの内容（名前・メッセージ）はStreamで取得
+                      fireStoreRepo.getUserByUsername('');
 
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return const ChatScreen();
-                      },
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return const ChatScreen();
+                          },
+                        ),
+                      );
+                    },
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 32.0,
+                      vertical: 8.0,
                     ),
-                  );
-                },
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 32.0,
-                  vertical: 8.0,
-                ),
-                leading: ClipOval(child: Image.asset('assets/images/demo.png')),
-                trailing: const Text('3分前'),
-                title: const Text('Mentaくん'),
-                subtitle: const Text('Flutter面白い'),
-              ),
-            );
-          }).toList(),
+                    leading:
+                        ClipOval(child: Image.asset('assets/images/demo.png')),
+                    trailing: const Text('3分前'),
+                    title: const Text('Mentaくん'),
+                    subtitle: const Text('Flutter面白い'),
+                  ),
+                );
+              },
+            ).toList();
+
+            return Container();
+          },
+          itemCount: 4,
         );
       },
     );
