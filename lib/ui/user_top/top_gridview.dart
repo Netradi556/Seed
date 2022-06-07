@@ -15,6 +15,33 @@ const String imagePath6 = 'assets/images/user6.jpg';
 const String imagePath7 = 'assets/images/user7.jpg';
 const String imagePath8 = 'assets/images/user0.jpg';
 
+/* 
+  GridViewの更新処理ロジック
+  ・FireStoreからのドキュメント取得は60件ずつ
+  ・Widgetの作成は20件ずつ
+
+  1.FireStoreから60件のドキュメントを取得
+  2.1件目~20件目に対応するCardWidgetを生成
+  3.スクロールダウンを検知
+  4.21件目~40件目に対応するCardWidgetを生成
+  5.スクロールダウンを検知
+  6.41件目~60件目に対応するCardWidgetを生成
+  7.FireStoreから60件のドキュメントを取得
+
+  FireStoreから60件のドキュメントを取得する際の要件
+  ・前回取得した60件とは別の60件にする
+  　→FireStoreのDocumentoにインデックスを貼れば解決できる？
+  ・60件に満たない場合に、CardWidgetの生成を止める
+  　→取得したSnapshotの要素数を、itemCountプロパティに設定するListの更新処理に含める
+  ・取得したSnapshotはアプリ内で保持する
+  ・スクロール位置を戻しても（要素数No.が若いところに戻っても）ドキュメントを取得しない
+
+
+
+
+
+*/
+
 class InfiniteGridView extends ConsumerWidget {
   InfiniteGridView({Key? key}) : super(key: key);
 
@@ -33,16 +60,19 @@ class InfiniteGridView extends ConsumerWidget {
       () {
         // =====================================================================取得できたSnapShotのLength分だけ伸ばすようにする
 
-        // 最後までスクロールしたら
-        if (_scrollController.position.maxScrollExtent.toInt() - 300 <
-            _scrollController.position.pixels.toInt()) {
-          // データを増やす際にFireStoreから取得しないといけない
-          // 一度に取得する情報を多くするのが最適？？
 
-          // 要素を20ずつ増やしていく
+        /*   
+           スクロール可能な範囲マイナス300Pixcelを検出
+           要素数を＋20
+           画面のリビルド
+        */
+        if (_scrollController.position.maxScrollExtent.toInt() - 300 <
+            _scrollController.position.pixels.toInt()) {                    
           items.addAll(List.generate(20, (index) => items.length + index));
           param.state = !param.state;
         }
+
+        
       },
     );
 
