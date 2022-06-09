@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_signin_button/button_builder.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:seed_app/locator.dart';
 
 // Riverpod
@@ -93,9 +95,10 @@ class GoogleSignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150,
+      width: 200,
       height: 40,
-      child: ElevatedButton(
+      child: SignInButton(
+        Buttons.GoogleDark,
         onPressed: () async {
           try {
             final UserCredential userCredential =
@@ -132,9 +135,6 @@ class GoogleSignInButton extends StatelessWidget {
             print('$e');
           }
         },
-        child: const Text(
-            'Google Sign in'), //============================================Googleボタンに変更
-        style: const ButtonStyle(),
       ),
     );
   }
@@ -208,6 +208,8 @@ class PasswordTextForm extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
+  final Color textFromHintText = const Color(0xFF000000);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final password = ref.watch(passwordProvider.notifier);
@@ -231,26 +233,19 @@ class PasswordTextForm extends ConsumerWidget {
             decoration: InputDecoration(
               labelText: 'パスワード',
               // Extensionを利用予定
-              labelStyle: const TextStyle(
-                  color: Color(
-                      0xFF000000)), //==============================================変数で
+              labelStyle: TextStyle(color: textFromHintText),
               hintText: 'Enter your password...',
               // Extensionを利用予定
-              hintStyle: const TextStyle(
-                  color: Color(
-                      0xFF000000)), //==============================================変数で
+              hintStyle: TextStyle(color: textFromHintText),
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                  color: Color(
-                      0x00000000), //==============================================変数で
-                  width: 1,
-                ),
+                    color: Color.fromARGB(0, 0, 0, 0), width: 1),
                 borderRadius: BorderRadius.circular(8),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                  color: Color(
-                      0x00000000), //==============================================変数で
+                  color: Color.fromARGB(0, 255, 255,
+                      255), //==============================================変数で
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(8),
@@ -280,7 +275,7 @@ class MailAddressLogInButton extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final Color backgroundColor = const Color.fromARGB(250, 127, 249, 45);
+  final Color backgroundColor = Colors.blueGrey[700]!;
 
   final AuthRepo authRepo = AuthRepo();
 
@@ -296,13 +291,15 @@ class MailAddressLogInButton extends ConsumerWidget {
       height: 40,
       alignment: Alignment.bottomCenter,
       child: Container(
-        width: 150,
+        width: 200,
         height: 40,
         decoration: BoxDecoration(color: backgroundColor),
         alignment: Alignment.center,
-        child: InkWell(
-          child: const Text('ログイン'),
-          onTap: () async {
+        child: SignInButtonBuilder(
+          backgroundColor: backgroundColor,
+          icon: Icons.email,
+          text: 'Sing in with Email',
+          onPressed: () async {
             // ignore: avoid_print
             print(password.state.toString());
             try {
