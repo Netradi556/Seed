@@ -54,7 +54,8 @@ class RegistrationPageController extends ConsumerWidget {
             Container(
               width: double.infinity,
               height: 30,
-              color: const Color(0xFF9EDC68),　//===================================変数で
+              color: const Color(
+                  0xFF9EDC68), //===================================変数で
               child: Align(
                 child: SmoothPageIndicator(
                   controller: controller,
@@ -71,8 +72,10 @@ class RegistrationPageController extends ConsumerWidget {
                     radius: 16,
                     dotWidth: 16,
                     dotHeight: 16,
-                    dotColor: Color(0xFF9E9E9E), //===================================変数で
-                    activeDotColor: Color(0xFF3F51B5),//===================================変数で
+                    dotColor: Color(
+                        0xFF9E9E9E), //===================================変数で
+                    activeDotColor: Color(
+                        0xFF3F51B5), //===================================変数で
                     paintStyle: PaintingStyle.fill,
                   ),
                 ),

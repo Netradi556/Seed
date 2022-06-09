@@ -110,7 +110,6 @@ class GoogleSignInButton extends StatelessWidget {
                 (r) => false,
               );
             } else {
-
               //===================================================================Providerで状態を作成
               locator.get<UserController>().initializeLocalProfilePicturePath();
               await Navigator.pushAndRemoveUntil(
@@ -133,7 +132,8 @@ class GoogleSignInButton extends StatelessWidget {
             print('$e');
           }
         },
-        child: const Text('Google Sign in'), //============================================Googleボタンに変更
+        child: const Text(
+            'Google Sign in'), //============================================Googleボタンに変更
         style: const ButtonStyle(),
       ),
     );
@@ -144,8 +144,6 @@ class EmailTextForm extends ConsumerWidget {
   const EmailTextForm({
     Key? key,
   }) : super(key: key);
-
-
 
   final Color hintTextColor = const Color(0xFF000000);
 
@@ -159,7 +157,8 @@ class EmailTextForm extends ConsumerWidget {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: const Color(0xE398D759),//==========================================変数で
+          color: const Color(
+              0xE398D759), //==========================================変数で
           borderRadius: BorderRadius.circular(25),
         ),
         child: Padding(
@@ -170,10 +169,10 @@ class EmailTextForm extends ConsumerWidget {
             decoration: InputDecoration(
               labelText: 'メールアドレス',
               // Extensionを利用予定
-              labelStyle: const TextStyle(color: hintTextColor),
+              labelStyle: TextStyle(color: hintTextColor),
               hintText: 'Enter your email...',
               // Extensionを利用予定
-              hintStyle: const TextStyle(color:hintTextColor),
+              hintStyle: TextStyle(color: hintTextColor),
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: Color(0x00FFFFFF),
@@ -189,11 +188,14 @@ class EmailTextForm extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
-              fillColor: const Color(0x00000000), //====================================変数で
+              fillColor: const Color(
+                  0x00000000), //====================================変数で
               contentPadding:
                   const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
             ),
-            style: const TextStyle(color: Color.fromARGB(255, 8, 8, 8)),//====================================変数で
+            style: const TextStyle(
+                color: Color.fromARGB(
+                    255, 8, 8, 8)), //====================================変数で
           ),
         ),
       ),
@@ -217,7 +219,8 @@ class PasswordTextForm extends ConsumerWidget {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: const Color(0xE398D759), //==============================================変数で
+          color: const Color(
+              0xE398D759), //==============================================変数で
           borderRadius: BorderRadius.circular(25),
         ),
         child: Padding(
@@ -228,26 +231,33 @@ class PasswordTextForm extends ConsumerWidget {
             decoration: InputDecoration(
               labelText: 'パスワード',
               // Extensionを利用予定
-              labelStyle: const TextStyle(color: Color(0xFF000000)),  //==============================================変数で
+              labelStyle: const TextStyle(
+                  color: Color(
+                      0xFF000000)), //==============================================変数で
               hintText: 'Enter your password...',
               // Extensionを利用予定
-              hintStyle: const TextStyle(color: Color(0xFF000000)), //==============================================変数で
+              hintStyle: const TextStyle(
+                  color: Color(
+                      0xFF000000)), //==============================================変数で
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                  color: Color(0x00000000),//==============================================変数で
+                  color: Color(
+                      0x00000000), //==============================================変数で
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(8),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                  color: Color(0x00000000),//==============================================変数で
+                  color: Color(
+                      0x00000000), //==============================================変数で
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
-              fillColor: const Color(0x00FFFFFF),//==============================================変数で
+              fillColor: const Color(
+                  0x00FFFFFF), //==============================================変数で
               contentPadding:
                   const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
               suffixIcon: InkWell(
@@ -344,7 +354,8 @@ class CreateAccount extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: const [
               BoxShadow(
-                color: Color.fromARGB(85, 231, 225, 225), //==============================================変数で
+                color: Color.fromARGB(85, 231, 225,
+                    225), //==============================================変数で
                 offset: Offset(0.0, 1.0), //(x,y)
                 blurRadius: 6.0,
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seed_app/test_page.dart';
 import 'package:seed_app/ui/user_menu_to_pages/footprint.dart';
 import 'package:seed_app/ui/user_menu_to_pages/help.dart';
 import 'package:seed_app/ui/user_menu_to_pages/license.dart';
@@ -92,7 +93,17 @@ class MyPageMenu extends StatelessWidget {
                       width: 100,
                       height: 100,
                       decoration: const BoxDecoration(
-                        color: Color(0x97000000),
+                        color: Color.fromARGB(150, 186, 66, 66),
+                      ),
+                      child: InkWell(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return TestPage();
+                            },
+                          ),
+                        ),
+                        child: Icon(Icons.auto_graph),
                       ),
                     ),
                   ],
