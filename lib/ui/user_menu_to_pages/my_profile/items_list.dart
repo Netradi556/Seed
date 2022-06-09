@@ -58,6 +58,7 @@ class ProfileItemsList extends StatelessWidget {
                             )),
                       ),
                     ),
+                    // ======================================================================Providerから値を取得して表示するように
                     Flexible(
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),

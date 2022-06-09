@@ -13,7 +13,10 @@ import 'package:seed_app/controller/user_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /*
+  Todo
+  AppBarのデザイン修正：SilverAppBarに変更、丸みを帯びたデザインに変更
 
+  画面の遷移元をmy_profile.dartに変更
 
 
 */
@@ -32,15 +35,24 @@ class MyProfileEditPageWidget extends ConsumerWidget {
     final isChanged = ref.watch(profileIsChanged.state);
     return Material(
       child: Scaffold(
-        backgroundColor: const Color(0xFFF5F5F5),
-        // AppBarのデザイン修正
-        // SilverAppBarに変更、丸みを帯びたデザインに変更
+        backgroundColor: const Color(0xFFF5F5F5), // ========================================変数で
+
         appBar: AppBar(
           leading: InkWell(
             onTap: () async {
               if (isChanged.state == true) {
                 isChanged.state = false;
 
+
+
+
+
+
+//===============================ここから====================================================
+// user_controller.dartに処理を記述：
+// profile_item_models.dartのようなモデルを1つ作り、でアップロード用のMapを作成する？？
+// もしくはアップロード後に、SharedPreferencesの要素を全て削除する⇒SharedPreferencesはキャッシュとして利用する
+// いづれにせよ、items_list.dartではProviderを利用して表示する
                 final SharedPreferences pref =
                     await SharedPreferences.getInstance();
 
@@ -52,6 +64,8 @@ class MyProfileEditPageWidget extends ConsumerWidget {
                 // ==============================================================任意で追加したかったらここ
                 Map<String, String> editedContents = {};
 
+
+                // =============================================================Providerで保持しているProfileデータをどうやって保存するか？
                 for (var i = 0; i < allItemName.length; i++) {
                   String? param = pref.getString(allItemName[i]);
 
@@ -68,6 +82,7 @@ class MyProfileEditPageWidget extends ConsumerWidget {
                 await locator
                     .get<UserController>()
                     .uploadEditedContents(editedContents);
+//===========================ここまで==================================================
 
                 Navigator.of(context).pop();
               } else {

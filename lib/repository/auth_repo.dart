@@ -36,12 +36,14 @@ class AuthRepo {
   }
 
   Future<UserModel> getUser() async {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
+    final SharedPreferences pref = await SharedPreferences.getInstance(); 
+
+
     var firebaseUser = auth1.currentUser!;
     return UserModel(
       firebaseUser.uid,
-      handleName: pref.getString(firebaseUser.uid.toString()),
-      avatarUrl: '',
+      handleName: pref.getString(firebaseUser.uid.toString()), // ===============================FireStoreからデータを取得したい
+      avatarUrl: '', // =========================================================================パスを最初から設定したい
     );
   }
 }

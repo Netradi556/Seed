@@ -60,7 +60,7 @@ class _UserTopHeaderArea extends StatelessWidget {
       width: double.infinity,
       height: 100,
       decoration: const BoxDecoration(
-        color: Color(0xFFEEEEEE),
+        color: Color(0xFFEEEEEE), // ==========================================変数で
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -193,7 +193,7 @@ class _UserTopSearchArea extends ConsumerWidget {
           width: double.infinity,
           height: MediaQuery.of(context).size.height * 1,
           decoration: const BoxDecoration(
-            color: Color(0xFFF1F8F7),
+            color: Color(0xFFF1F8F7), // =================================変数で
           ),
           child: InfiniteGridView(),
         ),

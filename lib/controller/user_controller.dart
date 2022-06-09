@@ -21,6 +21,8 @@ class UserController {
   }
   UserModel? get currentUser => _currentUser;
 
+
+  // 呼び出し元のgetUserでuid、handleNamex、avatarUrlを取得しておく
   Future<UserModel?> initUser() async {
     _currentUser = await _authRepo?.getUser();
     return _currentUser;
@@ -71,14 +73,15 @@ class UserController {
     _currentUser?.avatarUrl = newPath;
 
     // 次回起動時のためにファイルネームを保存しておく
-    prefs.setString('avatarFileName', fileName);
+    prefs.setString('avatarFileName', fileName); // ============================================keyの値にuidを追加
   }
+
 
   // アプリ起動時の初期化処理に追加することで、アプリ内パスが変わっても対処
   Future<void> initializeLocalProfilePicturePath() async {
     // アプリ内表示に使用するためにファイルパスを更新
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? fileName = prefs.getString('avatarFileName');
+    final String? fileName = prefs.getString('avatarFileName'); // ============================================keyの値にuidを追加
     String nowPath =
         (await getApplicationDocumentsDirectory()).path + '/' + fileName!;
     _currentUser?.avatarUrl = nowPath;

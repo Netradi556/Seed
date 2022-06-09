@@ -76,15 +76,15 @@ class IntroductionPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: IntroductionScreen(
-        globalBackgroundColor: Colors.white,
+        globalBackgroundColor: Colors.white, //==============================================変数で
         pages: getPages(),
         done: const Text(
           "Done",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.black),//==============================================変数で
         ),
         onDone: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setBool('haveSeenIntro', true);
+          await prefs.setBool('haveSeenIntro', true); //=============================不要では
           await Navigator.of(context)
               .pushReplacement(MaterialPageRoute(builder: (context) {
             return RegistrationPageController();
@@ -92,7 +92,7 @@ class IntroductionPage extends ConsumerWidget {
         },
         next: const Text(
           "Next",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.black),//==============================================変数で
         ),
       ),
     );

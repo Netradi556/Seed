@@ -53,18 +53,21 @@ class InfiniteGridView extends ConsumerWidget {
 
   // スクロール検知用のScrollController
   final ScrollController _scrollController = ScrollController();
-
-  // FireStoreからSnapShot
+  // FireStoreの操作用Repository
   final FireStoreRepo fireStoreRepo = FireStoreRepo();
+
+
 
   // 一回の読み込みでクエリするドキュメントの数＝生成したいCardWidgetの数
   final int loadCard = 5;
+  // 最初に読み込みするCardWidgetの数
+  final int firstLoad = 20;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final param = ref.watch(gridViewStateProvider.state);
     // 表示するデータのList、初期値として20件
-    List<int> items = List.generate(20, (index) => index);
+    List<int> items = List.generate(firstLoad, (index) => index);
 
     Future<QuerySnapshot> querySnapshot =
         fireStoreRepo.getQuerySnapshotAtUserTop();

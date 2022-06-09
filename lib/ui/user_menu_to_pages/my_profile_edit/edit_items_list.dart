@@ -75,6 +75,14 @@ class EditProfileItemsList extends StatelessWidget {
                           builder: (BuildContext context,
                               AsyncSnapshot<String> snapshot) {
                             if (snapshot.hasData) {
+
+                              // =====================================itemNameが'ニックネーム'のときはテキストボックス
+                              // =====================================itemNameが'年齢'のときは編集不可の状態に
+                              // =====================================それ以外はDropdownItemsWidgetを返す
+
+
+
+
                               return _DropdownItemsWidget(
                                 itemName: itemsList[index],
                                 menuItems: getList(itemsList[index].toString()),

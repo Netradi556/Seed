@@ -15,12 +15,13 @@ import 'package:seed_app/locator.dart';
 
 /*
   Todo
-  ・プロフィール画像はCircleAvatar Widgetを利用したほうがよさそう
-  ・アイコンをボタンにするときはIconButton Widgetを利用したほうがよさそう
-  ・Widgetの切り出し
-  ・Riverpodの導入
-  ・アイコンの設定
-  ・
+  Stackでごまかしていたものを整理⇒プロフィールのパーツの配置を決定・調整
+
+  ハンドルネームの表示をFirebaseから取得した値にする
+  ⇒auth_repo.dartのgetUserを修正する
+
+
+
 */
 
 class MypagePageWidget extends ConsumerWidget {
@@ -46,7 +47,7 @@ class MypagePageWidget extends ConsumerWidget {
               decoration: const BoxDecoration(
                 color: Color(0x7AEBC24E),
               ),
-              child: Stack(
+              child: Stack( //====================================================Stackから他のWidgetに変更
                 children: [
                   // プロフィール画像
                   Align(
@@ -61,7 +62,7 @@ class MypagePageWidget extends ConsumerWidget {
                     alignment: const AlignmentDirectional(0.3, -0.4),
                     child: Text(
                       _currentUser!.handleName.toString(),
-                      style: FlutterFlowTheme.bodyText1.override(
+                      style: FlutterFlowTheme.bodyText1.override( // =======================FlutterFlowのThemeから変更
                         fontFamily: 'Poppins',
                         fontSize: 24,
                       ),
@@ -81,9 +82,9 @@ class MypagePageWidget extends ConsumerWidget {
                       child: Text(
                         'Edit profile',
                         textAlign: TextAlign.start,
-                        style: FlutterFlowTheme.bodyText1.override(
+                        style: FlutterFlowTheme.bodyText1.override(// =======================FlutterFlowのThemeから変更
                           fontFamily: 'Poppins',
-                          color: const Color(0xFF646CF2),
+                          color: const Color(0xFF646CF2), //==================================変数で
                         ),
                       ),
                     ),
@@ -101,9 +102,9 @@ class MypagePageWidget extends ConsumerWidget {
                       child: Text(
                         'my profile',
                         textAlign: TextAlign.start,
-                        style: FlutterFlowTheme.bodyText1.override(
+                        style: FlutterFlowTheme.bodyText1.override( // =======================FlutterFlowのThemeから変更
                           fontFamily: 'Poppins',
-                          color: const Color(0xFF646CF2),
+                          color: const Color(0xFF646CF2),//==================================変数で
                         ),
                       ),
                     ),
@@ -116,11 +117,11 @@ class MypagePageWidget extends ConsumerWidget {
               width: double.infinity,
               height: 50,
               decoration: const BoxDecoration(
-                color: Color(0xFFFC8585),
+                color: Color(0xFFFC8585),//==================================変数で
               ),
               child: Text(
                 '告知欄\n',
-                style: FlutterFlowTheme.bodyText1,
+                style: FlutterFlowTheme.bodyText1, // // =======================FlutterFlowのThemeから変更
               ),
             ),
             // メニュー
@@ -158,44 +159,6 @@ class Avatar extends StatelessWidget {
                 backgroundImage: Image.file(File(avatarUrl!)).image,
               ),
       ),
-    );
-  }
-}
-
-// 未完成・整理予定------------------------------
-
-class GetUserName extends StatelessWidget {
-  const GetUserName({
-    Key? key,
-    required this.documentId,
-  }) : super(key: key);
-
-  final String documentId;
-
-  @override
-  Widget build(BuildContext context) {
-    CollectionReference user = FirebaseFirestore.instance.collection('user');
-
-    return FutureBuilder<DocumentSnapshot>(
-      future: user.doc(documentId).get(),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return const Text("Something went wrong");
-        }
-
-        if (snapshot.hasData && !snapshot.data!.exists) {
-          return const Text("Document does not exist");
-        }
-
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
-          return Text("Full Name: ${data['handleName']}");
-        }
-
-        return const Text("loading");
-      },
     );
   }
 }
