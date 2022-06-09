@@ -58,14 +58,14 @@ class _UserTopHeaderArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 100,
+      height: 90,
       decoration: const BoxDecoration(
-        color: Color(0xFFEEEEEE), // ==========================================変数で
+        color:
+            Color(0xFFEEEEEE), // ==========================================変数で
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.max,
         children: [
-          const SizedBox(height: 5),
+          const SizedBox(height: 1),
           // 検索ボックスを格納しているSizedBox
           SizedBox(
             width: double.infinity,
@@ -110,9 +110,9 @@ class _UserTopHeaderArea extends StatelessWidget {
           // カテゴリーを格納しているSizedBox
           const SizedBox(
             width: double.infinity,
-            height: 40,
+            height: 35,
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 9, 0, 0),
+              padding: EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
               child: Align(
                 alignment: AlignmentDirectional(-0.05, 0),
                 child: Padding(
@@ -193,7 +193,8 @@ class _UserTopSearchArea extends ConsumerWidget {
           width: double.infinity,
           height: MediaQuery.of(context).size.height * 1,
           decoration: const BoxDecoration(
-            color: Color(0xFFF1F8F7), // =================================変数で
+            color: Color.fromARGB(
+                221, 207, 255, 248), // =================================変数で
           ),
           child: InfiniteGridView(),
         ),

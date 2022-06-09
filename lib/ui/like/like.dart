@@ -7,6 +7,8 @@ class LikePageWidget extends ConsumerWidget {
 
   LikePageWidget({Key? key}) : super(key: key);
 
+  final Color backgroundColor = const Color(0xFFF5F5F5);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -24,7 +26,7 @@ class LikePageWidget extends ConsumerWidget {
         ],
       ),
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: Column(
           children: [

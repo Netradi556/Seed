@@ -29,10 +29,12 @@ class MypagePageWidget extends ConsumerWidget {
   final UserModel? _currentUser = locator.get<UserController>().currentUser;
 
   MypagePageWidget({Key? key}) : super(key: key);
+  final Color backgroundColor = const Color.fromARGB(210, 231, 254, 250);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       key: scaffoldKey,
       body: SafeArea(
         child: Column(
@@ -41,87 +43,110 @@ class MypagePageWidget extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // プロフィールメニュー
-            Container(
-              width: double.infinity,
-              height: 150,
-              decoration: const BoxDecoration(
-                color: Color(0x7AEBC24E),
+            Material(
+              elevation: 1,
+              child: Container(
+                width: double.infinity,
+                height: 150,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.fromARGB(209, 245, 207, 55),
+                      Color.fromARGB(255, 251, 229, 152)
+                    ],
+                    stops: [0, 1],
+                    begin: AlignmentDirectional(0.3, -2),
+                    end: AlignmentDirectional(-0.3, 0.5),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  //====================================================Stackから他のWidgetに変更
+                  children: [
+                    const SizedBox(width: 50),
+                    // プロフィール画像
+                    Align(
+                      alignment: const AlignmentDirectional(-0.8, 0),
+                      child: Avatar(
+                        avatarUrl: _currentUser?.avatarUrl,
+                        onTap: () {},
+                      ),
+                    ),
+                    const SizedBox(width: 40),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // ハンドルネーム
+                        Text(
+                          _currentUser!.handleName.toString(),
+                          style: FlutterFlowTheme.bodyText1.override(
+                            // =======================FlutterFlowのThemeから変更
+                            fontFamily: 'Poppins',
+                            fontSize: 24,
+                          ),
+                        ),
+                        // プロフィール編集ボタン
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return MyProfileEditPageWidget();
+                              },
+                            ),
+                          ),
+                          child: Text(
+                            'Edit profile',
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.bodyText1.override(
+                              // =======================FlutterFlowのThemeから変更
+                              fontFamily: 'Poppins',
+                              color: const Color(
+                                  0xFF646CF2), //==================================変数で
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return MyProfilePageWidget();
+                              },
+                            ),
+                          ),
+                          child: Text(
+                            'プロフィールを確認する',
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.bodyText1.override(
+                              // =======================FlutterFlowのThemeから変更
+                              fontFamily: 'Poppins',
+                              color: const Color(
+                                  0xFF646CF2), //==================================変数で
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              child: Stack( //====================================================Stackから他のWidgetに変更
-                children: [
-                  // プロフィール画像
-                  Align(
-                    alignment: const AlignmentDirectional(-0.8, 0),
-                    child: Avatar(
-                      avatarUrl: _currentUser?.avatarUrl,
-                      onTap: () {},
-                    ),
-                  ),
-                  // ハンドルネーム
-                  Align(
-                    alignment: const AlignmentDirectional(0.3, -0.4),
-                    child: Text(
-                      _currentUser!.handleName.toString(),
-                      style: FlutterFlowTheme.bodyText1.override( // =======================FlutterFlowのThemeから変更
-                        fontFamily: 'Poppins',
-                        fontSize: 24,
-                      ),
-                    ),
-                  ),
-                  // プロフィール編集ボタン
-                  Align(
-                    alignment: const AlignmentDirectional(-0.05, 0),
-                    child: InkWell(
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return MyProfileEditPageWidget();
-                          },
-                        ),
-                      ),
-                      child: Text(
-                        'Edit profile',
-                        textAlign: TextAlign.start,
-                        style: FlutterFlowTheme.bodyText1.override(// =======================FlutterFlowのThemeから変更
-                          fontFamily: 'Poppins',
-                          color: const Color(0xFF646CF2), //==================================変数で
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: const AlignmentDirectional(0.55, 0),
-                    child: InkWell(
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return MyProfilePageWidget();
-                          },
-                        ),
-                      ),
-                      child: Text(
-                        'my profile',
-                        textAlign: TextAlign.start,
-                        style: FlutterFlowTheme.bodyText1.override( // =======================FlutterFlowのThemeから変更
-                          fontFamily: 'Poppins',
-                          color: const Color(0xFF646CF2),//==================================変数で
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            ),
+            const Divider(
+              height: 10,
+              color: Color.fromARGB(0, 100, 107, 242),
             ),
             // 告知欄
             Container(
               width: double.infinity,
               height: 50,
               decoration: const BoxDecoration(
-                color: Color(0xFFFC8585),//==================================変数で
+                color:
+                    Color(0xFFFC8585), //==================================変数で
               ),
               child: Text(
                 '告知欄\n',
-                style: FlutterFlowTheme.bodyText1, // // =======================FlutterFlowのThemeから変更
+                style: FlutterFlowTheme
+                    .bodyText1, // // =======================FlutterFlowのThemeから変更
               ),
             ),
             // メニュー
