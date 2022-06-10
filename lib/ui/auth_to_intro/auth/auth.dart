@@ -45,8 +45,9 @@ String _logoImagePath = 'assets/images/logo.jpg';
 
 class AuthPageWidget extends ConsumerWidget {
   const AuthPageWidget({Key? key}) : super(key: key);
-
   final Color backgroundColor = const Color.fromRGBO(249, 225, 45, 0.988);
+
+  
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(

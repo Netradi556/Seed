@@ -14,19 +14,22 @@ class UserController {
   final AuthRepo? _authRepo = locator.get<AuthRepo>();
   final StorageRepo? _storageRepo = locator.get<StorageRepo>();
 
+  // コンストラクタで初期化処理を呼び出す
   Future? init;
-
   UserController() {
     init = initUser();
   }
-  UserModel? get currentUser => _currentUser;
 
-
-  // 呼び出し元のgetUserでuid、handleNamex、avatarUrlを取得しておく
+  // コンストラクタで呼び出される初期化処理
+  // 呼び出し先のgetUserでuid、handleNamex、avatarUrlを取得しておく
   Future<UserModel?> initUser() async {
     _currentUser = await _authRepo?.getUser();
     return _currentUser;
   }
+
+
+  UserModel? get currentUser => _currentUser;
+
 
   // プロフィールの項目アップデートの処理==========================================================================
   Future<void> uploadEditedContents(Map<String, String> editingContents) async {
@@ -34,6 +37,7 @@ class UserController {
     // ignore: avoid_print
     print('到達');
   }
+
 
   Future<void> firstUploadEditedContents(
       Map<String, String> editingContents) async {
