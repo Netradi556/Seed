@@ -61,7 +61,6 @@ class MypagePageWidget extends ConsumerWidget {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  //====================================================Stackから他のWidgetに変更
                   children: [
                     const SizedBox(width: 50),
                     // プロフィール画像
