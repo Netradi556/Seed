@@ -34,13 +34,6 @@ String _logoImagePath = 'assets/images/logo.jpg';
   PasswordTextForm：
   Colorの指定を変数にする
 
-
-
-
-
-
-
-
 */
 
 class AuthPageWidget extends ConsumerWidget {

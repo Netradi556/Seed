@@ -23,7 +23,7 @@ class UserController {
   // コンストラクタで呼び出される初期化処理
   // 呼び出し先のgetUserでuid、handleNamex、avatarUrlを取得しておく
   Future<UserModel?> initUser() async {
-    _currentUser = await _authRepo?.getUser();
+    _currentUser = await _authRepo?.getUser(); // ===================呼び出し先のgetUser()が全部引っくるまってる？？？？
     return _currentUser;
   }
 
