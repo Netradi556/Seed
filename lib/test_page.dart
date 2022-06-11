@@ -40,6 +40,7 @@ class TodoListNotifier extends StateNotifier<List<Todo>> {
 }
 
 // StateNotifierProvider<処理を実装したクラス=Notifierのクラスの型, 扱いたい状態の型>
+// ignore: non_constant_identifier_names
 final TodoListNotifierProvider =
     StateNotifierProvider<TodoListNotifier, List<Todo>>((ref) {
   return TodoListNotifier();
@@ -52,7 +53,9 @@ class TestPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // StateProviderで利用
+    // ignore: unused_local_variable
     final counter = ref.watch(counterProvider.notifier);
+    // ignore: unused_local_variable
     final counterText = ref.watch(counterProvider);
 
     // StateNotifierProviderで利用
