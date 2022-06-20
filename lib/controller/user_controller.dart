@@ -14,6 +14,8 @@ class UserController {
   final AuthRepo? _authRepo = locator.get<AuthRepo>();
   final StorageRepo? _storageRepo = locator.get<StorageRepo>();
 
+  UserModel? get currentUser => _currentUser;
+
   // コンストラクタで初期化処理を呼び出す
   Future? init;
   UserController() {
@@ -21,15 +23,14 @@ class UserController {
   }
 
   // コンストラクタで呼び出される初期化処理
-  // 呼び出し先のgetUserでuid、handleNamex、avatarUrlを取得しておく
+  // 呼び出し先のgetUserでuid、handleName、avatarUrlを取得しておく
   Future<UserModel?> initUser() async {
-    _currentUser = await _authRepo?.getUser(); // ===================呼び出し先のgetUser()が全部引っくるまってる？？？？
+    _currentUser = await _authRepo
+        ?.getUser(); // ===================呼び出し先のgetUser()が全部引っくるまってる？？？？
     return _currentUser;
   }
 
-
-  UserModel? get currentUser => _currentUser;
-
+  setUserDocument() {}
 
   // プロフィールの項目アップデートの処理==========================================================================
   Future<void> uploadEditedContents(Map<String, String> editingContents) async {
@@ -37,7 +38,6 @@ class UserController {
     // ignore: avoid_print
     print('到達');
   }
-
 
   Future<void> firstUploadEditedContents(
       Map<String, String> editingContents) async {
@@ -77,15 +77,16 @@ class UserController {
     _currentUser?.avatarUrl = newPath;
 
     // 次回起動時のためにファイルネームを保存しておく
-    prefs.setString('avatarFileName', fileName); // ============================================keyの値にuidを追加
+    prefs.setString('avatarFileName',
+        fileName); // ============================================keyの値にuidを追加
   }
-
 
   // アプリ起動時の初期化処理に追加することで、アプリ内パスが変わっても対処
   Future<void> initializeLocalProfilePicturePath() async {
     // アプリ内表示に使用するためにファイルパスを更新
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? fileName = prefs.getString('avatarFileName'); // ============================================keyの値にuidを追加
+    final String? fileName = prefs.getString(
+        'avatarFileName'); // ============================================keyの値にuidを追加
     String nowPath =
         (await getApplicationDocumentsDirectory()).path + '/' + fileName!;
     _currentUser?.avatarUrl = nowPath;
