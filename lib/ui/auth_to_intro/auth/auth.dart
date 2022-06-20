@@ -108,8 +108,6 @@ class GoogleSignInButton extends StatelessWidget {
                 ),
                 (r) => false,
               );
-
-              
             } else {
               //===================================================================Providerで状態を作成
               _userController.initializeLocalProfilePicturePath();
@@ -277,6 +275,7 @@ class MailAddressLogInButton extends ConsumerWidget {
   final Color backgroundColor = Colors.blueGrey[700]!;
 
   final AuthRepo authRepo = AuthRepo();
+  final UserController _userController = locator.get<UserController>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -308,6 +307,8 @@ class MailAddressLogInButton extends ConsumerWidget {
                 password.state,
               );
               if (userCredential.additionalUserInfo!.isNewUser) {
+                // Userコレクションにドキュメント作成
+                _userController.setUserDocument();
                 await Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) {

@@ -27,46 +27,45 @@ class FireStoreRepo {
     UserModel user = await _authRepo.getUser();
     var userId = user.uid;
 
-    firestore.collection('user').doc(userId).set(
-      {'handleName': '',
-       'sex' : 'none',
-       'birthDate' : Timestamp.fromDate(Datetime.now()),
-       'score' : 0,
-       'receivedGood' : 0,
-       }
-    );
+    firestore.collection('user').doc(userId).set({
+      'handleName': '',
+      'sex': 'none',
+      'birthDate': Timestamp.fromDate(DateTime.now()),
+      'score': 0,
+      'receivedGood': 0,
+    });
 
-    firestore.collection('user').doc(userId).collection('MemberStatus').doc(userId).set(
-      {'goodCount' : 30,
-       'licenseType' : 'normal',
-      'entryDate' : Timestamp.fromDate(Datetime.now()),
-      'nextGivenDate' : '',
+    firestore
+        .collection('user')
+        .doc(userId)
+        .collection('MemberStatus')
+        .doc(userId)
+        .set({
+      'goodCount': 30,
+      'licenseType': 'normal',
+      'entryDate': Timestamp.fromDate(DateTime.now()),
+      'nextGivenDate': '',
+    });
 
-      }
-    );
-
-    firestore.collection('user').doc(userId).collection('MyNotification').doc('firstNotification').set(
-      {'publishedDate' : Timestamp.fromDate(Datetime.now()),
-       'isRead' : false,
-       'title' : 'FirstNotification'
-       'contents' : 'これは初回登録時に生成される通知です'
-      }
-    );
-
+    firestore
+        .collection('user')
+        .doc(userId)
+        .collection('MyNotification')
+        .doc('firstNotification')
+        .set({
+      'publishedDate': Timestamp.fromDate(DateTime.now()),
+      'isRead': false,
+      'title': 'FirstNotification',
+      'contents': 'これは初回登録時に生成される通知です'
+    });
   }
-  
-  
-  
-  
+
   // ユーザープロファイルの情報をアップロード：ProfileEdit
   Future<void> updateProfile(Map<String, String> editedContents) async {
     UserModel user = await _authRepo.getUser();
     var userId = user.uid;
 
-    firestore
-        .collection('user')
-        .doc(userId)
-        .update(editedContents);
+    firestore.collection('user').doc(userId).update(editedContents);
 
     // ignore: avoid_print
     print('実行');
