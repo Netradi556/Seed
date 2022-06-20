@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_signin_button/button_builder.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:seed_app/locator.dart';
 
@@ -40,7 +39,6 @@ class AuthPageWidget extends ConsumerWidget {
   const AuthPageWidget({Key? key}) : super(key: key);
   final Color backgroundColor = const Color.fromRGBO(249, 225, 45, 0.988);
 
-  
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -85,6 +83,7 @@ class GoogleSignInButton extends StatelessWidget {
   GoogleSignInButton({Key? key}) : super(key: key);
 
   final AuthRepo authRepo = AuthRepo();
+  final UserController _userController = locator.get<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +98,9 @@ class GoogleSignInButton extends StatelessWidget {
                 await authRepo.signInWithGoogle();
 
             if (userCredential.additionalUserInfo!.isNewUser) {
+              //==================================================================Userコレクションにドキュメント作成
+              _userController.setUserDocument();
+
               await Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -108,7 +110,8 @@ class GoogleSignInButton extends StatelessWidget {
               );
             } else {
               //===================================================================Providerで状態を作成
-              locator.get<UserController>().initializeLocalProfilePicturePath();
+              _userController.initializeLocalProfilePicturePath();
+
               await Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
