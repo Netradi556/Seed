@@ -98,7 +98,7 @@ class GoogleSignInButton extends StatelessWidget {
                 await authRepo.signInWithGoogle();
 
             if (userCredential.additionalUserInfo!.isNewUser) {
-              //==================================================================Userコレクションにドキュメント作成
+              // Userコレクションにドキュメント作成
               _userController.setUserDocument();
 
               await Navigator.pushAndRemoveUntil(
@@ -108,6 +108,8 @@ class GoogleSignInButton extends StatelessWidget {
                 ),
                 (r) => false,
               );
+
+              
             } else {
               //===================================================================Providerで状態を作成
               _userController.initializeLocalProfilePicturePath();

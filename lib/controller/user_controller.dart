@@ -30,7 +30,10 @@ class UserController {
     return _currentUser;
   }
 
-  setUserDocument() {}
+  // アカウント登録時のドキュメント生成処理
+  Future<void> setUserDocument() async {
+    _fireStoreRepo.setUserDocument();
+  }
 
   // プロフィールの項目アップデートの処理==========================================================================
   Future<void> uploadEditedContents(Map<String, String> editingContents) async {

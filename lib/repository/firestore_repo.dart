@@ -23,12 +23,47 @@ class FireStoreRepo {
   }
 
 // ユーザープロフィール関係の処理=================================================================================
+  Future<void> setUserDocument() async {
+    UserModel user = await _authRepo.getUser();
+    var userId = user.uid;
+
+    firestore.collection('user').doc(userId).set(
+      {'handleName': '',
+       'sex' : 'none',
+       'birthDate' : Timestamp.fromDate(Datetime.now()),
+       'score' : 0,
+       'receivedGood' : 0,
+       }
+    );
+
+    firestore.collection('user').doc(userId).collection('MemberStatus').doc(userId).set(
+      {'goodCount' : 30,
+       'licenseType' : 'normal',
+      'entryDate' : Timestamp.fromDate(Datetime.now()),
+      'nextGivenDate' : '',
+
+      }
+    );
+
+    firestore.collection('user').doc(userId).collection('MyNotification').doc('firstNotification').set(
+      {'publishedDate' : Timestamp.fromDate(Datetime.now()),
+       'isRead' : false,
+       'title' : 'FirstNotification'
+       'contents' : 'これは初回登録時に生成される通知です'
+      }
+    );
+
+  }
+  
+  
+  
+  
   // ユーザープロファイルの情報をアップロード：ProfileEdit
   Future<void> updateProfile(Map<String, String> editedContents) async {
     UserModel user = await _authRepo.getUser();
     var userId = user.uid;
 
-    FirebaseFirestore.instance
+    firestore
         .collection('user')
         .doc(userId)
         .update(editedContents);
