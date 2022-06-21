@@ -132,10 +132,11 @@ class InfiniteGridView extends ConsumerWidget {
                   print(documentSnapshot?.get('handleName').toString());
                   // ==============================================================handleName以外のパラメータも渡す
                   return UserCardWithSnapshot(
-                    imagePath: 'assets/images/user$index.jpg', // ==========documentSnapshot?.get('profileImagePath').toString()
+                    imagePath:
+                        'assets/images/user$index.jpg', // ==========documentSnapshot?.get('profileImagePath').toString()
                     handleName: documentSnapshot?.get('handleName').toString(),
-                    about : documentSnapshot?.get('about').toString(),
-                    age : documentSnapshot?.get('age').toString(),
+                    about: documentSnapshot?.get('about').toString(),
+                    age: documentSnapshot?.get('age'),
                   );
                 }
                 return UserCard(
@@ -271,22 +272,21 @@ class UserCard extends StatelessWidget {
       source.nextDouble() * (end - start) + start;
 }
 
-
 // =============================================================================QueryDocumentSnapshotを受け取るように変更
 class UserCardWithSnapshot extends StatelessWidget {
-  const UserCardWithSnapshot(
-      {Key? key, required this.imagePath, required this.handleName, required this.age, required this.about,})
-      : super(key: key);
-
+  const UserCardWithSnapshot({
+    Key? key,
+    required this.imagePath,
+    required this.handleName,
+    required this.age,
+    required this.about,
+  }) : super(key: key);
 
   // ===========================================================================QueryDocumentSnapshotのデータで初期化
   final String imagePath;
   final String? handleName;
-  final Int age;
-  final String about;
-
-
-
+  final int age;
+  final String? about;
 
   // CardWidgetの枠線の色を指定
   final Color borderlineOutsideCard = const Color.fromARGB(0, 255, 255, 255);
