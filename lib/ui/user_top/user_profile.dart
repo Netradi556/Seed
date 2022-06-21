@@ -6,10 +6,10 @@ import 'package:seed_app/controller/user_controller.dart';
 import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/models/user_models.dart';
-import 'package:seed_app/ui/user_menu_to_pages/my_profile/introduction.dart';
-import 'package:seed_app/ui/user_menu_to_pages/my_profile/introduction_card.dart';
-import 'package:seed_app/ui/user_menu_to_pages/my_profile/items_list.dart';
-import 'package:seed_app/ui/user_menu_to_pages/my_profile/score.dart';
+import 'package:seed_app/ui/user_menu_to_pages/my_profile/mp_introduction.dart';
+import 'package:seed_app/ui/user_menu_to_pages/my_profile/mp_introduction_card.dart';
+import 'package:seed_app/ui/user_menu_to_pages/my_profile/mp_items_list.dart';
+import 'package:seed_app/ui/user_menu_to_pages/my_profile/mp_score.dart';
 
 class UserProfilePage extends StatelessWidget {
   const UserProfilePage({Key? key}) : super(key: key);

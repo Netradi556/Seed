@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:seed_app/test_page.dart';
-import 'package:seed_app/ui/user_menu_to_pages/footprint.dart';
-import 'package:seed_app/ui/user_menu_to_pages/help.dart';
-import 'package:seed_app/ui/user_menu_to_pages/license.dart';
-import 'package:seed_app/ui/user_menu_to_pages/setting.dart';
-import 'package:seed_app/ui/user_menu_to_pages/yourfav.dart';
-import 'package:seed_app/ui/user_menu_to_pages/yourlike.dart';
+import 'package:seed_app/ui/user_menu_to_pages/other_pages/footprint.dart';
+import 'package:seed_app/ui/user_menu_to_pages/other_pages/help.dart';
+import 'package:seed_app/ui/user_menu_to_pages/other_pages/license.dart';
+import 'package:seed_app/ui/user_menu_to_pages/other_pages/setting.dart';
+import 'package:seed_app/ui/user_menu_to_pages/other_pages/yourfav.dart';
+import 'package:seed_app/ui/user_menu_to_pages/other_pages/yourlike.dart';
 
 import '../user_menu_to_pages/notification/notification.dart';
 
