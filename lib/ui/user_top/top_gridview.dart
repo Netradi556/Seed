@@ -132,8 +132,10 @@ class InfiniteGridView extends ConsumerWidget {
                   print(documentSnapshot?.get('handleName').toString());
                   // ==============================================================handleName以外のパラメータも渡す
                   return UserCardWithSnapshot(
-                    imagePath: 'assets/images/user$index.jpg',
+                    imagePath: 'assets/images/user$index.jpg', // ==========documentSnapshot?.get('profileImagePath').toString()
                     handleName: documentSnapshot?.get('handleName').toString(),
+                    about : documentSnapshot?.get('about').toString(),
+                    age : documentSnapshot?.get('age').toString(),
                   );
                 }
                 return UserCard(
@@ -224,7 +226,7 @@ class UserCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 2),
-                  // 年齢 居住地
+                  // ====================================================年齢 居住地
                   const SizedBox(
                     width: 160,
                     height: 22,
@@ -242,7 +244,7 @@ class UserCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 2),
-                  // 挨拶文
+                  // ============================================================挨拶文
                   const SizedBox(
                     width: 165,
                     height: 41,
@@ -269,14 +271,22 @@ class UserCard extends StatelessWidget {
       source.nextDouble() * (end - start) + start;
 }
 
+
+// =============================================================================QueryDocumentSnapshotを受け取るように変更
 class UserCardWithSnapshot extends StatelessWidget {
   const UserCardWithSnapshot(
-      {Key? key, required this.imagePath, required this.handleName})
+      {Key? key, required this.imagePath, required this.handleName, required this.age, required this.about,})
       : super(key: key);
 
-  // 表示するユーザーのプロフィール写真用PATH
+
+  // ===========================================================================QueryDocumentSnapshotのデータで初期化
   final String imagePath;
   final String? handleName;
+  final Int age;
+  final String about;
+
+
+
 
   // CardWidgetの枠線の色を指定
   final Color borderlineOutsideCard = const Color.fromARGB(0, 255, 255, 255);
@@ -333,6 +343,7 @@ class UserCardWithSnapshot extends StatelessWidget {
                       height: 170,
                       decoration: BoxDecoration(
                         image: DecorationImage(
+                          // =======================================image
                           image: AssetImage(imagePath),
                           fit: BoxFit.fitWidth,
                         ),
@@ -340,14 +351,14 @@ class UserCardWithSnapshot extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 2),
-                  // 年齢 居住地
+                  // =================================================年齢 居住地
                   SizedBox(
                     width: 160,
                     height: 22,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "$handleName 25歳  東京",
+                        "$handleName $age歳  東京",
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 13,
@@ -358,7 +369,7 @@ class UserCardWithSnapshot extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 2),
-                  // 挨拶文
+                  // ====================================================挨拶文
                   const SizedBox(
                     width: 165,
                     height: 41,
