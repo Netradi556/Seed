@@ -60,13 +60,11 @@ class ProfileItemsList extends StatelessWidget {
                             )),
                       ),
                     ),
-                    // ======================================================================Providerから値を取得して表示するように
                     Flexible(
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: Align(
                           alignment: Alignment.centerRight,
-                          // itemsList[index]の情報をもとにローカルから値を取得----------------------
                           child: FutureBuilder(
                             future: initialize(itemsList[index]),
                             builder: (BuildContext context,
