@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
 
+const String imagePath1 = 'assets/images/userXX.jpg';
+const String imagePath2 = 'assets/images/user2.jpg';
+const String imagePath3 = 'assets/images/user3.jpg';
+const String imagePath4 = 'assets/images/user4.jpg';
+
 class UserTopMiddleArea extends StatelessWidget {
   const UserTopMiddleArea({
     Key? key,
@@ -46,14 +51,11 @@ class UserTopMiddleArea extends StatelessWidget {
                   childAspectRatio: 1,
                 ),
                 scrollDirection: Axis.horizontal,
-                children: const [
-                  NearUserCard(),
-                  NearUserCard(),
-                  NearUserCard(),
-                  NearUserCard(),
-                  NearUserCard(),
-                  NearUserCard(),
-                  NearUserCard(),
+                children: [
+                  NearUserCard(imgPath: imagePath1),
+                  NearUserCard(imgPath: imagePath1),
+                  NearUserCard(imgPath: imagePath1),
+                  NearUserCard(imgPath: imagePath1),
                 ],
               ),
             ),
@@ -65,9 +67,11 @@ class UserTopMiddleArea extends StatelessWidget {
 }
 
 class NearUserCard extends StatelessWidget {
-  const NearUserCard({
+  NearUserCard({
+    required this.imgPath,
     Key? key,
   }) : super(key: key);
+  String imgPath;
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +81,17 @@ class NearUserCard extends StatelessWidget {
         width: 80,
         height: 80,
         decoration: BoxDecoration(
-          color: const Color(0xFFEEEEEE),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Color.fromARGB(233, 239, 238, 229),
+              width: 3,
+            )),
+        child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
+          child: Image(
+            image: AssetImage(imgPath),
+            fit: BoxFit.fitHeight,
+          ),
         ),
       ),
     );

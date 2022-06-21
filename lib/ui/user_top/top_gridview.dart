@@ -8,7 +8,7 @@ import 'package:seed_app/provider/util_provider.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
 import 'package:seed_app/ui/user_top/user_profile.dart';
 
-const String imagePath1 = 'assets/images/user1.jpg';
+const String imagePath1 = 'assets/images/userXX.jpg';
 const String imagePath2 = 'assets/images/user2.jpg';
 const String imagePath3 = 'assets/images/user3.jpg';
 const String imagePath4 = 'assets/images/user4.jpg';
@@ -136,7 +136,7 @@ class InfiniteGridView extends ConsumerWidget {
                         'assets/images/user$index.jpg', // ==========documentSnapshot?.get('profileImagePath').toString()
                     handleName: documentSnapshot?.get('handleName').toString(),
                     about: documentSnapshot?.get('about').toString(),
-                    age: documentSnapshot?.get('age'),
+                    // age: documentSnapshot?.get('age'), // ============================age未実装、Firestoreのデータにない
                   );
                 }
                 return UserCard(
@@ -278,14 +278,15 @@ class UserCardWithSnapshot extends StatelessWidget {
     Key? key,
     required this.imagePath,
     required this.handleName,
-    required this.age,
+    // required this.age, ===========================================================================ageパラメタ反映
     required this.about,
   }) : super(key: key);
 
   // ===========================================================================QueryDocumentSnapshotのデータで初期化
   final String imagePath;
   final String? handleName;
-  final int age;
+  final int age =
+      26; // ===========================================================================ageパラメタ反映
   final String? about;
 
   // CardWidgetの枠線の色を指定
@@ -358,7 +359,7 @@ class UserCardWithSnapshot extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "$handleName $age歳  東京",
+                        "$handleName    $age歳        東京", // ======================ageパラメタ反映 $age
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 13,

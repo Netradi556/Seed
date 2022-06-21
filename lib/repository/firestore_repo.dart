@@ -53,11 +53,15 @@ class FireStoreRepo {
   Future<void> setUserDocument() async {
     UserModel user = await _authRepo.getUser();
     var userId = user.uid;
+    var now = DateTime.now();
+    var dateOnly = DateTime(now.year, now.month, now.day);
+    var nextGivenDate = DateTime(now.year, now.month + 1, now.day);
 
     firestore.collection('user').doc(userId).set({
       'handleName': '',
       'sex': 'none',
-      'birthDate': Timestamp.fromDate(DateTime.now()),
+      'age': 0,
+      'profileImagePath': '',
       'score': 0,
       'receivedGood': 0,
     });
@@ -70,8 +74,9 @@ class FireStoreRepo {
         .set({
       'goodCount': 30,
       'licenseType': 'normal',
-      'entryDate': Timestamp.fromDate(DateTime.now()),
-      'nextGivenDate': '',
+      'entryDate': Timestamp.fromDate(dateOnly),
+      'nextGivenDate': Timestamp.fromDate(nextGivenDate),
+      'birthDate': Timestamp.fromDate(dateOnly),
     });
 
     firestore
@@ -80,7 +85,7 @@ class FireStoreRepo {
         .collection('MyNotification')
         .doc('firstNotification')
         .set({
-      'publishedDate': Timestamp.fromDate(DateTime.now()),
+      'publishedDate': Timestamp.fromDate(dateOnly),
       'isRead': false,
       'title': 'FirstNotification',
       'contents': 'これは初回登録時に生成される通知です'
