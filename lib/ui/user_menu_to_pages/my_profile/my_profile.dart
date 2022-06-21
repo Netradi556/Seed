@@ -124,7 +124,7 @@ class ProfilePictures extends ConsumerWidget {
               image: avatarUrl == null
                   ? Image.asset('assets/images/user1.jpg').image
                   : Image.file(File(avatarUrl!)).image,
-              fit: BoxFit.fill),
+              fit: BoxFit.fitWidth),
         ),
       ),
     );

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
 
 const String imagePath1 = 'assets/images/userXX.jpg';
-const String imagePath2 = 'assets/images/user2.jpg';
-const String imagePath3 = 'assets/images/user3.jpg';
+const String imagePath2 = 'assets/images/userXX1.jpg';
+const String imagePath3 = 'assets/images/userXX2.jpg';
 const String imagePath4 = 'assets/images/user4.jpg';
 
 class UserTopMiddleArea extends StatelessWidget {
@@ -51,11 +51,11 @@ class UserTopMiddleArea extends StatelessWidget {
                   childAspectRatio: 1,
                 ),
                 scrollDirection: Axis.horizontal,
-                children: [
+                children: const [
                   NearUserCard(imgPath: imagePath1),
-                  NearUserCard(imgPath: imagePath1),
-                  NearUserCard(imgPath: imagePath1),
-                  NearUserCard(imgPath: imagePath1),
+                  NearUserCard(imgPath: imagePath2),
+                  NearUserCard(imgPath: imagePath3),
+                  NearUserCard(imgPath: imagePath4),
                 ],
               ),
             ),
@@ -67,11 +67,11 @@ class UserTopMiddleArea extends StatelessWidget {
 }
 
 class NearUserCard extends StatelessWidget {
-  NearUserCard({
+  const NearUserCard({
     required this.imgPath,
     Key? key,
   }) : super(key: key);
-  String imgPath;
+  final String imgPath;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class NearUserCard extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: Color.fromARGB(233, 239, 238, 229),
+              color: const Color.fromARGB(233, 239, 238, 229),
               width: 3,
             )),
         child: ClipRRect(

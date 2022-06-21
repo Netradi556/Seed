@@ -11,7 +11,7 @@ class ProfileScore extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 351,
-      height: 390,
+      height: 350,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -33,12 +33,6 @@ class ProfileScore extends StatelessWidget {
             height: 270,
             child: CircleGauge(),
           ),
-          SizedBox(
-            height: 50,
-            child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Text('現在のスコア', style: TextStyle(fontSize: 20))),
-          ),
         ],
       ),
     );
@@ -50,8 +44,11 @@ class CircleGauge extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  final double gaugePercent = 70; // =============================スコア値パーセンテージ
+
   @override
   Widget build(BuildContext context) {
+    final String scoreText = (gaugePercent * 10).toInt().toString();
     return SfRadialGauge(
       axes: <RadialAxis>[
         RadialAxis(
@@ -61,45 +58,69 @@ class CircleGauge extends StatelessWidget {
             endAngle: 270, // 終了点
             radiusFactor: 1, // 円の半径
             axisLineStyle: const AxisLineStyle(
-                thicknessUnit: GaugeSizeUnit.factor, thickness: 0.3),
+                color: Color.fromARGB(247, 231, 226, 198),
+                thicknessUnit: GaugeSizeUnit.factor,
+                thickness: 0.3),
             annotations: <GaugeAnnotation>[
               GaugeAnnotation(
                 angle: 180,
-                widget: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
-                    Text(
-                      '500',
-                      style: TextStyle(
-                          fontFamily: 'Times',
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.italic),
+                widget: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          width: 130,
+                          child: Text(
+                            scoreText, // =================================================スコア値を実装
+                            style: const TextStyle(
+                                fontFamily: 'Quicksand',
+                                fontSize: 50,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal),
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      ' / 1000',
-                      style: TextStyle(
-                          fontFamily: 'Times',
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.italic),
+                    const Divider(
+                      thickness: 3,
+                      indent: 90,
+                      endIndent: 130,
+                      color: Color.fromARGB(32, 0, 0, 0),
+                    ),
+                    const SizedBox(
+                      width: 130,
+                      child: Text(
+                        '現在のスコア',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color.fromARGB(100, 0, 0, 0),
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
             ],
-            pointers: const <GaugePointer>[
+            pointers: <GaugePointer>[
               RangePointer(
-                  value: 50, // スコア値パーセンテージ-------------------------------後で実装
-                  cornerStyle: CornerStyle.bothCurve,
-                  enableAnimation: true,
-                  animationDuration: 1200,
-                  sizeUnit: GaugeSizeUnit.factor,
-                  gradient: SweepGradient(
-                      colors: <Color>[Color(0xFF6A6EF6), Color(0xFFDB82F5)],
-                      stops: <double>[0.25, 0.75]),
-                  color: Color(0xFF00A8B5),
-                  width: 0.3),
+                value: gaugePercent,
+                cornerStyle: CornerStyle.endCurve,
+                enableAnimation: true,
+                animationDuration: 1200,
+                sizeUnit: GaugeSizeUnit.factor,
+                gradient: const SweepGradient(colors: <Color>[
+                  Color.fromARGB(255, 244, 221, 107),
+                  Color.fromARGB(255, 245, 212, 130)
+                ], stops: <double>[
+                  0.25,
+                  0.75
+                ]),
+                width: 0.3,
+              ),
             ]),
       ],
     );

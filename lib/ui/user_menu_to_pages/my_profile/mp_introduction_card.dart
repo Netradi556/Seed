@@ -1,6 +1,7 @@
 // イントロダクションカード
 // ハンドルネーム、バッジ、ステータスコメント、ログイン状況など
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:seed_app/controller/user_controller.dart';
 import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/user_models.dart';
@@ -25,8 +26,8 @@ class _IntroductionCard extends StatelessWidget {
   _IntroductionCard({Key? key}) : super(key: key);
 
   final Color borderColor = const Color(0xFFFABF66);
-  final Color testColor1 = const Color.fromARGB(94, 102, 104, 250);
-  final Color testColor2 = const Color.fromARGB(94, 235, 87, 64);
+  final Color testColor2 = const Color.fromARGB(205, 239, 228, 130);
+  final Color badgeIconColor = const Color.fromARGB(173, 31, 134, 40);
 
   final UserModel? _currentUser = locator.get<UserController>().currentUser;
 
@@ -43,49 +44,64 @@ class _IntroductionCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(5, 10, 0, 5),
-            child: Container(
+            padding: const EdgeInsets.fromLTRB(5, 10, 0, 0),
+            child: SizedBox(
               width: 350,
-              height: 240,
-              color: testColor1,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(_currentUser!.handleName.toString(),
-                      style: const TextStyle(fontSize: 25)),
-                  const Divider(),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(7, 0, 0, 0),
+                    child: Text(
+                      _currentUser!.handleName
+                          .toString(), // =======================ハンドルネームをFSから
+                      style: const TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                   Row(
                     children: [
-                      const SizedBox(width: 20),
+                      const SizedBox(width: 10),
                       const Text('25歳', style: TextStyle(fontSize: 18)),
-                      const SizedBox(width: 15),
+                      const SizedBox(width: 30),
                       const Text('東京', style: TextStyle(fontSize: 18)),
-                      const SizedBox(width: 80),
+                      const SizedBox(width: 140),
                       Row(
-                        children: const [
-                          Icon(Icons.abc),
-                          Icon(Icons.ac_unit),
-                          Icon(Icons.add_box),
+                        children: [
+                          Icon(Icons.how_to_reg, color: badgeIconColor),
+                          Icon(Icons.credit_score, color: badgeIconColor),
+                          Icon(Icons.fact_check, color: badgeIconColor),
                         ],
                       ),
                     ],
                   ),
+                  const Divider(
+                      thickness: 2,
+                      indent: 10,
+                      endIndent: 20,
+                      color: Color.fromARGB(255, 221, 207, 81)),
                   Container(
                     width: 350,
-                    height: 110,
+                    height: 90,
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: const Text(
-                        'introduction'), // ==========================SharedPreferencesから
-                    color: testColor2,
+                      '休日は外で過ごすことが多いです \n \n ',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ), // ==========================SharedPreferencesから
                   ),
                   SizedBox(
-                    height: 40,
+                    height: 50,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const SizedBox(
+                        children: const [
+                          SizedBox(
                             width: 8,
                             height: 25,
                             child: Material(
@@ -93,8 +109,8 @@ class _IntroductionCard extends StatelessWidget {
                               shape: CircleBorder(),
                             ),
                           ),
-                          const SizedBox(width: 10),
-                          const SizedBox(
+                          SizedBox(width: 10),
+                          SizedBox(
                             width: 69,
                             height: 20,
                             child: Text(
@@ -107,23 +123,19 @@ class _IntroductionCard extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 40),
-                          Container(
+                          SizedBox(width: 40),
+                          SizedBox(
                             width: 20,
                             height: 20,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: const Color(0xfff9be65),
-                                width: 1,
-                              ),
+                            child: Icon(
+                              Icons.thumb_up,
+                              color: Color.fromARGB(198, 236, 201, 86),
                             ),
-                            child: const FlutterLogo(size: 12),
                           ),
-                          const SizedBox(width: 10),
-                          const SizedBox(
+                          SizedBox(width: 13),
+                          SizedBox(
                             width: 75,
-                            height: 20,
+                            height: 17,
                             child: Text(
                               "25いいね！",
                               style: TextStyle(
@@ -158,14 +170,14 @@ class _CurveLineUi extends CustomPainter {
     final paint = Paint()..color = borderColor;
     final curveLine = Path();
 
-    paint.strokeWidth = 5;
+    paint.strokeWidth = 4;
     paint.style = PaintingStyle.stroke;
-    canvas.drawLine(const Offset(0, 10), const Offset(0, 220), paint);
-    canvas.drawLine(const Offset(30, 250), const Offset(345, 250), paint);
+    canvas.drawLine(const Offset(0, 10), const Offset(0, 210), paint);
+    canvas.drawLine(const Offset(30, 240), const Offset(345, 240), paint);
 
     // 左下
-    curveLine.moveTo(0, 220);
-    curveLine.quadraticBezierTo(0, 250, 30, 250);
+    curveLine.moveTo(0, 210);
+    curveLine.quadraticBezierTo(0, 240, 30, 240);
     canvas.drawPath(curveLine, paint);
   }
 
