@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:seed_app/provider/util_provider.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
-import 'package:seed_app/ui/user_top/user_profile_page.dart';
+import 'package:seed_app/ui/user_top/user_profile.dart';
 
 const String imagePath1 = 'assets/images/user1.jpg';
 const String imagePath2 = 'assets/images/user2.jpg';
@@ -55,8 +55,6 @@ class InfiniteGridView extends ConsumerWidget {
   final ScrollController _scrollController = ScrollController();
   // FireStoreの操作用Repository
   final FireStoreRepo fireStoreRepo = FireStoreRepo();
-
-
 
   // 一回の読み込みでクエリするドキュメントの数＝生成したいCardWidgetの数
   final int loadCard = 5;

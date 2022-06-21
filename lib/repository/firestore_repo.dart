@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/repository/auth_repo.dart';
@@ -7,6 +8,10 @@ class FireStoreRepo {
   // FireStoreインスタンスの設定
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final AuthRepo _authRepo = locator.get<AuthRepo>();
+
+  // トップレベルコレクションの設定
+  final CollectionReference userCollection =
+      FirebaseFirestore.instance.collection('user');
 
 // Chat関係の処理============================================================================================
   // 1つのチャットルーム内のドキュメントを取得
@@ -20,6 +25,28 @@ class FireStoreRepo {
   // ユーザーネームからユーザー？を取得する -> 目的忘れた
   getUserByUsername(String username) {
     firestore.collection("users").where("name", isEqualTo: username).get();
+  }
+
+// マッチング関係の処理=========================================================================================
+  Future<void> sendGood(String myUid, String userUid) async {
+    var collectionRef = userCollection.doc(myUid).collection('ReceivedGood');
+    var doc = await collectionRef.doc(myUid).get();
+    bool docExists = doc.exists;
+
+    if (docExists) {
+      // 自分と相手側の'MatchedUser'コレクションへのドキュメント登録
+      userCollection.doc(myUid).collection('MatchedUser').doc(userUid).set({});
+      userCollection.doc(userUid).collection('MatchedUser').doc(myUid).set({});
+
+      // 相手側の'SendGood'からドキュメント削除
+      userCollection.doc(userUid).collection('SendGood').doc(myUid).delete();
+
+      // ポップアップ画面の表示ー＞UserController側で実装？
+    } else {
+      // 自分側：SendGood、相手側：ReceivedGoodへドキュメント登録
+      userCollection.doc(myUid).collection('SendGood').doc(userUid).set({});
+      userCollection.doc(userUid).collection('ReceivedGood').doc(myUid).set({});
+    }
   }
 
 // ユーザープロフィール関係の処理=================================================================================
@@ -65,7 +92,7 @@ class FireStoreRepo {
     UserModel user = await _authRepo.getUser();
     var userId = user.uid;
 
-    firestore.collection('user').doc(userId).update(editedContents);
+    userCollection.doc(userId).update(editedContents);
 
     // ignore: avoid_print
     print('実行');

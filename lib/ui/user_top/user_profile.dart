@@ -31,7 +31,6 @@ class UserProfilePageWidget extends ConsumerWidget {
   final Color appBarTextColor = const Color.fromARGB(223, 0, 0, 0);
   final Color appBarBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
 
-  final UserModel? _currentUser = locator.get<UserController>().currentUser;
   final ProfileItem profileItem = ProfileItem();
 
   @override
@@ -67,8 +66,9 @@ class UserProfilePageWidget extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // プロフ画像
-              ProfilePictures(
-                avatarUrl: _currentUser?.avatarUrl,
+              const ProfilePictures(
+                avatarUrl:
+                    '', // ==========================================FireStorageからパスを取得
               ),
               // 概要欄
               const IntroductionCard(),
@@ -108,12 +108,10 @@ class UserProfilePageWidget extends ConsumerWidget {
 // プロフィール画像
 class ProfilePictures extends ConsumerWidget {
   final String? avatarUrl;
-  ProfilePictures({
+  const ProfilePictures({
     this.avatarUrl,
     Key? key,
   }) : super(key: key);
-
-  final UserModel? _currentUser = locator.get<UserController>().currentUser;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -126,7 +124,8 @@ class ProfilePictures extends ConsumerWidget {
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
               image: avatarUrl == null
-                  ? Image.asset('assets/images/user1.jpg').image
+                  ? Image.asset('assets/images/user1.jpg')
+                      .image // ==============================================プロフィール画像未設定の場合の画像
                   : Image.file(File(avatarUrl!)).image,
               fit: BoxFit.fill),
         ),
