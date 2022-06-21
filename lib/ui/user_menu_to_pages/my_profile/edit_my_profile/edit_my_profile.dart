@@ -8,7 +8,7 @@ import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/provider/profile_provider.dart';
-import 'package:seed_app/ui/user_menu_to_pages/my_profile_edit/edit_items_list.dart';
+import 'package:seed_app/ui/user_menu_to_pages/my_profile/edit_my_profile/edit_mp_items_list.dart';
 import 'package:seed_app/controller/user_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,18 +35,14 @@ class MyProfileEditPageWidget extends ConsumerWidget {
     final isChanged = ref.watch(profileIsChanged.state);
     return Material(
       child: Scaffold(
-        backgroundColor: const Color(0xFFF5F5F5), // ========================================変数で
+        backgroundColor: const Color(
+            0xFFF5F5F5), // ========================================変数で
 
         appBar: AppBar(
           leading: InkWell(
             onTap: () async {
               if (isChanged.state == true) {
                 isChanged.state = false;
-
-
-
-
-
 
 //===============================ここから====================================================
 // user_controller.dartに処理を記述：
@@ -63,7 +59,6 @@ class MyProfileEditPageWidget extends ConsumerWidget {
 
                 // ==============================================================任意で追加したかったらここ
                 Map<String, String> editedContents = {};
-
 
                 // =============================================================Providerで保持しているProfileデータをどうやって保存するか？
                 for (var i = 0; i < allItemName.length; i++) {
