@@ -48,6 +48,26 @@ const String imagePath8 = 'assets/images/user0.jpg';
 
 */
 
+class UserTopSearchArea extends ConsumerWidget {
+  const UserTopSearchArea({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Expanded(
+      child: Align(
+        alignment: const AlignmentDirectional(0, 0),
+        child: SizedBox(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height * 1,
+          child: InfiniteGridView(),
+        ),
+      ),
+    );
+  }
+}
+
 class InfiniteGridView extends ConsumerWidget {
   InfiniteGridView({Key? key}) : super(key: key);
 
