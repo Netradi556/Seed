@@ -275,7 +275,7 @@ class UserCard extends StatelessWidget {
 
 // =============================================================================QueryDocumentSnapshotを受け取るように変更
 class UserCardWithSnapshot extends StatelessWidget {
-  const UserCardWithSnapshot({
+  UserCardWithSnapshot({
     Key? key,
     required this.imagePath,
     required this.handleName,
@@ -292,7 +292,7 @@ class UserCardWithSnapshot extends StatelessWidget {
   // CardWidgetの枠線の色を指定
   final Color borderlineOutsideCard = const Color.fromARGB(0, 255, 255, 255);
   final Color borderlineShadow = const Color.fromARGB(144, 108, 108, 108);
-  final Color userCardBackground = const Color.fromARGB(255, 198, 162, 162);
+  final Color userCardBackground = const Color.fromARGB(255, 235, 235, 235);
 
   @override
   Widget build(BuildContext context) {
@@ -320,7 +320,7 @@ class UserCardWithSnapshot extends StatelessWidget {
           // shapeプロパティで枠の形、太さ、色を決定
           child: Material(
             color: userCardBackground,
-            elevation: 1,
+            elevation: 1.5,
             shape: RoundedRectangleBorder(
               side: BorderSide(
                 width: 1,
@@ -337,7 +337,7 @@ class UserCardWithSnapshot extends StatelessWidget {
                 children: [
                   // 影の作成のためにMaterialWidgetを利用
                   Material(
-                    elevation: 0.8,
+                    elevation: 1,
                     child: Container(
                       padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
                       width: 165,
@@ -377,7 +377,7 @@ class UserCardWithSnapshot extends StatelessWidget {
                     child: Text(
                       about.toString(),
                       style: const TextStyle(
-                        color: Color(0x75000000),
+                        color: Color.fromARGB(206, 0, 0, 0),
                         fontSize: 13,
                         fontFamily: "Roboto",
                         fontWeight: FontWeight.w500,

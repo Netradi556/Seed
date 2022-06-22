@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/provider/serch_option_provider.dart';
 import 'package:seed_app/ui/user_top/top_gridview.dart';
 import 'package:seed_app/ui/user_top/user_top_middle.dart';
 
@@ -210,6 +212,10 @@ class SearchOption extends ConsumerWidget {
     const Color pageNameTextColor = Color.fromARGB(255, 0, 0, 0);
     const Color appBarIconColor = Color.fromARGB(255, 0, 0, 0);
 
+    final idProof = ref.watch(idProofProvider.state);
+    final incomeProof = ref.watch(incomeProofProvider.state);
+    final bacheloretteProof = ref.watch(bacheloretteProofProvider.state);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).canvasColor,
@@ -225,7 +231,107 @@ class SearchOption extends ConsumerWidget {
         ],
       ),
       body: SafeArea(
-        child: Column(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            // エリア選択
+            Container(
+              width: double.infinity,
+              height: 100,
+              color: const Color.fromARGB(104, 152, 136, 136),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+              child: Container(
+                width: double.infinity,
+                color: Colors.blue,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('エリア',
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.w700)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text(
+                          '居住地',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          '東京、千葉、埼玉',
+                          style: TextStyle(fontSize: 18, color: Colors.amber),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+            const Divider(
+              thickness: 2,
+              indent: 30,
+              endIndent: 30,
+            ),
+            // 確認書類
+            Container(
+              width: double.infinity,
+              color: const Color.fromARGB(104, 152, 136, 136),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+              child: Container(
+                width: double.infinity,
+                color: Colors.blue,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('認証',
+                        style: TextStyle(
+                            fontSize: 21, fontWeight: FontWeight.w700)),
+                    ProofStateSwitch(itemName: '本人確認', proofType: idProof),
+                    ProofStateSwitch(itemName: '収入証明', proofType: incomeProof),
+                    ProofStateSwitch(
+                        itemName: '独身証明', proofType: bacheloretteProof)
+                  ],
+                ),
+              ),
+            ),
+
+            SizedBox(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProofStateSwitch extends StatelessWidget {
+  const ProofStateSwitch({
+    Key? key,
+    required this.itemName,
+    required this.proofType,
+  }) : super(key: key);
+
+  final String itemName;
+  final StateController<bool> proofType;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            itemName.toString(),
+            style: const TextStyle(fontSize: 18),
+          ),
+          CupertinoSwitch(
+            activeColor: Colors.amber,
+            value: proofType.state,
+            onChanged: (value) {
+              proofType.state = value;
+            },
+          )
+        ],
       ),
     );
   }

@@ -173,11 +173,11 @@ class Avatar extends StatelessWidget {
       child: Container(
         child: avatarUrl == null
             ? const CircleAvatar(
-                radius: 50.0,
+                radius: 60.0,
                 child: Icon(Icons.photo_camera),
               )
             : CircleAvatar(
-                radius: 50.0,
+                radius: 60.0,
                 backgroundImage: Image.file(File(avatarUrl!)).image,
               ),
       ),
