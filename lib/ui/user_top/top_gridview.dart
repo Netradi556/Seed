@@ -94,6 +94,7 @@ class InfiniteGridView extends ConsumerWidget {
     );
 
     return Scaffold(
+      backgroundColor: const Color.fromARGB(239, 229, 242, 240),
       body: FutureBuilder(
         future: querySnapshot,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -136,7 +137,7 @@ class InfiniteGridView extends ConsumerWidget {
                         'assets/images/user$index.jpg', // ==========documentSnapshot?.get('profileImagePath').toString()
                     handleName: documentSnapshot?.get('handleName').toString(),
                     about: documentSnapshot?.get('about').toString(),
-                    // age: documentSnapshot?.get('age'), // ============================age未実装、Firestoreのデータにない
+                    age: documentSnapshot?.get('age').toString(),
                   );
                 }
                 return UserCard(
@@ -278,15 +279,14 @@ class UserCardWithSnapshot extends StatelessWidget {
     Key? key,
     required this.imagePath,
     required this.handleName,
-    // required this.age, ===========================================================================ageパラメタ反映
+    required this.age,
     required this.about,
   }) : super(key: key);
 
   // ===========================================================================QueryDocumentSnapshotのデータで初期化
   final String imagePath;
   final String? handleName;
-  final int age =
-      26; // ===========================================================================ageパラメタ反映
+  final String? age;
   final String? about;
 
   // CardWidgetの枠線の色を指定
@@ -371,12 +371,12 @@ class UserCardWithSnapshot extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   // ====================================================挨拶文
-                  const SizedBox(
+                  SizedBox(
                     width: 165,
                     height: 41,
                     child: Text(
-                      "このご時世ですが前向きに進めたいのでまた再開😄",
-                      style: TextStyle(
+                      about.toString(),
+                      style: const TextStyle(
                         color: Color(0x75000000),
                         fontSize: 13,
                         fontFamily: "Roboto",

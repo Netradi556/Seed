@@ -18,7 +18,10 @@ class UserTopMiddleArea extends StatelessWidget {
       height: 120,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xB4FCBC00), Color(0xFFFDE283)],
+          colors: [
+            Color.fromARGB(180, 253, 209, 76),
+            Color.fromARGB(255, 249, 231, 168)
+          ],
           stops: [0, 1],
           begin: AlignmentDirectional(0.34, -1),
           end: AlignmentDirectional(-0.34, 1),

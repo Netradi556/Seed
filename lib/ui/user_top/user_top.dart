@@ -24,7 +24,7 @@ class UserTopWidget extends ConsumerWidget {
 
   UserTopWidget({Key? key}) : super(key: key);
 
-  // white
+  // white SafeAreaあたりの色が変わるだけ
   final Color backgroundColor = const Color.fromARGB(255, 255, 255, 255);
 
   @override
@@ -60,8 +60,8 @@ class _UserTopHeaderArea extends StatelessWidget {
       width: double.infinity,
       height: 90,
       decoration: const BoxDecoration(
-        color:
-            Color(0xFFEEEEEE), // ==========================================変数で
+        color: Color.fromARGB(237, 255, 255,
+            255), // Color(0xFFEEEEEE), // ==========================================変数で
       ),
       child: Column(
         children: [
@@ -189,13 +189,9 @@ class _UserTopSearchArea extends ConsumerWidget {
     return Expanded(
       child: Align(
         alignment: const AlignmentDirectional(0, 0),
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           height: MediaQuery.of(context).size.height * 1,
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(
-                221, 207, 255, 248), // =================================変数で
-          ),
           child: InfiniteGridView(),
         ),
       ),
