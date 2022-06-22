@@ -27,18 +27,16 @@ class LikePageWidget extends ConsumerWidget {
       ),
       key: scaffoldKey,
       backgroundColor: backgroundColor,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              height: 70,
-              child: const Text('広告orコンテンツ表示欄'),
-              width: double.infinity,
-              color: const Color(0xFF3EC922),
-            ),
-            const _LikeExpandWidget(),
-          ],
-        ),
+      body: Column(
+        children: [
+          Container(
+            height: 70,
+            child: const Text('広告orコンテンツ表示欄'),
+            width: double.infinity,
+            color: const Color(0xFF3EC922),
+          ),
+          const _LikeExpandWidget(),
+        ],
       ),
     );
   }
@@ -60,16 +58,26 @@ class _LikeExpandWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        color: Color(0xFFF1F8F7),
-      ),
+    return Expanded(
       child: Align(
-        alignment: const AlignmentDirectional(0.05, 0),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(20, 15, 20, 0),
-          child: Container(),
+        alignment: const AlignmentDirectional(0, 0),
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 1,
+          child: GridView.builder(
+            padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 1,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 20,
+              childAspectRatio: 0.7,
+            ),
+            itemCount: 3,
+            itemBuilder: (BuildContext context, int index) {
+              return ReceivedGoodCard(
+                imagePath8: imagePath1,
+              );
+            },
+          ),
         ),
       ),
     );
@@ -86,98 +94,81 @@ class ReceivedGoodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 500,
-      height: 300,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 350,
-            height: 400,
-            child: Material(
-              color: Colors.white,
-              elevation: 1,
-              shape: const RoundedRectangleBorder(
-                side: BorderSide(
+    return Material(
+      color: Color.fromARGB(255, 223, 109, 109),
+      elevation: 1,
+      shape: const RoundedRectangleBorder(
+        side: BorderSide(
+          width: 1,
+          color: Color(0x000a0a0a),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 5,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 350,
+              height: 190,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: const Color(0x0f000000),
                   width: 1,
-                  color: Color(0x000a0a0a),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 5,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 350,
-                      height: 190,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: const Color(0x0f000000),
-                          width: 1,
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 300,
-                            height: 200,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(imagePath8),
-                                  fit: BoxFit.fill),
-                              border: Border.all(
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                        ],
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 300,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(imagePath8), fit: BoxFit.fill),
+                      border: Border.all(
+                        width: 1,
                       ),
                     ),
-                    const SizedBox(height: 2.50),
-                    const SizedBox(
-                      width: 107,
-                      height: 30,
-                      child: Text(
-                        "25歳  東京",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 13,
-                          fontFamily: "Roboto",
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 2.50),
-                    const SizedBox(
-                      width: 156,
-                      height: 60,
-                      child: Text(
-                        "このご時世ですが前向きに進めたいのでまた再開😄",
-                        style: TextStyle(
-                          color: Color(0x75000000),
-                          fontSize: 13,
-                          fontFamily: "Roboto",
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 2.50),
+            const SizedBox(
+              width: 107,
+              height: 30,
+              child: Text(
+                "25歳  東京",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 13,
+                  fontFamily: "Roboto",
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 2.50),
+            const SizedBox(
+              width: 156,
+              height: 60,
+              child: Text(
+                "このご時世ですが前向きに進めたいのでまた再開😄",
+                style: TextStyle(
+                  color: Color(0x75000000),
+                  fontSize: 13,
+                  fontFamily: "Roboto",
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -9,7 +9,7 @@ import 'package:seed_app/ui/auth_to_intro/auth/auth.dart';
 import 'package:seed_app/locator.dart';
 
 void main() async {
-  debugPaintSizeEnabled = true;
+  // debugPaintSizeEnabled = true;
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   setupServices();
