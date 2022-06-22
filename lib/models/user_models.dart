@@ -8,6 +8,7 @@ class UserModel {
   UserModel(
     this.uid, {
     this.displayName,
+    this.handleName,
     this.avatarUrl,
     this.avatarUrlOnCloud,
   });

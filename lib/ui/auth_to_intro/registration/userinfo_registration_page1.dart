@@ -7,9 +7,7 @@ import 'package:intl/intl.dart';
 // Riverpod
 import 'package:seed_app/provider/profile_provider.dart';
 
-// PageWidget
 
-// const
 
 class RegistrationPage1 extends ConsumerWidget {
   const RegistrationPage1({Key? key}) : super(key: key);
@@ -114,11 +112,11 @@ class TextFormItemsWidget extends ConsumerWidget {
               maxLength: 10,
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Color(0x98D4D5D8),
+                fillColor: Color(0x98D4D5D8), //===============================================変数で
                 contentPadding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
               ),
               style: const TextStyle(
-                color: Color(0xC4000000),
+                color: Color(0xC4000000), //===============================================変数で
                 fontSize: 25,
               ),
             ),

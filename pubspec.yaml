@@ -60,6 +60,7 @@ dependencies:
   get_it: ^7.2.0
   syncfusion_flutter_gauges: ^20.1.57 # サークルゲージのやつ
   path_provider: ^2.0.10
+  flutter_signin_button: ^2.0.0 # SignInButtonのやつ
 
 
   # flutter flowに合わせて入れたやつ

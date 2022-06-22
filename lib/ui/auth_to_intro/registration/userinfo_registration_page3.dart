@@ -10,10 +10,15 @@ import 'package:seed_app/ui/navigation_controller.dart';
 import 'package:seed_app/provider/profile_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/*
-  Todo(High)
+/* Todo
   「登録を完了する」ボタンを押下した時に、確認のポップアップを表示
   確認内容には変更不可の属性を表示する
+
+  UserCardに表示するaboutパラメータも登録する
+
+
+  ユーザーのプロフィール画像の初期値を設定しても良さそう
+
 
 
 */
@@ -56,6 +61,12 @@ class RegistrationPage3 extends ConsumerWidget {
                 child: ElevatedButton(
                   child: const Text('登録を完了する'),
                   onPressed: () async {
+
+                    // ==========================================================================aboutパラメタを保持するProviderに初期値投入
+
+
+
+
                     if (paramSex.state.toString() == '未選択' ||
                         paramName.state.toString() == '' ||
                         paramBirthDate.state.toString() == '') {
@@ -69,6 +80,8 @@ class RegistrationPage3 extends ConsumerWidget {
                       print(paramBirthDate.state.toString());
                     } else {
                       try {
+
+                        // =============================================================SharePreferencesを削除
                         final SharedPreferences pref =
                             await SharedPreferences.getInstance();
 
@@ -78,6 +91,7 @@ class RegistrationPage3 extends ConsumerWidget {
                         pref.setString(
                             'birthDate', paramBirthDate.state.toString());
 
+                        // ==============================================================aboutパラメータを保持するProvider分も記述する
                         await userController.firstUploadEditedContents(
                           {
                             'handleName': paramName.state.toString(),

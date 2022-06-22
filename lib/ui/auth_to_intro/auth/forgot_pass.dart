@@ -6,6 +6,16 @@ import 'package:seed_app/provider/auth_provider.dart';
 
 String _backgroundImagePath = 'assets/images/logo.jpg';
 
+/*
+  真似でOK
+　https://yaba-blog.com/flutter-firebase-password-reset/
+
+
+
+
+
+*/
+
 class ForgotPassPageWidget extends ConsumerWidget {
   const ForgotPassPageWidget({Key? key}) : super(key: key);
 
@@ -14,7 +24,7 @@ class ForgotPassPageWidget extends ConsumerWidget {
     final email = ref.watch(emailProvider.notifier);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.black,//==============================================変数で
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
@@ -28,7 +38,7 @@ class ForgotPassPageWidget extends ConsumerWidget {
         title: const Text(
           'パスワードの再設定',
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.white,//==============================================変数で
             fontSize: 25,
           ),
         ),
@@ -59,14 +69,14 @@ class ForgotPassPageWidget extends ConsumerWidget {
                   hintStyle: const TextStyle(color: Colors.amberAccent),
                   enabledBorder: OutlineInputBorder(
                     borderSide: const BorderSide(
-                      color: Color(0x00000000),
+                      color: Color(0x00000000),//==============================================変数で
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(
-                      color: Color(0x00000000),
+                      color: Color(0x00000000),//==============================================変数で
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(8),

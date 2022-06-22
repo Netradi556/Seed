@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:seed_app/locator.dart';
 
 // Riverpod
@@ -18,10 +19,26 @@ import '../intro/introduction.dart';
 
 String _logoImagePath = 'assets/images/logo.jpg';
 
+/* Todo
+  All：
+  EmailTextFormとPasswordTextFormのWidgetをまとめる
+  →バリデーションを実装するなら不要？
+
+  GoogleSignInButton：
+  ボタンのデザインをGoogleのボタンに変更する
+
+  EmailTextForm：
+  Colorの指定を変数にする
+
+  PasswordTextForm：
+  Colorの指定を変数にする
+
+*/
+
 class AuthPageWidget extends ConsumerWidget {
   const AuthPageWidget({Key? key}) : super(key: key);
-
   final Color backgroundColor = const Color.fromRGBO(249, 225, 45, 0.988);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -66,19 +83,24 @@ class GoogleSignInButton extends StatelessWidget {
   GoogleSignInButton({Key? key}) : super(key: key);
 
   final AuthRepo authRepo = AuthRepo();
+  final UserController _userController = locator.get<UserController>();
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150,
+      width: 200,
       height: 40,
-      child: ElevatedButton(
+      child: SignInButton(
+        Buttons.GoogleDark,
         onPressed: () async {
           try {
             final UserCredential userCredential =
                 await authRepo.signInWithGoogle();
 
             if (userCredential.additionalUserInfo!.isNewUser) {
+              // Userコレクションにドキュメント作成
+              _userController.setUserDocument();
+
               await Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -87,7 +109,9 @@ class GoogleSignInButton extends StatelessWidget {
                 (r) => false,
               );
             } else {
-              locator.get<UserController>().initializeLocalProfilePicturePath();
+              //===================================================================Providerで状態を作成
+              _userController.initializeLocalProfilePicturePath();
+
               await Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -108,8 +132,6 @@ class GoogleSignInButton extends StatelessWidget {
             print('$e');
           }
         },
-        child: const Text('Google Sign in'),
-        style: const ButtonStyle(),
       ),
     );
   }
@@ -119,6 +141,8 @@ class EmailTextForm extends ConsumerWidget {
   const EmailTextForm({
     Key? key,
   }) : super(key: key);
+
+  final Color hintTextColor = const Color(0xFF000000);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -130,7 +154,8 @@ class EmailTextForm extends ConsumerWidget {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: const Color(0xE398D759),
+          color: const Color(
+              0xE398D759), //==========================================変数で
           borderRadius: BorderRadius.circular(25),
         ),
         child: Padding(
@@ -141,10 +166,10 @@ class EmailTextForm extends ConsumerWidget {
             decoration: InputDecoration(
               labelText: 'メールアドレス',
               // Extensionを利用予定
-              labelStyle: const TextStyle(color: Color(0xFF000000)),
+              labelStyle: TextStyle(color: hintTextColor),
               hintText: 'Enter your email...',
               // Extensionを利用予定
-              hintStyle: const TextStyle(color: Color(0xFF000000)),
+              hintStyle: TextStyle(color: hintTextColor),
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: Color(0x00FFFFFF),
@@ -160,11 +185,14 @@ class EmailTextForm extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
-              fillColor: const Color(0x00000000),
+              fillColor: const Color(
+                  0x00000000), //====================================変数で
               contentPadding:
                   const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
             ),
-            style: const TextStyle(color: Color.fromARGB(255, 8, 8, 8)),
+            style: const TextStyle(
+                color: Color.fromARGB(
+                    255, 8, 8, 8)), //====================================変数で
           ),
         ),
       ),
@@ -177,6 +205,8 @@ class PasswordTextForm extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
+  final Color textFromHintText = const Color(0xFF000000);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final password = ref.watch(passwordProvider.notifier);
@@ -188,7 +218,8 @@ class PasswordTextForm extends ConsumerWidget {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
-          color: const Color(0xE398D759),
+          color: const Color(
+              0xE398D759), //==============================================変数で
           borderRadius: BorderRadius.circular(25),
         ),
         child: Padding(
@@ -199,26 +230,26 @@ class PasswordTextForm extends ConsumerWidget {
             decoration: InputDecoration(
               labelText: 'パスワード',
               // Extensionを利用予定
-              labelStyle: const TextStyle(color: Color(0xFF000000)),
+              labelStyle: TextStyle(color: textFromHintText),
               hintText: 'Enter your password...',
               // Extensionを利用予定
-              hintStyle: const TextStyle(color: Color(0xFF000000)),
+              hintStyle: TextStyle(color: textFromHintText),
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                  color: Color(0x00000000),
-                  width: 1,
-                ),
+                    color: Color.fromARGB(0, 0, 0, 0), width: 1),
                 borderRadius: BorderRadius.circular(8),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                  color: Color(0x00000000),
+                  color: Color.fromARGB(0, 255, 255,
+                      255), //==============================================変数で
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
-              fillColor: const Color(0x00FFFFFF),
+              fillColor: const Color(
+                  0x00FFFFFF), //==============================================変数で
               contentPadding:
                   const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
               suffixIcon: InkWell(
@@ -241,9 +272,10 @@ class MailAddressLogInButton extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final Color backgroundColor = const Color.fromARGB(250, 127, 249, 45);
+  final Color backgroundColor = Colors.blueGrey[700]!;
 
   final AuthRepo authRepo = AuthRepo();
+  final UserController _userController = locator.get<UserController>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -257,13 +289,15 @@ class MailAddressLogInButton extends ConsumerWidget {
       height: 40,
       alignment: Alignment.bottomCenter,
       child: Container(
-        width: 150,
+        width: 200,
         height: 40,
         decoration: BoxDecoration(color: backgroundColor),
         alignment: Alignment.center,
-        child: InkWell(
-          child: const Text('ログイン'),
-          onTap: () async {
+        child: SignInButtonBuilder(
+          backgroundColor: backgroundColor,
+          icon: Icons.email,
+          text: 'Sing in with Email',
+          onPressed: () async {
             // ignore: avoid_print
             print(password.state.toString());
             try {
@@ -273,6 +307,8 @@ class MailAddressLogInButton extends ConsumerWidget {
                 password.state,
               );
               if (userCredential.additionalUserInfo!.isNewUser) {
+                // Userコレクションにドキュメント作成
+                _userController.setUserDocument();
                 await Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) {
@@ -315,7 +351,8 @@ class CreateAccount extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: const [
               BoxShadow(
-                color: Color.fromARGB(85, 231, 225, 225),
+                color: Color.fromARGB(85, 231, 225,
+                    225), //==============================================変数で
                 offset: Offset(0.0, 1.0), //(x,y)
                 blurRadius: 6.0,
               ),

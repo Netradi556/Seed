@@ -5,12 +5,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepo {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-
-  // _authとプライベートアクセスに変更すること：セキュリティ面の理由から
-  final FirebaseAuth auth1 = FirebaseAuth.instance;
+  final FirebaseAuth auth1 = FirebaseAuth
+      .instance; // ==============================================_authとプライベートアクセスに変更すること：セキュリティ面の理由から
 
   AuthRepo();
 
+  // UserModelで呼び出される初期化処理
+  Future<UserModel> getUser() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+
+    var firebaseUser = auth1.currentUser!;
+    return UserModel(
+      firebaseUser.uid,
+      handleName: pref.getString(firebaseUser.uid
+          .toString()), // ===============================FireStoreからデータを取得したい
+      avatarUrl:
+          '', // =========================================================================パスを最初から設定したい
+    );
+  }
+
+  // メールアドレスでログインする処理
   Future signInWithEmailAddress(String email, String password) async {
     final UserCredential userCredential =
         await auth1.signInWithEmailAndPassword(
@@ -20,6 +34,7 @@ class AuthRepo {
     return userCredential;
   }
 
+  // グーグルログインの処理
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication? googleAuth =
@@ -33,15 +48,5 @@ class AuthRepo {
     final UserCredential userCredential =
         await auth1.signInWithCredential(credential);
     return userCredential;
-  }
-
-  Future<UserModel> getUser() async {
-    final SharedPreferences pref = await SharedPreferences.getInstance();
-    var firebaseUser = auth1.currentUser!;
-    return UserModel(
-      firebaseUser.uid,
-      displayName: pref.getString('handleName'),
-      avatarUrl: '',
-    );
   }
 }

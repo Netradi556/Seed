@@ -3,36 +3,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LikePageWidget extends ConsumerWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final Color appBarIconColor = const Color.fromARGB(255, 0, 0, 0);
 
   LikePageWidget({Key? key}) : super(key: key);
+
+  final Color backgroundColor = const Color(0xFFF5F5F5);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).canvasColor,
+        elevation: .6,
+        title:
+            const Text('あなたに届いたいいね！', style: TextStyle(color: Colors.black87)),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.help),
+            color: appBarIconColor,
+          )
+        ],
+      ),
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: Column(
           children: [
-            Expanded(
-              flex: 10,
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xB4FCBC00), Color(0xFFFDE283)],
-                    stops: [0, 1],
-                    begin: AlignmentDirectional(0.34, -1),
-                    end: AlignmentDirectional(-0.34, 1),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text('あなたから送ったいいね！'),
-                  ],
-                ),
-              ),
-            ),
             Expanded(
               flex: 12,
               child: Container(
@@ -88,7 +85,7 @@ class _LikeExpandWidget extends ConsumerWidget {
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               children: [
-                SizedBox(
+/*                 SizedBox(
                   width: 500,
                   height: 300,
                   child: Row(
@@ -182,7 +179,7 @@ class _LikeExpandWidget extends ConsumerWidget {
                       ),
                     ],
                   ),
-                ),
+                ), */
                 Container(
                   width: 100,
                   height: 100,

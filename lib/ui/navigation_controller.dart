@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/provider/util_provider.dart';
 
 // PageWidgets
-import 'user_top/usr_top.dart';
+import 'user_top/user_top.dart';
 import 'like/like.dart';
 import 'message/message.dart';
 import 'mypage/mypage.dart';
@@ -27,7 +27,7 @@ class NavigationPageController extends ConsumerWidget {
     return Scaffold(
       body: navigationPageList[navigationIndex],
       bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Colors.black,
+        unselectedItemColor: Color.fromARGB(255, 138, 135, 110),
         selectedItemColor: Colors.amberAccent,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.search), label: '探す'),
