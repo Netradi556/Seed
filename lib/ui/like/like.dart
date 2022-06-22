@@ -62,7 +62,7 @@ class _LikeExpandWidget extends ConsumerWidget {
       child: Align(
         alignment: const AlignmentDirectional(0, 0),
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 1,
+          height: MediaQuery.of(context).size.height * 0.5, // ===========要調整
           child: GridView.builder(
             padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
