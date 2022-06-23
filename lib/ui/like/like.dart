@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/ui/user_top/user_profile.dart';
 
 class LikePageWidget extends ConsumerWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -60,9 +61,8 @@ class _LikeExpandWidget extends StatelessWidget {
     return Expanded(
       child: Align(
         alignment: const AlignmentDirectional(0, 0),
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
-          padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
           child: ListView.builder(
             itemCount: 4,
             itemBuilder: (BuildContext context, int index) {
@@ -85,56 +85,97 @@ class ReceivedGoodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-      decoration: BoxDecoration(
-        color: Colors.red,
-        border: Border.all(
-          color: const Color(0x0f000000),
-          width: 1,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return const UserProfilePage();
+              },
+            ),
+          );
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 251, 227, 225),
+            border: Border.all(
+              color: const Color(0x0f000000),
+              width: 1,
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              Container(
+                height: 330,
+                width: 330,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(imagePath), fit: BoxFit.fitWidth),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 2.5, 10, 0),
+                height: 35,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: const [
+                    Text(
+                      "HandleName",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Text('25歳'),
+                    SizedBox(width: 8),
+                    Text('東京'),
+                    SizedBox(width: 20),
+                    Text('25いいね!'),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 2.5, 10, 0),
+                height: 90,
+                child: const Text(
+                  "最近はアフタヌーンティーにはまってます😋",
+                  style: TextStyle(
+                    color: Color(0x75000000),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 30,
+                    width: 50,
+                    color: Colors.amber,
+                  ),
+                  Container(
+                    height: 30,
+                    width: 50,
+                    color: Colors.amber,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              )
+            ],
+          ),
         ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const SizedBox(height: 10),
-          Container(
-            width: 300,
-            height: 300,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(imagePath), fit: BoxFit.fill),
-              border: Border.all(
-                width: 1,
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(10, 2.5, 10, 0),
-            height: 30,
-            child: const Text(
-              "25歳  東京",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 13,
-                fontFamily: "Roboto",
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(10, 2.5, 10, 0),
-            height: 90,
-            child: const Text(
-              "最近はアフタヌーンティーにはまってます😋",
-              style: TextStyle(
-                color: Color(0x75000000),
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

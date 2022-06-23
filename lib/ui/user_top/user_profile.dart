@@ -2,10 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seed_app/controller/user_controller.dart';
-import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/profile_item_models.dart';
-import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/ui/user_menu_to_pages/my_profile/mp_introduction.dart';
 import 'package:seed_app/ui/user_menu_to_pages/my_profile/mp_introduction_card.dart';
 import 'package:seed_app/ui/user_menu_to_pages/my_profile/mp_items_list.dart';

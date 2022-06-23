@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
+import 'package:seed_app/ui/user_top/user_profile.dart';
 
 const String imagePath1 = 'assets/images/userXX.jpg';
 const String imagePath2 = 'assets/images/userXX1.jpg';
@@ -80,20 +81,31 @@ class NearUserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: const AlignmentDirectional(0, 0),
-      child: Container(
-        width: 80,
-        height: 80,
-        decoration: BoxDecoration(
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return const UserProfilePage();
+              },
+            ),
+          );
+        },
+        child: Container(
+          width: 80,
+          height: 80,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: const Color.fromARGB(233, 239, 238, 229),
+                width: 3,
+              )),
+          child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: const Color.fromARGB(233, 239, 238, 229),
-              width: 3,
-            )),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image(
-            image: AssetImage(imgPath),
-            fit: BoxFit.fitHeight,
+            child: Image(
+              image: AssetImage(imgPath),
+              fit: BoxFit.fitHeight,
+            ),
           ),
         ),
       ),
