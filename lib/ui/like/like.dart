@@ -82,6 +82,9 @@ class ReceivedGoodCard extends StatelessWidget {
   }) : super(key: key);
 
   final String imagePath;
+  final String livingPlace = '東京';
+  final int age = 25;
+  final String about = '最近はアフタヌーンティーにはまってます😋';
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +98,20 @@ class ReceivedGoodCard extends StatelessWidget {
                 return const UserProfilePage();
               },
             ),
+<<<<<<< HEAD
+          ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(10, 2.5, 10, 0),
+            height: 30,
+            child: const Text(
+              "$age歳  $livingPlace",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 13,
+                fontFamily: "Roboto",
+                fontWeight: FontWeight.w700,
+              ),
+=======
           );
         },
         child: Container(
@@ -103,8 +120,20 @@ class ReceivedGoodCard extends StatelessWidget {
             border: Border.all(
               color: const Color(0x0f000000),
               width: 1,
+>>>>>>> 57baac2d3864a0c90bca6af330973087be8c7b5d
             ),
           ),
+<<<<<<< HEAD
+          Container(
+            padding: const EdgeInsets.fromLTRB(10, 2.5, 10, 0),
+            height: 90,
+            child: Text(
+              about,
+              style: const TextStyle(
+                color: Color(0x75000000),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+=======
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -116,6 +145,7 @@ class ReceivedGoodCard extends StatelessWidget {
                   image: DecorationImage(
                       image: AssetImage(imagePath), fit: BoxFit.fitWidth),
                 ),
+>>>>>>> 57baac2d3864a0c90bca6af330973087be8c7b5d
               ),
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 2.5, 10, 0),
