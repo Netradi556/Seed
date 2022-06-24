@@ -89,122 +89,105 @@ class ReceivedGoodCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return const UserProfilePage();
+      padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 251, 227, 225),
+          border: Border.all(
+            color: const Color(0x0f000000),
+            width: 1,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const UserProfilePage();
+                    },
+                  ),
+                );
               },
-            ),
-<<<<<<< HEAD
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(10, 2.5, 10, 0),
-            height: 30,
-            child: const Text(
-              "$age歳  $livingPlace",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 13,
-                fontFamily: "Roboto",
-                fontWeight: FontWeight.w700,
-              ),
-=======
-          );
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 251, 227, 225),
-            border: Border.all(
-              color: const Color(0x0f000000),
-              width: 1,
->>>>>>> 57baac2d3864a0c90bca6af330973087be8c7b5d
-            ),
-          ),
-<<<<<<< HEAD
-          Container(
-            padding: const EdgeInsets.fromLTRB(10, 2.5, 10, 0),
-            height: 90,
-            child: Text(
-              about,
-              style: const TextStyle(
-                color: Color(0x75000000),
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-=======
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: 10),
-              Container(
+              child: Container(
                 height: 330,
                 width: 330,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(imagePath), fit: BoxFit.fitWidth),
                 ),
->>>>>>> 57baac2d3864a0c90bca6af330973087be8c7b5d
               ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(20, 2.5, 10, 0),
-                height: 35,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: const [
-                    Text(
-                      "HandleName",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontFamily: "Roboto",
-                        fontWeight: FontWeight.w500,
-                      ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 10, 10, 0),
+              height: 35,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: const [
+                  Text(
+                    "HandleName",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24,
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.w500,
                     ),
-                    SizedBox(width: 10),
-                    Text('25歳'),
-                    SizedBox(width: 8),
-                    Text('東京'),
-                    SizedBox(width: 20),
-                    Text('25いいね!'),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 2.5, 10, 0),
-                height: 90,
-                child: const Text(
-                  "最近はアフタヌーンティーにはまってます😋",
-                  style: TextStyle(
-                    color: Color(0x75000000),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
                   ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 30,
-                    width: 50,
-                    color: Colors.amber,
-                  ),
-                  Container(
-                    height: 30,
-                    width: 50,
-                    color: Colors.amber,
-                  ),
+                  SizedBox(width: 10),
+                  Text('25歳'),
+                  SizedBox(width: 8),
+                  Text('東京'),
+                  SizedBox(width: 20),
+                  Text('25いいね!'),
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              )
-            ],
-          ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 2.5, 10, 0),
+              height: 90,
+              child: const Text(
+                "最近はアフタヌーンティーにはまってます😋",
+                style: TextStyle(
+                  color: Color(0x75000000),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 45,
+                    width: 150,
+                    color: Colors.amber,
+                    child: const Text('保留にする'),
+                  ),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 45,
+                    width: 150,
+                    color: Colors.amber,
+                    child: const Text('  いいね！ \n (消費なし)'),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            )
+          ],
         ),
       ),
     );
