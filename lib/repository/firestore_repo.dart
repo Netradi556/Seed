@@ -12,6 +12,12 @@ class FireStoreRepo {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
 
+//
+//
+//
+//
+//
+//
 // Chat関係の処理============================================================================================
   // 1つのチャットルーム内のドキュメントを取得
   Stream<QuerySnapshot> getChatStream() {
@@ -25,8 +31,14 @@ class FireStoreRepo {
   getUserByUsername(String username) {
     firestore.collection("users").where("name", isEqualTo: username).get();
   }
-
+//
+//
+//
+//
+//
+//
 // マッチング関係の処理=========================================================================================
+  // ユーザーが「いいね！」を押したときの処理
   Future<void> sendGood(String myUid, String userUid) async {
     var collectionRef = userCollection.doc(myUid).collection('ReceivedGood');
     var doc = await collectionRef.doc(myUid).get();
@@ -47,7 +59,12 @@ class FireStoreRepo {
       userCollection.doc(userUid).collection('ReceivedGood').doc(myUid).set({});
     }
   }
-
+//
+//
+//
+//
+//
+//
 // ユーザープロフィール関係の処理=================================================================================
   Future<void> setUserDocument() async {
     UserModel user = await _authRepo.getUser();
@@ -116,6 +133,13 @@ class FireStoreRepo {
     print('実行');
   }
 
+//
+//
+//
+//
+//
+//
+// ページネーションの処理==============================================================================================
   // TOP画面でユーザー情報を取得するときの処理：女性ユーザーのみ
   // 性別判定をどこでやるか、異性のみ取得したい
   // ------------------------------------------------------------------------------動作確認で5件に絞ってみる
@@ -141,7 +165,5 @@ class FireStoreRepo {
     // ignore: avoid_print
     print('取得成功');
   }
-
-  // ユーザーが「いいね！」を押したときの処理
 
 }
