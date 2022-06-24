@@ -3,6 +3,86 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+class SearchItems {
+  String item1;
+  String item2;
+  int? item3;
+
+  SearchItems(
+    this.item1,
+    this.item2, {
+    this.item3,
+  });
+}
+
+class SearchCriteriaNotifier extends StateNotifier<SearchItems> {
+  SearchCriteriaNotifier() : super(SearchItems('', ''));
+
+  void setStringToItem1(String param) {
+    state = SearchItems(param, state.item2);
+  }
+}
+
+final searchCriteriaProvider =
+    StateNotifierProvider<SearchCriteriaNotifier, SearchItems>(
+  ((ref) {
+    return SearchCriteriaNotifier();
+  }),
+);
+
+class TestPage2 extends ConsumerWidget {
+  const TestPage2({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final test = ref.watch(searchCriteriaProvider);
+    final test2 = ref.read(searchCriteriaProvider.notifier);
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: InkWell(
+          onTap: () => Navigator.of(context).pop(),
+          child: const Icon(Icons.arrow_back_ios_new),
+        ),
+      ),
+      body: InkWell(
+        onTap: () {
+          test2.setStringToItem1('ああaあ');
+          print(test.item1.toString());
+        },
+        child: Container(
+          width: 100,
+          height: 40,
+          color: Colors.amberAccent,
+          child: Text(
+            test.item1.toString(),
+            style: const TextStyle(fontSize: 20),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ */
+
 // StateProviderで利用
 final counterProvider = StateProvider((ref) => 0);
 

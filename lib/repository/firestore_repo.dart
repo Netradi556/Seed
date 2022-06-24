@@ -12,8 +12,6 @@ class FireStoreRepo {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
 
-
-
 //
 //
 //
@@ -49,23 +47,24 @@ class FireStoreRepo {
 
   Future<QuerySnapshot> getQuerySnapshotByCriteria() async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
-      .collection('user')
-      .where('sex', isEqualTo: '女性')
-      .where('livingPlace', isEqualTo: '東京都')
-      .limit(20)
-      .get();
+        .collection('user')
+        .where('sex', isEqualTo: '女性')
+        .where('livingPlace', isEqualTo: '東京都')
+        .limit(20)
+        .get();
     return snapshot;
   }
 
-  Future<QuerySnapshot> getQuerySnapshotByMultipleCriteria(Map<String, dynamic> criteria, int limit) async{
-    CollectionReference collectionRef = FirebaseFirestore.instance.collection('user');
-    criteria.forEach((itemName, criteria) => collectionRef.where(itemName, isEqualTo: criteria) );
+  Future<QuerySnapshot> getQuerySnapshotByMultipleCriteria(
+      Map<String, dynamic> criteria, int limit) async {
+    CollectionReference collectionRef =
+        FirebaseFirestore.instance.collection('user');
+    criteria.forEach((itemName, criteria) =>
+        collectionRef.where(itemName, isEqualTo: criteria));
 
-    QuerySnapshot snapshot = collectionRef.limit(limit).get();
+    Future<QuerySnapshot<Object?>> snapshot = collectionRef.limit(limit).get();
     return snapshot;
   }
-
-
 
 //
 //
@@ -86,6 +85,7 @@ class FireStoreRepo {
   getUserByUsername(String username) {
     firestore.collection("users").where("name", isEqualTo: username).get();
   }
+
 //
 //
 //
@@ -114,6 +114,7 @@ class FireStoreRepo {
       userCollection.doc(userUid).collection('ReceivedGood').doc(myUid).set({});
     }
   }
+
 //
 //
 //
@@ -187,7 +188,4 @@ class FireStoreRepo {
     // ignore: avoid_print
     print('実行');
   }
-
-
-
 }
