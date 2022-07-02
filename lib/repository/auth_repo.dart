@@ -3,6 +3,15 @@ import 'package:seed_app/models/user_models.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// getUser()
+// UserModelオブジェクトを返す処理はuser_controller.dartに移譲
+
+
+
+
+
+
+
 class AuthRepo {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   final FirebaseAuth auth1 = FirebaseAuth
@@ -24,6 +33,26 @@ class AuthRepo {
     );
   }
 
+  Future<String> getCurrentUserUID() async {
+    var firebaseUser = auth1.currentUser!;
+    String curretnUserUID = firebaseUser.uid;
+    return curretnUserUID;
+  }
+
+
+
+
+
+
+
+
+//
+//
+//
+//
+//
+//
+// ログイン時の認証処理=======================================================================================
   // メールアドレスでログインする処理
   Future signInWithEmailAddress(String email, String password) async {
     final UserCredential userCredential =

@@ -1,7 +1,343 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:seed_app/ui/user_top/user_top_search.dart';
+
+// DropdownWidgetで使用中============================================
+final selectProvider = StateProvider((ref) => true);
+final selectedItemProvider = StateProvider((ref) => []);
+
+// ページネーションで使用中============================================
+final testPostsProvider =
+    StateNotifierProvider<TestPostsNotifier, List<TestModel>>(
+        (ref) => TestPostsNotifier());
+final reloadProvider = StateProvider<bool>((ref) => true);
+final isLoadProvider = StateProvider<bool>((ref) => false);
+
+@immutable
+class TestModel {
+  const TestModel(
+      this.handleName, this.birthDate, this.greetingMessage, this.sex);
+
+  final String handleName;
+  final Timestamp birthDate;
+  final String greetingMessage;
+  final String sex;
+}
+
+class TestPostsNotifier extends StateNotifier<List<TestModel>> {
+  TestPostsNotifier() : super([]) {
+    fetchFirstPosts();
+  }
+
+  // 現在取得している最後のドキュメントを保持
+  DocumentSnapshot? fetchedLastDoc;
+
+  // 最初に表示するためのドキュメントを読み込む
+  Future<void> fetchFirstPosts() async {
+    final snapshots = await FirebaseFirestore.instance
+        .collection('TestData')
+        .orderBy('birthDate')
+        .limit(20)
+        .get();
+
+    fetchedLastDoc = snapshots.docs.last;
+    state = [
+      ...snapshots.docs.map(
+        (e) => TestModel(
+          e.data()['handleName'],
+          e.data()['birthDate'],
+          e.data()['greetingMessage'],
+          e.data()['sex'],
+        ),
+      )
+    ];
+
+    print('fetch First');
+  }
+
+  // 次のドキュメントを読み込む
+  Future<void> fetchPosts() async {
+    final snapshots = await FirebaseFirestore.instance
+        .collection('TestData')
+        .orderBy('birthDate')
+        .startAfterDocument(fetchedLastDoc!)
+        .limit(20)
+        .get();
+
+    fetchedLastDoc = snapshots.docs.last;
+    state = [
+      ...state,
+      ...snapshots.docs.map(
+        (e) => TestModel(
+          e.data()['handleName'],
+          e.data()['birthDate'],
+          e.data()['greetingMessage'],
+          e.data()['sex'],
+        ),
+      )
+    ];
+  }
+}
+
+class TestPage3 extends ConsumerWidget {
+  TestPage3({Key? key}) : super(key: key);
+  final List<String> items = [
+    '300万円',
+    '400万円',
+    '500万円',
+    '600万円',
+  ];
+  List<String> selectedItem = []; // TODO: Providerで情報保持
+
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // DropdownWidget用のProvider
+    final selectedState = ref.watch(selectProvider.state);
+    final selectedItemState = ref.watch(selectedItemProvider.state);
+
+    // ページネーション用のProvider
+    final state = ref.watch(testPostsProvider);
+    final reloadState = ref.watch(reloadProvider.state);
+    final isLoadState = ref.watch(isLoadProvider.state);
+
+    scrollController.addListener(
+      () {
+        if (isLoadState.state == false) {
+          if (scrollController.offset ==
+              scrollController.position.maxScrollExtent) {
+            isLoadState.state = true;
+            ref.read(testPostsProvider.notifier).fetchPosts();
+            reloadState.state = !reloadState.state;
+            print('取得');
+            Future.delayed(
+              const Duration(seconds: 2),
+              (() {
+                print('３秒経過');
+                isLoadState.state = false;
+              }),
+            );
+          }
+        }
+      },
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: InkWell(
+          onTap: () => Navigator.of(context).pop(),
+          child: const Icon(Icons.arrow_back_ios_new),
+        ),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 300,
+              width: double.infinity,
+              child: NewInfiniteGridView(),
+            ),
+            SizedBox(
+              height: 200,
+              child: ListView.builder(
+                padding: const EdgeInsets.all(8),
+                controller: scrollController,
+                itemCount: state.length,
+                itemBuilder: (context, index) {
+                  final item = state.elementAt(index);
+                  return Card(
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        child: Text(item.handleName),
+                      ),
+                      title: Text(item.birthDate.toString()),
+                    ),
+                  );
+                },
+              ),
+            ),
+            DropdownButtonHideUnderline(
+              child: DropdownButton2(
+                isExpanded: true,
+                hint: const Align(
+                  alignment: Alignment.center,
+                  child: Text('selectedItem'),
+                ),
+                value: selectedItemState.state.isEmpty
+                    ? null
+                    : selectedItemState.state
+                        .last, //selectedItem.isEmpty ? null : selectedItem.last,
+                onChanged: (value) {},
+                buttonHeight: 40,
+                buttonWidth: 140,
+                itemPadding: EdgeInsets.zero,
+                selectedItemBuilder: (context) {
+                  return items.map(
+                    (item) {
+                      return Container(
+                        alignment: AlignmentDirectional.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          selectedItemState.state
+                              .join(', '), // selectedItem.join(', '),
+                          style: const TextStyle(
+                              fontSize: 14, overflow: TextOverflow.ellipsis),
+                        ),
+                      );
+                    },
+                  ).toList();
+                },
+                items: items.map(
+                  (item) {
+                    return DropdownMenuItem<String>(
+                      value: item,
+                      enabled: false,
+                      child: StatefulBuilder(builder: ((context, menuSetState) {
+                        final _isSelected = selectedItemState.state
+                            .contains(item); // selectedItem.contains(item);
+                        return InkWell(
+                          onTap: () {
+                            _isSelected
+                                ? selectedItemState.state.remove(item)
+                                : selectedItemState.state.add(item);
+/*                             ? selectedItem.remove(item)
+                                : selectedItem.add(
+                                    item); */ // =============================Providerで情報保持
+                            menuSetState(() {});
+                            selectedState.state = !selectedState.state;
+                            print(selectedItemState.state.toString());
+                          },
+                          child: Container(
+                            height: double.infinity,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Row(
+                              children: [
+                                _isSelected
+                                    ? const Icon(Icons.check_box_outlined)
+                                    : const Icon(Icons.check_box_outline_blank),
+                                const SizedBox(width: 16),
+                                Text(item, style: const TextStyle(fontSize: 14))
+                              ],
+                            ),
+                          ),
+                        );
+                      })),
+                    );
+                  },
+                ).toList(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ */
+class SearchItemsTest {
+  String item1;
+  String item2;
+  int? item3;
+
+  SearchItemsTest(
+    this.item1,
+    this.item2, {
+    this.item3,
+  });
+}
+
+class SearchCriteriaNotifier extends StateNotifier<SearchItemsTest> {
+  SearchCriteriaNotifier() : super(SearchItemsTest('', ''));
+
+  void setStringToItem1(String param) {
+    state = SearchItemsTest(param, state.item2);
+  }
+}
+
+final searchCriteriaProvider =
+    StateNotifierProvider<SearchCriteriaNotifier, SearchItemsTest>(
+  ((ref) {
+    return SearchCriteriaNotifier();
+  }),
+);
+
+class TestPage2 extends ConsumerWidget {
+  const TestPage2({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final test = ref.watch(searchCriteriaProvider);
+    final test2 = ref.read(searchCriteriaProvider.notifier);
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: InkWell(
+          onTap: () => Navigator.of(context).pop(),
+          child: const Icon(Icons.arrow_back_ios_new),
+        ),
+      ),
+      body: InkWell(
+        onTap: () {
+          test2.setStringToItem1('ああaあ');
+          print(test.item1.toString());
+        },
+        child: Container(
+          width: 100,
+          height: 40,
+          color: Colors.amberAccent,
+          child: Text(
+            test.item1.toString(),
+            style: const TextStyle(fontSize: 20),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ */
 
 // StateProviderで利用
 final counterProvider = StateProvider((ref) => 0);

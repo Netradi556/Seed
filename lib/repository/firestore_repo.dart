@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/repository/auth_repo.dart';
@@ -13,6 +12,69 @@ class FireStoreRepo {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
 
+//
+//
+//
+//
+//
+//
+// ページネーションの処理==============================================================================================
+  // TOP画面でユーザー情報を取得するときの処理：女性ユーザーのみ
+  // 性別判定をどこでやるか、異性のみ取得したい
+  // ------------------------------------------------------------------------------動作確認で5件に絞ってみる
+  Future<QuerySnapshot> getQuerySnapshotAtUserTop(int limit) async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('user')
+        .where('sex', isEqualTo: '女性')
+        .limit(limit)
+        .get();
+    print(snapshot.size.toString() + '最初のスナップショット取得');
+    return snapshot;
+  }
+
+  Future<void> addQueryDocumentSnapshotAtUserTop(
+      Future<QuerySnapshot> querySnapshot, int loadCard) async {
+    querySnapshot.then(
+      (documentSnapshot) {
+        // 取得済みのドキュメントのうち、最後のドキュメント
+        final lastVisible = documentSnapshot.docs[documentSnapshot.size - 1];
+        // ignore: unused_local_variable
+        final next = FirebaseFirestore.instance
+            .collection('user')
+            .startAfter([lastVisible])
+            .limit(loadCard)
+            .get();
+      },
+    );
+  }
+
+  Future<QuerySnapshot> getQuerySnapshotByCriteria() async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('user')
+        .where('sex', isEqualTo: '女性')
+        .where('livingPlace', isEqualTo: '東京都')
+        .limit(20)
+        .get();
+    return snapshot;
+  }
+
+  Future<QuerySnapshot> getQuerySnapshotByMultipleCriteria(
+      Map<String, dynamic> criteria, int limit) async {
+    CollectionReference collectionRef =
+        FirebaseFirestore.instance.collection('user');
+    criteria.forEach((itemName, criteria) =>
+        collectionRef.where(itemName, isEqualTo: criteria));
+
+    Future<QuerySnapshot<Object?>> snapshot = collectionRef.limit(limit).get();
+    return snapshot;
+  }
+
+//
+//
+//
+//
+//
+//
 // Chat関係の処理============================================================================================
   // 1つのチャットルーム内のドキュメントを取得
   Stream<QuerySnapshot> getChatStream() {
@@ -27,7 +89,14 @@ class FireStoreRepo {
     firestore.collection("users").where("name", isEqualTo: username).get();
   }
 
+//
+//
+//
+//
+//
+//
 // マッチング関係の処理=========================================================================================
+  // ユーザーが「いいね！」を押したときの処理
   Future<void> sendGood(String myUid, String userUid) async {
     var collectionRef = userCollection.doc(myUid).collection('ReceivedGood');
     var doc = await collectionRef.doc(myUid).get();
@@ -49,6 +118,12 @@ class FireStoreRepo {
     }
   }
 
+//
+//
+//
+//
+//
+//
 // ユーザープロフィール関係の処理=================================================================================
   Future<void> setUserDocument() async {
     UserModel user = await _authRepo.getUser();
@@ -116,33 +191,4 @@ class FireStoreRepo {
     // ignore: avoid_print
     print('実行');
   }
-
-  // TOP画面でユーザー情報を取得するときの処理：女性ユーザーのみ
-  // 性別判定をどこでやるか、異性のみ取得したい
-  // ------------------------------------------------------------------------------動作確認で5件に絞ってみる
-  Future<QuerySnapshot> getQuerySnapshotAtUserTop() async {
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('user')
-        .where('sex', isEqualTo: '女性')
-        .limit(20)
-        .get();
-    return snapshot;
-  }
-
-  Future<void> addQueryDocumentSnapshotAtUserTop(
-      Future<QuerySnapshot> querySnapshot, int loadCard) async {
-    querySnapshot.then((documentSnapshot) {
-      // 取得済みのドキュメントのうち、最後のドキュメント
-      final lastVisible = documentSnapshot.docs[documentSnapshot.size - 1];
-      // ignore: unused_local_variable
-      final next = FirebaseFirestore.instance
-          .collection('user')
-          .startAfter([lastVisible]).limit(loadCard);
-    });
-    // ignore: avoid_print
-    print('取得成功');
-  }
-
-  // ユーザーが「いいね！」を押したときの処理
-
 }

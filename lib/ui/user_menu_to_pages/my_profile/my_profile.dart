@@ -109,8 +109,6 @@ class ProfilePictures extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final UserModel? _currentUser = locator.get<UserController>().currentUser;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(

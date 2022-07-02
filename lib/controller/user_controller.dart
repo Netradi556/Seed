@@ -16,13 +16,12 @@ class UserController {
 
   UserModel? get currentUser => _currentUser;
 
-  // コンストラクタで初期化処理を呼び出す
+  // UserControllerインスタンス生成時の初期化処理
   Future? init;
   UserController() {
     init = initUser();
   }
 
-  // コンストラクタで呼び出される初期化処理
   // 呼び出し先のgetUserでuid、handleName、avatarUrlを取得しておく
   Future<UserModel?> initUser() async {
     _currentUser = await _authRepo
@@ -48,6 +47,17 @@ class UserController {
     // ignore: avoid_print
     print('到達');
   }
+
+
+//
+//
+//
+//
+//
+//
+// ユーザープロフィール関係の処理==================================================================================
+
+
 
   // 画像保存の処理============================================================================================
   Future<void> uploadProfilePicture(File image) async {
