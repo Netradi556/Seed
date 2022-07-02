@@ -35,9 +35,9 @@ class UserTopWidget extends ConsumerWidget {
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
-          children: const [
-            UserTopHeaderArea(),
-            UserTopMiddleArea(),
+          children: [
+            const UserTopHeaderArea(),
+            const UserTopMiddleArea(),
             UserTopSearchArea(),
           ],
         ),

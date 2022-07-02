@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/provider/scrollcontroller_provider.dart';
 
 import 'package:seed_app/provider/util_provider.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
@@ -51,9 +52,11 @@ const String imagePath8 = 'assets/images/user0.jpg';
 */
 
 class UserTopSearchArea extends ConsumerWidget {
-  const UserTopSearchArea({
+  UserTopSearchArea({
     Key? key,
   }) : super(key: key);
+
+  final ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -63,13 +66,249 @@ class UserTopSearchArea extends ConsumerWidget {
         child: SizedBox(
           width: double.infinity,
           height: MediaQuery.of(context).size.height * 1,
-          child: InfiniteGridView(),
+          child: NewInfiniteGridView(),
         ),
       ),
     );
   }
 }
 
+//
+//
+//
+//
+//
+//
+//
+final snapshotProvider =
+    StateNotifierProvider<SnapShotNotifier, List<DocumentSnapshot>>(
+        (ref) => SnapShotNotifier());
+
+class SnapShotNotifier extends StateNotifier<List<DocumentSnapshot>> {
+  SnapShotNotifier() : super([]) {
+    fetchFirstPosts();
+  }
+
+  // 現在取得している最後のドキュメントを保持
+  DocumentSnapshot? fetchedLastDoc;
+
+  // 最初に表示するためのドキュメントを読み込む
+  Future<void> fetchFirstPosts() async {
+    final snapshots = await FirebaseFirestore.instance
+        .collection('user')
+        .where('sex', isEqualTo: '女性')
+        .limit(20) // TODO: 変数で指定
+        .get();
+
+    fetchedLastDoc = snapshots.docs.last;
+    state = [...snapshots.docs];
+    print('fetch First');
+  }
+
+  // 次のドキュメントを読み込む
+  Future<void> fetchPosts() async {
+    final snapshots = await FirebaseFirestore.instance
+        .collection('user')
+        .where('sex', isEqualTo: '女性')
+        .startAfterDocument(fetchedLastDoc!)
+        .limit(20)
+        .get();
+    state = [...state, ...snapshots.docs];
+    fetchedLastDoc = snapshots.docs.last;
+  }
+}
+
+//
+//
+//
+//
+//
+//
+//
+class NewInfiniteGridView extends ConsumerWidget {
+  NewInfiniteGridView({Key? key}) : super(key: key);
+
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(snapshotProvider);
+    final isReloadState = ref.watch(isReloadProvider.state);
+    final isLoadingState = ref.watch(isLoadingProvider.state);
+
+    scrollController.addListener(
+      () {
+        if (isLoadingState.state == false) {
+          if (scrollController.offset ==
+              scrollController.position.maxScrollExtent) {
+            isLoadingState.state = true;
+            ref.read(snapshotProvider.notifier).fetchPosts();
+            isReloadState.state = !isReloadState.state;
+            print('取得');
+            Future.delayed(
+              const Duration(seconds: 2),
+              (() {
+                print('３秒経過');
+                isLoadingState.state = false;
+              }),
+            );
+          }
+        }
+      },
+    );
+
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(239, 229, 242, 240),
+      body: GridView.builder(
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+        itemCount: state.length,
+        controller: scrollController,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 20,
+          childAspectRatio: 0.7,
+        ),
+        itemBuilder: (context, index) {
+          final documentSnapshot = state.elementAt(index);
+          return NewUserCardWithSnapshot(documentSnapshot: documentSnapshot);
+        },
+      ),
+    );
+  }
+}
+//
+//
+//
+//
+//
+//
+//
+
+class NewUserCardWithSnapshot extends StatelessWidget {
+  NewUserCardWithSnapshot({
+    Key? key,
+    required this.documentSnapshot,
+  }) : super(key: key);
+
+  final DocumentSnapshot documentSnapshot;
+  final StorageRepo storageRepo = StorageRepo();
+
+  // CardWidgetの枠線の色を指定
+  final Color borderlineOutsideCard = const Color.fromARGB(235, 239, 218, 29);
+  final Color borderlineShadow = const Color.fromARGB(144, 108, 108, 108);
+  final Color userCardBackground = const Color.fromARGB(255, 245, 238, 220);
+
+  @override
+  Widget build(BuildContext context) {
+    final handleName = documentSnapshot.get('handleName');
+    final age = documentSnapshot.get('age');
+    final about = documentSnapshot.get('about');
+
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return NewUserProfilePage(documentSnapshot: documentSnapshot);
+            },
+          ),
+        );
+      },
+      child: Container(
+        width: 170,
+        height: 300,
+        decoration: BoxDecoration(
+          color: userCardBackground,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            width: 3,
+            color: const Color.fromARGB(197, 255, 229, 151),
+          ),
+          boxShadow: const [
+            BoxShadow(
+              color: Color.fromARGB(28, 23, 23, 23),
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: Offset(2, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            FutureBuilder(
+              future: storageRepo.getUserProfileImage(documentSnapshot.id),
+              builder: ((context, snapshot) {
+                return Container(
+                  width: double.infinity,
+                  height: 170,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                    image: DecorationImage(
+                      // =========================================================================image
+                      image: snapshot.data == null
+                          ? const NetworkImage(
+                              'https://firebasestorage.googleapis.com/v0/b/our-first-seed.appspot.com/o/testData%2Fdemo.PNG?alt=media&token=7c4eb302-4009-4e04-9c16-84139d5209d5')
+                          : NetworkImage(snapshot.data.toString()),
+
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                );
+              }),
+            ),
+            const SizedBox(height: 2),
+            // =================================================年齢 居住地
+            SizedBox(
+              width: 160,
+              height: 22,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "$handleName    $age歳        東京", // ======================ageパラメタ反映 $age
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 13,
+                    fontFamily: "Roboto",
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 2),
+            // ====================================================挨拶文
+            SizedBox(
+              width: 165,
+              height: 41,
+              child: Text(
+                about.toString(),
+                style: const TextStyle(
+                  color: Color.fromARGB(206, 0, 0, 0),
+                  fontSize: 13,
+                  fontFamily: "Roboto",
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//
+//
+//
+//
+//
+//
+//
 class InfiniteGridView extends ConsumerWidget {
   InfiniteGridView({Key? key}) : super(key: key);
 
@@ -119,7 +358,7 @@ class InfiniteGridView extends ConsumerWidget {
 
           return GridView.builder(
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-            itemCount: items.length,
+            itemCount: queryDocumentSnapshot?.length,
             controller: _scrollController,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
@@ -146,16 +385,11 @@ class InfiniteGridView extends ConsumerWidget {
                     age: documentSnapshot.get('age').toString(),
                   );
                 } else {
-                  final double angle = doubleInRange(Random(), -0.04, 0.04);
-                  return Transform.rotate(
-                    angle: angle,
-                    alignment: Alignment.center,
-                    child: InkWell(
-                      child: Container(
-                        width: 170,
-                        height: 300,
-                        color: Colors.black87,
-                      ),
+                  return InkWell(
+                    child: Container(
+                      width: 170,
+                      height: 300,
+                      color: Colors.black87,
                     ),
                   );
                 }
@@ -166,127 +400,15 @@ class InfiniteGridView extends ConsumerWidget {
       ),
     );
   }
-
-  double doubleInRange(Random source, num start, num end) =>
-      source.nextDouble() * (end - start) + start;
 }
 
-class UserCard extends StatelessWidget {
-  const UserCard({
-    Key? key,
-    required this.imagePath,
-  }) : super(key: key);
-
-  // 表示するユーザーのプロフィール写真用PATH
-  final String imagePath;
-
-  // CardWidgetの枠線の色を指定
-  final Color borderlineOutsideCard = const Color.fromARGB(0, 255, 255, 255);
-  final Color borderlineShadow = const Color.fromARGB(144, 108, 108, 108);
-  final Color userCardBackground = const Color.fromARGB(255, 198, 162, 162);
-
-  @override
-  Widget build(BuildContext context) {
-    final double angle = doubleInRange(Random(), -0.04, 0.04);
-
-    return Transform.rotate(
-      alignment: Alignment.center,
-      angle: angle,
-
-      // 大枠
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return const UserProfilePage();
-              },
-            ),
-          );
-        },
-        child: SizedBox(
-          width: 170,
-          height: 300,
-          // elevationプロパティで影をつける
-          // shapeプロパティで枠の形、太さ、色を決定
-          child: Material(
-            color: userCardBackground,
-            elevation: 1,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                width: 1,
-                color: borderlineOutsideCard,
-              ),
-            ),
-            // 中枠の余白
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(3, 8, 3, 2),
-              // 中枠内の配置
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // 影の作成のためにMaterialWidgetを利用
-                  Material(
-                    elevation: 0.8,
-                    child: Container(
-                      padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
-                      width: 165,
-                      height: 170,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(imagePath),
-                          fit: BoxFit.fitWidth,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  // ====================================================年齢 居住地
-                  const SizedBox(
-                    width: 160,
-                    height: 22,
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "25歳  東京",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 13,
-                          fontFamily: "Roboto",
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  // ============================================================挨拶文
-                  const SizedBox(
-                    width: 165,
-                    height: 41,
-                    child: Text(
-                      "このご時世ですが前向きに進めたいのでまた再開😄",
-                      style: TextStyle(
-                        color: Color(0x75000000),
-                        fontSize: 13,
-                        fontFamily: "Roboto",
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  double doubleInRange(Random source, num start, num end) =>
-      source.nextDouble() * (end - start) + start;
-}
-
+//
+//
+//
+//
+//
+//
+//
 // =============================================================================QueryDocumentSnapshotを受け取るように変更
 class UserCardWithSnapshot extends StatelessWidget {
   UserCardWithSnapshot({
@@ -304,9 +426,9 @@ class UserCardWithSnapshot extends StatelessWidget {
   final String? about;
 
   // CardWidgetの枠線の色を指定
-  final Color borderlineOutsideCard = Color.fromARGB(235, 239, 218, 29);
+  final Color borderlineOutsideCard = const Color.fromARGB(235, 239, 218, 29);
   final Color borderlineShadow = const Color.fromARGB(144, 108, 108, 108);
-  final Color userCardBackground = Color.fromARGB(255, 245, 238, 220);
+  final Color userCardBackground = const Color.fromARGB(255, 245, 238, 220);
 
   final StorageRepo storageRepo = StorageRepo();
 
@@ -407,139 +529,4 @@ class UserCardWithSnapshot extends StatelessWidget {
       ),
     );
   }
-}
-
-// スナップショットデザイン（ランダム角度）のWidget
-class OLDUserCardWithSnapshot extends StatelessWidget {
-  OLDUserCardWithSnapshot({
-    Key? key,
-    required this.imagePath,
-    required this.handleName,
-    required this.age,
-    required this.about,
-  }) : super(key: key);
-
-  // ===========================================================================QueryDocumentSnapshotのデータで初期化
-  final String imagePath;
-  final String? handleName;
-  final String? age;
-  final String? about;
-
-  // CardWidgetの枠線の色を指定
-  final Color borderlineOutsideCard = const Color.fromARGB(0, 255, 255, 255);
-  final Color borderlineShadow = const Color.fromARGB(144, 108, 108, 108);
-  final Color userCardBackground = const Color.fromARGB(255, 235, 235, 235);
-
-  final StorageRepo storageRepo = StorageRepo();
-
-  @override
-  Widget build(BuildContext context) {
-    final double angle = doubleInRange(Random(), -0.04, 0.04);
-
-    return Transform.rotate(
-      alignment: Alignment.center,
-      angle: angle,
-
-      // 大枠
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return const UserProfilePage();
-              },
-            ),
-          );
-        },
-        child: SizedBox(
-          width: 170,
-          height: 300,
-          // elevationプロパティで影をつける
-          // shapeプロパティで枠の形、太さ、色を決定
-          child: Material(
-            color: userCardBackground,
-            elevation: 1.5,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                width: 1,
-                color: borderlineOutsideCard,
-              ),
-            ),
-            // 中枠の余白
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(3, 8, 3, 2),
-              // 中枠内の配置
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // 影の作成のためにMaterialWidgetを利用
-                  Material(
-                    elevation: 1,
-                    child: FutureBuilder(
-                      future: storageRepo.getUserProfileImage(imagePath),
-                      builder: ((context, snapshot) {
-                        return Container(
-                          padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
-                          width: 165,
-                          height: 170,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              // =========================================================================image
-                              image: snapshot.data == null
-                                  ? NetworkImage(
-                                      'https://firebasestorage.googleapis.com/v0/b/our-first-seed.appspot.com/o/testData%2Fdemo.PNG?alt=media&token=7c4eb302-4009-4e04-9c16-84139d5209d5')
-                                  : NetworkImage(snapshot.data.toString()),
-
-                              fit: BoxFit.fitWidth,
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  // =================================================年齢 居住地
-                  SizedBox(
-                    width: 160,
-                    height: 22,
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "$handleName    $age歳        東京", // ======================ageパラメタ反映 $age
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 13,
-                          fontFamily: "Roboto",
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  // ====================================================挨拶文
-                  SizedBox(
-                    width: 165,
-                    height: 41,
-                    child: Text(
-                      about.toString(),
-                      style: const TextStyle(
-                        color: Color.fromARGB(206, 0, 0, 0),
-                        fontSize: 13,
-                        fontFamily: "Roboto",
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  double doubleInRange(Random source, num start, num end) =>
-      source.nextDouble() * (end - start) + start;
 }

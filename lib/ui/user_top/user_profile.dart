@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/models/profile_item_models.dart';
@@ -8,8 +9,31 @@ import 'package:seed_app/ui/user_menu_to_pages/my_profile/mp_introduction_card.d
 import 'package:seed_app/ui/user_menu_to_pages/my_profile/mp_items_list.dart';
 import 'package:seed_app/ui/user_menu_to_pages/my_profile/mp_score.dart';
 
+class NewUserProfilePage extends StatelessWidget {
+  const NewUserProfilePage({
+    Key? key,
+    required this.documentSnapshot,
+  }) : super(key: key);
+  final DocumentSnapshot documentSnapshot;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(),
+        body: Container(
+          color: Colors.amber,
+          child: Text(documentSnapshot.id),
+        ),
+      ),
+    );
+  }
+}
+
 class UserProfilePage extends StatelessWidget {
-  const UserProfilePage({Key? key}) : super(key: key);
+  const UserProfilePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:seed_app/ui/user_top/user_top_search.dart';
+
+// DropdownWidgetで使用中============================================
+final selectProvider = StateProvider((ref) => true);
+final selectedItemProvider = StateProvider((ref) => []);
+
+// ページネーションで使用中============================================
+final testPostsProvider =
+    StateNotifierProvider<TestPostsNotifier, List<TestModel>>(
+        (ref) => TestPostsNotifier());
+final reloadProvider = StateProvider<bool>((ref) => true);
+final isLoadProvider = StateProvider<bool>((ref) => false);
 
 @immutable
 class TestModel {
@@ -49,17 +61,27 @@ class TestPostsNotifier extends StateNotifier<List<TestModel>> {
 
   // 次のドキュメントを読み込む
   Future<void> fetchPosts() async {
-    // TODO: 後ほど実装
+    final snapshots = await FirebaseFirestore.instance
+        .collection('TestData')
+        .orderBy('birthDate')
+        .startAfterDocument(fetchedLastDoc!)
+        .limit(20)
+        .get();
+
+    fetchedLastDoc = snapshots.docs.last;
+    state = [
+      ...state,
+      ...snapshots.docs.map(
+        (e) => TestModel(
+          e.data()['handleName'],
+          e.data()['birthDate'],
+          e.data()['greetingMessage'],
+          e.data()['sex'],
+        ),
+      )
+    ];
   }
 }
-
-final testPostsProvider =
-    StateNotifierProvider<TestPostsNotifier, List<TestModel>>(
-        (ref) => TestPostsNotifier());
-
-// DropdownWidgetで使用中
-final selectProvider = StateProvider((ref) => true);
-final selectedItemProvider = StateProvider((ref) => []);
 
 class TestPage3 extends ConsumerWidget {
   TestPage3({Key? key}) : super(key: key);
@@ -69,17 +91,41 @@ class TestPage3 extends ConsumerWidget {
     '500万円',
     '600万円',
   ];
+  List<String> selectedItem = []; // TODO: Providerで情報保持
 
   final ScrollController scrollController = ScrollController();
 
-  List<String> selectedItem = []; // TODO: Providerで情報保持
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // DropdownWidget用のProvider
     final selectedState = ref.watch(selectProvider.state);
     final selectedItemState = ref.watch(selectedItemProvider.state);
 
+    // ページネーション用のProvider
     final state = ref.watch(testPostsProvider);
+    final reloadState = ref.watch(reloadProvider.state);
+    final isLoadState = ref.watch(isLoadProvider.state);
+
+    scrollController.addListener(
+      () {
+        if (isLoadState.state == false) {
+          if (scrollController.offset ==
+              scrollController.position.maxScrollExtent) {
+            isLoadState.state = true;
+            ref.read(testPostsProvider.notifier).fetchPosts();
+            reloadState.state = !reloadState.state;
+            print('取得');
+            Future.delayed(
+              const Duration(seconds: 2),
+              (() {
+                print('３秒経過');
+                isLoadState.state = false;
+              }),
+            );
+          }
+        }
+      },
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -93,7 +139,12 @@ class TestPage3 extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 500,
+              height: 300,
+              width: double.infinity,
+              child: NewInfiniteGridView(),
+            ),
+            SizedBox(
+              height: 200,
               child: ListView.builder(
                 padding: const EdgeInsets.all(8),
                 controller: scrollController,
