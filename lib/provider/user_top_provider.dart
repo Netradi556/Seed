@@ -4,6 +4,7 @@ import 'package:seed_app/repository/firestore_repo.dart';
 
 final isReloadProvider = StateProvider<bool>((ref) => true);
 final isLoadingProvider = StateProvider<bool>((ref) => false);
+final isMaxProvider = StateProvider<bool>((ref) => false);
 //
 //
 //
@@ -35,12 +36,18 @@ class SnapShotNotifier extends StateNotifier<List<DocumentSnapshot>> {
 
     fetchedLastDoc = snapshots.docs.last;
     state = [...snapshots.docs];
+    // TODO:最初から20件未満のドキュメントを取得した場合は、ユーザーに上限到達の通知ができない
   }
 
   // 次のドキュメントを読み込む
-  Future<void> fetchUsers() async {
+  Future<String> fetchUsers() async {
     final snapshots = await FireStoreRepo().fetchUsers(fetchedLastDoc!).get();
-    state = [...state, ...snapshots.docs];
-    fetchedLastDoc = snapshots.docs.last;
+    if (snapshots.size != 0) {
+      state = [...state, ...snapshots.docs];
+      fetchedLastDoc = snapshots.docs.last;
+      return 'OK';
+    } else {
+      return 'MAX';
+    }
   }
 }

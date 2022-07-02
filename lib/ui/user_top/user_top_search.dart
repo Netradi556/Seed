@@ -90,6 +90,7 @@ class NewInfiniteGridView extends ConsumerWidget {
     final state = ref.watch(snapshotProvider);
     final isReloadState = ref.watch(isReloadProvider.state);
     final isLoadingState = ref.watch(isLoadingProvider.state);
+    final isMaxState = ref.watch(isMaxProvider.state);
 
     scrollController.addListener(
       () {
@@ -97,16 +98,21 @@ class NewInfiniteGridView extends ConsumerWidget {
           if (scrollController.offset ==
               scrollController.position.maxScrollExtent) {
             isLoadingState.state = true;
-            ref.read(snapshotProvider.notifier).fetchUsers();
-            isReloadState.state = !isReloadState.state;
-            print('取得');
-            Future.delayed(
-              const Duration(seconds: 2),
-              (() {
-                print('３秒経過');
-                isLoadingState.state = false;
-              }),
-            );
+            Future<String> a = ref.read(snapshotProvider.notifier).fetchUsers();
+            if (a.toString() == 'OK') {
+              isReloadState.state = !isReloadState.state;
+              print('取得');
+              Future.delayed(
+                const Duration(seconds: 2),
+                (() {
+                  print('３秒経過');
+                  isLoadingState.state = false;
+                }),
+              );
+              isMaxState.state = false;
+            } else if (a.toString() == 'MAX') {
+              isMaxState.state = true;
+            }
           }
         }
       },
@@ -126,7 +132,16 @@ class NewInfiniteGridView extends ConsumerWidget {
         ),
         itemBuilder: (context, index) {
           final documentSnapshot = state.elementAt(index);
-          return NewUserCardWithSnapshot(documentSnapshot: documentSnapshot);
+          return isMaxState.state
+              // isMaxStateがtrueになったらContainerを返す
+              ? Container(
+                  width: 170,
+                  height: 300,
+                  alignment: Alignment.center,
+                  child: const Text('上限に達しました。\n 検索条件を変更してみてください。'),
+                )
+              // isMaxStateがfalseの間はユーザーカードを返す
+              : NewUserCardWithSnapshot(documentSnapshot: documentSnapshot);
         },
       ),
     );
