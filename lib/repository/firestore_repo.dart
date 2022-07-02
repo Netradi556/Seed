@@ -22,30 +22,22 @@ class FireStoreRepo {
   // TOP画面でユーザー情報を取得するときの処理：女性ユーザーのみ
   // 性別判定をどこでやるか、異性のみ取得したい
   // ------------------------------------------------------------------------------動作確認で5件に絞ってみる
-  Future<QuerySnapshot> getQuerySnapshotAtUserTop(int limit) async {
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
+
+  Query fetchFirstUsers() {
+    final snapshots = FirebaseFirestore.instance
         .collection('user')
         .where('sex', isEqualTo: '女性')
-        .limit(limit)
-        .get();
-    print(snapshot.size.toString() + '最初のスナップショット取得');
-    return snapshot;
+        .limit(20);
+    return snapshots;
   }
 
-  Future<void> addQueryDocumentSnapshotAtUserTop(
-      Future<QuerySnapshot> querySnapshot, int loadCard) async {
-    querySnapshot.then(
-      (documentSnapshot) {
-        // 取得済みのドキュメントのうち、最後のドキュメント
-        final lastVisible = documentSnapshot.docs[documentSnapshot.size - 1];
-        // ignore: unused_local_variable
-        final next = FirebaseFirestore.instance
-            .collection('user')
-            .startAfter([lastVisible])
-            .limit(loadCard)
-            .get();
-      },
-    );
+  Query fetchUsers(DocumentSnapshot fetchedLastDoc) {
+    final snapshots = FirebaseFirestore.instance
+        .collection('user')
+        .where('sex', isEqualTo: '女性')
+        .startAfterDocument(fetchedLastDoc)
+        .limit(20);
+    return snapshots;
   }
 
   Future<QuerySnapshot> getQuerySnapshotByCriteria() async {
