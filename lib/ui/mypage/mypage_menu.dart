@@ -99,7 +99,7 @@ class MyPageMenu extends StatelessWidget {
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) {
-                              return const TestPage2();
+                              return TestPage3();
                             },
                           ),
                         ),

@@ -24,7 +24,9 @@ class StorageRepo {
   }
 
   Future<String> getUserProfileImage(String uid) async {
-    return await _storage.ref().child("user/profile/$uid").getDownloadURL();
+    String imgPath =
+        await _storage.ref().child("user/profile/$uid").getDownloadURL();
+    return imgPath;
   }
 
   // 各種証明書のアップロード処理----------------------

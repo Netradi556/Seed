@@ -22,27 +22,30 @@ class FireStoreRepo {
   // TOP画面でユーザー情報を取得するときの処理：女性ユーザーのみ
   // 性別判定をどこでやるか、異性のみ取得したい
   // ------------------------------------------------------------------------------動作確認で5件に絞ってみる
-  Future<QuerySnapshot> getQuerySnapshotAtUserTop() async {
+  Future<QuerySnapshot> getQuerySnapshotAtUserTop(int limit) async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('user')
         .where('sex', isEqualTo: '女性')
-        .limit(20)
+        .limit(limit)
         .get();
+    print(snapshot.size.toString() + '最初のスナップショット取得');
     return snapshot;
   }
 
   Future<void> addQueryDocumentSnapshotAtUserTop(
       Future<QuerySnapshot> querySnapshot, int loadCard) async {
-    querySnapshot.then((documentSnapshot) {
-      // 取得済みのドキュメントのうち、最後のドキュメント
-      final lastVisible = documentSnapshot.docs[documentSnapshot.size - 1];
-      // ignore: unused_local_variable
-      final next = FirebaseFirestore.instance
-          .collection('user')
-          .startAfter([lastVisible]).limit(loadCard);
-    });
-    // ignore: avoid_print
-    print('取得成功');
+    querySnapshot.then(
+      (documentSnapshot) {
+        // 取得済みのドキュメントのうち、最後のドキュメント
+        final lastVisible = documentSnapshot.docs[documentSnapshot.size - 1];
+        // ignore: unused_local_variable
+        final next = FirebaseFirestore.instance
+            .collection('user')
+            .startAfter([lastVisible])
+            .limit(loadCard)
+            .get();
+      },
+    );
   }
 
   Future<QuerySnapshot> getQuerySnapshotByCriteria() async {

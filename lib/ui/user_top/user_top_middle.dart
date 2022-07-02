@@ -5,7 +5,7 @@ import 'package:seed_app/ui/user_top/user_profile.dart';
 const String imagePath1 = 'assets/images/userXX.jpg';
 const String imagePath2 = 'assets/images/userXX1.jpg';
 const String imagePath3 = 'assets/images/userXX2.jpg';
-const String imagePath4 = 'assets/images/user4.jpg';
+const String imagePath4 = 'assets/images/user7.jpg';
 
 class UserTopMiddleArea extends StatelessWidget {
   const UserTopMiddleArea({
@@ -97,9 +97,17 @@ class NearUserCard extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: const Color.fromARGB(233, 239, 238, 229),
-                width: 3,
-              )),
+                color: Color.fromARGB(233, 243, 238, 198),
+                width: 2,
+              ),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color.fromARGB(24, 23, 23, 23),
+                  spreadRadius: 0.5,
+                  blurRadius: 1,
+                  offset: Offset(1, 2),
+                ),
+              ]),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image(
