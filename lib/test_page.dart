@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:seed_app/ui/user_top/user_top_search.dart';
+import 'package:seed_app/ui/top/search.dart';
 
 // DropdownWidgetで使用中============================================
 final selectProvider = StateProvider((ref) => true);

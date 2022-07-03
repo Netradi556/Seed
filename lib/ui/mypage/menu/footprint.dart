@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
+import 'package:seed_app/ui/mypage/menu_importer.dart';
 
 /*
   直近一週間の自分のプロフィールを閲覧したユーザーの一覧を日別に表示する画面

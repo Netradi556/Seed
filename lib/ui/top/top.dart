@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seed_app/ui/user_top/user_top_search.dart';
-import 'package:seed_app/ui/user_top/user_top_header.dart';
-import 'package:seed_app/ui/user_top/user_top_middle.dart';
+import 'package:seed_app/ui/top/head.dart';
+import 'package:seed_app/ui/top/search.dart';
+import 'package:seed_app/ui/top/head.dart';
+import 'package:seed_app/ui/top/middle.dart';
 
 /*
   マッチング相手を探す画面

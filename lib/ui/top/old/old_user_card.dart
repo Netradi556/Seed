@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:seed_app/repository/storage_repo.dart';
-import 'package:seed_app/ui/user_top/user_profile.dart';
+import 'package:seed_app/ui/top/user_profile/user_profile.dart';
 
 class OLDUserCardWithSnapshot extends StatelessWidget {
   OLDUserCardWithSnapshot({

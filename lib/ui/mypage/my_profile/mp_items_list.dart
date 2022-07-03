@@ -4,20 +4,18 @@ import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileItemsList extends StatelessWidget {
-  ProfileItemsList({
+class MyProfileItemsList extends StatelessWidget {
+  MyProfileItemsList({
     Key? key,
     required this.itemName,
     required this.itemsList,
   }) : super(key: key);
 
-  // 処理関係
+  final double width = 350;
   final String itemName;
   final List<String> itemsList;
-  final UserModel? _currentUser = locator.get<UserController>().currentUser;
 
-  // デザイン関係
-  final double width = 350;
+  final UserModel? _currentUser = locator.get<UserController>().currentUser;
   final Color itemTextColor = const Color.fromARGB(255, 0, 0, 0);
 
   @override
@@ -60,11 +58,13 @@ class ProfileItemsList extends StatelessWidget {
                             )),
                       ),
                     ),
+                    // ======================================================================Providerから値を取得して表示するように
                     Flexible(
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: Align(
                           alignment: Alignment.centerRight,
+                          // itemsList[index]の情報をもとにローカルから値を取得----------------------
                           child: FutureBuilder(
                             future: initialize(itemsList[index]),
                             builder: (BuildContext context,
