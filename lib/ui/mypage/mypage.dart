@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seed_app/ui/mypage/my_profile/edit_my_profile/edit_my_profile.dart';
+import 'package:seed_app/ui/user_menu_to_pages/my_profile/edit_my_profile/edit_my_profile.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
-import 'package:seed_app/ui/mypage/menu_importer.dart';
+import 'package:seed_app/ui/user_menu_to_pages/user_menu_importer.dart';
 import 'package:seed_app/ui/mypage/mypage_menu.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/controller/user_controller.dart';

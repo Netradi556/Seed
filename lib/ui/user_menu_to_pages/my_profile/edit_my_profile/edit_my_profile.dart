@@ -8,7 +8,7 @@ import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/provider/profile_provider.dart';
-import 'package:seed_app/ui/mypage/my_profile/edit_my_profile/edit_mp_items_list.dart';
+import 'package:seed_app/ui/user_menu_to_pages/my_profile/edit_my_profile/edit_mp_items_list.dart';
 import 'package:seed_app/controller/user_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
