@@ -6,8 +6,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/ui/mypage/my_profile/mp_introduction.dart';
 import 'package:seed_app/ui/mypage/my_profile/mp_introduction_card.dart';
+<<<<<<< HEAD
 import 'package:seed_app/ui/mypage/my_profile/mp_items_list.dart';
 import 'package:seed_app/ui/mypage/my_profile/mp_score.dart';
+=======
+import 'package:seed_app/ui/mypage/my_profile/mp_score.dart';
+import 'package:seed_app/ui/top/user_profile/up_introduction.dart';
+import 'package:seed_app/ui/top/user_profile/up_introduction_card.dart';
+import 'package:seed_app/ui/top/user_profile/up_items_list.dart';
+import 'package:seed_app/ui/top/user_profile/up_score.dart';
+>>>>>>> refs/remotes/origin/develop
 
 class NewUserProfilePage extends StatelessWidget {
   NewUserProfilePage({
@@ -40,11 +48,16 @@ class NewUserProfilePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // プロフ画像
+<<<<<<< HEAD
               const MyProfilePictures(
+=======
+              const UserProfilePictures(
+>>>>>>> refs/remotes/origin/develop
                 avatarUrl:
                     '', // ==========================================FireStorageからパスを取得
               ),
               // 概要欄
+<<<<<<< HEAD
               const MyIntroductionCard(),
               // プロフィールスコア
               const MyProfileScore(),
@@ -52,21 +65,42 @@ class NewUserProfilePage extends StatelessWidget {
               const MyIntroduction(),
               // 基本情報
               MyProfileItemsList(
+=======
+              const UserIntroductionCard(),
+              // プロフィールスコア
+              const UserProfileScore(),
+              // 自由記述欄
+              const UserIntroduction(),
+              // 基本情報
+              UserProfileItemsList(
+>>>>>>> refs/remotes/origin/develop
                 itemName: '基本情報',
                 itemsList: profileItem.basicInfo,
               ),
               // 学歴・職種・外見
+<<<<<<< HEAD
               MyProfileItemsList(
+=======
+              UserProfileItemsList(
+>>>>>>> refs/remotes/origin/develop
                 itemName: '学歴・職種・外見',
                 itemsList: profileItem.socialInfo,
               ),
               // 性格・趣味・生活
+<<<<<<< HEAD
               MyProfileItemsList(
+=======
+              UserProfileItemsList(
+>>>>>>> refs/remotes/origin/develop
                 itemName: '性格・趣味・生活',
                 itemsList: profileItem.lifeStyleInfo,
               ),
               // 恋愛・結婚について
+<<<<<<< HEAD
               MyProfileItemsList(
+=======
+              UserProfileItemsList(
+>>>>>>> refs/remotes/origin/develop
                 itemName: '恋愛・結婚について',
                 itemsList: profileItem.viewOfLove,
               )
@@ -175,7 +209,11 @@ class UserProfilePageWidget extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // プロフ画像
+<<<<<<< HEAD
               const MyProfilePictures(
+=======
+              const UserProfilePictures(
+>>>>>>> refs/remotes/origin/develop
                 avatarUrl:
                     '', // ==========================================FireStorageからパスを取得
               ),
@@ -186,22 +224,38 @@ class UserProfilePageWidget extends ConsumerWidget {
               // 自由記述欄
               const MyIntroduction(),
               // 基本情報
+<<<<<<< HEAD
               MyProfileItemsList(
+=======
+              UserProfileItemsList(
+>>>>>>> refs/remotes/origin/develop
                 itemName: '基本情報',
                 itemsList: profileItem.basicInfo,
               ),
               // 学歴・職種・外見
+<<<<<<< HEAD
               MyProfileItemsList(
+=======
+              UserProfileItemsList(
+>>>>>>> refs/remotes/origin/develop
                 itemName: '学歴・職種・外見',
                 itemsList: profileItem.socialInfo,
               ),
               // 性格・趣味・生活
+<<<<<<< HEAD
               MyProfileItemsList(
+=======
+              UserProfileItemsList(
+>>>>>>> refs/remotes/origin/develop
                 itemName: '性格・趣味・生活',
                 itemsList: profileItem.lifeStyleInfo,
               ),
               // 恋愛・結婚について
+<<<<<<< HEAD
               MyProfileItemsList(
+=======
+              UserProfileItemsList(
+>>>>>>> refs/remotes/origin/develop
                 itemName: '恋愛・結婚について',
                 itemsList: profileItem.viewOfLove,
               )
@@ -221,9 +275,15 @@ class UserProfilePageWidget extends ConsumerWidget {
 //
 // 完成---------------------------------------------------------------------------------------------
 // プロフィール画像
+<<<<<<< HEAD
 class MyProfilePictures extends ConsumerWidget {
   final String? avatarUrl;
   const MyProfilePictures({
+=======
+class UserProfilePictures extends ConsumerWidget {
+  final String? avatarUrl;
+  const UserProfilePictures({
+>>>>>>> refs/remotes/origin/develop
     this.avatarUrl,
     Key? key,
   }) : super(key: key);
