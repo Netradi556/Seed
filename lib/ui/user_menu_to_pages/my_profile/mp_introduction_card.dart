@@ -1,12 +1,13 @@
 // イントロダクションカード
 // ハンドルネーム、バッジ、ステータスコメント、ログイン状況など
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:seed_app/controller/user_controller.dart';
 import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/user_models.dart';
 
-class UserIntroductionCard extends StatelessWidget {
-  const UserIntroductionCard({
+class IntroductionCard extends StatelessWidget {
+  const IntroductionCard({
     Key? key,
   }) : super(key: key);
 
@@ -14,15 +15,15 @@ class UserIntroductionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _UserIntroductionCard(),
+        _IntroductionCard(),
         const SizedBox(height: 30),
       ],
     );
   }
 }
 
-class _UserIntroductionCard extends StatelessWidget {
-  _UserIntroductionCard({Key? key}) : super(key: key);
+class _IntroductionCard extends StatelessWidget {
+  _IntroductionCard({Key? key}) : super(key: key);
 
   final Color borderColor = const Color(0xFFFABF66);
   final Color testColor2 = const Color.fromARGB(205, 239, 228, 130);
