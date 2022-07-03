@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
-import 'package:seed_app/ui/user_top/user_profile.dart';
+import 'package:seed_app/ui/top/user_profile/user_profile.dart';
 
 const String imagePath1 = 'assets/images/userXX.jpg';
 const String imagePath2 = 'assets/images/userXX1.jpg';

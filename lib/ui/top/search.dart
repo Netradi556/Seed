@@ -8,7 +8,7 @@ import 'package:seed_app/provider/user_top_provider.dart';
 import 'package:seed_app/provider/util_provider.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
 import 'package:seed_app/repository/storage_repo.dart';
-import 'package:seed_app/ui/user_top/user_profile.dart';
+import 'package:seed_app/ui/top/user_profile/user_profile.dart';
 
 const String imagePath1 = 'assets/images/userXX.jpg';
 const String imagePath2 = 'assets/images/user2.jpg';

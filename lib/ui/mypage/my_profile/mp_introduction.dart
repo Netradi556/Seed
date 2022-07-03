@@ -1,8 +1,8 @@
 // 詳細な自己紹介文
 import 'package:flutter/material.dart';
 
-class Introduction extends StatelessWidget {
-  const Introduction({
+class MyIntroduction extends StatelessWidget {
+  const MyIntroduction({
     Key? key,
   }) : super(key: key);
 
