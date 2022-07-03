@@ -6,8 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/ui/mypage/my_profile/mp_introduction.dart';
 import 'package:seed_app/ui/mypage/my_profile/mp_introduction_card.dart';
-import 'package:seed_app/ui/mypage/my_profile/mp_items_list.dart';
 import 'package:seed_app/ui/mypage/my_profile/mp_score.dart';
+import 'package:seed_app/ui/top/user_profile/up_introduction.dart';
+import 'package:seed_app/ui/top/user_profile/up_introduction_card.dart';
+import 'package:seed_app/ui/top/user_profile/up_items_list.dart';
+import 'package:seed_app/ui/top/user_profile/up_score.dart';
 
 class NewUserProfilePage extends StatelessWidget {
   NewUserProfilePage({
@@ -40,33 +43,33 @@ class NewUserProfilePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // プロフ画像
-              const MyProfilePictures(
+              const UserProfilePictures(
                 avatarUrl:
                     '', // ==========================================FireStorageからパスを取得
               ),
               // 概要欄
-              const MyIntroductionCard(),
+              const UserIntroductionCard(),
               // プロフィールスコア
-              const MyProfileScore(),
+              const UserProfileScore(),
               // 自由記述欄
-              const MyIntroduction(),
+              const UserIntroduction(),
               // 基本情報
-              MyProfileItemsList(
+              UserProfileItemsList(
                 itemName: '基本情報',
                 itemsList: profileItem.basicInfo,
               ),
               // 学歴・職種・外見
-              MyProfileItemsList(
+              UserProfileItemsList(
                 itemName: '学歴・職種・外見',
                 itemsList: profileItem.socialInfo,
               ),
               // 性格・趣味・生活
-              MyProfileItemsList(
+              UserProfileItemsList(
                 itemName: '性格・趣味・生活',
                 itemsList: profileItem.lifeStyleInfo,
               ),
               // 恋愛・結婚について
-              MyProfileItemsList(
+              UserProfileItemsList(
                 itemName: '恋愛・結婚について',
                 itemsList: profileItem.viewOfLove,
               )
@@ -175,7 +178,7 @@ class UserProfilePageWidget extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // プロフ画像
-              const MyProfilePictures(
+              const UserProfilePictures(
                 avatarUrl:
                     '', // ==========================================FireStorageからパスを取得
               ),
@@ -186,22 +189,22 @@ class UserProfilePageWidget extends ConsumerWidget {
               // 自由記述欄
               const MyIntroduction(),
               // 基本情報
-              MyProfileItemsList(
+              UserProfileItemsList(
                 itemName: '基本情報',
                 itemsList: profileItem.basicInfo,
               ),
               // 学歴・職種・外見
-              MyProfileItemsList(
+              UserProfileItemsList(
                 itemName: '学歴・職種・外見',
                 itemsList: profileItem.socialInfo,
               ),
               // 性格・趣味・生活
-              MyProfileItemsList(
+              UserProfileItemsList(
                 itemName: '性格・趣味・生活',
                 itemsList: profileItem.lifeStyleInfo,
               ),
               // 恋愛・結婚について
-              MyProfileItemsList(
+              UserProfileItemsList(
                 itemName: '恋愛・結婚について',
                 itemsList: profileItem.viewOfLove,
               )
@@ -221,9 +224,9 @@ class UserProfilePageWidget extends ConsumerWidget {
 //
 // 完成---------------------------------------------------------------------------------------------
 // プロフィール画像
-class MyProfilePictures extends ConsumerWidget {
+class UserProfilePictures extends ConsumerWidget {
   final String? avatarUrl;
-  const MyProfilePictures({
+  const UserProfilePictures({
     this.avatarUrl,
     Key? key,
   }) : super(key: key);
