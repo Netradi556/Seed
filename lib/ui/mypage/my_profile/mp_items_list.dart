@@ -4,8 +4,8 @@ import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileItemsList extends StatelessWidget {
-  ProfileItemsList({
+class MyProfileItemsList extends StatelessWidget {
+  MyProfileItemsList({
     Key? key,
     required this.itemName,
     required this.itemsList,
