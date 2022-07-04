@@ -70,7 +70,7 @@ class NewUserProfilePage extends StatelessWidget {
                 itemName: '恋愛・結婚について',
                 itemsList: profileItem.viewOfLove,
               )
-            ],
+            ], // TODO : いいね！送信ボタンを配置する
           ),
         ),
       ),
