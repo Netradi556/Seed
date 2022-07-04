@@ -1,5 +1,0 @@
-ページごとにディレクトリを分けて作成
-例えば、login_screenというディレクトリを用意し、LoginScreenというWidgetを作成
-
-
-

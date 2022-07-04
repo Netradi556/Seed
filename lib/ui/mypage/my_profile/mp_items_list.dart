@@ -4,20 +4,18 @@ import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileItemsList extends StatelessWidget {
-  ProfileItemsList({
+class MyProfileItemsList extends StatelessWidget {
+  MyProfileItemsList({
     Key? key,
     required this.itemName,
     required this.itemsList,
   }) : super(key: key);
 
-  // 処理関係
+  final double width = 350;
   final String itemName;
   final List<String> itemsList;
-  final UserModel? _currentUser = locator.get<UserController>().currentUser;
 
-  // デザイン関係
-  final double width = 350;
+  final UserModel? _currentUser = locator.get<UserController>().currentUser;
   final Color itemTextColor = const Color.fromARGB(255, 0, 0, 0);
 
   @override
@@ -53,20 +51,20 @@ class ProfileItemsList extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(
-                          itemsList[index]
-                              .toString(), // TODO : constでFirestoreのパラメータ↔項目名のMapを定義
-                          // TODO：Mapを利用してsnapshotのパラメータ名と対応した項目名を表示
-                          style: TextStyle(color: itemTextColor, fontSize: 16),
-                        ),
+                        child: Text(itemsList[index].toString(),
+                            style: TextStyle(
+                              color: itemTextColor,
+                              fontSize: 16,
+                            )),
                       ),
                     ),
+                    // ======================================================================Providerから値を取得して表示するように
                     Flexible(
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: Align(
                           alignment: Alignment.centerRight,
-                          // TODO: snapshotからの値取得に変更
+                          // itemsList[index]の情報をもとにローカルから値を取得----------------------
                           child: FutureBuilder(
                             future: initialize(itemsList[index]),
                             builder: (BuildContext context,
@@ -92,7 +90,6 @@ class ProfileItemsList extends StatelessWidget {
     );
   }
 
-  // TODO: FutureBuilderの処理ロジック終了後に削除
   // ========================================================================プロフ更新処理で修正
   Future<String> initialize(String itemName) async {
     String nowParam = 'a';
