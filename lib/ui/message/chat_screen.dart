@@ -13,7 +13,7 @@ class ChatScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).canvasColor,
         elevation: .6,
         title: const Text(
-          'Akari',
+          'Mentaくん1',
           style: TextStyle(
             color: Colors.black87,
           ),
@@ -106,11 +106,13 @@ class LeftBalloon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.only(bottom: 28.0),
       child: Row(
         children: [
-          const CircleAvatar(
-            backgroundImage: AssetImage('assets/images/user2.jpg'),
+          CircleAvatar(
+            child: ClipOval(
+              child: Image.asset('assets/images/demo.png'),
+            ),
           ),
           const SizedBox(
             width: 16.0,
@@ -148,7 +150,7 @@ class RightBalloon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.only(bottom: 28.0),
       child: Align(
         alignment: Alignment.centerRight,
         child: Container(
@@ -225,8 +227,6 @@ class TextInputWidget extends StatelessWidget {
                 autofocus: false,
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
-                    visualDensity: VisualDensity.compact,
-                    iconSize: 20,
                     icon: const Icon(Icons.send),
                     onPressed: () {
                       FirebaseFirestore.instance.collection('chatsample').add(
@@ -241,7 +241,7 @@ class TextInputWidget extends StatelessWidget {
                     },
                   ),
                   suffixIconColor: sendIconColor,
-                  border: InputBorder.none,
+                  border: const OutlineInputBorder(),
                   hintText: 'Type here',
                 ),
               ),

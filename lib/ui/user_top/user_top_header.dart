@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/provider/serch_option_provider.dart';
-import 'package:seed_app/ui/top/top.dart';
+import 'package:seed_app/ui/user_top/user_top.dart';
 
 class UserTopHeaderArea extends StatelessWidget {
   const UserTopHeaderArea({

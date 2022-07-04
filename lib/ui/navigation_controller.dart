@@ -5,9 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/provider/util_provider.dart';
 
 // PageWidgets
-import 'top/top.dart';
+import 'user_top/user_top.dart';
 import 'like/like.dart';
-import 'message/message_list.dart';
+import 'message/message.dart';
 import 'mypage/mypage.dart';
 
 class NavigationPageController extends ConsumerWidget {

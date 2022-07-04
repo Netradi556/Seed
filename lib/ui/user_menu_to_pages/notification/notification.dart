@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:seed_app/ui/mypage/menu/notification/notification_detail.dart';
-import 'package:seed_app/ui/mypage/menu/notification/notification_detail.dart';
+import 'package:seed_app/ui/user_menu_to_pages/notification/notification_detail.dart';
 
 /*
   運営からの通知の一覧を表示する画面

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 // プロフィールスコア
-class UserProfileScore extends StatelessWidget {
-  const UserProfileScore({
+class ProfileScore extends StatelessWidget {
+  const ProfileScore({
     Key? key,
   }) : super(key: key);
 

@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Seed',
-        theme: ThemeData(visualDensity: VisualDensity.compact),
+        theme: ThemeData.light(),
         home: AuthPageWidget(),
       ),
     );

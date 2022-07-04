@@ -10,14 +10,11 @@ import 'package:seed_app/ui/top/user_profile/up_items_list.dart';
 import 'package:seed_app/ui/top/user_profile/up_score.dart';
 
 class NewUserProfilePage extends StatelessWidget {
-  NewUserProfilePage({
+  const NewUserProfilePage({
     Key? key,
     required this.documentSnapshot,
   }) : super(key: key);
-
-  // ロジック
   final DocumentSnapshot documentSnapshot;
-  final ProfileItem profileItem = ProfileItem();
 
   @override
   Widget build(BuildContext context) {
@@ -78,40 +75,6 @@ class NewUserProfilePage extends StatelessWidget {
   }
 }
 
-class NewProfilePictures extends ConsumerWidget {
-  final String? avatarUrl;
-  const NewProfilePictures({
-    this.avatarUrl,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 15, 15, 10),
-      child: Container(
-        height: 400,
-        width: 350,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          image: DecorationImage(
-              image: avatarUrl == null || avatarUrl == ''
-                  ? Image.asset('assets/images/user1.jpg')
-                      .image // ==============================================プロフィール画像未設定の場合の画像
-                  : Image.file(File(avatarUrl!)).image,
-              fit: BoxFit.fill),
-        ),
-      ),
-    );
-  }
-}
-
-//
-//
-//
-//
-//
-//
 class UserProfilePage extends StatelessWidget {
   const UserProfilePage({
     Key? key,
