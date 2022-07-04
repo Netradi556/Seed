@@ -1,20 +1,23 @@
 // イントロダクションカード
 // ハンドルネーム、バッジ、ステータスコメント、ログイン状況など
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:seed_app/controller/user_controller.dart';
-import 'package:seed_app/locator.dart';
-import 'package:seed_app/models/user_models.dart';
 
 class UserIntroductionCard extends StatelessWidget {
-  const UserIntroductionCard({
+  UserIntroductionCard({
     Key? key,
-  }) : super(key: key);
+    required this.documentSnapshot,
+  }) : super(key: key) {
+    print(documentSnapshot.data());
+  }
+
+  final DocumentSnapshot documentSnapshot;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _UserIntroductionCard(),
+        _UserIntroductionCard(documentSnapshot: documentSnapshot),
         const SizedBox(height: 30),
       ],
     );
@@ -22,13 +25,16 @@ class UserIntroductionCard extends StatelessWidget {
 }
 
 class _UserIntroductionCard extends StatelessWidget {
-  _UserIntroductionCard({Key? key}) : super(key: key);
+  const _UserIntroductionCard({
+    Key? key,
+    required this.documentSnapshot,
+  }) : super(key: key);
 
   final Color borderColor = const Color(0xFFFABF66);
   final Color testColor2 = const Color.fromARGB(205, 239, 228, 130);
   final Color badgeIconColor = const Color.fromARGB(173, 31, 134, 40);
 
-  final UserModel? _currentUser = locator.get<UserController>().currentUser;
+  final DocumentSnapshot documentSnapshot;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +58,7 @@ class _UserIntroductionCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.fromLTRB(7, 0, 0, 0),
                     child: Text(
-                      _currentUser!.handleName
-                          .toString(), // =======================ハンドルネームをFSから
+                      documentSnapshot.get('handleName'), // TODO: 変数に変更
                       style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -63,9 +68,17 @@ class _UserIntroductionCard extends StatelessWidget {
                   Row(
                     children: [
                       const SizedBox(width: 10),
-                      const Text('25歳', style: TextStyle(fontSize: 18)),
+                      Text(
+                        documentSnapshot.get('age').toString(), // TODO: 変数に変更
+                        style: const TextStyle(fontSize: 18),
+                      ),
                       const SizedBox(width: 30),
-                      const Text('東京', style: TextStyle(fontSize: 18)),
+                      Text(
+                        documentSnapshot
+                            .get('居住地'), // TODO Firebaseの設定変更後に修正、居住地→place??
+                        // TODO: 変数に変更
+                        style: const TextStyle(fontSize: 18),
+                      ),
                       const SizedBox(width: 140),
                       Row(
                         children: [
@@ -85,12 +98,10 @@ class _UserIntroductionCard extends StatelessWidget {
                     width: 350,
                     height: 90,
                     padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: const Text(
-                      '休日は外で過ごすことが多いです \n \n ',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ), // ==========================SharedPreferencesから
+                    child: Text(
+                      documentSnapshot.get('about'), // TODO: 変数に変更
+                      style: const TextStyle(fontSize: 20),
+                    ),
                   ),
                   SizedBox(
                     height: 50,
@@ -99,8 +110,8 @@ class _UserIntroductionCard extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          SizedBox(
+                        children: [
+                          const SizedBox(
                             width: 8,
                             height: 25,
                             child: Material(
@@ -108,12 +119,12 @@ class _UserIntroductionCard extends StatelessWidget {
                               shape: CircleBorder(),
                             ),
                           ),
-                          SizedBox(width: 10),
-                          SizedBox(
+                          const SizedBox(width: 10),
+                          const SizedBox(
                             width: 69,
                             height: 20,
                             child: Text(
-                              "1時間以内",
+                              "1時間以内", // TODO: ログイン時間の判定・アップデート処理実装後に修正
                               style: TextStyle(
                                 color: Color(0x7f000000),
                                 fontSize: 14,
@@ -122,8 +133,8 @@ class _UserIntroductionCard extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 40),
-                          SizedBox(
+                          const SizedBox(width: 40),
+                          const SizedBox(
                             width: 20,
                             height: 20,
                             child: Icon(
@@ -131,13 +142,15 @@ class _UserIntroductionCard extends StatelessWidget {
                               color: Color.fromARGB(198, 236, 201, 86),
                             ),
                           ),
-                          SizedBox(width: 13),
+                          const SizedBox(width: 13),
                           SizedBox(
                             width: 75,
                             height: 17,
                             child: Text(
-                              "25いいね！",
-                              style: TextStyle(
+                              documentSnapshot
+                                  .get('receivedGoodCount')
+                                  .toString(), // TODO: 変数に変更
+                              style: const TextStyle(
                                 color: Color(0x7f000000),
                                 fontSize: 14,
                                 fontFamily: "Roboto",

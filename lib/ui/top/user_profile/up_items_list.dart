@@ -53,11 +53,12 @@ class UserProfileItemsList extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(itemsList[index].toString(),
-                            style: TextStyle(
-                              color: itemTextColor,
-                              fontSize: 16,
-                            )),
+                        child: Text(
+                          itemsList[index]
+                              .toString(), // TODO : constでFirestoreのパラメータ↔項目名のMapを定義
+                          // TODO：Mapを利用してsnapshotのパラメータ名と対応した項目名を表示
+                          style: TextStyle(color: itemTextColor, fontSize: 16),
+                        ),
                       ),
                     ),
                     Flexible(
@@ -65,6 +66,7 @@ class UserProfileItemsList extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: Align(
                           alignment: Alignment.centerRight,
+                          // TODO: snapshotからの値取得に変更
                           child: FutureBuilder(
                             future: initialize(itemsList[index]),
                             builder: (BuildContext context,
@@ -90,6 +92,7 @@ class UserProfileItemsList extends StatelessWidget {
     );
   }
 
+  // TODO: FutureBuilderの処理ロジック終了後に削除
   // ========================================================================プロフ更新処理で修正
   Future<String> initialize(String itemName) async {
     String nowParam = 'a';
