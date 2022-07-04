@@ -1,5 +1,9 @@
 import 'package:seed_app/const/constants_profile.dart' as c;
 
+// TODO: 1. Firestore param <-> 項目名のMapを定義
+// TODO: 2. ProfileItemのListを項目名から、Firestore paramに変更
+// TODO: 3. up_items_lists.dartにFirestore paramが渡されるので、Mapを利用する
+
 class ProfileItem {
   final List<String> basicInfo = [
     'ニックネーム',
