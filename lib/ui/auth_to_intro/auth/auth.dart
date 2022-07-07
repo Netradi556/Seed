@@ -225,6 +225,7 @@ class PasswordTextForm extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 20, 0),
           child: TextFormField(
+            // 目のアイコンをタップしたらパスワードが見れるように変更
             onChanged: (String value) => password.state = value,
             obscureText: passwordVisibility,
             decoration: InputDecoration(
@@ -298,8 +299,6 @@ class MailAddressLogInButton extends ConsumerWidget {
           icon: Icons.email,
           text: 'Sing in with Email',
           onPressed: () async {
-            // ignore: avoid_print
-            print(password.state.toString());
             try {
               final UserCredential userCredential =
                   await authRepo.signInWithEmailAddress(
@@ -307,6 +306,7 @@ class MailAddressLogInButton extends ConsumerWidget {
                 password.state,
               );
               if (userCredential.additionalUserInfo!.isNewUser) {
+                // TODO: IntroductionPageに遷移して、情報登録前にアプリを落とした場合の処理
                 // Userコレクションにドキュメント作成
                 _userController.setUserDocument();
                 await Navigator.of(context).pushReplacement(

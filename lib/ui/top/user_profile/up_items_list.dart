@@ -47,6 +47,7 @@ class NewUserProfileItemsList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: itemsList.length,
             itemBuilder: (BuildContext context, index) {
+              // TODO: itemList[index] == '性別'のときはreturnなしにする
               return SizedBox(
                 width: 80,
                 height: 50,

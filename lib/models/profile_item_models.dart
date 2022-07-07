@@ -8,6 +8,7 @@ class ProfileItemMap {
   final Map<String, dynamic> paramItemName = {
     'handleName': 'ハンドルネーム',
     'age': '年齢',
+    'sex': '性別',
     'bloodType': '血液型',
     'language': '話せる言語',
     'livingPlace': '居住地',
@@ -33,6 +34,7 @@ class ProfileItemMap {
 }
 
 class ProfileItemParam {
+  // 'sex'パラメータは項目として表示しないので、このリストに含ませない
   final List<String> basicInfo = [
     'handleName',
     'age',
@@ -41,6 +43,7 @@ class ProfileItemParam {
     'livingPlace',
     'birthPlace',
   ];
+
   final List<String> socialInfo = [
     'education',
     'job',
@@ -48,22 +51,23 @@ class ProfileItemParam {
     'height',
     'bodyShape',
   ];
+
   final List<String> lifeStyleInfo = [
-    '性格・タイプ',
-    '休日',
-    '趣味・好きなこと',
-    '同居している人・ペット',
-    '喫煙',
-    'お酒',
+    'personality',
+    'offDay',
+    'hobby',
+    'livingWith',
+    'smoke',
+    'drink',
   ];
 
   final List<String> viewOfLove = [
-    '子供の有無',
-    '結婚に対する意思',
-    '子供がほしいか',
-    '家事・育児',
-    '出会うまでの希望',
-    'デート費用',
+    'haveChild',
+    'marriageWill',
+    'wantKids',
+    'hoseWork',
+    'howMeet',
+    'datingCost',
   ];
 }
 
@@ -175,4 +179,44 @@ class ProfileItemDetail {
 
   // デート費用
   final List<String> datingCost = c.datingCost.toList() + ['選択しない', 'default'];
+}
+
+class InitialProfileParam {
+  final Map<String, dynamic> initialParamTop = {
+    'handleName': '',
+    'age': 0,
+    'sex': '',
+    'score': 0,
+    'receivedGoodCount': 0,
+    'bloodType': '',
+    'language': '',
+    'livingPlace': '',
+    'birthPlace': '',
+    'education': '',
+    'job': '',
+    'income': '', // TODO: int型にしないと、検索条件に引っ掛けられない？？
+    'height': '', // TODO: int型にしないと、検索条件に引っ掛けられない？？
+    'bodyShape': '',
+    'personality': '',
+    'offDay': '',
+    'hobby': '',
+    'livingWith': '',
+    'smoke': '',
+    'drink': '',
+    'haveChild': '',
+    'marriageWill': '',
+    'wantKids': '',
+    'hoseWork': '',
+    'howMeet': '',
+    'datingCost': '',
+  };
+
+  final Map<String, dynamic> initialParamMemberStatus = {
+    //
+    'goodCount': 0,
+    'licenseType': '',
+    'entryDate': DateTime.now(),
+    'nextGivenDate': DateTime.now(), // TODO: TOP画面遷移時に設定
+    'birthDate': DateTime.now(), // TODO: 後で設定
+  };
 }
