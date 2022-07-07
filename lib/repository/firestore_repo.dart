@@ -117,6 +117,7 @@ class FireStoreRepo {
 //
 //
 // ユーザープロフィール関係の処理=================================================================================
+  // アカウント作成時のドキュメント作成処理
   Future<void> setUserDocument() async {
     UserModel user = await _authRepo.getUser();
     var userId = user.uid;
@@ -124,6 +125,7 @@ class FireStoreRepo {
     var dateOnly = DateTime(now.year, now.month, now.day);
     var nextGivenDate = DateTime(now.year, now.month + 1, now.day);
 
+    // Userコレクション直下のパラメータ
     firestore.collection('user').doc(userId).set({
       'handleName': '',
       'sex': 'none',
