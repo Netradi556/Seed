@@ -17,7 +17,7 @@ class NewUserProfilePage extends StatelessWidget {
 
   // ロジック
   final DocumentSnapshot documentSnapshot;
-  final ProfileItem profileItem = ProfileItem();
+  final ProfileItemJAP profileItem = ProfileItemJAP();
 
   @override
   Widget build(BuildContext context) {

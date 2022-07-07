@@ -28,7 +28,7 @@ class MyProfileEditPageWidget extends ConsumerWidget {
   final Color appBarBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
 
   final UserModel? _currentUser = locator.get<UserController>().currentUser;
-  final ProfileItem profileItem = ProfileItem();
+  final ProfileItemJAP profileItem = ProfileItemJAP();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

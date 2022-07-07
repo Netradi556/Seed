@@ -1,10 +1,73 @@
 import 'package:seed_app/const/constants_profile.dart' as c;
 
 // TODO: 1. Firestore param <-> 項目名のMapを定義
-// TODO: 2. ProfileItemのListを項目名から、Firestore paramに変更
+// TODO: 2. ProfileItemのListを項目名のクラスのFirestore param版を作成
 // TODO: 3. up_items_lists.dartにFirestore paramが渡されるので、Mapを利用する
 
-class ProfileItem {
+class ProfileItemMap {
+  final Map<String, dynamic> paramItemName = {
+    'handleName': 'ハンドルネーム',
+    'age': '年齢',
+    'bloodType': '血液型',
+    'language': '話せる言語',
+    'livingPlace': '居住地',
+    'birthPlace': '出身地',
+    'education': '学歴',
+    'job': '職種',
+    'income': '年収',
+    'height': '身長',
+    'bodyShape': '体型',
+    'personality': '性格・タイプ',
+    'offDay': '休日',
+    'hobby': '趣味・好きなこと',
+    'livingWith': '同居している人・ペット',
+    'smoke': '喫煙',
+    'drink': 'お酒',
+    'haveChild': '子供の有無',
+    'marriageWill': '結婚に対する意思',
+    'wantKids': '子供がほしいか',
+    'hoseWork': '家事・育児',
+    'howMeet': '出会うまでの希望',
+    'datingCost': 'デート費用',
+  };
+}
+
+class ProfileItemParam {
+  final List<String> basicInfo = [
+    'handleName',
+    'age',
+    'bloodType',
+    'language',
+    'livingPlace',
+    'birthPlace',
+  ];
+  final List<String> socialInfo = [
+    'education',
+    'job',
+    'income',
+    'height',
+    'bodyShape',
+  ];
+  final List<String> lifeStyleInfo = [
+    '性格・タイプ',
+    '休日',
+    '趣味・好きなこと',
+    '同居している人・ペット',
+    '喫煙',
+    'お酒',
+  ];
+
+  final List<String> viewOfLove = [
+    '子供の有無',
+    '結婚に対する意思',
+    '子供がほしいか',
+    '家事・育児',
+    '出会うまでの希望',
+    'デート費用',
+  ];
+}
+
+class ProfileItemJAP {
   final List<String> basicInfo = [
     'ニックネーム',
     '年齢',

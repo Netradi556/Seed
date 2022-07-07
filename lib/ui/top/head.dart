@@ -91,7 +91,7 @@ class UserTopHeaderArea extends StatelessWidget {
 class SearchOption extends ConsumerWidget {
   SearchOption({Key? key}) : super(key: key);
 
-  final ProfileItem profileItem = ProfileItem();
+  final ProfileItemJAP profileItem = ProfileItemJAP();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
