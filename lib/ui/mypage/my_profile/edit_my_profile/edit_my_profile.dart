@@ -21,6 +21,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 */
 
+// TODO: 編集を確定したときに、AutoDisposeでProviderの状態を破棄する
+
 class MyProfileEditPageWidget extends ConsumerWidget {
   MyProfileEditPageWidget({Key? key}) : super(key: key);
 
@@ -108,22 +110,22 @@ class MyProfileEditPageWidget extends ConsumerWidget {
                 avatarUrl: _currentUser?.avatarUrl,
               ),
               EditProfileItemsList(
-                itemName: '基本情報',
+                categoryName: '基本情報',
                 itemsList: profileItem.basicInfo,
               ),
               // 学歴・職種・外見
               EditProfileItemsList(
-                itemName: '学歴・職種・外見',
+                categoryName: '学歴・職種・外見',
                 itemsList: profileItem.socialInfo,
               ),
               // 性格・趣味・生活
               EditProfileItemsList(
-                itemName: '性格・趣味・生活',
+                categoryName: '性格・趣味・生活',
                 itemsList: profileItem.lifeStyleInfo,
               ),
               // 恋愛・結婚について
               EditProfileItemsList(
-                itemName: '恋愛・結婚について',
+                categoryName: '恋愛・結婚について',
                 itemsList: profileItem.viewOfLove,
               ),
               Container(

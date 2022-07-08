@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:seed_app/test_page1.dart';
 import 'package:seed_app/test_page2.dart';
 import 'package:seed_app/ui/mypage/menu/footprint.dart';
 import 'package:seed_app/ui/mypage/menu/help.dart';
