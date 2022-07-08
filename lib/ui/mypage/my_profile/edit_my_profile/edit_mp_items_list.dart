@@ -10,13 +10,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class EditProfileItemsList extends StatelessWidget {
   EditProfileItemsList({
     Key? key,
-    required this.itemName,
+    required this.categoryName,
     required this.itemsList,
   }) : super(key: key);
 
   final double width = 350;
 
-  final String itemName;
+  final String categoryName;
   final List<String> itemsList;
 
   final ProfileItemDetail detailItem = ProfileItemDetail();
@@ -33,19 +33,23 @@ class EditProfileItemsList extends StatelessWidget {
           const SizedBox(height: 30),
           Align(
             alignment: Alignment.centerLeft,
+            // =====================================================カテゴリ名
             child: Text(
-              itemName,
+              categoryName,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
             ),
           ),
+          // =====================================================ListView.builderで項目を作成
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: itemsList.length,
+            itemCount: itemsList.length, // 作成する項目数＝呼び出し側から受け取った項目数
             itemBuilder: (BuildContext context, index) {
+              // TODO: 'age'の場合はWidgetを生成しない、生成しないことができないのでContainerを生成する？
+              // Listを取得した段階で、非表示にしたい項目を削除removeしてもいいかもしれない
               return SizedBox(
                 width: 80,
                 height: 50,
@@ -56,6 +60,7 @@ class EditProfileItemsList extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Align(
                         alignment: Alignment.centerLeft,
+                        // =======================================項目名はリスト順[index]で表示
                         child: Text(
                           itemsList[index].toString(),
                           style: TextStyle(
@@ -71,17 +76,16 @@ class EditProfileItemsList extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         // itemsList[index]の情報をもとにローカルから値を取得----------------------
                         child: FutureBuilder(
+                          // TODO: FirestoreからDocumentSnapshotを取得
                           future: initialize(itemsList[index]),
+
                           builder: (BuildContext context,
                               AsyncSnapshot<String> snapshot) {
                             if (snapshot.hasData) {
-
+                              // TODO: itemList[index] で場合分けをする、編集不可（handleName,age）
                               // =====================================itemNameが'ニックネーム'のときはテキストボックス
                               // =====================================itemNameが'年齢'のときは編集不可の状態に
                               // =====================================それ以外はDropdownItemsWidgetを返す
-
-
-
 
                               return _DropdownItemsWidget(
                                 itemName: itemsList[index],
