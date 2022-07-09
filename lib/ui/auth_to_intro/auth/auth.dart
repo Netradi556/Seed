@@ -70,7 +70,7 @@ class AuthPageWidget extends ConsumerWidget {
             // アカウント新規登録のボタン
             const CreateAccount(),
             const SizedBox(height: 40),
-            const AuthFootpadsPaddingWidget(),
+            const ForgotPassword(),
             const SizedBox(height: 10)
           ],
         ),
@@ -186,13 +186,13 @@ class EmailTextForm extends ConsumerWidget {
               ),
               filled: true,
               fillColor: const Color(
-                  0x00000000), //====================================変数で
+                  0x00000000), // TODO: ====================================変数で
               contentPadding:
                   const EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
             ),
             style: const TextStyle(
-                color: Color.fromARGB(
-                    255, 8, 8, 8)), //====================================変数で
+                color: Color.fromARGB(255, 8, 8,
+                    8)), // TODO: ====================================変数で
           ),
         ),
       ),
@@ -376,8 +376,8 @@ class CreateAccount extends StatelessWidget {
   }
 }
 
-class AuthFootpadsPaddingWidget extends StatelessWidget {
-  const AuthFootpadsPaddingWidget({
+class ForgotPassword extends StatelessWidget {
+  const ForgotPassword({
     Key? key,
   }) : super(key: key);
 
