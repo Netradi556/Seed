@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:seed_app/locator.dart';
+import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/repository/auth_repo.dart';
 
@@ -9,8 +10,13 @@ class FireStoreRepo {
   final AuthRepo _authRepo = locator.get<AuthRepo>();
 
   // トップレベルコレクションの設定
+  // TODO: 後で削除
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('user');
+
+  // TODO: 後で改名
+  final CollectionReference newUserCollection =
+      FirebaseFirestore.instance.collection('User');
 
 //
 //
@@ -121,44 +127,23 @@ class FireStoreRepo {
   Future<void> setUserDocument() async {
     UserModel user = await _authRepo.getUser();
     var userId = user.uid;
-    var now = DateTime.now();
-    var dateOnly = DateTime(now.year, now.month, now.day);
-    var nextGivenDate = DateTime(now.year, now.month + 1, now.day);
 
     // Userコレクション直下のパラメータ
-    firestore.collection('User').doc(userId).set({
-      'handleName': '',
-      'sex': 'none',
-      'age': 0,
-      'profileImagePath': '',
-      'score': 0,
-      'receivedGood': 0,
-    });
+    newUserCollection.doc(userId).set(InitialProfileParam().initialParamTop);
 
-    firestore
-        .collection('User')
+    // Userコレクション->Member Statusコレクション
+    newUserCollection
         .doc(userId)
         .collection('MemberStatus')
         .doc(userId)
-        .set({
-      'goodCount': 30,
-      'licenseType': 'normal',
-      'entryDate': Timestamp.fromDate(dateOnly),
-      'nextGivenDate': Timestamp.fromDate(nextGivenDate),
-      'birthDate': Timestamp.fromDate(dateOnly),
-    });
+        .set(InitialProfileParam().initialParamMemberStatus);
 
-    firestore
-        .collection('User')
-        .doc(userId)
+    // Userコレクション->MyNotificationコレクション
+    newUserCollection
+        .doc(userId) // 最初に登録する通知だけUserIDと同じ
         .collection('MyNotification')
         .doc('firstNotification')
-        .set({
-      'publishedDate': Timestamp.fromDate(dateOnly),
-      'isRead': false,
-      'title': 'FirstNotification',
-      'contents': 'これは初回登録時に生成される通知です'
-    });
+        .set(InitialProfileParam().initialParamMyNotification);
   }
 
   // ユーザープロファイルの情報をアップロード：ProfileEdit

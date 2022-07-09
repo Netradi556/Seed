@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:seed_app/const/constants_profile.dart' as c;
 
 // TODO: 1. Firestore param <-> 項目名のMapを定義
@@ -194,8 +195,8 @@ class InitialProfileParam {
     'birthPlace': '',
     'education': '',
     'job': '',
-    'income': '', // TODO: int型にしないと、検索条件に引っ掛けられない？？
-    'height': '', // TODO: int型にしないと、検索条件に引っ掛けられない？？
+    'income': '', // 選択肢で絞り込み
+    'height': 0,
     'bodyShape': '',
     'personality': '',
     'offDay': '',
@@ -212,11 +213,21 @@ class InitialProfileParam {
   };
 
   final Map<String, dynamic> initialParamMemberStatus = {
-    //
     'goodCount': 0,
-    'licenseType': '',
-    'entryDate': DateTime.now(),
-    'nextGivenDate': DateTime.now(), // TODO: TOP画面遷移時に設定
-    'birthDate': DateTime.now(), // TODO: 後で設定
+    'licenseType': 'normal',
+    'entryDate': Timestamp.fromDate(DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day)),
+    'nextGivenDate': Timestamp.fromDate(DateTime(DateTime.now().year,
+        DateTime.now().month + 1, DateTime.now().day)), // TODO: TOP画面遷移時に設定
+    'birthDate': Timestamp.fromDate(DateTime(DateTime.now().year,
+        DateTime.now().month, DateTime.now().day)), // TODO: 後で設定
+  };
+
+  final Map<String, dynamic> initialParamMyNotification = {
+    'publishedDate': Timestamp.fromDate(DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day)),
+    'isRead': false,
+    'title': 'FirstNotification',
+    'contents': 'これは初回登録時に生成される通知です'
   };
 }

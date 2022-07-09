@@ -20,12 +20,12 @@ import 'userinfo_registration_page3.dart';
 */
 
 // 画像のパス格納用
-String upperImagefilePath = 'assets/images/demo.png';
+String upperImageFilePath = 'assets/images/demo.png';
 
 class RegistrationPageController extends ConsumerWidget {
   final controller = PageController(initialPage: 0);
 
-  final Color backgroundColor = const Color.fromARGB(237, 238, 249, 39);
+  final Color backgroundColor = const Color.fromARGB(255, 198, 255, 238);
 
   RegistrationPageController({Key? key}) : super(key: key);
   @override
@@ -38,24 +38,20 @@ class RegistrationPageController extends ConsumerWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
-              child: Container(
-                color: Colors.white70,
-                child: PageView(
-                  controller: controller,
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    const RegistrationPage1(),
-                    const RegistrationPage2(),
-                    RegistrationPage3(),
-                  ],
-                ),
+              child: PageView(
+                controller: controller,
+                scrollDirection: Axis.horizontal,
+                children: [
+                  const RegistrationPage1(),
+                  const RegistrationPage2(),
+                  RegistrationPage3(),
+                ],
               ),
             ),
             Container(
+              color: const Color.fromARGB(0, 255, 193, 7),
               width: double.infinity,
               height: 30,
-              color: const Color(
-                  0xFF9EDC68), //===================================変数で
               child: Align(
                 child: SmoothPageIndicator(
                   controller: controller,
@@ -74,8 +70,8 @@ class RegistrationPageController extends ConsumerWidget {
                     dotHeight: 16,
                     dotColor: Color(
                         0xFF9E9E9E), //===================================変数で
-                    activeDotColor: Color(
-                        0xFF3F51B5), //===================================変数で
+                    activeDotColor: Color.fromARGB(255, 110, 254,
+                        129), //===================================変数で
                     paintStyle: PaintingStyle.fill,
                   ),
                 ),
