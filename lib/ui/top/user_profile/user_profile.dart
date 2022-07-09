@@ -47,7 +47,7 @@ class NewUserProfilePage extends StatelessWidget {
               // 概要欄
               UserIntroductionCard(documentSnapshot: documentSnapshot),
               // プロフィールスコア
-              const UserProfileScore(),
+              UserProfileScore(documentSnapshot: documentSnapshot),
               // 自由記述欄
               const UserIntroduction(),
               // 基本情報

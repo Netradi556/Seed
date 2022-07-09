@@ -132,7 +132,7 @@ class ProfileItemDetail {
   final List<String> income = c.income.toList() + ['選択しない', 'default'];
 
   // 身長
-  final List<String> height = c.height.toList() + ['選択しない', 'default'];
+  final List<String> height = c.heightCM.toList() + ['選択しない', 'default'];
 
   // 体型
   final List<String> bodyShape = c.bodyShape.toList() + ['選択しない', 'default'];

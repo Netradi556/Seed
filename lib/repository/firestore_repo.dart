@@ -126,7 +126,7 @@ class FireStoreRepo {
     var nextGivenDate = DateTime(now.year, now.month + 1, now.day);
 
     // Userコレクション直下のパラメータ
-    firestore.collection('user').doc(userId).set({
+    firestore.collection('User').doc(userId).set({
       'handleName': '',
       'sex': 'none',
       'age': 0,
@@ -136,7 +136,7 @@ class FireStoreRepo {
     });
 
     firestore
-        .collection('user')
+        .collection('User')
         .doc(userId)
         .collection('MemberStatus')
         .doc(userId)
@@ -149,7 +149,7 @@ class FireStoreRepo {
     });
 
     firestore
-        .collection('user')
+        .collection('User')
         .doc(userId)
         .collection('MyNotification')
         .doc('firstNotification')
