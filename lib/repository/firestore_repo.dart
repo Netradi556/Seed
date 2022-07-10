@@ -168,4 +168,11 @@ class FireStoreRepo {
     // ignore: avoid_print
     print('実行');
   }
+
+  Future<DocumentSnapshot> fetchMyDocumentSnapshot() async {
+    final String userUid = await _authRepo.getCurrentUserUID();
+    final DocumentSnapshot documentSnapshot =
+        await FirebaseFirestore.instance.collection('User').doc(userUid).get();
+    return documentSnapshot;
+  }
 }
