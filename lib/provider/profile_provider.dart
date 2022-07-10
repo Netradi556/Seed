@@ -1,15 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/*
-  freezedを利用してイミュータブルなクラス？でUserオブジェクトを作成して
-  Providerを一纏めにするのあり？
-
-*/
-
 // 初回登録
 final profileNameProvider = StateProvider((ref) => '');
 final profileSexProvider = StateProvider((ref) => '');
-final profileBirthdateProvider = StateProvider((ref) => '');
+final profileBirthdateProvider =
+    StateProvider<DateTime>((ref) => DateTime(1900, 1, 1));
 
 // プロフィールの更新有無チェック
 final profileIsChanged = StateProvider<bool>((ref) {
@@ -45,12 +40,3 @@ final profileHouseworkProvider = StateProvider((ref) => ''); // 家事・育児
 final profileHowMeetProvider = StateProvider((ref) => ''); // 出会うまでの希望
 final profileDatingCostProvider = StateProvider((ref) => ''); // 初回デート費用
 
-/* enum UserBasicProfile {
-  handleName,
-  sex,
-  birthDate,
-}
-
-final firstRegistrationProvider =
-    StateProvider<UserBasicProfile>((ref) => UserBasicProfile.birthDate);
- */

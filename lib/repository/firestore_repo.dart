@@ -147,10 +147,11 @@ class FireStoreRepo {
   }
 
   // ユーザープロファイルの情報をアップロード：ProfileEdit
-  Future<void> updateProfile(Map<String, String> editedContents) async {
+  Future<void> OLDupdateProfile(Map<String, String> editedContents) async {
     UserModel user = await _authRepo.getUser();
     var userId = user.uid;
 
+    // TODO: コレクションの変更
     userCollection.doc(userId).update(editedContents);
 
     // ignore: avoid_print
@@ -158,16 +159,20 @@ class FireStoreRepo {
   }
 
   // ユーザープロファイルの情報を新規作成：初回登録時に実行 Auth
-  Future<void> setProfile(Map<String, String> editedContents) async {
+  Future<void> updateProfile(Map<String, dynamic> editedContents) async {
     UserModel user = await _authRepo.getUser();
     var userId = user.uid;
 
-    FirebaseFirestore.instance
-        .collection('user')
-        .doc(userId)
-        .set(editedContents);
+    newUserCollection.doc(userId).update(editedContents);
 
     // ignore: avoid_print
     print('実行');
+  }
+
+  Future<DocumentSnapshot> fetchMyDocumentSnapshot() async {
+    final String userUid = await _authRepo.getCurrentUserUID();
+    final DocumentSnapshot documentSnapshot =
+        await FirebaseFirestore.instance.collection('User').doc(userUid).get();
+    return documentSnapshot;
   }
 }

@@ -1,12 +1,8 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/provider/user_top_provider.dart';
 
-import 'package:seed_app/provider/util_provider.dart';
-import 'package:seed_app/repository/firestore_repo.dart';
 import 'package:seed_app/repository/storage_repo.dart';
 import 'package:seed_app/ui/top/user_profile/user_profile.dart';
 

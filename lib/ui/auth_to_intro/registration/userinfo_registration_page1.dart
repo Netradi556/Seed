@@ -17,40 +17,46 @@ class RegistrationPage1 extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-      child: SingleChildScrollView(
-        child: Container(
-          height: 600,
-          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 241, 255, 161),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              bottomLeft: Radius.circular(20),
+      padding: const EdgeInsets.fromLTRB(10, 0, 0, 40),
+      child: Container(
+        height: 600,
+        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 241, 255, 161),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(5),
+            bottomLeft: Radius.circular(20),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              spreadRadius: 0,
+              blurRadius: 10.0,
+              offset: Offset(0, 1),
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                width: double.infinity,
-                height: 200,
-                child: Align(
-                    alignment: Alignment(0.2, 0.5),
-                    child: Text('最初に登録する情報は3つだけです。\n表示名は後から変更できないのでご注意ください。')),
-              ),
-              // ニックネームの入力欄
-              TextFormItemsWidget(),
-              const SizedBox(height: 30),
-              // 性別の選択欄
-              SingleChoiceDropDown(),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-              ),
-              // 生年月日の入力欄
-              YearDateItemsWidget(),
-            ],
-          ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              width: double.infinity,
+              height: 200,
+              child: Align(
+                  alignment: Alignment(0.2, 0.5),
+                  child: Text('最初に登録する情報は3つだけです。\n表示名は後から変更できないのでご注意ください。')),
+            ),
+            // ニックネームの入力欄
+            TextFormItemsWidget(),
+            const SizedBox(height: 30),
+            // 性別の選択欄
+            SingleChoiceDropDown(),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+            ),
+            // 生年月日の入力欄
+            YearDateItemsWidget(),
+          ],
         ),
       ),
     );
@@ -246,13 +252,11 @@ class YearDateItemsWidget extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  DateTime now = DateTime.now();
+  final formatter = DateFormat('yyyy-MM-dd');
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final param = ref.watch(profileBirthdateProvider.state);
-    if (param.state != '') {
-      now = DateTime.parse(param.state);
-    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -279,7 +283,9 @@ class YearDateItemsWidget extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                DateFormat('yyyy-MM-dd').format(now).toString(),
+                param.state == DateTime(1900, 0, 0)
+                    ? '未選択です'
+                    : formatter.format(param.state),
                 style: const TextStyle(fontSize: 18),
               ),
               IconButton(
@@ -306,8 +312,7 @@ class YearDateItemsWidget extends ConsumerWidget {
                   );
 
                   if (selectedDate != null) {
-                    now = selectedDate;
-                    param.state = selectedDate.toString();
+                    param.state = selectedDate;
                   }
                 },
               ),
