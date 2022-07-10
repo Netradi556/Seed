@@ -17,29 +17,43 @@ class RegistrationPage2 extends ConsumerWidget {
     final param = ref.watch(profileSexProvider.state);
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            width: double.infinity,
-            height: 200,
-            child: Align(
-              child: Text('''
+      padding: const EdgeInsets.fromLTRB(0, 0, 10, 40),
+      child: Container(
+        height: 600,
+        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 241, 255, 161),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              spreadRadius: 0,
+              blurRadius: 10.0,
+              offset: Offset(10, 1),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const SizedBox(
+              width: double.infinity,
+              height: 100,
+              child: Align(
+                child: Text('''
 プロフィールを充実させていくほど
 検索されやすくなります
 証明書のアップロードでスコアがアップします'''),
+              ),
             ),
-          ),
-          Container(
-            width: double.infinity,
-            height: 200,
-            decoration: const BoxDecoration(),
-            child: InkWell(
-              child: Text(param.state),
+            Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(),
+              child: InkWell(
+                child: Text(param.state),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

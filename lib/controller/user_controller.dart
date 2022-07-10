@@ -36,18 +36,17 @@ class UserController {
 
   // プロフィールの項目アップデートの処理==========================================================================
   Future<void> uploadEditedContents(Map<String, String> editingContents) async {
-    await _fireStoreRepo.updateProfile(editingContents);
+    await _fireStoreRepo.OLDupdateProfile(editingContents);
     // ignore: avoid_print
     print('到達');
   }
 
   Future<void> firstUploadEditedContents(
-      Map<String, String> editingContents) async {
-    await _fireStoreRepo.setProfile(editingContents);
+      Map<String, dynamic> editingContents) async {
+    await _fireStoreRepo.updateProfile(editingContents);
     // ignore: avoid_print
     print('到達');
   }
-
 
 //
 //
@@ -56,8 +55,6 @@ class UserController {
 //
 //
 // ユーザープロフィール関係の処理==================================================================================
-
-
 
   // 画像保存の処理============================================================================================
   Future<void> uploadProfilePicture(File image) async {

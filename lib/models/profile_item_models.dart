@@ -187,6 +187,7 @@ class InitialProfileParam {
     'handleName': '',
     'age': 0,
     'sex': '',
+    'about': 'よろしくおねがいします',
     'score': 0,
     'receivedGoodCount': 0,
     'bloodType': '',

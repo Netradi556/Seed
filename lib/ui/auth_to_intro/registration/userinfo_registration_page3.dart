@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/controller/user_controller.dart';
+import 'package:seed_app/repository/firestore_repo.dart';
 
 // PageWidgets
 import 'package:seed_app/ui/navigation_controller.dart';
 
 // Riverpod
 import 'package:seed_app/provider/profile_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 /* Todo
   「登録を完了する」ボタンを押下した時に、確認のポップアップを表示
@@ -27,49 +27,63 @@ class RegistrationPage3 extends ConsumerWidget {
   RegistrationPage3({Key? key}) : super(key: key);
 
   final UserController userController = UserController();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final paramBirthDate = ref.watch(profileBirthdateProvider.state);
     final paramSex = ref.watch(profileSexProvider.state);
     final paramName = ref.watch(profileNameProvider.state);
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFFFF153),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 100,
-            color: const Color(0xFFD2F580),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 0, 10, 40),
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 241, 255, 161),
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(5),
+            bottomRight: Radius.circular(20),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-            child: Container(
-              child: Image.asset('assets/images/logo.jpg'),
-              width: 400, // 余白にフィットさせる方法？
-              height: 300,
-              color: const Color(0xFFD2F580),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              spreadRadius: 0,
+              blurRadius: 10.0,
+              offset: Offset(0, 1),
             ),
-          ),
-          Expanded(
-            child: Container(
+          ],
+        ),
+        child: Column(
+          children: [
+            const SizedBox(
               width: double.infinity,
               height: 100,
-              color: const Color(0xFFD2F580),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage('assets/images/logo.jpg'),
+                  ),
+                ),
+                width: 400, // 余白にフィットさせる方法？
+                height: 300,
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 100,
               child: Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
                   child: const Text('登録を完了する'),
                   onPressed: () async {
-
                     // ==========================================================================aboutパラメタを保持するProviderに初期値投入
-
-
-
 
                     if (paramSex.state.toString() == '未選択' ||
                         paramName.state.toString() == '' ||
-                        paramBirthDate.state.toString() == '') {
+                        paramBirthDate.state == DateTime(1900, 1, 1)) {
                       // ================================情報が選択されていなかった場合は、警告を表示し登録させない
 
                       // ignore: avoid_print
@@ -80,17 +94,6 @@ class RegistrationPage3 extends ConsumerWidget {
                       print(paramBirthDate.state.toString());
                     } else {
                       try {
-
-                        // =============================================================SharePreferencesを削除
-                        final SharedPreferences pref =
-                            await SharedPreferences.getInstance();
-
-                        pref.setString(
-                            'handleName', paramName.state.toString());
-                        pref.setString('sex', paramSex.state.toString());
-                        pref.setString(
-                            'birthDate', paramBirthDate.state.toString());
-
                         // ==============================================================aboutパラメータを保持するProvider分も記述する
                         await userController.firstUploadEditedContents(
                           {
@@ -116,8 +119,8 @@ class RegistrationPage3 extends ConsumerWidget {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

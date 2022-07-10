@@ -9,7 +9,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // 初回登録
 final profileNameProvider = StateProvider((ref) => '');
 final profileSexProvider = StateProvider((ref) => '');
-final profileBirthdateProvider = StateProvider((ref) => '');
+final profileBirthdateProvider =
+    StateProvider<DateTime>((ref) => DateTime(1900, 1, 1));
 
 // プロフィールの更新有無チェック
 final profileIsChanged = StateProvider<bool>((ref) {
