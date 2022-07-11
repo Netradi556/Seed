@@ -112,6 +112,7 @@ class CircleGauge extends StatelessWidget {
                 enableAnimation: true,
                 animationDuration: 1200,
                 sizeUnit: GaugeSizeUnit.factor,
+                // TODO: サークルゲージの色を変更、デザイン修正
                 gradient: const SweepGradient(colors: <Color>[
                   Color.fromARGB(255, 244, 221, 107),
                   Color.fromARGB(255, 245, 212, 130)
