@@ -141,6 +141,7 @@ const ageBand = {
   '65歳～69歳',
 }
 
+// incomeBandに名称変更
 const income = {
   '表示しない',
   '200万円未満',
@@ -154,6 +155,7 @@ const income = {
   '3000万円以上',
 };
 
+// heightBandに名称変更
 const height = {
   '〜130cm',
   '131cm〜135cm',
