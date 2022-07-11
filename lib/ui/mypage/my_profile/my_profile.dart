@@ -65,58 +65,75 @@ class MyProfilePageWidget extends ConsumerWidget {
         ),
 
         // プロフの項目別にWidget切り出し→実装
-        body: SingleChildScrollView(
-          child: FutureBuilder<DocumentSnapshot>(
-            future: FirebaseFirestore.instance
-                .collection('User')
-                .doc(_currentUser!.uid)
-                .get(),
-            builder: (context, snapshot) {
-              if (snapshot.data == null) {
-                return Text('No Data');
-              } else {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // プロフ画像
-                    MyProfilePictures(
-                      avatarUrl: _currentUser?.avatarUrl,
-                    ),
-                    // 概要欄
-                    const MyIntroductionCard(),
-                    // プロフィールスコア
-                    const MyProfileScore(),
-                    // 自由記述欄
-                    const MyIntroduction(),
-                    // 基本情報
-                    NewMyProfileItemsList(
-                      categoryName: '基本情報',
-                      documentSnapshot: snapshot.data as DocumentSnapshot,
-                      itemsList: ProfileItemParam().basicInfo,
-                    ),
-                    // 学歴・職種・外見
-                    NewMyProfileItemsList(
-                      categoryName: '学歴・職種・外見',
-                      documentSnapshot: snapshot.data as DocumentSnapshot,
-                      itemsList: ProfileItemParam().lifeStyleInfo,
-                    ),
-                    // 性格・趣味・生活
-                    NewMyProfileItemsList(
-                      categoryName: '性格・趣味・生活',
-                      documentSnapshot: snapshot.data as DocumentSnapshot,
-                      itemsList: ProfileItemParam().socialInfo,
-                    ),
-                    // 恋愛・結婚について
-                    NewMyProfileItemsList(
-                      categoryName: '恋愛・結婚について',
-                      documentSnapshot: snapshot.data as DocumentSnapshot,
-                      itemsList: ProfileItemParam().viewOfLove,
-                    ),
-                  ],
-                );
-              }
-            },
-          ),
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: FutureBuilder<DocumentSnapshot>(
+                  future: FirebaseFirestore.instance
+                      .collection('User')
+                      .doc(_currentUser!.uid)
+                      .get(),
+                  builder: (context, snapshot) {
+                    if (snapshot.data == null) {
+                      return Text('No Data');
+                    } else {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // プロフ画像
+                          MyProfilePictures(
+                            avatarUrl: _currentUser?.avatarUrl,
+                          ),
+                          // 概要欄
+                          const MyIntroductionCard(),
+                          // プロフィールスコア
+                          const MyProfileScore(),
+                          // 自由記述欄
+                          const MyIntroduction(),
+                          // 基本情報
+                          MyProfileItemsList(
+                            categoryName: '基本情報',
+                            documentSnapshot: snapshot.data as DocumentSnapshot,
+                            itemsList: ProfileItemParam().basicInfo,
+                          ),
+                          // 学歴・職種・外見
+                          MyProfileItemsList(
+                            categoryName: '学歴・職種・外見',
+                            documentSnapshot: snapshot.data as DocumentSnapshot,
+                            itemsList: ProfileItemParam().lifeStyleInfo,
+                          ),
+                          // 性格・趣味・生活
+                          MyProfileItemsList(
+                            categoryName: '性格・趣味・生活',
+                            documentSnapshot: snapshot.data as DocumentSnapshot,
+                            itemsList: ProfileItemParam().socialInfo,
+                          ),
+                          // 恋愛・結婚について
+                          MyProfileItemsList(
+                            categoryName: '恋愛・結婚について',
+                            documentSnapshot: snapshot.data as DocumentSnapshot,
+                            itemsList: ProfileItemParam().viewOfLove,
+                          ),
+                        ],
+                      );
+                    }
+                  },
+                ),
+              ),
+            ),
+            Container(
+              height: 30,
+              color: Color.fromARGB(31, 235, 119, 119),
+              child: ElevatedButton(
+                // TODO: 編集画面に遷移
+                // TODO: デザインの修正、黄色ベース
+                onPressed: () {},
+                child: const Text('プロフィールの編集'),
+              ),
+            ),
+            const SizedBox(height: 60)
+          ],
         ),
       ),
     );
