@@ -94,7 +94,8 @@ class RegistrationPage3 extends ConsumerWidget {
                       print(paramBirthDate.state.toString());
                     } else {
                       try {
-                        // ==============================================================aboutパラメータを保持するProvider分も記述する
+                        // TODO: ageプロパティの登録
+                        // TODO: paramBirthDateの型修正 FireBase用の型に変更する必要あるかも？
                         await userController.firstUploadEditedContents(
                           {
                             'handleName': paramName.state.toString(),
