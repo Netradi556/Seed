@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -41,7 +42,6 @@ class MyProfilePageWidget extends ConsumerWidget {
 
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: const Color(0xFFF5F5F5),
         // AppBarのデザイン修正
         // SilverAppBarに変更、丸みを帯びたデザインに変更
         appBar: AppBar(
@@ -64,75 +64,91 @@ class MyProfilePageWidget extends ConsumerWidget {
           ),
         ),
 
-        // プロフの項目別にWidget切り出し→実装
+        // TODO: Future builderを最上位にもってくる
         body: Column(
           children: [
             Expanded(
-              child: SingleChildScrollView(
-                child: FutureBuilder<DocumentSnapshot>(
-                  future: FirebaseFirestore.instance
-                      .collection('User')
-                      .doc(_currentUser!.uid)
-                      .get(),
-                  builder: (context, snapshot) {
-                    if (snapshot.data == null) {
-                      return Text('No Data');
-                    } else {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // プロフ画像
-                          MyProfilePictures(
-                            avatarUrl: _currentUser?.avatarUrl,
+              child: Container(
+                color: Color.fromARGB(255, 226, 153, 153),
+                child: Stack(
+                  children: [
+                    SingleChildScrollView(
+                      child: FutureBuilder<DocumentSnapshot>(
+                        future: FirebaseFirestore.instance
+                            .collection('User')
+                            .doc(_currentUser!.uid)
+                            .get(),
+                        builder: (context, snapshot) {
+                          if (snapshot.data == null) {
+                            // TODO: ローディング画面を実装
+                            // TODO: ローディング時間が長引く場合は、エラーハンドリング
+                            return Text('No Data');
+                          } else {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                // プロフ画像
+                                MyProfilePictures(
+                                  avatarUrl: _currentUser?.avatarUrl,
+                                ),
+                                // 概要欄
+                                const MyIntroductionCard(),
+                                // プロフィールスコア
+                                const MyProfileScore(),
+                                // 自由記述欄
+                                const MyIntroduction(),
+                                // 基本情報
+                                MyProfileItemsList(
+                                  categoryName: '基本情報',
+                                  documentSnapshot:
+                                      snapshot.data as DocumentSnapshot,
+                                  itemsList: ProfileItemParam().basicInfo,
+                                ),
+                                // 学歴・職種・外見
+                                MyProfileItemsList(
+                                  categoryName: '学歴・職種・外見',
+                                  documentSnapshot:
+                                      snapshot.data as DocumentSnapshot,
+                                  itemsList: ProfileItemParam().lifeStyleInfo,
+                                ),
+                                // 性格・趣味・生活
+                                MyProfileItemsList(
+                                  categoryName: '性格・趣味・生活',
+                                  documentSnapshot:
+                                      snapshot.data as DocumentSnapshot,
+                                  itemsList: ProfileItemParam().socialInfo,
+                                ),
+                                // 恋愛・結婚について
+                                MyProfileItemsList(
+                                  categoryName: '恋愛・結婚について',
+                                  documentSnapshot:
+                                      snapshot.data as DocumentSnapshot,
+                                  itemsList: ProfileItemParam().viewOfLove,
+                                ),
+                              ],
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: ElevatedButton(
+                            // TODO: 編集画面に遷移
+                            // TODO: デザインの修正、黄色ベース
+                            child: const Text('プロフィールの編集'),
+                            onPressed: () {},
                           ),
-                          // 概要欄
-                          const MyIntroductionCard(),
-                          // プロフィールスコア
-                          const MyProfileScore(),
-                          // 自由記述欄
-                          const MyIntroduction(),
-                          // 基本情報
-                          MyProfileItemsList(
-                            categoryName: '基本情報',
-                            documentSnapshot: snapshot.data as DocumentSnapshot,
-                            itemsList: ProfileItemParam().basicInfo,
-                          ),
-                          // 学歴・職種・外見
-                          MyProfileItemsList(
-                            categoryName: '学歴・職種・外見',
-                            documentSnapshot: snapshot.data as DocumentSnapshot,
-                            itemsList: ProfileItemParam().lifeStyleInfo,
-                          ),
-                          // 性格・趣味・生活
-                          MyProfileItemsList(
-                            categoryName: '性格・趣味・生活',
-                            documentSnapshot: snapshot.data as DocumentSnapshot,
-                            itemsList: ProfileItemParam().socialInfo,
-                          ),
-                          // 恋愛・結婚について
-                          MyProfileItemsList(
-                            categoryName: '恋愛・結婚について',
-                            documentSnapshot: snapshot.data as DocumentSnapshot,
-                            itemsList: ProfileItemParam().viewOfLove,
-                          ),
-                        ],
-                      );
-                    }
-                  },
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
-            Container(
-              height: 30,
-              color: Color.fromARGB(31, 235, 119, 119),
-              child: ElevatedButton(
-                // TODO: 編集画面に遷移
-                // TODO: デザインの修正、黄色ベース
-                onPressed: () {},
-                child: const Text('プロフィールの編集'),
-              ),
-            ),
-            const SizedBox(height: 60)
           ],
         ),
       ),

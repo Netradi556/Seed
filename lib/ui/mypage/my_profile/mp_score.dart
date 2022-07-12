@@ -58,10 +58,12 @@ class CircleGauge extends StatelessWidget {
             endAngle: 270, // 終了点
             radiusFactor: 1, // 円の半径
             axisLineStyle: const AxisLineStyle(
-                color: Color.fromARGB(247, 231, 226, 198),
+                cornerStyle: CornerStyle.bothFlat,
+                color: Color.fromARGB(188, 236, 228, 228),
                 thicknessUnit: GaugeSizeUnit.factor,
                 thickness: 0.3),
             annotations: <GaugeAnnotation>[
+              // サークルゲージ内の表示
               GaugeAnnotation(
                 angle: 180,
                 widget: Column(
@@ -108,17 +110,17 @@ class CircleGauge extends StatelessWidget {
             pointers: <GaugePointer>[
               RangePointer(
                 value: gaugePercent,
-                cornerStyle: CornerStyle.endCurve,
+                cornerStyle: CornerStyle.bothCurve,
                 enableAnimation: true,
                 animationDuration: 1200,
                 sizeUnit: GaugeSizeUnit.factor,
-                gradient: const SweepGradient(colors: <Color>[
-                  Color.fromARGB(255, 244, 221, 107),
-                  Color.fromARGB(255, 245, 212, 130)
-                ], stops: <double>[
-                  0.25,
-                  0.75
-                ]),
+                gradient: const SweepGradient(
+                  colors: <Color>[
+                    Color.fromARGB(255, 253, 197, 75),
+                    Color.fromARGB(243, 255, 141, 153),
+                  ],
+                  stops: <double>[0, 1],
+                ),
                 width: 0.3,
               ),
             ]),
