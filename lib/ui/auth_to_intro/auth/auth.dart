@@ -92,6 +92,7 @@ class GoogleSignInButton extends StatelessWidget {
       height: 40,
       child: SignInButton(
         Buttons.GoogleDark,
+        // TODO: lastLoginパラメータの更新処理を追加
         onPressed: () async {
           try {
             final UserCredential userCredential =
@@ -298,6 +299,7 @@ class MailAddressLogInButton extends ConsumerWidget {
           backgroundColor: backgroundColor,
           icon: Icons.email,
           text: 'Sing in with Email',
+          // TODO: lastLoginパラメータの更新処理を追加
           onPressed: () async {
             try {
               final UserCredential userCredential =

@@ -112,7 +112,9 @@ class SearchOption extends ConsumerWidget {
         iconTheme: const IconThemeData(color: appBarIconColor),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              // TODO: 検索条件のプロバイダに基づいて、FirestoreからFetchする処理を作成
+            },
             icon: const Icon(Icons.help),
             color: appBarIconColor,
           )

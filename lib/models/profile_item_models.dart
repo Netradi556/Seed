@@ -182,6 +182,7 @@ class ProfileItemDetail {
 }
 
 class InitialProfileParam {
+  // TODO: lastLoginパラメータを追加
   final Map<String, dynamic> initialParamTop = {
     'handleName': '',
     'age': 0,

@@ -256,7 +256,8 @@ class YearDateItemsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final param = ref.watch(profileBirthdateProvider.state);
+    final paramBirthDate = ref.watch(profileBirthdateProvider.state);
+    final paramAge = ref.watch(profileAgeProvider.state);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,9 +284,9 @@ class YearDateItemsWidget extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                param.state == DateTime(1900, 0, 0)
+                paramBirthDate.state == DateTime(1900, 0, 0)
                     ? '未選択です'
-                    : formatter.format(param.state),
+                    : formatter.format(paramBirthDate.state),
                 style: const TextStyle(fontSize: 18),
               ),
               IconButton(
@@ -312,7 +313,8 @@ class YearDateItemsWidget extends ConsumerWidget {
                   );
 
                   if (selectedDate != null) {
-                    param.state = selectedDate;
+                    paramBirthDate.state = selectedDate;
+                    paramAge.state = 0; // TODO: 年齢を求める処理を実装
                   }
                 },
               ),

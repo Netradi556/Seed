@@ -5,6 +5,7 @@ final profileNameProvider = StateProvider((ref) => '');
 final profileSexProvider = StateProvider((ref) => '');
 final profileBirthdateProvider =
     StateProvider<DateTime>((ref) => DateTime(1900, 1, 1));
+final profileAgeProvider = StateProvider((ref) => 0);
 
 // プロフィールの更新有無チェック
 final profileIsChanged = StateProvider<bool>((ref) {

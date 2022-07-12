@@ -47,7 +47,6 @@ class NewUserProfileItemsList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: itemsList.length,
             itemBuilder: (BuildContext context, index) {
-              // TODO: itemList[index] == '性別'のときはreturnなしにする
               return SizedBox(
                 width: 80,
                 height: 50,
@@ -86,6 +85,7 @@ class NewUserProfileItemsList extends StatelessWidget {
   }
 }
 
+// MyProfileItemsListを修正後に、こちらも修正
 class UserProfileItemsList extends StatelessWidget {
   UserProfileItemsList({
     Key? key,
@@ -136,9 +136,7 @@ class UserProfileItemsList extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          itemsList[index]
-                              .toString(), // TODO : constでFirestoreのパラメータ↔項目名のMapを定義
-                          // TODO：Mapを利用してsnapshotのパラメータ名と対応した項目名を表示
+                          itemsList[index].toString(),
                           style: TextStyle(color: itemTextColor, fontSize: 16),
                         ),
                       ),
@@ -148,7 +146,6 @@ class UserProfileItemsList extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: Align(
                           alignment: Alignment.centerRight,
-                          // TODO: snapshotからの値取得に変更
                           child: FutureBuilder(
                             future: initialize(itemsList[index]),
                             builder: (BuildContext context,
