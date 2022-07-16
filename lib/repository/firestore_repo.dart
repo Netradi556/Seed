@@ -146,6 +146,19 @@ class FireStoreRepo {
         .set(InitialProfileParam().initialParamMyNotification);
   }
 
+  //
+  Future<void> NEWupdateProfile(Map<String, String> editedContents) async {
+    UserModel user = await _authRepo.getUser();
+    var userId = user.uid;
+
+    // TODO: コレクションの変更
+    newUserCollection.doc(userId).update(editedContents);
+
+    // ignore: avoid_print
+    print('プロファイルアップデートが完了しました');
+  }
+
+  // TODO: mid: ユーザー修正画面が落ち着いたら消去
   // ユーザープロファイルの情報をアップロード：ProfileEdit
   Future<void> OLDupdateProfile(Map<String, String> editedContents) async {
     UserModel user = await _authRepo.getUser();

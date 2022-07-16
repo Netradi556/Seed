@@ -37,14 +37,25 @@ class NewMyProfileEditPageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isChanged = ref.watch(profileIsChanged.state);
+    final isChanged = ref.watch(profileIsChangedAuto.state);
+    final editingContents = ref.watch(profileEditingContents);
     return Material(
       child: Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
           leading: InkWell(
             onTap: () async {
-              Navigator.of(context).pop();
+              if (isChanged.state) {
+                isChanged.state = false;
+                // TODO: Crit: FireStoreへの登録処理を実装
+                print(editingContents);
+                await locator
+                    .get<UserController>()
+                    .NEWuploadEditedContents(editingContents);
+                Navigator.of(context).pop();
+              } else {
+                Navigator.of(context).pop();
+              }
             },
             child: const Icon(Icons.arrow_back_ios_new),
           ),
@@ -140,7 +151,7 @@ class MyProfileEditPageWidget extends ConsumerWidget {
         appBar: AppBar(
           leading: InkWell(
             onTap: () async {
-              if (isChanged.state == true) {
+              if (isChanged.state) {
                 isChanged.state = false;
 
 //===============================ここから====================================================
@@ -312,7 +323,8 @@ class ProfilePicturesEdit extends ConsumerWidget {
                 image: avatarUrl == null
                     ? Image.asset('assets/images/user1.jpg').image
                     : Image.file(File(avatarUrl!)).image,
-                fit: BoxFit.fill),
+                // TODO: High: 画像の切り抜き
+                fit: BoxFit.fitWidth),
           ),
         ),
       ),

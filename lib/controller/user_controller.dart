@@ -35,6 +35,14 @@ class UserController {
   }
 
   // プロフィールの項目アップデートの処理==========================================================================
+  Future<void> NEWuploadEditedContents(
+      Map<String, String> editingContents) async {
+    await _fireStoreRepo.NEWupdateProfile(editingContents);
+    // ignore: avoid_print
+    print('到達');
+  }
+
+  // TODO: mid: プロファイルの修正ページが落ち着いたら消去
   Future<void> uploadEditedContents(Map<String, String> editingContents) async {
     await _fireStoreRepo.OLDupdateProfile(editingContents);
     // ignore: avoid_print

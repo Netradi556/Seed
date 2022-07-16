@@ -187,6 +187,7 @@ class MyProfilePictures extends ConsumerWidget {
               image: avatarUrl == null || avatarUrl == ''
                   ? Image.asset('assets/images/user1.jpg').image
                   : Image.file(File(avatarUrl!)).image,
+              // TODO: High: 画像の切り抜き
               fit: BoxFit.fitWidth),
         ),
       ),

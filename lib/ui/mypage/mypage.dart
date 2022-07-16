@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/provider/profile_provider.dart';
 import 'package:seed_app/ui/mypage/my_profile/edit_my_profile/edit_my_profile.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';

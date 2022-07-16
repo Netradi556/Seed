@@ -71,6 +71,30 @@ class ProfileItemParam {
 }
 
 class EachItemToEachParam {
+  final Map<String, List<String>> eachItemToEachParam = {
+    'bloodType': c.bloodType.toList() + ['選択しない'],
+    'language': c.language.toList() + ['選択しない'],
+    'livingPlace': c.prefectrure.toList() + ['選択しない'],
+    'birthPlace': c.prefectrure.toList() + ['選択しない'],
+    'education': c.education.toList() + ['選択しない', 'default'],
+    'job': c.job.toList() + ['選択しない'],
+    'income': c.incomeBand.toList() + ['選択しない'],
+    'height': c.heightBand.toList() + ['選択しない'],
+    'bodyShape': c.bodyShape.toList() + ['選択しない'],
+    'personality': c.personality.toList() + ['選択しない'],
+    'offDay': c.offDay.toList() + ['選択しない'],
+    'hobby': c.hobby.toList() + ['選択しない'],
+    'livingWith': c.livingWith.toList() + ['選択しない'],
+    'smoke': c.smoke.toList() + ['選択しない'],
+    'drink': c.drink.toList() + ['選択しない'],
+    'haveChild': c.haveChild.toList() + ['選択しない'],
+    'marriageWill': c.marriageWill.toList() + ['選択しない'],
+    'wantKids': c.wantKids.toList() + ['選択しない'],
+    'hoseWork': c.housework.toList() + ['選択しない'],
+    'howMeet': c.howMeet.toList() + ['選択しない'],
+    'datingCost': c.datingCost.toList() + ['選択しない'],
+  };
+
   final Map<String, List<String>> basicInfoMap = {
     'bloodType': c.bloodType.toList() + ['選択しない'],
     'language': c.language.toList() + ['選択しない'],

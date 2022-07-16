@@ -20,6 +20,8 @@ class NewEditProfileItemsList extends StatelessWidget {
   final String categoryName;
   final List itemsList;
   final Map<String, dynamic> paramItemName = ProfileItemMap().paramItemName;
+  final Map<String, List<String>> eachItemToEachParam =
+      EachItemToEachParam().eachItemToEachParam;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,8 @@ class NewEditProfileItemsList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: itemsList.length, // 作成する項目数＝呼び出し側から受け取った項目数
             itemBuilder: (BuildContext context, index) {
+              // 項目名
+              final String itemName = paramItemName[itemsList[index]];
               return SizedBox(
                 height: 50,
                 child: Row(
@@ -57,7 +61,7 @@ class NewEditProfileItemsList extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                         child: Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(paramItemName[itemsList[index]],
+                          child: Text(itemName,
                               style: TextStyle(
                                   color: itemTextColor, fontSize: 16)),
                         ),
@@ -68,7 +72,11 @@ class NewEditProfileItemsList extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: SizedBox(
                         width: 180,
-                        child: SingleChoiceDropDown(),
+                        child: EditItemDropDownWidget(
+                          itemNameJP: itemName,
+                          itemNameParam: itemsList[index],
+                          items: eachItemToEachParam[itemsList[index]]!,
+                        ),
                       ),
                     ),
                   ],
@@ -82,25 +90,89 @@ class NewEditProfileItemsList extends StatelessWidget {
   }
 }
 
-final selectProvider = StateProvider.autoDispose((ref) => true);
-final singleSelectedItemProvider = StateProvider((ref) => '');
-
-class SingleChoiceDropDown extends ConsumerWidget {
-  SingleChoiceDropDown({Key? key}) : super(key: key);
+class EditItemDropDownWidget extends ConsumerWidget {
+  EditItemDropDownWidget({
+    required this.itemNameJP,
+    required this.itemNameParam,
+    required this.items,
+    Key? key,
+  }) : super(key: key);
 
   // 選択肢のリスト
-  final List<String> items = [
-    '300万円',
-    '400万円',
-    '500万円',
-    '600万円',
-  ];
+  final String itemNameJP;
+  final String itemNameParam;
+  final List<String> items;
+  final selectProvider = StateProvider.autoDispose((ref) => true);
+
+  AutoDisposeStateProvider? getProvider(itemName) {
+    switch (itemName) {
+      // 基本情報=============================
+      case 'ニックネーム':
+        return profileBloodTypeProvider;
+      case '年齢':
+        return profileBloodTypeProvider;
+      case '血液型':
+        return profileBloodTypeProvider;
+      case '話せる言語':
+        return profileLanguageProvider;
+      case '居住地':
+        return profileLivingPlaceProvider;
+      case '出身地':
+        return profileBirthPlaceProvider;
+
+      // 学歴・職歴・外見======================
+      case '学歴':
+        return profileEducationProvider;
+      case '職種':
+        return profileJobProvider;
+      case '年収':
+        return profileIncomeProvider;
+      case '身長':
+        return profileHeightProvider;
+      case '体型':
+        return profileBodyShapeProvider;
+
+      // 性格・趣味・生活======================
+      case '性格・タイプ':
+        return profilePersonalityProvider;
+      case '休日':
+        return profileOffDayProvider;
+      case '趣味・好きなこと':
+        return profileHobbyProvider;
+      case '同居している人・ペット':
+        return profileLivingWithProvider;
+      case '喫煙':
+        return profileSmokeProvider;
+      case 'お酒':
+        return profileDrinkProvider;
+
+      // 恋愛・結婚について=====================
+      case '子供の有無':
+        return profileHaveChildProvider;
+      case '結婚に対する意思':
+        return profileMarriageWillProvider;
+      case '子供がほしいか':
+        return profileWantKidsProvider;
+      case '家事・育児':
+        return profileHouseworkProvider;
+      case '出会うまでの希望':
+        return profileHowMeetProvider;
+      case 'デート費用':
+        return profileDatingCostProvider;
+
+      default:
+        break;
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // DropdownWidget用のProvider
+    final isChanged = ref.watch(profileIsChangedAuto.state);
     final selectedState = ref.watch(selectProvider.state);
-    final singleSelectedItemState = ref.watch(singleSelectedItemProvider.state);
+    final itemParam = ref.watch(getProvider(itemNameJP)!.state);
+    final editingContents = ref.watch(profileEditingContents);
 
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
@@ -109,9 +181,7 @@ class SingleChoiceDropDown extends ConsumerWidget {
           alignment: Alignment.center,
           child: Text('selectedItem'),
         ),
-        value: singleSelectedItemState.state.isEmpty
-            ? null
-            : singleSelectedItemState.state,
+        value: itemParam.state.isEmpty ? null : itemParam.state,
         onChanged: (value) {},
         buttonHeight: 40,
         itemPadding: EdgeInsets.zero,
@@ -127,7 +197,7 @@ class SingleChoiceDropDown extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
-                  singleSelectedItemState.state.toString(),
+                  itemParam.state.toString(),
                   style: const TextStyle(
                     fontSize: 14,
                     overflow: TextOverflow.ellipsis,
@@ -145,12 +215,17 @@ class SingleChoiceDropDown extends ConsumerWidget {
               child: StatefulBuilder(builder: (context, menuSetState) {
                 return InkWell(
                   onTap: () {
-                    singleSelectedItemState.state = item;
+                    itemParam.state = item;
+                    editingContents[itemNameParam] = itemParam.state;
+                    isChanged.state = true;
                     menuSetState(() {});
                     selectedState.state = !selectedState.state;
-                    print(singleSelectedItemState.state.toString());
+                    print(itemParam.state.toString());
+                    print(editingContents);
                   },
                   child: Container(
+                    width: double.infinity,
+                    alignment: Alignment.center,
                     padding: const EdgeInsets.fromLTRB(15, 3, 0, 3),
                     child: Text(
                       item,
@@ -168,6 +243,8 @@ class SingleChoiceDropDown extends ConsumerWidget {
   }
 }
 
+// ============================================OLD============================================
+// ============================================OLD============================================
 //
 //
 //
@@ -350,7 +427,7 @@ class EditProfileItemsList extends StatelessWidget {
 
 // ignore: must_be_immutable
 class _DropdownItemsWidget extends ConsumerWidget {
-  StateProvider? getProvider(category) {
+  AutoDisposeStateProvider? getProvider(category) {
     switch (category) {
       // 基本情報=============================
       case 'ニックネーム':
@@ -429,7 +506,7 @@ class _DropdownItemsWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final param = ref.watch(getProvider(itemName)!.state);
-    final isChanged = ref.watch(profileIsChanged.state);
+    // final isChanged = ref.watch(profileIsChanged.state);
     final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
         .map(
           (String value) => DropdownMenuItem(
@@ -450,7 +527,7 @@ class _DropdownItemsWidget extends ConsumerWidget {
           final SharedPreferences pref = await SharedPreferences.getInstance();
 
           param.state = value as String;
-          isChanged.state = true;
+          // isChanged.state = true;
           selected = param.state; // 画面の再描写のチェック
 
           // ======================================================================任意で追加したかったらここ
@@ -465,10 +542,10 @@ class _DropdownItemsWidget extends ConsumerWidget {
           pref.setString(itemName, value);
           pref.setString(newKey, param.state);
           // ignore: avoid_print
-          print(newKey +
+/*           print(newKey +
               pref.getString(newKey)! +
               ' 変更あり ' +
-              isChanged.state.toString());
+              isChanged.state.toString()); */
         },
       ),
     );
