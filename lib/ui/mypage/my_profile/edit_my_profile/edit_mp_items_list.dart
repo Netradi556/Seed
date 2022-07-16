@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/controller/user_controller.dart';
@@ -7,6 +8,174 @@ import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/provider/profile_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+class NewEditProfileItemsList extends StatelessWidget {
+  NewEditProfileItemsList({
+    Key? key,
+    required this.categoryName,
+    required this.itemsList,
+  }) : super(key: key);
+
+  final Color itemTextColor = const Color.fromARGB(255, 0, 0, 0);
+
+  final String categoryName;
+  final List itemsList;
+  final Map<String, dynamic> paramItemName = ProfileItemMap().paramItemName;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 350,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const SizedBox(height: 30),
+          Align(
+            alignment: Alignment.centerLeft,
+            // =====================================================カテゴリ名
+            child: Text(
+              categoryName,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: itemsList.length, // 作成する項目数＝呼び出し側から受け取った項目数
+            itemBuilder: (BuildContext context, index) {
+              return SizedBox(
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      color: Colors.amber.withOpacity(0.2),
+                      width: 120,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(paramItemName[itemsList[index]],
+                              style: TextStyle(
+                                  color: itemTextColor, fontSize: 16)),
+                        ),
+                      ),
+                    ),
+                    Container(width: 30, color: Colors.red),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: SizedBox(
+                        width: 180,
+                        child: SingleChoiceDropDown(),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+final selectProvider = StateProvider.autoDispose((ref) => true);
+final singleSelectedItemProvider = StateProvider((ref) => '');
+
+class SingleChoiceDropDown extends ConsumerWidget {
+  SingleChoiceDropDown({Key? key}) : super(key: key);
+
+  // 選択肢のリスト
+  final List<String> items = [
+    '300万円',
+    '400万円',
+    '500万円',
+    '600万円',
+  ];
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // DropdownWidget用のProvider
+    final selectedState = ref.watch(selectProvider.state);
+    final singleSelectedItemState = ref.watch(singleSelectedItemProvider.state);
+
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        isExpanded: true,
+        hint: const Align(
+          alignment: Alignment.center,
+          child: Text('selectedItem'),
+        ),
+        value: singleSelectedItemState.state.isEmpty
+            ? null
+            : singleSelectedItemState.state,
+        onChanged: (value) {},
+        buttonHeight: 40,
+        itemPadding: EdgeInsets.zero,
+        // 選択されている時の表示内容
+        selectedItemBuilder: (context) {
+          return items.map(
+            (item) {
+              return Container(
+                alignment: AlignmentDirectional.center,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 255, 224, 130),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  singleSelectedItemState.state.toString(),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              );
+            },
+          ).toList();
+        },
+        items: items.map(
+          (item) {
+            return DropdownMenuItem<String>(
+              value: item,
+              enabled: false,
+              child: StatefulBuilder(builder: (context, menuSetState) {
+                return InkWell(
+                  onTap: () {
+                    singleSelectedItemState.state = item;
+                    menuSetState(() {});
+                    selectedState.state = !selectedState.state;
+                    print(singleSelectedItemState.state.toString());
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(15, 3, 0, 3),
+                    child: Text(
+                      item,
+                      style: const TextStyle(
+                          fontSize: 14, overflow: TextOverflow.visible),
+                    ),
+                  ),
+                );
+              }),
+            );
+          },
+        ).toList(),
+      ),
+    );
+  }
+}
+
+//
+//
+//
+//
+//
+//
+//
+//
 class EditProfileItemsList extends StatelessWidget {
   EditProfileItemsList({
     Key? key,
@@ -48,8 +217,6 @@ class EditProfileItemsList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: itemsList.length, // 作成する項目数＝呼び出し側から受け取った項目数
             itemBuilder: (BuildContext context, index) {
-              // TODO: 'age'の場合はWidgetを生成しない、生成しないことができないのでContainerを生成する？
-              // Listを取得した段階で、非表示にしたい項目を削除removeしてもいいかもしれない
               return SizedBox(
                 width: 80,
                 height: 50,

@@ -7,8 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/models/user_models.dart';
-import 'package:seed_app/provider/profile_provider.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
+import 'package:seed_app/test_page2.dart';
+import 'package:seed_app/ui/mypage/my_profile/edit_my_profile/edit_my_profile.dart';
 import 'package:seed_app/ui/mypage/my_profile/mp_introduction.dart';
 import 'package:seed_app/ui/mypage/my_profile/mp_introduction_card.dart';
 import 'package:seed_app/ui/mypage/my_profile/mp_score.dart';
@@ -69,7 +70,7 @@ class MyProfilePageWidget extends ConsumerWidget {
           children: [
             Expanded(
               child: Container(
-                color: Color.fromARGB(255, 226, 153, 153),
+                color: const Color.fromARGB(255, 250, 250, 250),
                 child: Stack(
                   children: [
                     SingleChildScrollView(
@@ -140,7 +141,15 @@ class MyProfilePageWidget extends ConsumerWidget {
                             // TODO: 編集画面に遷移
                             // TODO: デザインの修正、黄色ベース
                             child: const Text('プロフィールの編集'),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return const TestPage4();
+                                  },
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ),

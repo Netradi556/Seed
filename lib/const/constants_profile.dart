@@ -127,7 +127,7 @@ const job = {
   'その他',
 };
 
-// TODO: 検索条件で利用する
+// TODO: Crit: Auth時に年齢と一緒に設定、検索条件で利用する
 const ageBand = {
   '20歳～24歳',
   '25歳～29歳',
@@ -139,10 +139,9 @@ const ageBand = {
   '55歳～59歳',
   '60歳～64歳',
   '65歳～69歳',
-}
+};
 
-// incomeBandに名称変更
-const income = {
+const incomeBand = {
   '表示しない',
   '200万円未満',
   '200万円以上〜400万円未満',
@@ -156,7 +155,7 @@ const income = {
 };
 
 // heightBandに名称変更
-const height = {
+const heightBand = {
   '〜130cm',
   '131cm〜135cm',
   '136cm〜140cm',
@@ -410,25 +409,3 @@ const datingCost = {
   '持っている方が払う',
   'お相手と相談して決める',
 };
-
-const profileBasicParam1 = {
-  'ニックネーム',
-  '年齢',
-  '血液型',
-  '兄弟姉妹',
-  '話せる言語',
-  '居住地',
-};
-
-const profileBasicParam2 = {
-  'nick_name': 'ニックネーム',
-  'age': '年齢',
-  'blood_type': '血液型',
-  'bro_sis': '兄弟姉妹',
-  'language': '話せる言語',
-  'living_place': '居住地',
-};
-
-const profileSpecParam = {};
-
-const profilePersonalParam = {};

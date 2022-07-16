@@ -52,8 +52,7 @@ class _MyIntroductionCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.fromLTRB(7, 0, 0, 0),
                     child: Text(
-                      _currentUser!.handleName
-                          .toString(), // =======================ハンドルネームをFSから
+                      _currentUser!.handleName.toString(),
                       style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,

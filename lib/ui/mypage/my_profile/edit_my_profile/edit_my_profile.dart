@@ -23,12 +23,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // TODO: 編集を確定したときに、AutoDisposeでProviderの状態を破棄する
 
-class MyProfileEditPageWidget extends ConsumerWidget {
-  MyProfileEditPageWidget({Key? key}) : super(key: key);
+class NewMyProfileEditPageWidget extends ConsumerWidget {
+  NewMyProfileEditPageWidget({Key? key}) : super(key: key);
 
+  // デザイン
   final Color appBarTextColor = const Color.fromARGB(223, 0, 0, 0);
   final Color appBarBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
+  final Color backgroundColor = const Color(0xFFF5F5F5);
 
+  // 処理
   final UserModel? _currentUser = locator.get<UserController>().currentUser;
   final ProfileItemJAP profileItem = ProfileItemJAP();
 
@@ -37,9 +40,103 @@ class MyProfileEditPageWidget extends ConsumerWidget {
     final isChanged = ref.watch(profileIsChanged.state);
     return Material(
       child: Scaffold(
-        backgroundColor: const Color(
-            0xFFF5F5F5), // ========================================変数で
+        backgroundColor: backgroundColor,
+        appBar: AppBar(
+          leading: InkWell(
+            onTap: () async {
+              Navigator.of(context).pop();
+            },
+            child: const Icon(Icons.arrow_back_ios_new),
+          ),
+          elevation: .6,
+          title: Text('プロフィールの編集', style: TextStyle(color: appBarTextColor)),
+          backgroundColor: appBarBackgroundColor,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xB4FCBC00), Color(0xFFFDE283)],
+                stops: [0, 1],
+                begin: AlignmentDirectional(0.34, -1),
+                end: AlignmentDirectional(-0.34, 1),
+              ),
+            ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ProfilePicturesEdit(
+                avatarUrl: _currentUser?.avatarUrl,
+              ),
+              NewEditProfileItemsList(
+                categoryName: '基本情報',
+                itemsList: ProfileItemParam().basicInfo,
+              ),
+              EditProfileItemsList(
+                categoryName: '基本情報',
+                itemsList: profileItem.basicInfo,
+              ),
+              // 学歴・職種・外見
+              EditProfileItemsList(
+                categoryName: '学歴・職種・外見',
+                itemsList: profileItem.socialInfo,
+              ),
+              // 性格・趣味・生活
+              EditProfileItemsList(
+                categoryName: '性格・趣味・生活',
+                itemsList: profileItem.lifeStyleInfo,
+              ),
+              // 恋愛・結婚について
+              EditProfileItemsList(
+                categoryName: '恋愛・結婚について',
+                itemsList: profileItem.viewOfLove,
+              ),
+              Container(
+                width: double.infinity,
+                height: 100,
+                decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 230, 232, 212)),
+                child: const Align(
+                  alignment: Alignment.topCenter,
+                  child: SizedBox(
+                    height: 50,
+                    width: 200,
+                    child: Center(
+                        child: Text(
+                      '自己紹介文の編集欄',
+                      style: TextStyle(fontSize: 18),
+                    )),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
+class MyProfileEditPageWidget extends ConsumerWidget {
+  MyProfileEditPageWidget({Key? key}) : super(key: key);
+
+  // デザイン
+  final Color appBarTextColor = const Color.fromARGB(223, 0, 0, 0);
+  final Color appBarBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
+  final Color backgroundColor = const Color(0xFFF5F5F5);
+
+  // 処理
+  final UserModel? _currentUser = locator.get<UserController>().currentUser;
+  final ProfileItemJAP profileItem = ProfileItemJAP();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isChanged = ref.watch(profileIsChanged.state);
+    return Material(
+      child: Scaffold(
+        backgroundColor: backgroundColor,
         appBar: AppBar(
           leading: InkWell(
             onTap: () async {
@@ -48,31 +145,35 @@ class MyProfileEditPageWidget extends ConsumerWidget {
 
 //===============================ここから====================================================
 // user_controller.dartに処理を記述：
-// profile_item_models.dartのようなモデルを1つ作り、でアップロード用のMapを作成する？？
-// もしくはアップロード後に、SharedPreferencesの要素を全て削除する⇒SharedPreferencesはキャッシュとして利用する
 // いづれにせよ、items_list.dartではProviderを利用して表示する
                 final SharedPreferences pref =
                     await SharedPreferences.getInstance();
 
+                // 項目名を保存するList
+                // TODO: パラメータ名を和名から英名に変更
                 final List<String> allItemName = profileItem.basicInfo +
                     profileItem.lifeStyleInfo +
                     profileItem.socialInfo +
                     profileItem.viewOfLove;
 
-                // ==============================================================任意で追加したかったらここ
+                // Firestoreに登録する用のMap
                 Map<String, String> editedContents = {};
 
-                // =============================================================Providerで保持しているProfileデータをどうやって保存するか？
+                // 項目数だけループしてMapに追加していく
                 for (var i = 0; i < allItemName.length; i++) {
-                  String? param = pref.getString(allItemName[i]);
+                  // 変更内容をparamに
+                  String paramItemName = allItemName[i];
+                  String? paramProperty = pref.getString(allItemName[i]);
 
-                  if (param == null) {
-                    param = '';
+                  // paramPropertyが空だった場合、つまり編集内容がなかった場合
+                  if (paramProperty == null) {
+                    paramProperty = '';
                   } else {
                     // do nothing
                   }
+
                   editedContents.addAll({
-                    allItemName[i]: param,
+                    paramItemName: paramProperty,
                   });
                 }
 
@@ -192,6 +293,7 @@ class ProfilePicturesEdit extends ConsumerWidget {
                 .get<UserController>()
                 .uploadProfilePicture(imageTemporary);
           } catch (e) {
+            // TODO: Crit: 画像未選択時には元の画面に戻るようにする
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {

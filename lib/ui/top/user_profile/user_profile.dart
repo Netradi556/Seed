@@ -111,7 +111,7 @@ class NewProfilePictures extends ConsumerWidget {
 //
 //
 //
-//
+// ダミーページ
 class UserProfilePage extends StatelessWidget {
   const UserProfilePage({
     Key? key,

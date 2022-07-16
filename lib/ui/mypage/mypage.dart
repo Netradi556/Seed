@@ -88,7 +88,7 @@ class MypagePageWidget extends ConsumerWidget {
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) {
-                                return MyProfileEditPageWidget();
+                                return NewMyProfileEditPageWidget();
                               },
                             ),
                           ),
