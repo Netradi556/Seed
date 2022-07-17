@@ -142,7 +142,7 @@ class InitialProfileParam {
     'birthPlace': '',
     'education': '',
     'job': '',
-    'income': '', // 選択肢で絞り込み
+    'income': '',
     'height': 0,
     'bodyShape': '',
     'personality': '',

@@ -8,7 +8,6 @@ import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
-import 'package:seed_app/test_page2.dart';
 import 'package:seed_app/ui/mypage/my_profile/edit_my_profile/edit_my_profile.dart';
 import 'package:seed_app/ui/mypage/my_profile/mp_introduction.dart';
 import 'package:seed_app/ui/mypage/my_profile/mp_introduction_card.dart';
@@ -27,6 +26,7 @@ import 'package:seed_app/controller/user_controller.dart';
 
 class MyProfilePageWidget extends ConsumerWidget {
   MyProfilePageWidget({Key? key}) : super(key: key);
+  // TODO: Crit: EdtiProfileした内容が前のページまで戻らないと反映されない、Snapshotが更新されない
 
   // デザイン関係
   final Color appBarTextColor = const Color.fromARGB(223, 0, 0, 0);
@@ -39,8 +39,6 @@ class MyProfilePageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    DocumentSnapshot documentSnapshot;
-
     return MaterialApp(
       home: Scaffold(
         // AppBarのデザイン修正
@@ -64,28 +62,26 @@ class MyProfilePageWidget extends ConsumerWidget {
             ),
           ),
         ),
-
-        // TODO: Future builderを最上位にもってくる
-        body: Column(
-          children: [
-            Expanded(
-              child: Container(
-                color: const Color.fromARGB(255, 250, 250, 250),
-                child: Stack(
-                  children: [
-                    SingleChildScrollView(
-                      child: FutureBuilder<DocumentSnapshot>(
-                        future: FirebaseFirestore.instance
-                            .collection('User')
-                            .doc(_currentUser!.uid)
-                            .get(),
-                        builder: (context, snapshot) {
-                          if (snapshot.data == null) {
-                            // TODO: ローディング画面を実装
-                            // TODO: ローディング時間が長引く場合は、エラーハンドリング
-                            return Text('No Data');
-                          } else {
-                            return Column(
+        body: FutureBuilder<DocumentSnapshot>(
+          future: FirebaseFirestore.instance
+              .collection('User')
+              .doc(_currentUser!.uid)
+              .get(),
+          builder: (context, snapshot) {
+            if (snapshot.data == null) {
+              // TODO: ローディング画面を実装
+              // TODO: ローディング時間が長引く場合は、エラーハンドリング
+              return Text('No Data');
+            } else {
+              return Column(
+                children: [
+                  Expanded(
+                    child: Container(
+                      color: const Color.fromARGB(255, 250, 250, 250),
+                      child: Stack(
+                        children: [
+                          SingleChildScrollView(
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // プロフ画像
@@ -127,38 +123,41 @@ class MyProfilePageWidget extends ConsumerWidget {
                                   itemsList: ProfileItemParam().viewOfLove,
                                 ),
                               ],
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                    Positioned.fill(
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: ElevatedButton(
-                            // TODO: 編集画面に遷移
-                            // TODO: デザインの修正、黄色ベース
-                            child: const Text('プロフィールの編集'),
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return const TestPage4();
+                            ),
+                          ),
+                          Positioned.fill(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: ElevatedButton(
+                                  // TODO: 編集画面に遷移
+                                  // TODO: デザインの修正、黄色ベース
+                                  child: const Text('プロフィールの編集'),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return MyProfileEditPageWidget(
+                                            documentSnapshot: snapshot.data
+                                                as DocumentSnapshot,
+                                          );
+                                        },
+                                      ),
+                                    );
                                   },
                                 ),
-                              );
-                            },
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
+                    ),
+                  ),
+                ],
+              );
+            }
+          },
         ),
       ),
     );

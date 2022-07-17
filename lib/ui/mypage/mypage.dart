@@ -84,26 +84,6 @@ class MypagePageWidget extends ConsumerWidget {
                             fontSize: 24,
                           ),
                         ),
-                        // プロフィール編集ボタン
-                        InkWell(
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return NewMyProfileEditPageWidget();
-                              },
-                            ),
-                          ),
-                          child: Text(
-                            'Edit profile',
-                            textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.bodyText1.override(
-                              // =======================FlutterFlowのThemeから変更
-                              fontFamily: 'Poppins',
-                              color: const Color(
-                                  0xFF646CF2), //==================================変数で
-                            ),
-                          ),
-                        ),
                         InkWell(
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(

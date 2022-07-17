@@ -28,6 +28,7 @@ class MyProfileItemsList extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const SizedBox(height: 30),
+          // =======================大カテゴリの表示
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -43,34 +44,48 @@ class MyProfileItemsList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: itemsList.length,
             itemBuilder: (BuildContext context, index) {
-              return SizedBox(
-                width: 80,
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(paramItemName[itemsList[index]],
-                            style:
-                                TextStyle(color: itemTextColor, fontSize: 16)),
-                      ),
-                    ),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            documentSnapshot.get(itemsList[index]).toString(),
+              return Column(
+                children: [
+                  SizedBox(
+                    height: 45,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 190,
+                          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              paramItemName[itemsList[index]],
+                              style: TextStyle(
+                                color: itemTextColor,
+                                fontSize: 16,
+                                overflow: TextOverflow.clip,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        Container(
+                            width: 10, color: Colors.red.withOpacity(0.2)),
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                documentSnapshot
+                                    .get(itemsList[index])
+                                    .toString(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 10),
+                ],
               );
             },
           ),
