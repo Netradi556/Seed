@@ -9,6 +9,8 @@ import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/provider/profile_provider.dart';
+import 'package:seed_app/test_page1.dart';
+import 'package:seed_app/ui/mypage/my_profile/edit_my_profile/edit_mp_about.dart';
 import 'package:seed_app/ui/mypage/my_profile/edit_my_profile/edit_mp_items_list.dart';
 import 'package:seed_app/controller/user_controller.dart';
 import 'package:seed_app/ui/mypage/my_profile/my_profile.dart';
@@ -39,7 +41,10 @@ class MyProfileEditPageWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isChanged = ref.watch(profileIsChangedAuto.state);
-    final editingContents = ref.watch(profileEditingContents);
+    final editingContents = ref.watch(profileEditingContents.state);
+    final aboutParam = ref.watch(profileAboutProvider.state);
+    final isAboutChanged = ref.watch(profileAboutIsChangedProvider.state);
+
     return Material(
       child: Scaffold(
         backgroundColor: backgroundColor,
@@ -48,20 +53,13 @@ class MyProfileEditPageWidget extends ConsumerWidget {
             onTap: () async {
               if (isChanged.state) {
                 isChanged.state = false;
+
                 print(editingContents);
                 await locator
                     .get<UserController>()
-                    .NEWuploadEditedContents(editingContents);
+                    .NEWuploadEditedContents(editingContents.state);
                 // TODO: Crit: popではなくて、これまでの画面遷移を破棄して、my_profileを表示する
                 Navigator.of(context).pop();
-                Navigator.of(context).pop();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return MyProfilePageWidget();
-                    },
-                  ),
-                );
               } else {
                 Navigator.of(context).pop();
               }
@@ -90,6 +88,44 @@ class MyProfileEditPageWidget extends ConsumerWidget {
               ProfilePicturesEdit(
                 avatarUrl: _currentUser?.avatarUrl,
               ),
+              // 自己紹介文の編集
+              InkWell(
+                onTap: () {
+                  // 画面遷移する前にaboutParamに現在の値を格納しておく
+                  if (isAboutChanged.state) {
+                  } else {
+                    aboutParam.state = documentSnapshot.get('about');
+                  }
+
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => EditAbout(),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 100,
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 230, 232, 212)),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: SizedBox(
+                      height: 50,
+                      width: 200,
+                      child: Center(
+                        child: Text(
+                          // TODO: Crit: TextFormでProviderの値を更新しても、前画面が更新されない問題が残る
+                          aboutParam.state == ''
+                              ? documentSnapshot.get('about')
+                              : aboutParam.state,
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               EditProfileItemsList(
                 categoryName: '基本情報',
                 itemsList: ProfileItemParam().basicInfo,
@@ -110,22 +146,6 @@ class MyProfileEditPageWidget extends ConsumerWidget {
                 itemsList: ProfileItemParam().viewOfLove,
                 documentSnapshot: documentSnapshot,
               ),
-              Container(
-                width: double.infinity,
-                height: 100,
-                decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 230, 232, 212)),
-                child: const Align(
-                  alignment: Alignment.topCenter,
-                  child: SizedBox(
-                    height: 50,
-                    width: 200,
-                    child: Center(
-                        child:
-                            Text('自己紹介文の編集欄', style: TextStyle(fontSize: 18))),
-                  ),
-                ),
-              )
             ],
           ),
         ),
@@ -134,6 +154,7 @@ class MyProfileEditPageWidget extends ConsumerWidget {
   }
 }
 
+// TODO: Crit: 画像アップロードして反映されるまでの間をどう見せるか → 確認も必要、バックアップ？？
 class ProfilePicturesEdit extends ConsumerWidget {
 /*
   参考情報

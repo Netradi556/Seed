@@ -56,7 +56,6 @@ class EditProfileItemsList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          color: Colors.amber.withOpacity(0.2),
                           width: 140,
                           padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                           child: Align(
@@ -66,7 +65,7 @@ class EditProfileItemsList extends StatelessWidget {
                                     color: itemTextColor, fontSize: 16)),
                           ),
                         ),
-                        Container(width: 30, color: Colors.red),
+                        Container(width: 30),
                         Align(
                           alignment: Alignment.centerRight,
                           child: SizedBox(

@@ -1,5 +1,6 @@
 // イントロダクションカード
 // ハンドルネーム、バッジ、ステータスコメント、ログイン状況など
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:seed_app/controller/user_controller.dart';
 import 'package:seed_app/locator.dart';
@@ -8,13 +9,18 @@ import 'package:seed_app/models/user_models.dart';
 class MyIntroductionCard extends StatelessWidget {
   const MyIntroductionCard({
     Key? key,
+    required this.documentSnapshot,
   }) : super(key: key);
+
+  final DocumentSnapshot documentSnapshot;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _MyIntroductionCard(),
+        _MyIntroductionCard(
+          documentSnapshot: documentSnapshot,
+        ),
         const SizedBox(height: 30),
       ],
     );
@@ -22,13 +28,17 @@ class MyIntroductionCard extends StatelessWidget {
 }
 
 class _MyIntroductionCard extends StatelessWidget {
-  _MyIntroductionCard({Key? key}) : super(key: key);
+  _MyIntroductionCard({
+    Key? key,
+    required this.documentSnapshot,
+  }) : super(key: key);
 
   final Color borderColor = const Color(0xFFFABF66);
   final Color testColor2 = const Color.fromARGB(205, 239, 228, 130);
   final Color badgeIconColor = const Color.fromARGB(173, 31, 134, 40);
 
   final UserModel? _currentUser = locator.get<UserController>().currentUser;
+  final DocumentSnapshot documentSnapshot;
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +72,17 @@ class _MyIntroductionCard extends StatelessWidget {
                   Row(
                     children: [
                       const SizedBox(width: 10),
-                      const Text('25歳', style: TextStyle(fontSize: 18)),
+                      // TODO: Crit: DocumentSnapshotから取得
+                      Text(
+                        documentSnapshot.get('age').toString(),
+                        style: const TextStyle(fontSize: 18),
+                      ),
                       const SizedBox(width: 30),
-                      const Text('東京', style: TextStyle(fontSize: 18)),
+                      // TODO: Crit: DocumentSnapshotから取得
+                      Text(
+                        documentSnapshot.get('livingPlace'),
+                        style: const TextStyle(fontSize: 18),
+                      ),
                       const SizedBox(width: 140),
                       Row(
                         children: [
@@ -76,20 +94,23 @@ class _MyIntroductionCard extends StatelessWidget {
                     ],
                   ),
                   const Divider(
-                      thickness: 2,
-                      indent: 10,
-                      endIndent: 20,
-                      color: Color.fromARGB(255, 221, 207, 81)),
+                    thickness: 2,
+                    indent: 10,
+                    endIndent: 20,
+                    color: Color.fromARGB(255, 221, 207, 81),
+                  ),
+                  // =================================================挨拶文
                   Container(
                     width: 350,
                     height: 90,
                     padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    // TODO: Crit: DocumentSnapshotから取得
                     child: const Text(
                       '休日は外で過ごすことが多いです \n \n ',
                       style: TextStyle(
                         fontSize: 20,
                       ),
-                    ), // ==========================SharedPreferencesから
+                    ),
                   ),
                   SizedBox(
                     height: 50,

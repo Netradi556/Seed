@@ -5,7 +5,10 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 class MyProfileScore extends StatelessWidget {
   const MyProfileScore({
     Key? key,
+    required this.score,
   }) : super(key: key);
+
+  final double score;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +19,8 @@ class MyProfileScore extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          SizedBox(
+        children: [
+          const SizedBox(
             width: 351,
             height: 50,
             child: Text(
@@ -31,7 +34,7 @@ class MyProfileScore extends StatelessWidget {
           SizedBox(
             width: 350,
             height: 270,
-            child: CircleGauge(),
+            child: CircleGauge(score: score),
           ),
         ],
       ),
@@ -42,13 +45,15 @@ class MyProfileScore extends StatelessWidget {
 class CircleGauge extends StatelessWidget {
   const CircleGauge({
     Key? key,
+    required this.score,
   }) : super(key: key);
 
-  final double gaugePercent = 70; // =============================スコア値パーセンテージ
+  final double score;
 
   @override
   Widget build(BuildContext context) {
-    final String scoreText = (gaugePercent * 10).toInt().toString();
+    // =============================スコア値パーセンテージ
+    final String scoreText = score.toInt().toString();
     return SfRadialGauge(
       axes: <RadialAxis>[
         RadialAxis(
@@ -109,7 +114,7 @@ class CircleGauge extends StatelessWidget {
             ],
             pointers: <GaugePointer>[
               RangePointer(
-                value: gaugePercent,
+                value: score / 10,
                 cornerStyle: CornerStyle.bothCurve,
                 enableAnimation: true,
                 animationDuration: 1200,

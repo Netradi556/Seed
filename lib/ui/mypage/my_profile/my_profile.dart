@@ -63,6 +63,7 @@ class MyProfilePageWidget extends ConsumerWidget {
           ),
         ),
         body: FutureBuilder<DocumentSnapshot>(
+          // TODO: Crit: DocumentSnapshotをProviderで管理したらよいのでは、そうしたらrebuildされる
           future: FirebaseFirestore.instance
               .collection('User')
               .doc(_currentUser!.uid)
@@ -73,6 +74,9 @@ class MyProfilePageWidget extends ConsumerWidget {
               // TODO: ローディング時間が長引く場合は、エラーハンドリング
               return Text('No Data');
             } else {
+              DocumentSnapshot documentSnapshot =
+                  snapshot.data as DocumentSnapshot;
+              int score = documentSnapshot.get('score');
               return Column(
                 children: [
                   Expanded(
@@ -89,37 +93,40 @@ class MyProfilePageWidget extends ConsumerWidget {
                                   avatarUrl: _currentUser?.avatarUrl,
                                 ),
                                 // 概要欄
-                                const MyIntroductionCard(),
+                                // TODO: Crit: greetingMessageの更新
+                                MyIntroductionCard(
+                                  documentSnapshot: documentSnapshot,
+                                ),
                                 // プロフィールスコア
-                                const MyProfileScore(),
+                                MyProfileScore(
+                                  score: score.toDouble(),
+                                ),
                                 // 自由記述欄
-                                const MyIntroduction(),
+                                MyIntroduction(
+                                  documentSnapshot: documentSnapshot,
+                                ),
                                 // 基本情報
                                 MyProfileItemsList(
                                   categoryName: '基本情報',
-                                  documentSnapshot:
-                                      snapshot.data as DocumentSnapshot,
+                                  documentSnapshot: documentSnapshot,
                                   itemsList: ProfileItemParam().basicInfo,
                                 ),
                                 // 学歴・職種・外見
                                 MyProfileItemsList(
                                   categoryName: '学歴・職種・外見',
-                                  documentSnapshot:
-                                      snapshot.data as DocumentSnapshot,
+                                  documentSnapshot: documentSnapshot,
                                   itemsList: ProfileItemParam().lifeStyleInfo,
                                 ),
                                 // 性格・趣味・生活
                                 MyProfileItemsList(
                                   categoryName: '性格・趣味・生活',
-                                  documentSnapshot:
-                                      snapshot.data as DocumentSnapshot,
+                                  documentSnapshot: documentSnapshot,
                                   itemsList: ProfileItemParam().socialInfo,
                                 ),
                                 // 恋愛・結婚について
                                 MyProfileItemsList(
                                   categoryName: '恋愛・結婚について',
-                                  documentSnapshot:
-                                      snapshot.data as DocumentSnapshot,
+                                  documentSnapshot: documentSnapshot,
                                   itemsList: ProfileItemParam().viewOfLove,
                                 ),
                               ],
@@ -130,11 +137,42 @@ class MyProfilePageWidget extends ConsumerWidget {
                               padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                               child: Align(
                                 alignment: Alignment.bottomCenter,
-                                child: ElevatedButton(
+                                child: InkWell(
                                   // TODO: 編集画面に遷移
                                   // TODO: デザインの修正、黄色ベース
-                                  child: const Text('プロフィールの編集'),
-                                  onPressed: () {
+
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width: 250,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        gradient: const LinearGradient(
+                                          colors: <Color>[
+                                            Color.fromARGB(255, 249, 229, 168),
+                                            Color.fromARGB(255, 255, 225, 165),
+                                            Color.fromARGB(255, 230, 189, 84),
+                                          ],
+                                        ),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color:
+                                                Color.fromARGB(28, 23, 23, 23),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(1, 1),
+                                          ),
+                                        ]),
+                                    padding: const EdgeInsets.all(10),
+                                    child: const Text(
+                                      'プロフィールを編集する',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w100,
+                                      ),
+                                    ),
+                                  ),
+                                  onTap: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) {

@@ -15,6 +15,10 @@ final profileIsChangedAuto = StateProvider.autoDispose<bool>(((ref) => false));
 final profileEditingContents =
     StateProvider.autoDispose<Map<String, String>>((ref) => {});
 
+// 自由記述欄の編集用
+final profileAboutProvider = StateProvider.autoDispose((ref) => '');
+final profileAboutIsChangedProvider = StateProvider.autoDispose((ref) => false);
+
 // 基本情報
 final profileBloodTypeProvider = StateProvider.autoDispose((ref) => '');
 final profileLanguageProvider = StateProvider.autoDispose((ref) => '');
