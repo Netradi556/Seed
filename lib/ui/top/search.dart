@@ -167,9 +167,10 @@ class NewUserCardWithSnapshot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final handleName = documentSnapshot.get('handleName');
+    // final handleName = documentSnapshot.get('handleName');
     final age = documentSnapshot.get('age');
     final about = documentSnapshot.get('about');
+    final livingPlace = documentSnapshot.get('livingPlace');
 
     return InkWell(
       onTap: () {
@@ -187,10 +188,11 @@ class NewUserCardWithSnapshot extends StatelessWidget {
         decoration: BoxDecoration(
           color: userCardBackground,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
+          // ============================================================枠線
+/*           border: Border.all(
             width: 3,
             color: const Color.fromARGB(197, 255, 229, 151),
-          ),
+          ), */
           boxShadow: const [
             BoxShadow(
               color: Color.fromARGB(28, 23, 23, 23),
@@ -207,6 +209,7 @@ class NewUserCardWithSnapshot extends StatelessWidget {
             FutureBuilder(
               future: storageRepo.getUserProfileImage(documentSnapshot.id),
               builder: ((context, snapshot) {
+                // TODO: High: 全て角丸に
                 return Container(
                   width: double.infinity,
                   height: 170,
@@ -236,7 +239,8 @@ class NewUserCardWithSnapshot extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "$handleName    $age歳        東京", // ======================ageパラメタ反映 $age
+                  // TODO: Crit:  livingPlaceを追加
+                  "$age歳        東京", // ======================
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 13,
