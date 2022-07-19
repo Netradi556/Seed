@@ -137,7 +137,7 @@ class NewInfiniteGridView extends ConsumerWidget {
                   child: const Text('上限に達しました。\n 検索条件を変更してみてください。'),
                 )
               // isMaxStateがfalseの間はユーザーカードを返す
-              : NewUserCardWithSnapshot(documentSnapshot: documentSnapshot);
+              : UserCardWithSnapshot(documentSnapshot: documentSnapshot);
         },
       ),
     );
@@ -151,8 +151,8 @@ class NewInfiniteGridView extends ConsumerWidget {
 //
 //
 
-class NewUserCardWithSnapshot extends StatelessWidget {
-  NewUserCardWithSnapshot({
+class UserCardWithSnapshot extends StatelessWidget {
+  UserCardWithSnapshot({
     Key? key,
     required this.documentSnapshot,
   }) : super(key: key);
@@ -170,7 +170,7 @@ class NewUserCardWithSnapshot extends StatelessWidget {
     // final handleName = documentSnapshot.get('handleName');
     final age = documentSnapshot.get('age');
     final about = documentSnapshot.get('about');
-    final livingPlace = documentSnapshot.get('livingPlace');
+    // final livingPlace = documentSnapshot.get('livingPlace');
 
     return InkWell(
       onTap: () {

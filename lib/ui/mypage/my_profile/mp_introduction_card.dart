@@ -72,13 +72,11 @@ class _MyIntroductionCard extends StatelessWidget {
                   Row(
                     children: [
                       const SizedBox(width: 10),
-                      // TODO: Crit: DocumentSnapshotから取得
                       Text(
                         documentSnapshot.get('age').toString(),
                         style: const TextStyle(fontSize: 18),
                       ),
                       const SizedBox(width: 30),
-                      // TODO: Crit: DocumentSnapshotから取得
                       Text(
                         documentSnapshot.get('livingPlace'),
                         style: const TextStyle(fontSize: 18),
