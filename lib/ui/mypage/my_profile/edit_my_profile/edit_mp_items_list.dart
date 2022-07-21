@@ -51,7 +51,7 @@ class EditProfileItemsList extends StatelessWidget {
               return Column(
                 children: [
                   SizedBox(
-                    height: 45,
+                    height: 50,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -187,7 +187,7 @@ class EditItemDropDownWidget extends ConsumerWidget {
         ),
         value: itemParam.state.isEmpty ? null : itemParam.state,
         onChanged: (value) {},
-        buttonHeight: 40,
+        buttonHeight: 60,
         itemPadding: EdgeInsets.zero,
         // ================================選択されている時の表示内容
         selectedItemBuilder: (context) {

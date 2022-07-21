@@ -129,6 +129,7 @@ class MyProfilePageWidget extends ConsumerWidget {
                                   documentSnapshot: documentSnapshot,
                                   itemsList: ProfileItemParam().viewOfLove,
                                 ),
+                                const SizedBox(height: 100),
                               ],
                             ),
                           ),

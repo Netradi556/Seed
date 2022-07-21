@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seed_app/test_page2.dart';
+import 'package:seed_app/test_page3.dart';
 import 'package:seed_app/ui/mypage/menu/footprint.dart';
 import 'package:seed_app/ui/mypage/menu/help.dart';
 import 'package:seed_app/ui/mypage/menu/license.dart';
@@ -99,7 +100,7 @@ class MyPageMenu extends StatelessWidget {
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) {
-                              return TestPage4();
+                              return TestPage5();
                             },
                           ),
                         ),

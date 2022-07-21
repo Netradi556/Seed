@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
 
+// TODO: 機能追加: メッセージの送信日時別にまとめる
+
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
 
@@ -28,7 +30,7 @@ class ChatScreen extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
+                  horizontal: 10.0,
                 ),
                 child: ChatContents(),
               ),
@@ -111,12 +113,12 @@ class LeftBalloonNoPic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.only(top: 8.0),
       child: Row(
         children: [
           const SizedBox(width: 40),
           const SizedBox(
-            width: 16.0,
+            width: 10.0,
           ),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 270),
@@ -158,7 +160,7 @@ class LeftBalloon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.only(top: 12.0),
       child: Row(
         children: [
           const SizedBox(
@@ -168,7 +170,7 @@ class LeftBalloon extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            width: 16.0,
+            width: 10.0,
           ),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 270),
@@ -195,6 +197,7 @@ class LeftBalloon extends StatelessWidget {
   }
 }
 
+// TODO: High: 自分のチャットが続いた時に感覚を縮める
 class RightBalloon extends StatelessWidget {
   const RightBalloon({
     required this.message,
@@ -207,7 +210,7 @@ class RightBalloon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.only(top: 20.0),
       child: Align(
         alignment: Alignment.centerRight,
         child: ConstrainedBox(
