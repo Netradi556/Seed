@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
 
+// TODO: 機能追加: メッセージの送信日時別にまとめる
+
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
 
@@ -28,10 +30,9 @@ class ChatScreen extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 32.0,
+                  horizontal: 10.0,
                 ),
-                child: ChatTest(),
+                child: ChatContents(),
               ),
             ),
             TextInputWidget(),
@@ -42,8 +43,8 @@ class ChatScreen extends StatelessWidget {
   }
 }
 
-class ChatTest extends StatelessWidget {
-  ChatTest({Key? key}) : super(key: key);
+class ChatContents extends StatelessWidget {
+  ChatContents({Key? key}) : super(key: key);
 
 // https://muchilog.com/flutter-create-listview-lilke-talkapp/
 // scrollControllerインスタンスのanimateTo()を0.0と指定すると一番下(トークの最新値)の場所まで飛べる様になります。
@@ -75,21 +76,74 @@ class ChatTest extends StatelessWidget {
           reverse: true,
           itemCount: docs.length,
           itemBuilder: (context, index) {
-            var text = '${docs[index]['message']}';
+            var text = '${docs[index]['message']} $index';
 
-            /* 'メッセージ：'
-                '${docs[index]['message']} \n'
-                '送信者：'
-                '${docs[index]['sender']} \n';
- */
+            // 送信者がログイン中のユーザーであればRightBalloon
             if (docs[index]['sender'] == userID) {
               return RightBalloon(message: text);
             } else {
+              // 送信者がログイン中のユーザーではない
+              try {
+                if (docs.length > index &&
+                    docs[index + 1]['sender'] != userID) {
+                  return LeftBalloonNoPic(message: text);
+                }
+              } catch (error) {
+                // nothing
+              }
+
               return LeftBalloon(message: text);
             }
           },
         );
       },
+    );
+  }
+}
+
+class LeftBalloonNoPic extends StatelessWidget {
+  const LeftBalloonNoPic({
+    required this.message,
+    Key? key,
+  }) : super(key: key);
+
+  final String message;
+  final Color textColor = const Color.fromARGB(255, 6, 6, 6);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Row(
+        children: [
+          const SizedBox(width: 40),
+          const SizedBox(
+            width: 10.0,
+          ),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 270),
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 233, 233, 233),
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(40),
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(12, 8, 16, 8),
+                child: Text(
+                  message,
+                  style: TextStyle(
+                    color: textColor,
+                    overflow: TextOverflow.clip,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -106,26 +160,33 @@ class LeftBalloon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.only(top: 12.0),
       child: Row(
         children: [
-          const CircleAvatar(
-            backgroundImage: AssetImage('assets/images/user2.jpg'),
+          const SizedBox(
+            width: 40,
+            child: CircleAvatar(
+              backgroundImage: AssetImage('assets/images/user2.jpg'),
+            ),
           ),
           const SizedBox(
-            width: 16.0,
+            width: 10.0,
           ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: const Color.fromARGB(255, 233, 233, 233),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                message,
-                style: TextStyle(
-                  color: textColor,
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 270),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: const Color.fromARGB(255, 233, 233, 233),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(12, 8, 16, 8),
+                child: Text(
+                  message,
+                  style: TextStyle(
+                    color: textColor,
+                    overflow: TextOverflow.clip,
+                  ),
                 ),
               ),
             ),
@@ -136,6 +197,7 @@ class LeftBalloon extends StatelessWidget {
   }
 }
 
+// TODO: High: 自分のチャットが続いた時に感覚を縮める
 class RightBalloon extends StatelessWidget {
   const RightBalloon({
     required this.message,
@@ -148,38 +210,42 @@ class RightBalloon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.only(top: 20.0),
       child: Align(
         alignment: Alignment.centerRight,
-        child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(40),
-                topLeft: Radius.circular(40),
-                bottomLeft: Radius.circular(40),
-              ),
-              gradient: LinearGradient(
-                begin: FractionalOffset.topLeft,
-                end: FractionalOffset.bottomRight,
-                colors: [
-                  Color.fromARGB(255, 108, 132, 235),
-                  Color.fromARGB(250, 132, 199, 250),
-                ],
-                stops: [
-                  0.0,
-                  1.0,
-                ],
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                message,
-                style: TextStyle(
-                  color: textColor,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 270),
+          child: Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(40),
+                  topLeft: Radius.circular(40),
+                  bottomLeft: Radius.circular(40),
+                ),
+                gradient: LinearGradient(
+                  begin: FractionalOffset.topLeft,
+                  end: FractionalOffset.bottomRight,
+                  colors: [
+                    Color.fromARGB(255, 108, 132, 235),
+                    Color.fromARGB(250, 132, 199, 250),
+                  ],
+                  stops: [
+                    0.0,
+                    1.0,
+                  ],
                 ),
               ),
-            )),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(12, 8, 16, 8),
+                child: Text(
+                  message,
+                  style: TextStyle(
+                    color: textColor,
+                    overflow: TextOverflow.clip,
+                  ),
+                ),
+              )),
+        ),
       ),
     );
   }

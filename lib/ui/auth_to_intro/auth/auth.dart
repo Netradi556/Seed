@@ -94,6 +94,7 @@ class GoogleSignInButton extends StatelessWidget {
         Buttons.GoogleDark,
         // TODO: lastLoginパラメータの更新処理を追加
         onPressed: () async {
+          // TODO: Crit: 通信不良時のエラー処理を実装
           try {
             final UserCredential userCredential =
                 await authRepo.signInWithGoogle();

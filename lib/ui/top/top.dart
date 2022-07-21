@@ -38,7 +38,11 @@ class UserTopWidget extends ConsumerWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             const UserTopHeaderArea(),
-            const UserTopMiddleArea(),
+            // const UserTopMiddleArea(),
+            Container(
+              height: 130,
+              color: Colors.green,
+            ),
             UserTopSearchArea(),
           ],
         ),

@@ -35,9 +35,8 @@ class ProfileItemMap {
 }
 
 class ProfileItemParam {
-  // 'handleName','sex'パラメータは項目として表示しないので、このリストに含ませない
+  // 'handleName','sex', 'age'パラメータは項目として表示しないので、このリストに含ませない
   final List<String> basicInfo = [
-    'age',
     'bloodType',
     'language',
     'livingPlace',
@@ -71,6 +70,123 @@ class ProfileItemParam {
   ];
 }
 
+class EachItemToEachParam {
+  final Map<String, List<String>> eachItemToEachParam = {
+    'bloodType': c.bloodType.toList() + ['選択しない'],
+    'language': c.language.toList() + ['選択しない'],
+    'livingPlace': c.prefectrure.toList() + ['選択しない'],
+    'birthPlace': c.prefectrure.toList() + ['選択しない'],
+    'education': c.education.toList() + ['選択しない', 'default'],
+    'job': c.job.toList() + ['選択しない'],
+    'income': c.incomeBand.toList() + ['選択しない'],
+    'height': c.heightBand.toList() + ['選択しない'],
+    'bodyShape': c.bodyShape.toList() + ['選択しない'],
+    'personality': c.personality.toList() + ['選択しない'],
+    'offDay': c.offDay.toList() + ['選択しない'],
+    'hobby': c.hobby.toList() + ['選択しない'],
+    'livingWith': c.livingWith.toList() + ['選択しない'],
+    'smoke': c.smoke.toList() + ['選択しない'],
+    'drink': c.drink.toList() + ['選択しない'],
+    'haveChild': c.haveChild.toList() + ['選択しない'],
+    'marriageWill': c.marriageWill.toList() + ['選択しない'],
+    'wantKids': c.wantKids.toList() + ['選択しない'],
+    'hoseWork': c.housework.toList() + ['選択しない'],
+    'howMeet': c.howMeet.toList() + ['選択しない'],
+    'datingCost': c.datingCost.toList() + ['選択しない'],
+  };
+
+  final Map<String, List<String>> basicInfoMap = {
+    'bloodType': c.bloodType.toList() + ['選択しない'],
+    'language': c.language.toList() + ['選択しない'],
+    'livingPlace': c.prefectrure.toList() + ['選択しない'],
+    'birthPlace': c.prefectrure.toList() + ['選択しない'],
+  };
+
+  final Map<String, List<String>> socialInfoMap = {
+    'education': c.education.toList() + ['選択しない', 'default'],
+    'job': c.job.toList() + ['選択しない'],
+    'income': c.incomeBand.toList() + ['選択しない'],
+    'height': c.heightBand.toList() + ['選択しない'],
+    'bodyShape': c.bodyShape.toList() + ['選択しない'],
+  };
+  final Map<String, List<String>> lifeStyleInfoMap = {
+    'personality': c.personality.toList() + ['選択しない'],
+    'offDay': c.offDay.toList() + ['選択しない'],
+    'hobby': c.hobby.toList() + ['選択しない'],
+    'livingWith': c.livingWith.toList() + ['選択しない'],
+    'smoke': c.smoke.toList() + ['選択しない'],
+    'drink': c.drink.toList() + ['選択しない'],
+  };
+  final Map<String, List<String>> viewOfLoveInfoMap = {
+    'haveChild': c.haveChild.toList() + ['選択しない'],
+    'marriageWill': c.marriageWill.toList() + ['選択しない'],
+    'wantKids': c.wantKids.toList() + ['選択しない'],
+    'hoseWork': c.housework.toList() + ['選択しない'],
+    'howMeet': c.howMeet.toList() + ['選択しない'],
+    'datingCost': c.datingCost.toList() + ['選択しない'],
+  };
+}
+
+class InitialProfileParam {
+  // TODO: Crit: lastLoginパラメータを追加
+  final Map<String, dynamic> initialParamTop = {
+    'handleName': '',
+    'age': 0,
+    'sex': '',
+    'about': 'よろしくおねがいします',
+    'score': 0,
+    'receivedGoodCount': 0,
+    'bloodType': '',
+    'language': '',
+    'livingPlace': '',
+    'birthPlace': '',
+    'education': '',
+    'job': '',
+    'income': '',
+    'height': 0,
+    'bodyShape': '',
+    'personality': '',
+    'offDay': '',
+    'hobby': '',
+    'livingWith': '',
+    'smoke': '',
+    'drink': '',
+    'haveChild': '',
+    'marriageWill': '',
+    'wantKids': '',
+    'hoseWork': '',
+    'howMeet': '',
+    'datingCost': '',
+  };
+
+  final Map<String, dynamic> initialParamMemberStatus = {
+    'goodCount': 0,
+    'licenseType': 'normal',
+    'entryDate': Timestamp.fromDate(DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day)),
+    'nextGivenDate': Timestamp.fromDate(DateTime(DateTime.now().year,
+        DateTime.now().month + 1, DateTime.now().day)), // TODO: TOP画面遷移時に設定
+    'birthDate': Timestamp.fromDate(DateTime(DateTime.now().year,
+        DateTime.now().month, DateTime.now().day)), // TODO: 後で設定
+  };
+
+  final Map<String, dynamic> initialParamMyNotification = {
+    'publishedDate': Timestamp.fromDate(DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day)),
+    'isRead': false,
+    'title': 'FirstNotification',
+    'contents': 'これは初回登録時に生成される通知です'
+  };
+}
+
+//
+//
+//
+//
+//
+//
+//
+// TODO: Mid :後で削除
 class ProfileItemJAP {
   final List<String> basicInfo = [
     'ニックネーム',
@@ -129,7 +245,7 @@ class ProfileItemDetail {
   final List<String> job = c.job.toList() + ['選択しない', 'default'];
 
   // 年収
-  final List<String> income = c.income.toList() + ['選択しない', 'default'];
+  final List<String> income = c.incomeBand.toList() + ['選択しない', 'default'];
 
   // 身長
   final List<String> height = c.heightCM.toList() + ['選択しない', 'default'];
@@ -179,56 +295,4 @@ class ProfileItemDetail {
 
   // デート費用
   final List<String> datingCost = c.datingCost.toList() + ['選択しない', 'default'];
-}
-
-class InitialProfileParam {
-  // TODO: lastLoginパラメータを追加
-  final Map<String, dynamic> initialParamTop = {
-    'handleName': '',
-    'age': 0,
-    'sex': '',
-    'about': 'よろしくおねがいします',
-    'score': 0,
-    'receivedGoodCount': 0,
-    'bloodType': '',
-    'language': '',
-    'livingPlace': '',
-    'birthPlace': '',
-    'education': '',
-    'job': '',
-    'income': '', // 選択肢で絞り込み
-    'height': 0,
-    'bodyShape': '',
-    'personality': '',
-    'offDay': '',
-    'hobby': '',
-    'livingWith': '',
-    'smoke': '',
-    'drink': '',
-    'haveChild': '',
-    'marriageWill': '',
-    'wantKids': '',
-    'hoseWork': '',
-    'howMeet': '',
-    'datingCost': '',
-  };
-
-  final Map<String, dynamic> initialParamMemberStatus = {
-    'goodCount': 0,
-    'licenseType': 'normal',
-    'entryDate': Timestamp.fromDate(DateTime(
-        DateTime.now().year, DateTime.now().month, DateTime.now().day)),
-    'nextGivenDate': Timestamp.fromDate(DateTime(DateTime.now().year,
-        DateTime.now().month + 1, DateTime.now().day)), // TODO: TOP画面遷移時に設定
-    'birthDate': Timestamp.fromDate(DateTime(DateTime.now().year,
-        DateTime.now().month, DateTime.now().day)), // TODO: 後で設定
-  };
-
-  final Map<String, dynamic> initialParamMyNotification = {
-    'publishedDate': Timestamp.fromDate(DateTime(
-        DateTime.now().year, DateTime.now().month, DateTime.now().day)),
-    'isRead': false,
-    'title': 'FirstNotification',
-    'contents': 'これは初回登録時に生成される通知です'
-  };
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seed_app/provider/profile_provider.dart';
 import 'package:seed_app/ui/mypage/my_profile/edit_my_profile/edit_my_profile.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
@@ -81,26 +82,6 @@ class MypagePageWidget extends ConsumerWidget {
                             // =======================FlutterFlowのThemeから変更
                             fontFamily: 'Poppins',
                             fontSize: 24,
-                          ),
-                        ),
-                        // プロフィール編集ボタン
-                        InkWell(
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return MyProfileEditPageWidget();
-                              },
-                            ),
-                          ),
-                          child: Text(
-                            'Edit profile',
-                            textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.bodyText1.override(
-                              // =======================FlutterFlowのThemeから変更
-                              fontFamily: 'Poppins',
-                              color: const Color(
-                                  0xFF646CF2), //==================================変数で
-                            ),
                           ),
                         ),
                         InkWell(

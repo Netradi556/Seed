@@ -141,7 +141,7 @@ class TestPage3 extends ConsumerWidget {
             SizedBox(
               height: 300,
               width: double.infinity,
-              child: NewInfiniteGridView(),
+              child: InfiniteGridView(),
             ),
             SizedBox(
               height: 200,

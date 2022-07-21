@@ -42,6 +42,7 @@ class NewUserProfileItemsList extends StatelessWidget {
               ),
             ),
           ),
+          // TODO: Crit: '選択しない'となっているパラメータは項目ごと非表示にしたい
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -85,6 +86,7 @@ class NewUserProfileItemsList extends StatelessWidget {
   }
 }
 
+// TODO: Crit: もう使わない？？？
 // MyProfileItemsListを修正後に、こちらも修正
 class UserProfileItemsList extends StatelessWidget {
   UserProfileItemsList({

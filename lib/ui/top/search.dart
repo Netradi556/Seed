@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,6 +7,7 @@ import 'package:seed_app/provider/user_top_provider.dart';
 
 import 'package:seed_app/repository/storage_repo.dart';
 import 'package:seed_app/ui/top/user_profile/user_profile.dart';
+import 'package:shimmer/shimmer.dart';
 
 const String imagePath1 = 'assets/images/userXX.jpg';
 const String imagePath2 = 'assets/images/user2.jpg';
@@ -56,16 +59,7 @@ class UserTopSearchArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Expanded(
-      child: Align(
-        alignment: const AlignmentDirectional(0, 0),
-        child: SizedBox(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height * 1,
-          child: NewInfiniteGridView(),
-        ),
-      ),
-    );
+    return InfiniteGridView();
   }
 }
 
@@ -76,8 +70,8 @@ class UserTopSearchArea extends ConsumerWidget {
 //
 //
 //
-class NewInfiniteGridView extends ConsumerWidget {
-  NewInfiniteGridView({Key? key}) : super(key: key);
+class InfiniteGridView extends ConsumerWidget {
+  InfiniteGridView({Key? key}) : super(key: key);
 
   final ScrollController scrollController = ScrollController();
 
@@ -114,20 +108,22 @@ class NewInfiniteGridView extends ConsumerWidget {
       },
     );
 
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(239, 229, 242, 240),
-      body: GridView.builder(
+    return Expanded(
+      child: GridView.builder(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+        shrinkWrap: false,
         itemCount: state.length,
         controller: scrollController,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 10,
+          crossAxisSpacing: 15,
           mainAxisSpacing: 20,
+          mainAxisExtent: 250,
           childAspectRatio: 0.7,
         ),
         itemBuilder: (context, index) {
           final documentSnapshot = state.elementAt(index);
+
           return isMaxState.state
               // isMaxStateがtrueになったらContainerを返す
               ? Container(
@@ -137,7 +133,7 @@ class NewInfiniteGridView extends ConsumerWidget {
                   child: const Text('上限に達しました。\n 検索条件を変更してみてください。'),
                 )
               // isMaxStateがfalseの間はユーザーカードを返す
-              : NewUserCardWithSnapshot(documentSnapshot: documentSnapshot);
+              : UserCardWithSnapshot(documentSnapshot: documentSnapshot);
         },
       ),
     );
@@ -151,8 +147,8 @@ class NewInfiniteGridView extends ConsumerWidget {
 //
 //
 
-class NewUserCardWithSnapshot extends StatelessWidget {
-  NewUserCardWithSnapshot({
+class UserCardWithSnapshot extends StatelessWidget {
+  UserCardWithSnapshot({
     Key? key,
     required this.documentSnapshot,
   }) : super(key: key);
@@ -161,15 +157,19 @@ class NewUserCardWithSnapshot extends StatelessWidget {
   final StorageRepo storageRepo = StorageRepo();
 
   // CardWidgetの枠線の色を指定
+  final double width = 180;
+  final double height = 250;
   final Color borderlineOutsideCard = const Color.fromARGB(235, 239, 218, 29);
   final Color borderlineShadow = const Color.fromARGB(144, 108, 108, 108);
   final Color userCardBackground = const Color.fromARGB(255, 245, 238, 220);
+  final double radius = 20;
 
   @override
   Widget build(BuildContext context) {
-    final handleName = documentSnapshot.get('handleName');
+    // final handleName = documentSnapshot.get('handleName');
     final age = documentSnapshot.get('age');
     final about = documentSnapshot.get('about');
+    // final livingPlace = documentSnapshot.get('livingPlace');
 
     return InkWell(
       onTap: () {
@@ -182,86 +182,130 @@ class NewUserCardWithSnapshot extends StatelessWidget {
         );
       },
       child: Container(
-        width: 170,
-        height: 300,
+        width: width,
+        height: height,
         decoration: BoxDecoration(
           color: userCardBackground,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
+          borderRadius: BorderRadius.circular(radius),
+          // ============================================================枠線
+/*           border: Border.all(
             width: 3,
             color: const Color.fromARGB(197, 255, 229, 151),
-          ),
+          ), */
           boxShadow: const [
             BoxShadow(
               color: Color.fromARGB(28, 23, 23, 23),
               spreadRadius: 1,
-              blurRadius: 2,
-              offset: Offset(2, 4),
+              blurRadius: 10,
+              offset: Offset(1, 2),
             ),
           ],
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            FutureBuilder(
-              future: storageRepo.getUserProfileImage(documentSnapshot.id),
-              builder: ((context, snapshot) {
-                return Container(
-                  width: double.infinity,
-                  height: 170,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                    ),
-                    image: DecorationImage(
-                      // =========================================================================image
-                      image: snapshot.data == null
-                          ? const NetworkImage(
-                              'https://firebasestorage.googleapis.com/v0/b/our-first-seed.appspot.com/o/testData%2Fdemo.PNG?alt=media&token=7c4eb302-4009-4e04-9c16-84139d5209d5')
-                          : NetworkImage(snapshot.data.toString()),
+        child: FutureBuilder(
+          future: storageRepo.getUserProfileImage(documentSnapshot.id),
+          builder: (context, snapshot) {
+            Widget child;
 
-                      fit: BoxFit.fitWidth,
+            if (snapshot.hasData) {
+              child = Stack(
+                fit: StackFit.expand,
+                children: [
+                  SizedBox(
+                    width: width,
+                    height: height,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(radius),
+                      child: Image.network(
+                        snapshot.data.toString(),
+                        fit: BoxFit.cover,
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: Shimmer.fromColors(
+                              baseColor: const Color.fromARGB(255, 244, 149, 54)
+                                  .withOpacity(0.3),
+                              highlightColor:
+                                  const Color.fromARGB(255, 255, 255, 255),
+                              child: Container(
+                                  color: Colors.white.withOpacity(0.2)),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
-                );
-              }),
-            ),
-            const SizedBox(height: 2),
-            // =================================================年齢 居住地
-            SizedBox(
-              width: 160,
-              height: 22,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "$handleName    $age歳        東京", // ======================ageパラメタ反映 $age
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 13,
-                    fontFamily: "Roboto",
-                    fontWeight: FontWeight.w700,
+                  Positioned(
+                    bottom: 0,
+                    width: 180,
+                    height: 75,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(radius),
+                        bottomRight: Radius.circular(radius),
+                      ),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                        child: Container(color: Colors.white.withOpacity(0.1)),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 2),
-            // ====================================================挨拶文
-            SizedBox(
-              width: 165,
-              height: 41,
-              child: Text(
-                about.toString(),
-                style: const TextStyle(
-                  color: Color.fromARGB(206, 0, 0, 0),
-                  fontSize: 13,
-                  fontFamily: "Roboto",
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ],
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(height: 2),
+                          // =================================================年齢 居住地
+                          SizedBox(
+                            width: 160,
+                            height: 22,
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                // TODO: Crit:  livingPlaceを追加
+                                "$age歳    東京", // ======================
+                                style: const TextStyle(
+                                  color: Color.fromARGB(177, 255, 255, 255),
+                                  fontSize: 13,
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          // ====================================================挨拶文
+                          SizedBox(
+                            width: 165,
+                            height: 41,
+                            child: Text(
+                              about.toString(),
+                              style: const TextStyle(
+                                color: Color.fromARGB(232, 255, 255, 255),
+                                fontSize: 13,
+                                fontFamily: "Roboto",
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            } else if (snapshot.hasError) {
+              // TODO: High: 画像ローディング失敗時の表示内容
+              child = Text('失敗');
+            } else {
+              child = Container();
+            }
+
+            return child;
+          },
         ),
       ),
     );

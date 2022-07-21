@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/provider/serch_option_provider.dart';
-import 'package:seed_app/ui/top/top.dart';
 
 class UserTopHeaderArea extends StatelessWidget {
   const UserTopHeaderArea({
@@ -18,66 +17,59 @@ class UserTopHeaderArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 90,
+      height: 50,
       decoration: const BoxDecoration(
         color: Color.fromARGB(237, 255, 255,
             255), // Color(0xFFEEEEEE), // ==========================================変数で
       ),
-      child: Column(
+      child: Row(
         children: [
-          const SizedBox(height: 1),
-          // 検索ボックスを格納しているSizedBox
-          SizedBox(
-            width: double.infinity,
-            height: 40,
-            child: Align(
-              alignment: const AlignmentDirectional(0.95, 0),
-              // 検索ボックス
-              child: InkWell(
-                onTap: () => Navigator.of(context).push(
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 3, 0, 0),
+            child: Container(
+              width: 320,
+              height: 30,
+              decoration: BoxDecoration(
+                color: searchBoxColor,
+                borderRadius: BorderRadius.circular(40),
+              ),
+              // 文字とアイコン
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
+                    child: Text(
+                      '検索条件を設定中',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 127, 126, 126),
+                      ),
+                    ),
+                  ),
+                  Icon(Icons.search, color: searchIconColor, size: 16),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 3, 10, 0),
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
                       return SearchOption();
                     },
                   ),
-                ),
-                child: Container(
-                  width: 100,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    color: searchBoxColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  // 文字とアイコン
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
-                        child: Text('絞り込み', style: FlutterFlowTheme.bodyText1),
-                      ),
-                      Icon(Icons.search, color: searchIconColor, size: 16),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-
-          // カテゴリーを格納しているSizedBox
-          const SizedBox(
-            width: double.infinity,
-            height: 35,
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
-              child: Align(
-                alignment: AlignmentDirectional(-0.05, 0),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                  child: _TopCategoryListWidget(),
+                );
+              },
+              child: const SizedBox(
+                height: 30,
+                child: Icon(
+                  Icons.tune,
+                  color: Colors.grey,
                 ),
               ),
             ),
@@ -88,6 +80,7 @@ class UserTopHeaderArea extends StatelessWidget {
   }
 }
 
+// 検索条件の設定画面
 class SearchOption extends ConsumerWidget {
   SearchOption({Key? key}) : super(key: key);
 
@@ -207,6 +200,7 @@ class SearchOption extends ConsumerWidget {
   }
 }
 
+// 検索条件の設定画面内：証明書提出済みかどうかのトグルスイッチ
 class ProofStateSwitch extends StatelessWidget {
   const ProofStateSwitch({
     Key? key,

@@ -27,8 +27,8 @@ class NavigationPageController extends ConsumerWidget {
     return Scaffold(
       body: navigationPageList[navigationIndex],
       bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Color.fromARGB(255, 138, 135, 110),
-        selectedItemColor: Colors.amberAccent,
+        unselectedItemColor: Color.fromARGB(255, 238, 228, 112),
+        selectedItemColor: Color.fromARGB(255, 136, 103, 38),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.search), label: '探す'),
           BottomNavigationBarItem(

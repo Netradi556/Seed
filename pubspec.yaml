@@ -61,6 +61,7 @@ dependencies:
   syncfusion_flutter_gauges: ^20.1.57 # サークルゲージのやつ
   path_provider: ^2.0.10
   flutter_signin_button: ^2.0.0 # SignInButtonのやつ
+  shimmer: ^2.0.0 # ローディング中に表示するshimmerエフェクト
 
 
   # flutter flowに合わせて入れたやつ
