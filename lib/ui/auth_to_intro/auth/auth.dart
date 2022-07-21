@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:seed_app/controller/user_controller_before_login.dart';
 import 'package:seed_app/locator.dart';
 
 // Riverpod
@@ -84,6 +85,8 @@ class GoogleSignInButton extends StatelessWidget {
 
   final AuthRepo authRepo = AuthRepo();
   final UserController _userController = locator.get<UserController>();
+  final UserControllerBeforeLogin _userControllerBeforeLogin =
+      locator.get<UserControllerBeforeLogin>();
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +104,8 @@ class GoogleSignInButton extends StatelessWidget {
 
             if (userCredential.additionalUserInfo!.isNewUser) {
               // Userコレクションにドキュメント作成
-              _userController.setUserDocument();
+              // _userController.setUserDocument();
+              _userControllerBeforeLogin.setUserDocument();
 
               await Navigator.pushAndRemoveUntil(
                 context,
@@ -311,6 +315,7 @@ class MailAddressLogInButton extends ConsumerWidget {
               if (userCredential.additionalUserInfo!.isNewUser) {
                 // TODO: IntroductionPageに遷移して、情報登録前にアプリを落とした場合の処理
                 // Userコレクションにドキュメント作成
+
                 _userController.setUserDocument();
                 await Navigator.of(context).pushReplacement(
                   MaterialPageRoute(

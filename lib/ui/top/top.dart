@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/ui/top/head.dart';
 import 'package:seed_app/ui/top/search.dart';
-import 'package:seed_app/ui/top/head.dart';
-import 'package:seed_app/ui/top/middle.dart';
 
 /*
   マッチング相手を探す画面

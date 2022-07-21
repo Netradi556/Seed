@@ -20,7 +20,7 @@ class AuthRepo {
         .collection('User')
         .doc(firebaseUser.uid)
         .get();
-    print(documentSnapshot.get('handleName'));
+    // print(documentSnapshot.get('handleName'));
     return UserModel(
       firebaseUser.uid,
       handleName: documentSnapshot.get('handleName'),

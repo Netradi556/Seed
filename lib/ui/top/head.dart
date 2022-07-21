@@ -11,7 +11,7 @@ class UserTopHeaderArea extends StatelessWidget {
   }) : super(key: key);
 
   final Color searchBoxColor = const Color(0xFFFEE9AC);
-  final Color searchIconColor = const Color(0xFFFFDA6F);
+  final Color searchIconColor = const Color.fromARGB(255, 127, 126, 126);
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +36,11 @@ class UserTopHeaderArea extends StatelessWidget {
               // 文字とアイコン
               child: Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                     child: Text(
                       '検索条件を設定中',
                       style: TextStyle(
@@ -48,7 +48,11 @@ class UserTopHeaderArea extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Icon(Icons.search, color: searchIconColor, size: 16),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                    child: Icon(Icons.manage_search,
+                        color: searchIconColor, size: 20),
+                  ),
                 ],
               ),
             ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/provider/profile_provider.dart';
+import 'package:seed_app/repository/storage_repo.dart';
 import 'package:seed_app/ui/mypage/my_profile/edit_my_profile/edit_my_profile.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
@@ -65,10 +66,7 @@ class MypagePageWidget extends ConsumerWidget {
                     // プロフィール画像
                     Align(
                       alignment: const AlignmentDirectional(-0.8, 0),
-                      child: Avatar(
-                        avatarUrl: _currentUser?.avatarUrl,
-                        onTap: () {},
-                      ),
+                      child: Avatar(),
                     ),
                     const SizedBox(width: 40),
                     Column(
@@ -138,30 +136,35 @@ class MypagePageWidget extends ConsumerWidget {
 
 // 完成-----------------------------------------
 class Avatar extends StatelessWidget {
-  final String? avatarUrl;
-  final void Function()? onTap;
-
-  const Avatar({
+  Avatar({
     Key? key,
-    this.avatarUrl,
-    this.onTap,
   }) : super(key: key);
+
+  final StorageRepo storageRepo = StorageRepo();
+  final UserModel? _currentUser = locator.get<UserController>().currentUser;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        child: avatarUrl == null
-            ? const CircleAvatar(
-                radius: 60.0,
-                child: Icon(Icons.photo_camera),
-              )
-            : CircleAvatar(
-                radius: 60.0,
-                backgroundImage: Image.file(File(avatarUrl!)).image,
-              ),
-      ),
+    return FutureBuilder(
+      future: storageRepo.getUserProfileImage(_currentUser!.uid),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        Widget child;
+        if (snapshot.hasData) {
+          child = CircleAvatar(
+            radius: 60.0,
+            // TODO: High: Storageのキャッシュを利用
+            backgroundImage: NetworkImage(
+              snapshot.data.toString(),
+            ), //Image.file(File(avatarUrl!)).image,
+          );
+        } else if (snapshot.hasError) {
+          child = Container();
+        } else {
+          child = Container();
+        }
+
+        return child;
+      },
     );
   }
 }

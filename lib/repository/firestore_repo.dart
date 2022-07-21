@@ -9,6 +9,8 @@ class FireStoreRepo {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final AuthRepo _authRepo = locator.get<AuthRepo>();
 
+  FireStoreRepo();
+
   // トップレベルコレクションの設定
   // TODO: 後で削除
   final CollectionReference userCollection =

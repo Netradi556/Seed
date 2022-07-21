@@ -1,0 +1,22 @@
+
+main()実行時
+Firestore, Authentication, Storageのインスタンス作成
+
+ユーザー認証時（初回）
+１．Userコレクション配下のドキュメントを作成（初期化）
+２．表示名（その他のパラメータ入力）
+３．パラメータ確定後にUserControllerインスタンス作成
+
+ユーザー認証時（二回目以降）
+１．UserControllerインスタンス作成
+
+
+
+
+// TODO: Crit: UserControllerの使い方を修正
+
+
+
+
+
+
