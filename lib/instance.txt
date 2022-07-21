@@ -14,8 +14,9 @@ Firestore, Authentication, Storageのインスタンス作成
 
 
 // TODO: Crit: UserControllerの使い方を修正
-
-
+// TODO: Crit: SharedPreferencesに保存している値の確認と整理
+// TODO: Crit: Storageへのアクセスで下記のエラーが発生する
+Invalid argument(s): No host specified in URI file:///null
 
 
 

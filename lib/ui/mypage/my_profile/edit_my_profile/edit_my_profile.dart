@@ -9,6 +9,7 @@ import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/provider/profile_provider.dart';
+import 'package:seed_app/repository/storage_repo.dart';
 
 import 'package:seed_app/ui/mypage/my_profile/edit_my_profile/edit_mp_about.dart';
 import 'package:seed_app/ui/mypage/my_profile/edit_my_profile/edit_mp_items_list.dart';
@@ -85,7 +86,7 @@ class MyProfileEditPageWidget extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ProfilePicturesEdit(
-                avatarUrl: _currentUser?.avatarUrl,
+                uid: _currentUser!.uid,
               ),
               // 自己紹介文の編集
               InkWell(
@@ -164,58 +165,61 @@ class ProfilePicturesEdit extends ConsumerWidget {
 
 */
 
-  final String? avatarUrl;
-
   ProfilePicturesEdit({
-    this.avatarUrl,
+    required this.uid,
     Key? key,
   }) : super(key: key);
 
   // final UserModel? _currentUser = locator.get<UserController>().currentUser;
   final ImagePicker _picker = ImagePicker();
+  final StorageRepo storageRepo = StorageRepo();
+  final String uid;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 15, 15, 10),
       child: InkWell(
-        onTap: () async {
-          try {
-            XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+          onTap: () async {
+            try {
+              XFile? image =
+                  await _picker.pickImage(source: ImageSource.gallery);
 
-            final imageTemporary = File(image!.path);
-            await locator
+              final imageTemporary = File(image!.path);
+              /* await locator
                 .get<UserController>()
-                .saveLocalProfilePicture(imageTemporary);
+                .saveLocalProfilePicture(imageTemporary); */
 
-            await locator
-                .get<UserController>()
-                .uploadProfilePicture(imageTemporary);
-          } catch (e) {
-            // TODO: Crit: 画像未選択時には元の画面に戻るようにする
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return const ErrorPage();
-                },
-              ),
-            );
-          }
-        },
-        child: Container(
-          height: 400,
-          width: 350,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(
-                image: avatarUrl == null
-                    ? Image.asset('assets/images/user1.jpg').image
-                    : Image.file(File(avatarUrl!)).image,
-                // TODO: High: 画像の切り抜き
-                fit: BoxFit.fitWidth),
-          ),
-        ),
-      ),
+              await locator
+                  .get<UserController>()
+                  .uploadProfilePicture(imageTemporary);
+            } catch (e) {
+              // TODO: Crit: 画像未選択時には元の画面に戻るようにする
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const ErrorPage();
+                  },
+                ),
+              );
+            }
+          },
+          child: FutureBuilder(
+            future: storageRepo.getUserProfileImage(uid),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              return Container(
+                height: 400,
+                width: 350,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                      image: NetworkImage(snapshot.data.toString()),
+                      // TODO: High: 画像の切り抜き
+                      fit: BoxFit.fitWidth),
+                ),
+              );
+            },
+          )),
     );
   }
 }

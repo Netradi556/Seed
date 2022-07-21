@@ -8,6 +8,7 @@ import 'package:seed_app/locator.dart';
 import 'package:seed_app/models/profile_item_models.dart';
 import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
+import 'package:seed_app/repository/storage_repo.dart';
 import 'package:seed_app/ui/mypage/my_profile/edit_my_profile/edit_my_profile.dart';
 import 'package:seed_app/ui/mypage/my_profile/mp_introduction.dart';
 import 'package:seed_app/ui/mypage/my_profile/mp_introduction_card.dart';
@@ -93,7 +94,7 @@ class MyProfilePageWidget extends ConsumerWidget {
                                 children: [
                                   // プロフ画像
                                   MyProfilePictures(
-                                    avatarUrl: _currentUser?.avatarUrl,
+                                    uid: _currentUser!.uid,
                                   ),
                                   // 概要欄
                                   // TODO: Crit: greetingMessageの更新
@@ -213,28 +214,33 @@ class MyProfilePageWidget extends ConsumerWidget {
 // 完成---------------------------------------------------------------------------------------------
 // プロフィール画像
 class MyProfilePictures extends ConsumerWidget {
-  final String? avatarUrl;
-  const MyProfilePictures({
-    this.avatarUrl,
+  MyProfilePictures({
     Key? key,
+    required this.uid,
   }) : super(key: key);
+
+  final String uid;
+  final StorageRepo storageRepo = StorageRepo();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 15, 15, 10),
-      child: Container(
-        height: 400,
-        width: 350,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          image: DecorationImage(
-              image: avatarUrl == null || avatarUrl == ''
-                  ? Image.asset('assets/images/user1.jpg').image
-                  : Image.file(File(avatarUrl!)).image,
-              // TODO: High: 画像の切り抜き
-              fit: BoxFit.fitWidth),
-        ),
+      child: FutureBuilder(
+        future: storageRepo.getUserProfileImage(uid),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          return Container(
+            height: 400,
+            width: 350,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                  image: NetworkImage(snapshot.data.toString()),
+                  // TODO: High: 画像の切り抜き
+                  fit: BoxFit.fitWidth),
+            ),
+          );
+        },
       ),
     );
   }

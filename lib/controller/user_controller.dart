@@ -81,7 +81,7 @@ class UserController {
     _currentUser!.avatarUrlOnCloud = await _storageRepo!.uploadFile(image);
   }
 
-  Future<void> saveLocalProfilePicture(File image) async {
+/*   Future<void> saveLocalProfilePicture(File image) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     // アプリ内ディレクトリへの保存処理
@@ -97,16 +97,5 @@ class UserController {
     // 次回起動時のためにファイルネームを保存しておく
     prefs.setString('avatarFileName',
         fileName); // ============================================keyの値にuidを追加
-  }
-
-  // アプリ起動時の初期化処理に追加することで、アプリ内パスが変わっても対処
-  Future<void> initializeLocalProfilePicturePath() async {
-    // アプリ内表示に使用するためにファイルパスを更新
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? fileName = prefs.getString(
-        'avatarFileName'); // ============================================keyの値にuidを追加
-    String nowPath =
-        (await getApplicationDocumentsDirectory()).path + '/' + fileName!;
-    _currentUser?.avatarUrl = nowPath;
-  }
+  } */
 }

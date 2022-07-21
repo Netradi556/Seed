@@ -116,7 +116,7 @@ class GoogleSignInButton extends StatelessWidget {
               );
             } else {
               //===================================================================Providerで状態を作成
-              _userController.initializeLocalProfilePicturePath();
+              // _userController.initializeLocalProfilePicturePath();
 
               await Navigator.pushAndRemoveUntil(
                 context,
