@@ -8,14 +8,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepo {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
-  final FirebaseAuth auth1 = FirebaseAuth
-      .instance; // ==============================================_authとプライベートアクセスに変更すること：セキュリティ面の理由から
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   AuthRepo();
 
   // UserModelで呼び出される初期化処理
   Future<UserModel> getUser() async {
-    var firebaseUser = auth1.currentUser!;
+    var firebaseUser = _auth.currentUser!;
     final DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
         .collection('User')
         .doc(firebaseUser.uid)
@@ -30,7 +29,7 @@ class AuthRepo {
   }
 
   Future<String> getCurrentUserUID() async {
-    var firebaseUser = auth1.currentUser!;
+    var firebaseUser = _auth.currentUser!;
     String currentUserUID = firebaseUser.uid;
     return currentUserUID;
   }
@@ -45,7 +44,7 @@ class AuthRepo {
   // メールアドレスでログインする処理
   Future signInWithEmailAddress(String email, String password) async {
     final UserCredential userCredential =
-        await auth1.signInWithEmailAndPassword(
+        await _auth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -64,7 +63,7 @@ class AuthRepo {
     );
 
     final UserCredential userCredential =
-        await auth1.signInWithCredential(credential);
+        await _auth.signInWithCredential(credential);
     return userCredential;
   }
 }

@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:seed_app/controller/user_controller.dart';
+import 'package:seed_app/locator.dart';
+import 'package:seed_app/models/user_models.dart';
+import 'package:seed_app/repository/auth_repo.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
 
 // TODO: 機能追加: メッセージの送信日時別にまとめる
@@ -50,11 +54,12 @@ class ChatContents extends StatelessWidget {
 // scrollControllerインスタンスのanimateTo()を0.0と指定すると一番下(トークの最新値)の場所まで飛べる様になります。
 
   final FireStoreRepo fireStoreRepo = FireStoreRepo();
-
-  final String userID = FirebaseAuth.instance.currentUser!.uid.toString();
+  final AuthRepo authRepo = AuthRepo();
+  final UserModel? _currentUser = locator.get<UserController>().currentUser;
 
   @override
   Widget build(BuildContext context) {
+    final String uid = _currentUser!.uid.toString();
     return StreamBuilder<QuerySnapshot>(
       stream: fireStoreRepo.getChatStream(),
       builder: (context, snapshot) {
@@ -79,13 +84,12 @@ class ChatContents extends StatelessWidget {
             var text = '${docs[index]['message']} $index';
 
             // 送信者がログイン中のユーザーであればRightBalloon
-            if (docs[index]['sender'] == userID) {
+            if (docs[index]['sender'] == uid) {
               return RightBalloon(message: text);
             } else {
               // 送信者がログイン中のユーザーではない
               try {
-                if (docs.length > index &&
-                    docs[index + 1]['sender'] != userID) {
+                if (docs.length > index && docs[index + 1]['sender'] != uid) {
                   return LeftBalloonNoPic(message: text);
                 }
               } catch (error) {
@@ -257,6 +261,9 @@ class TextInputWidget extends StatelessWidget {
   }) : super(key: key);
 
   final TextEditingController _editingController = TextEditingController();
+  final FireStoreRepo fireStoreRepo = FireStoreRepo();
+  final UserModel? _currentUser = locator.get<UserController>().currentUser;
+
   final _formKey = GlobalKey<FormState>();
   final Color sendIconColor = const Color.fromARGB(255, 70, 232, 84);
 
@@ -295,14 +302,12 @@ class TextInputWidget extends StatelessWidget {
                     iconSize: 20,
                     icon: const Icon(Icons.send),
                     onPressed: () {
-                      FirebaseFirestore.instance.collection('chatsample').add(
-                        {
-                          'message': _editingController.text.toString(),
-                          'timestamp': DateTime.now().millisecondsSinceEpoch,
-                          'sender':
-                              FirebaseAuth.instance.currentUser?.uid.toString(),
-                        },
+                      fireStoreRepo.sendMessage(
+                        _editingController.text.toString(),
+                        DateTime.now().millisecondsSinceEpoch,
+                        _currentUser!.uid,
                       );
+
                       _editingController.clear();
                     },
                   ),

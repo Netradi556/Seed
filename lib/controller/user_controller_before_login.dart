@@ -11,4 +11,12 @@ class UserControllerBeforeLogin {
   Future<void> setUserDocument() async {
     _fireStoreRepo.setUserDocument();
   }
+
+  // ハンドルネーム、誕生日、性別の登録時の処理
+  Future<void> firstUploadEditedContents(
+      Map<String, dynamic> editingContents) async {
+    await _fireStoreRepo.updateProfile(editingContents);
+    // ignore: avoid_print
+    print('到達');
+  }
 }

@@ -77,6 +77,7 @@ class FireStoreRepo {
 //
 // Chat関係の処理============================================================================================
   // 1つのチャットルーム内のドキュメントを取得
+
   Stream<QuerySnapshot> getChatStream() {
     return firestore
         .collection('chatsample')
@@ -85,8 +86,20 @@ class FireStoreRepo {
   }
 
   // ユーザーネームからユーザー？を取得する -> 目的忘れた
+  // TODO: Crit: チャット機能の開発時に削除検討
   getUserByUsername(String username) {
     firestore.collection("users").where("name", isEqualTo: username).get();
+  }
+
+  void sendMessage(String message, int sendTime, String senderName) {
+    const String collectionName = 'chatsample';
+    firestore.collection(collectionName).add(
+      {
+        'message': message,
+        'timestamp': sendTime,
+        'sender': senderName,
+      },
+    );
   }
 
 //

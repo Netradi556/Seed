@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/controller/user_controller.dart';
+import 'package:seed_app/controller/user_controller_before_login.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
 
 // PageWidgets
@@ -26,7 +27,8 @@ import 'package:seed_app/provider/profile_provider.dart';
 class RegistrationPage3 extends ConsumerWidget {
   RegistrationPage3({Key? key}) : super(key: key);
 
-  final UserController userController = UserController();
+  final UserControllerBeforeLogin userControllerBeforeLogin =
+      UserControllerBeforeLogin();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -96,7 +98,8 @@ class RegistrationPage3 extends ConsumerWidget {
                         int age = ageCal(paramBirthDate.state);
                         String ageBand = ageBandCal(age);
 
-                        await userController.firstUploadEditedContents(
+                        await userControllerBeforeLogin
+                            .firstUploadEditedContents(
                           {
                             'handleName': paramName.state.toString(),
                             'sex': paramSex.state.toString(),

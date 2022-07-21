@@ -6,7 +6,6 @@ import 'package:seed_app/models/user_models.dart';
 import 'package:seed_app/repository/auth_repo.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
 import 'package:seed_app/repository/storage_repo.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController {
   UserModel? _currentUser;
@@ -49,21 +48,12 @@ class UserController {
     print('到達');
   }
 
-  Future<void> firstUploadEditedContents(
-      Map<String, dynamic> editingContents) async {
-    await _fireStoreRepo.updateProfile(editingContents);
-    // ignore: avoid_print
-    print('到達');
-  }
-
-//
-//
-//
-//
-//
-//
-// ユーザープロフィール関係の処理==================================================================================
-
+  //
+  //
+  //
+  //
+  //
+  //
   // 画像保存の処理============================================================================================
   Future<void> uploadProfilePicture(File image) async {
     // クラウド上への保存処理
@@ -80,22 +70,4 @@ class UserController {
     // 念の為？クラウド上のURLを取得しておく
     _currentUser!.avatarUrlOnCloud = await _storageRepo!.uploadFile(image);
   }
-
-/*   Future<void> saveLocalProfilePicture(File image) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    // アプリ内ディレクトリへの保存処理
-    String fileName = currentUser!.uid.toString();
-    String newPath =
-        (await getApplicationDocumentsDirectory()).path + '/' + fileName;
-    File imageFile = File(newPath);
-    await imageFile.writeAsBytes(await image.readAsBytes());
-
-    // avatarUrlの更新
-    _currentUser?.avatarUrl = newPath;
-
-    // 次回起動時のためにファイルネームを保存しておく
-    prefs.setString('avatarFileName',
-        fileName); // ============================================keyの値にuidを追加
-  } */
 }

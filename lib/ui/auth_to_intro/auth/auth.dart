@@ -84,7 +84,6 @@ class GoogleSignInButton extends StatelessWidget {
   GoogleSignInButton({Key? key}) : super(key: key);
 
   final AuthRepo authRepo = AuthRepo();
-  final UserController _userController = locator.get<UserController>();
   final UserControllerBeforeLogin _userControllerBeforeLogin =
       locator.get<UserControllerBeforeLogin>();
 
@@ -282,7 +281,9 @@ class MailAddressLogInButton extends ConsumerWidget {
   final Color backgroundColor = Colors.blueGrey[700]!;
 
   final AuthRepo authRepo = AuthRepo();
-  final UserController _userController = locator.get<UserController>();
+
+  final UserControllerBeforeLogin _userControllerBeforeLogin =
+      locator.get<UserControllerBeforeLogin>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -313,10 +314,9 @@ class MailAddressLogInButton extends ConsumerWidget {
                 password.state,
               );
               if (userCredential.additionalUserInfo!.isNewUser) {
-                // TODO: IntroductionPageに遷移して、情報登録前にアプリを落とした場合の処理
-                // Userコレクションにドキュメント作成
+                // TODO: High: IntroductionPageに遷移して、情報登録前にアプリを落とした場合の処理
 
-                _userController.setUserDocument();
+                _userControllerBeforeLogin.setUserDocument();
                 await Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) {
