@@ -27,6 +27,7 @@ import 'package:seed_app/controller/user_controller.dart';
 class MyProfilePageWidget extends ConsumerWidget {
   MyProfilePageWidget({Key? key}) : super(key: key);
   // TODO: Crit: EdtiProfileした内容が前のページまで戻らないと反映されない、Snapshotが更新されない
+  // TODO: Crit: 'greeting'パラメータの表示と編集が未実装
 
   // デザイン関係
   final Color appBarTextColor = const Color.fromARGB(223, 0, 0, 0);

@@ -80,7 +80,6 @@ class RegistrationPage3 extends ConsumerWidget {
                   child: const Text('登録を完了する'),
                   onPressed: () async {
                     // ==========================================================================aboutパラメタを保持するProviderに初期値投入
-                    // TODO: Crit: 年齢が20歳未満の場合に登録できない旨の表示をする
                     if (paramSex.state.toString() == '未選択' ||
                         paramName.state.toString() == '' ||
                         paramBirthDate.state == DateTime(1900, 1, 1)) {

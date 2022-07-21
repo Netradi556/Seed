@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:seed_app/const/constants_profile.dart' as c;
 
-// TODO: 1. Firestore param <-> 項目名のMapを定義
-// TODO: 2. ProfileItemのListを項目名のクラスのFirestore param版を作成
-// TODO: 3. up_items_lists.dartにFirestore paramが渡されるので、Mapを利用する
-
 class ProfileItemMap {
   final Map<String, dynamic> paramItemName = {
     'handleName': 'ハンドルネーム',
@@ -133,7 +129,8 @@ class InitialProfileParam {
     'handleName': '',
     'age': 0,
     'sex': '',
-    'about': 'よろしくおねがいします',
+    'about': 'よろしくおねがいします', // 自己紹介文、長いやつ
+    'greeting': '', // 挨拶文
     'score': 0,
     'receivedGoodCount': 0,
     'bloodType': '',
@@ -164,10 +161,10 @@ class InitialProfileParam {
     'licenseType': 'normal',
     'entryDate': Timestamp.fromDate(DateTime(
         DateTime.now().year, DateTime.now().month, DateTime.now().day)),
-    'nextGivenDate': Timestamp.fromDate(DateTime(DateTime.now().year,
-        DateTime.now().month + 1, DateTime.now().day)), // TODO: TOP画面遷移時に設定
-    'birthDate': Timestamp.fromDate(DateTime(DateTime.now().year,
-        DateTime.now().month, DateTime.now().day)), // TODO: 後で設定
+    'nextGivenDate': Timestamp.fromDate(DateTime(
+        DateTime.now().year, DateTime.now().month + 1, DateTime.now().day)),
+    'birthDate': Timestamp.fromDate(DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day)),
   };
 
   final Map<String, dynamic> initialParamMyNotification = {

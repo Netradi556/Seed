@@ -5,8 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-
-// Riverpod
 import 'package:seed_app/provider/profile_provider.dart';
 
 final selectProvider = StateProvider.autoDispose((ref) => true);
@@ -296,25 +294,36 @@ class YearDateItemsWidget extends ConsumerWidget {
                 iconSize: 35,
                 color: Colors.amber,
                 onPressed: () async {
+                  DateTime now = DateTime.now();
+
                   final selectedDate = await showDatePicker(
                     context: context,
                     initialDatePickerMode: DatePickerMode.year, // 最初に年から入力
-                    initialDate: DateTime(DateTime.now().year - 22),
+                    initialDate: DateTime(now.year - 22),
                     firstDate: DateTime(
-                      DateTime.now().year - 100,
-                      DateTime.now().month,
-                      DateTime.now().day,
+                      now.year - 100,
+                      now.month,
+                      now.day,
                     ), // 選択可能な最も古い日付
                     lastDate: DateTime(
-                      DateTime.now().year - 20,
-                      DateTime.now().month,
-                      DateTime.now().day,
+                      now.year - 20,
+                      now.month,
+                      now.day,
                     ), // 選択可能な最も新しい日付
+                    selectableDayPredicate: (DateTime date) {
+                      if (20 <= (now.year - date.year) &&
+                          date.month < now.month &&
+                          date.day < now.day) {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    },
                   );
 
                   if (selectedDate != null) {
                     paramBirthDate.state = selectedDate;
-                    paramAge.state = 0; // TODO: 年齢を求める処理を実装
+                    paramAge.state = 0;
                   }
                 },
               ),

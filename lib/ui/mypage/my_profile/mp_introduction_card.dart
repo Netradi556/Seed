@@ -102,7 +102,7 @@ class _MyIntroductionCard extends StatelessWidget {
                     width: 350,
                     height: 90,
                     padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    // TODO: Crit: DocumentSnapshotから取得
+                    // TODO: Crit: DocumentSnapshotから取得 'greeting'
                     child: const Text(
                       '休日は外で過ごすことが多いです \n \n ',
                       style: TextStyle(

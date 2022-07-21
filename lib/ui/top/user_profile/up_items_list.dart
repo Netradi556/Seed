@@ -86,8 +86,7 @@ class NewUserProfileItemsList extends StatelessWidget {
   }
 }
 
-// TODO: Crit: もう使わない？？？
-// MyProfileItemsListを修正後に、こちらも修正
+// TODO: Crit: ユーザーデータ作成後に修正
 class UserProfileItemsList extends StatelessWidget {
   UserProfileItemsList({
     Key? key,

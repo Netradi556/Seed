@@ -127,7 +127,6 @@ const job = {
   'その他',
 };
 
-// TODO: Crit: Auth時に年齢と一緒に設定、検索条件で利用する
 const ageBand = {
   '20歳～24歳',
   '25歳～29歳',

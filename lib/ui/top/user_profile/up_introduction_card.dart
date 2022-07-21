@@ -58,7 +58,7 @@ class _UserIntroductionCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.fromLTRB(7, 0, 0, 0),
                     child: Text(
-                      documentSnapshot.get('handleName'), // TODO: 変数に変更
+                      documentSnapshot.get('handleName'),
                       style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -69,14 +69,13 @@ class _UserIntroductionCard extends StatelessWidget {
                     children: [
                       const SizedBox(width: 10),
                       Text(
-                        documentSnapshot.get('age').toString(), // TODO: 変数に変更
+                        documentSnapshot.get('age').toString(),
                         style: const TextStyle(fontSize: 18),
                       ),
                       const SizedBox(width: 30),
                       Text(
                         documentSnapshot
-                            .get('居住地'), // TODO Firebaseの設定変更後に修正、居住地→place??
-                        // TODO: 変数に変更
+                            .get('居住地'), // TODO: Crit: 'livingPlace'に変更
                         style: const TextStyle(fontSize: 18),
                       ),
                       const SizedBox(width: 140),
@@ -99,7 +98,8 @@ class _UserIntroductionCard extends StatelessWidget {
                     height: 90,
                     padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Text(
-                      documentSnapshot.get('about'), // TODO: 変数に変更
+                      documentSnapshot
+                          .get('about'), // TODO: Crit: 'greeting'の値を取得するように変更
                       style: const TextStyle(fontSize: 20),
                     ),
                   ),
@@ -124,7 +124,7 @@ class _UserIntroductionCard extends StatelessWidget {
                             width: 69,
                             height: 20,
                             child: Text(
-                              "1時間以内", // TODO: ログイン時間の判定・アップデート処理実装後に修正
+                              "1時間以内", // TODO: High: ログイン時間の判定・アップデート処理実装後に修正
                               style: TextStyle(
                                 color: Color(0x7f000000),
                                 fontSize: 14,
@@ -149,7 +149,7 @@ class _UserIntroductionCard extends StatelessWidget {
                             child: Text(
                               documentSnapshot
                                   .get('receivedGoodCount')
-                                  .toString(), // TODO: 変数に変更
+                                  .toString(),
                               style: const TextStyle(
                                 color: Color(0x7f000000),
                                 fontSize: 14,
