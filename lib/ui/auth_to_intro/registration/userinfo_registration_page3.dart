@@ -80,7 +80,7 @@ class RegistrationPage3 extends ConsumerWidget {
                   child: const Text('登録を完了する'),
                   onPressed: () async {
                     // ==========================================================================aboutパラメタを保持するProviderに初期値投入
-
+                    // TODO: Crit: 年齢が20歳未満の場合に登録できない旨の表示をする
                     if (paramSex.state.toString() == '未選択' ||
                         paramName.state.toString() == '' ||
                         paramBirthDate.state == DateTime(1900, 1, 1)) {
@@ -94,13 +94,16 @@ class RegistrationPage3 extends ConsumerWidget {
                       print(paramBirthDate.state.toString());
                     } else {
                       try {
-                        // TODO: ageプロパティの登録
-                        // TODO: paramBirthDateの型修正 FireBase用の型に変更する必要あるかも？
+                        int age = ageCal(paramBirthDate.state);
+                        String ageBand = ageBandCal(age);
+
                         await userController.firstUploadEditedContents(
                           {
                             'handleName': paramName.state.toString(),
                             'sex': paramSex.state.toString(),
                             'birthDate': paramBirthDate.state.toString(),
+                            'age': age,
+                            'ageBand': ageBand,
                           },
                         );
 
@@ -124,5 +127,52 @@ class RegistrationPage3 extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  // age計算用の関数
+  int ageCal(DateTime birthDate) {
+    return DateTime.now().year - birthDate.year;
+  }
+
+  String ageBandCal(int age) {
+    String ageBand = 'initialValue';
+
+    if (age < 45) {
+      if (20 <= age && age <= 24) {
+        ageBand = '20歳～24歳';
+      }
+      if (25 <= age && age <= 29) {
+        ageBand = '25歳～29歳';
+      }
+      if (30 <= age && age <= 34) {
+        ageBand = '30歳～34歳';
+      }
+      if (35 <= age && age <= 39) {
+        ageBand = '35歳～39歳';
+      }
+      if (40 <= age && age <= 44) {
+        ageBand = '40歳～44歳';
+      }
+    } else if (45 <= age && age <= 69) {
+      if (45 <= age && age <= 49) {
+        ageBand = '45歳～49歳';
+      }
+      if (50 <= age && age <= 54) {
+        ageBand = '50歳～54歳';
+      }
+      if (55 <= age && age <= 59) {
+        ageBand = '55歳～59歳';
+      }
+      if (60 <= age && age <= 64) {
+        ageBand = '60歳～64歳';
+      }
+      if (65 <= age && age <= 69) {
+        ageBand = '65歳～69歳';
+      }
+    } else {
+      ageBand = '70歳〜';
+    }
+
+    return ageBand;
   }
 }

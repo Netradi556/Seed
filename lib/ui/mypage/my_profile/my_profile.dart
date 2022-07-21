@@ -77,123 +77,129 @@ class MyProfilePageWidget extends ConsumerWidget {
               DocumentSnapshot documentSnapshot =
                   snapshot.data as DocumentSnapshot;
               int score = documentSnapshot.get('score');
-              return Column(
-                children: [
-                  Expanded(
-                    child: Container(
-                      color: const Color.fromARGB(255, 250, 250, 250),
-                      child: Stack(
-                        children: [
-                          SingleChildScrollView(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // プロフ画像
-                                MyProfilePictures(
-                                  avatarUrl: _currentUser?.avatarUrl,
-                                ),
-                                // 概要欄
-                                // TODO: Crit: greetingMessageの更新
-                                MyIntroductionCard(
-                                  documentSnapshot: documentSnapshot,
-                                ),
-                                // プロフィールスコア
-                                MyProfileScore(
-                                  score: score.toDouble(),
-                                ),
-                                // 自由記述欄
-                                MyIntroduction(
-                                  documentSnapshot: documentSnapshot,
-                                ),
-                                // 基本情報
-                                MyProfileItemsList(
-                                  categoryName: '基本情報',
-                                  documentSnapshot: documentSnapshot,
-                                  itemsList: ProfileItemParam().basicInfo,
-                                ),
-                                // 学歴・職種・外見
-                                MyProfileItemsList(
-                                  categoryName: '学歴・職種・外見',
-                                  documentSnapshot: documentSnapshot,
-                                  itemsList: ProfileItemParam().lifeStyleInfo,
-                                ),
-                                // 性格・趣味・生活
-                                MyProfileItemsList(
-                                  categoryName: '性格・趣味・生活',
-                                  documentSnapshot: documentSnapshot,
-                                  itemsList: ProfileItemParam().socialInfo,
-                                ),
-                                // 恋愛・結婚について
-                                MyProfileItemsList(
-                                  categoryName: '恋愛・結婚について',
-                                  documentSnapshot: documentSnapshot,
-                                  itemsList: ProfileItemParam().viewOfLove,
-                                ),
-                                const SizedBox(height: 100),
-                              ],
+              return Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        color: const Color.fromARGB(255, 250, 250, 250),
+                        child: Stack(
+                          children: [
+                            SingleChildScrollView(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // プロフ画像
+                                  MyProfilePictures(
+                                    avatarUrl: _currentUser?.avatarUrl,
+                                  ),
+                                  // 概要欄
+                                  // TODO: Crit: greetingMessageの更新
+                                  MyIntroductionCard(
+                                    documentSnapshot: documentSnapshot,
+                                  ),
+                                  // プロフィールスコア
+                                  MyProfileScore(
+                                    score: score.toDouble(),
+                                  ),
+                                  // 自由記述欄
+                                  MyIntroduction(
+                                    documentSnapshot: documentSnapshot,
+                                  ),
+                                  // 基本情報
+                                  MyProfileItemsList(
+                                    categoryName: '基本情報',
+                                    documentSnapshot: documentSnapshot,
+                                    itemsList: ProfileItemParam().basicInfo,
+                                  ),
+                                  // 学歴・職種・外見
+                                  MyProfileItemsList(
+                                    categoryName: '学歴・職種・外見',
+                                    documentSnapshot: documentSnapshot,
+                                    itemsList: ProfileItemParam().lifeStyleInfo,
+                                  ),
+                                  // 性格・趣味・生活
+                                  MyProfileItemsList(
+                                    categoryName: '性格・趣味・生活',
+                                    documentSnapshot: documentSnapshot,
+                                    itemsList: ProfileItemParam().socialInfo,
+                                  ),
+                                  // 恋愛・結婚について
+                                  MyProfileItemsList(
+                                    categoryName: '恋愛・結婚について',
+                                    documentSnapshot: documentSnapshot,
+                                    itemsList: ProfileItemParam().viewOfLove,
+                                  ),
+                                  const SizedBox(height: 100),
+                                ],
+                              ),
                             ),
-                          ),
-                          Positioned.fill(
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
-                              child: Align(
-                                alignment: Alignment.bottomCenter,
-                                child: InkWell(
-                                  // TODO: 編集画面に遷移
-                                  // TODO: デザインの修正、黄色ベース
+                            Positioned.fill(
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: InkWell(
+                                    // TODO: 編集画面に遷移
+                                    // TODO: デザインの修正、黄色ベース
 
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    width: 250,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        gradient: const LinearGradient(
-                                          colors: <Color>[
-                                            Color.fromARGB(255, 249, 229, 168),
-                                            Color.fromARGB(255, 255, 225, 165),
-                                            Color.fromARGB(255, 230, 189, 84),
-                                          ],
-                                        ),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            color:
-                                                Color.fromARGB(28, 23, 23, 23),
-                                            spreadRadius: 1,
-                                            blurRadius: 1,
-                                            offset: Offset(1, 1),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      width: 250,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          gradient: const LinearGradient(
+                                            colors: <Color>[
+                                              Color.fromARGB(
+                                                  255, 249, 229, 168),
+                                              Color.fromARGB(
+                                                  255, 255, 225, 165),
+                                              Color.fromARGB(255, 230, 189, 84),
+                                            ],
                                           ),
-                                        ]),
-                                    padding: const EdgeInsets.all(10),
-                                    child: const Text(
-                                      'プロフィールを編集する',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w100,
+                                          boxShadow: const [
+                                            BoxShadow(
+                                              color: Color.fromARGB(
+                                                  28, 23, 23, 23),
+                                              spreadRadius: 1,
+                                              blurRadius: 1,
+                                              offset: Offset(1, 1),
+                                            ),
+                                          ]),
+                                      padding: const EdgeInsets.all(10),
+                                      child: const Text(
+                                        'プロフィールを編集する',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w100,
+                                        ),
                                       ),
                                     ),
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return MyProfileEditPageWidget(
+                                              documentSnapshot: snapshot.data
+                                                  as DocumentSnapshot,
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    },
                                   ),
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return MyProfileEditPageWidget(
-                                            documentSnapshot: snapshot.data
-                                                as DocumentSnapshot,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             }
           },
