@@ -7,7 +7,7 @@ import 'package:seed_app/repository/auth_repo.dart';
 class FireStoreRepo {
   // FireStoreインスタンスの設定
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final AuthRepo _authRepo = locator.get<AuthRepo>();
+  final AuthRepo _authRepo = AuthRepo();
 
   FireStoreRepo();
 
@@ -140,22 +140,21 @@ class FireStoreRepo {
 // ユーザープロフィール関係の処理=================================================================================
   // アカウント作成時のドキュメント作成処理
   Future<void> setUserDocument() async {
-    UserModel user = await _authRepo.getUser();
-    var userId = user.uid;
+    String uid = _authRepo.getUserUid();
 
     // Userコレクション直下のパラメータ
-    newUserCollection.doc(userId).set(InitialProfileParam().initialParamTop);
+    newUserCollection.doc(uid).set(InitialProfileParam().initialParamTop);
 
     // Userコレクション->Member Statusコレクション
     newUserCollection
-        .doc(userId)
+        .doc(uid)
         .collection('MemberStatus')
-        .doc(userId)
+        .doc(uid)
         .set(InitialProfileParam().initialParamMemberStatus);
 
     // Userコレクション->MyNotificationコレクション
     newUserCollection
-        .doc(userId) // 最初に登録する通知だけUserIDと同じ
+        .doc(uid) // 最初に登録する通知だけUserIDと同じ
         .collection('MyNotification')
         .doc('firstNotification')
         .set(InitialProfileParam().initialParamMyNotification);
@@ -163,7 +162,7 @@ class FireStoreRepo {
 
   //
   Future<void> NEWupdateProfile(Map<String, String> editedContents) async {
-    UserModel user = await _authRepo.getUser();
+    UserModel user = await _authRepo.getUserModel();
     var userId = user.uid;
 
     // TODO: コレクションの変更
@@ -176,7 +175,7 @@ class FireStoreRepo {
   // TODO: mid: ユーザー修正画面が落ち着いたら消去
   // ユーザープロファイルの情報をアップロード：ProfileEdit
   Future<void> OLDupdateProfile(Map<String, String> editedContents) async {
-    UserModel user = await _authRepo.getUser();
+    UserModel user = await _authRepo.getUserModel();
     var userId = user.uid;
 
     // TODO: コレクションの変更
@@ -188,7 +187,7 @@ class FireStoreRepo {
 
   // ユーザープロファイルの情報を新規作成：初回登録時に実行 Auth
   Future<void> updateProfile(Map<String, dynamic> editedContents) async {
-    UserModel user = await _authRepo.getUser();
+    UserModel user = await _authRepo.getUserModel();
     var userId = user.uid;
 
     newUserCollection.doc(userId).update(editedContents);

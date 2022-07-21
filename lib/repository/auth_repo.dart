@@ -12,23 +12,26 @@ class AuthRepo {
 
   AuthRepo();
 
+  // UserModelの作成ができない時のみに仕様（Introductionの途中のみ）
+  String getUserUid() {
+    return _auth.currentUser!.uid;
+  }
+
   // UserModelで呼び出される初期化処理
-  Future<UserModel> getUser() async {
+  Future<UserModel> getUserModel() async {
     var firebaseUser = _auth.currentUser!;
     final DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
         .collection('User')
         .doc(firebaseUser.uid)
         .get();
-    // print(documentSnapshot.get('handleName'));
+    print(documentSnapshot.get('handleName'));
     return UserModel(
       firebaseUser.uid,
       handleName: documentSnapshot.get('handleName'),
-      avatarUrl:
-          '', // =========================================================================パスを最初から設定したい
     );
   }
 
-  Future<String> getCurrentUserUID() async {
+  String getCurrentUserUID() {
     var firebaseUser = _auth.currentUser!;
     String currentUserUID = firebaseUser.uid;
     return currentUserUID;

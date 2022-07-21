@@ -295,6 +295,7 @@ class YearDateItemsWidget extends ConsumerWidget {
                 color: Colors.amber,
                 onPressed: () async {
                   DateTime now = DateTime.now();
+                  DateTime adult = DateTime(now.year - 20, now.month, now.day);
 
                   final selectedDate = await showDatePicker(
                     context: context,
@@ -310,10 +311,8 @@ class YearDateItemsWidget extends ConsumerWidget {
                       now.month,
                       now.day,
                     ), // 選択可能な最も新しい日付
-                    selectableDayPredicate: (DateTime date) {
-                      if (20 <= (now.year - date.year) &&
-                          date.month < now.month &&
-                          date.day < now.day) {
+                    selectableDayPredicate: (DateTime selectDate) {
+                      if (selectDate.isBefore(adult)) {
                         return true;
                       } else {
                         return false;

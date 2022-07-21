@@ -13,8 +13,6 @@ void setUpFireBaseServices() {
   locator.registerSingleton<StorageRepo>(StorageRepo());
   locator.registerSingleton<UserControllerBeforeLogin>(
       UserControllerBeforeLogin());
-  // TODO: Crit: UserControllerの修正をしたら削除する
-  locator.registerSingleton<UserController>(UserController());
 }
 
 void setUpUserController() {

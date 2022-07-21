@@ -10,22 +10,21 @@ import 'package:seed_app/repository/storage_repo.dart';
 class UserController {
   UserModel? _currentUser;
   final FireStoreRepo _fireStoreRepo = locator.get<FireStoreRepo>();
-  final AuthRepo? _authRepo = locator.get<AuthRepo>();
-  final StorageRepo? _storageRepo = locator.get<StorageRepo>();
+  final AuthRepo _authRepo = locator.get<AuthRepo>();
+  final StorageRepo _storageRepo = locator.get<StorageRepo>();
 
   UserModel? get currentUser => _currentUser;
 
   // UserControllerインスタンス生成時の初期化処理
-  Future? init;
+
   UserController() {
-    init = initUser();
+    initUser();
   }
 
   // 呼び出し先のgetUserでuid、handleName、avatarUrlを取得しておく
-  Future<UserModel?> initUser() async {
-    _currentUser = await _authRepo
-        ?.getUser(); // ===================呼び出し先のgetUser()が全部引っくるまってる？？？？
-    return _currentUser;
+  Future initUser() async {
+    _currentUser = await _authRepo.getUserModel();
+    print(_currentUser?.handleName);
   }
 
   // アカウント登録時のドキュメント生成処理
@@ -58,7 +57,7 @@ class UserController {
   Future<void> uploadProfilePicture(File image) async {
     // クラウド上への保存処理
     // FireStorageにアップロード
-    await _storageRepo!.uploadFile(image);
+    await _storageRepo.uploadFile(image);
 
     // アプリ内ディレクトリへの保存処理
     String fileName = currentUser!.uid.toString();
@@ -68,6 +67,6 @@ class UserController {
     await imageFile.writeAsBytes(await image.readAsBytes());
 
     // 念の為？クラウド上のURLを取得しておく
-    _currentUser!.avatarUrlOnCloud = await _storageRepo!.uploadFile(image);
+    _currentUser!.avatarUrlOnCloud = await _storageRepo.uploadFile(image);
   }
 }

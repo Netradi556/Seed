@@ -73,7 +73,10 @@ class EditProfileItemsList extends StatelessWidget {
                             child: EditItemDropDownWidget(
                               itemNameJP: itemName,
                               itemNameParam: itemsList[index],
-                              nowParam: documentSnapshot.get(itemsList[index]),
+                              // TODO: Crit: heightパラメータで初期化されてるものをどうにかする
+                              nowParam: documentSnapshot
+                                  .get(itemsList[index])
+                                  .toString(),
                               items: eachItemToEachParam[itemsList[index]]!,
                             ),
                           ),

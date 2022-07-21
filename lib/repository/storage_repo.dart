@@ -15,7 +15,7 @@ class StorageRepo {
 
   // プロフィール画像のUpDl処理----------------------
   Future<String> uploadFile(File file) async {
-    UserModel user = await _authRepo.getUser();
+    UserModel user = await _authRepo.getUserModel();
     var userId = user.uid;
 
     var storageRef = _storage.ref().child("user/profile/$userId");
@@ -26,9 +26,13 @@ class StorageRepo {
   }
 
   Future<String> getUserProfileImage(String uid) async {
-    String imgPath =
-        await _storage.ref().child("user/profile/$uid").getDownloadURL();
-    return imgPath;
+    try {
+      String imgPath =
+          await _storage.ref().child("user/profile/$uid").getDownloadURL();
+      return imgPath;
+    } catch (e) {
+      return '';
+    }
   }
 
   // 各種証明書のアップロード処理----------------------

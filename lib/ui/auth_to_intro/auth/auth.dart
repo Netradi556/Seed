@@ -14,7 +14,6 @@ import 'package:seed_app/ui/auth_to_intro/auth/create_account.dart';
 
 // PageWidgets
 import 'package:seed_app/ui/navigation_controller.dart';
-import 'package:seed_app/controller/user_controller.dart';
 import 'forgot_pass.dart';
 import '../intro/introduction.dart';
 
@@ -103,7 +102,6 @@ class GoogleSignInButton extends StatelessWidget {
 
             if (userCredential.additionalUserInfo!.isNewUser) {
               // Userコレクションにドキュメント作成
-              // _userController.setUserDocument();
               _userControllerBeforeLogin.setUserDocument();
 
               await Navigator.pushAndRemoveUntil(
@@ -114,9 +112,8 @@ class GoogleSignInButton extends StatelessWidget {
                 (r) => false,
               );
             } else {
-              //===================================================================Providerで状態を作成
-              // _userController.initializeLocalProfilePicturePath();
-
+              // ログインができたらUserControllerインスタンスを初期化して画面遷移
+              setUpUserController();
               await Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -137,6 +134,79 @@ class GoogleSignInButton extends StatelessWidget {
             print('$e');
           }
         },
+      ),
+    );
+  }
+}
+
+class MailAddressLogInButton extends ConsumerWidget {
+  MailAddressLogInButton({
+    Key? key,
+  }) : super(key: key);
+
+  final Color backgroundColor = Colors.blueGrey[700]!;
+
+  final AuthRepo authRepo = AuthRepo();
+
+  final UserControllerBeforeLogin _userControllerBeforeLogin =
+      locator.get<UserControllerBeforeLogin>();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Provider
+    final infoText = ref.watch(infoTextProvider.notifier);
+    final email = ref.watch(emailProvider.notifier);
+    final password = ref.watch(passwordProvider.notifier);
+
+    return Container(
+      width: double.infinity,
+      height: 40,
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        width: 200,
+        height: 40,
+        decoration: BoxDecoration(color: backgroundColor),
+        alignment: Alignment.center,
+        child: SignInButtonBuilder(
+          backgroundColor: backgroundColor,
+          icon: Icons.email,
+          text: 'Sing in with Email',
+          // TODO: lastLoginパラメータの更新処理を追加
+          onPressed: () async {
+            try {
+              final UserCredential userCredential = await authRepo
+                  .signInWithEmailAddress(email.state, password.state);
+
+              if (userCredential.additionalUserInfo!.isNewUser) {
+                // TODO: High: IntroductionPageに遷移して、情報登録前にアプリを落とした場合の処理
+
+                _userControllerBeforeLogin.setUserDocument();
+
+                await Navigator.of(context)
+                    .pushReplacement(MaterialPageRoute(builder: (context) {
+                  return IntroductionPage();
+                }));
+              } else {
+                _userControllerBeforeLogin.setUserDocument();
+
+                await Navigator.of(context)
+                    .pushReplacement(MaterialPageRoute(builder: (context) {
+                  return IntroductionPage();
+                }));
+
+                // TODO: Crit: でもアカウントの設定画終わったら戻す
+                /*
+                setUpUserController();
+                await Navigator.of(context)
+                    .pushReplacement(MaterialPageRoute(builder: (context) {
+                  return NavigationPageController();
+                })); */
+              }
+            } catch (e) {
+              infoText.state = "ログインに失敗しました${e.toString()}";
+            }
+          },
+        ),
       ),
     );
   }
@@ -205,6 +275,47 @@ class EmailTextForm extends ConsumerWidget {
   }
 }
 
+class CreateAccount extends StatelessWidget {
+  const CreateAccount({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 45),
+        Container(
+          width: 250,
+          height: 40,
+          decoration: BoxDecoration(
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromARGB(85, 231, 225,
+                    225), //==============================================変数で
+                offset: Offset(0.0, 1.0), //(x,y)
+                blurRadius: 6.0,
+              ),
+            ],
+            borderRadius: BorderRadius.circular(8),
+            color: Colors.black38,
+          ),
+          alignment: Alignment.center,
+          child: InkWell(
+            child: const Text('アカウントを新しく作る'),
+            onTap: () async {
+              await Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) {
+                return const CreateAccountPage();
+              }));
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class PasswordTextForm extends ConsumerWidget {
   const PasswordTextForm({
     Key? key,
@@ -269,117 +380,6 @@ class PasswordTextForm extends ConsumerWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class MailAddressLogInButton extends ConsumerWidget {
-  MailAddressLogInButton({
-    Key? key,
-  }) : super(key: key);
-
-  final Color backgroundColor = Colors.blueGrey[700]!;
-
-  final AuthRepo authRepo = AuthRepo();
-
-  final UserControllerBeforeLogin _userControllerBeforeLogin =
-      locator.get<UserControllerBeforeLogin>();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Provider
-    final infoText = ref.watch(infoTextProvider.notifier);
-    final email = ref.watch(emailProvider.notifier);
-    final password = ref.watch(passwordProvider.notifier);
-
-    return Container(
-      width: double.infinity,
-      height: 40,
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        width: 200,
-        height: 40,
-        decoration: BoxDecoration(color: backgroundColor),
-        alignment: Alignment.center,
-        child: SignInButtonBuilder(
-          backgroundColor: backgroundColor,
-          icon: Icons.email,
-          text: 'Sing in with Email',
-          // TODO: lastLoginパラメータの更新処理を追加
-          onPressed: () async {
-            try {
-              final UserCredential userCredential =
-                  await authRepo.signInWithEmailAddress(
-                email.state,
-                password.state,
-              );
-              if (userCredential.additionalUserInfo!.isNewUser) {
-                // TODO: High: IntroductionPageに遷移して、情報登録前にアプリを落とした場合の処理
-
-                _userControllerBeforeLogin.setUserDocument();
-                await Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return IntroductionPage();
-                    },
-                  ),
-                );
-              } else {
-                await Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return NavigationPageController();
-                    },
-                  ),
-                );
-              }
-            } catch (e) {
-              infoText.state = "ログインに失敗しました${e.toString()}";
-            }
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class CreateAccount extends StatelessWidget {
-  const CreateAccount({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 45),
-        Container(
-          width: 250,
-          height: 40,
-          decoration: BoxDecoration(
-            boxShadow: const [
-              BoxShadow(
-                color: Color.fromARGB(85, 231, 225,
-                    225), //==============================================変数で
-                offset: Offset(0.0, 1.0), //(x,y)
-                blurRadius: 6.0,
-              ),
-            ],
-            borderRadius: BorderRadius.circular(8),
-            color: Colors.black38,
-          ),
-          alignment: Alignment.center,
-          child: InkWell(
-            child: const Text('アカウントを新しく作る'),
-            onTap: () async {
-              await Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) {
-                return const CreateAccountPage();
-              }));
-            },
-          ),
-        ),
-      ],
     );
   }
 }

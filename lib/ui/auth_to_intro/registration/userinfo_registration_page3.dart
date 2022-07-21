@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seed_app/controller/user_controller.dart';
 import 'package:seed_app/controller/user_controller_before_login.dart';
+import 'package:seed_app/locator.dart';
 import 'package:seed_app/repository/firestore_repo.dart';
 
 // PageWidgets
@@ -109,6 +110,8 @@ class RegistrationPage3 extends ConsumerWidget {
                           },
                         );
 
+                        // UserControllerを初期化して画面遷移
+                        setUpUserController();
                         await Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) {
