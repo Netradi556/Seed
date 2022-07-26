@@ -64,12 +64,12 @@ class MyProfilePageWidget extends ConsumerWidget {
             ),
           ),
         ),
-        body: FutureBuilder<DocumentSnapshot>(
+        body: StreamBuilder<DocumentSnapshot>(
           // TODO: Crit: DocumentSnapshotをProviderで管理したらよいのでは、そうしたらrebuildされる
-          future: FirebaseFirestore.instance
+          stream: FirebaseFirestore.instance
               .collection('User')
               .doc(_currentUser!.uid)
-              .get(),
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.data == null) {
               // TODO: ローディング画面を実装

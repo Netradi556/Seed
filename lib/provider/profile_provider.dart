@@ -7,6 +7,9 @@ final profileBirthdateProvider =
     StateProvider<DateTime>((ref) => DateTime(1900, 1, 1));
 final profileAgeProvider = StateProvider((ref) => 0);
 
+// 画像のアップロードチェック
+final profileIsPicUpload = StateProvider.autoDispose<bool>((ref) => false);
+
 // プロフィールの更新有無チェック
 final profileIsChanged = StateProvider<bool>((ref) => false);
 final profileIsChangedAuto = StateProvider.autoDispose<bool>(((ref) => false));

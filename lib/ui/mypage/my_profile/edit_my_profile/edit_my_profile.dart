@@ -44,7 +44,6 @@ class MyProfileEditPageWidget extends ConsumerWidget {
     final editingContents = ref.watch(profileEditingContents.state);
     final aboutParam = ref.watch(profileAboutProvider.state);
     final isAboutChanged = ref.watch(profileAboutIsChangedProvider.state);
-
     return Material(
       child: Scaffold(
         backgroundColor: backgroundColor,

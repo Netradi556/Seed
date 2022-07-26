@@ -33,7 +33,6 @@ class UserTopWidget extends ConsumerWidget {
       backgroundColor: backgroundColor,
       body: SafeArea(
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           children: [
             const UserTopHeaderArea(),
             // const UserTopMiddleArea(),
@@ -41,7 +40,7 @@ class UserTopWidget extends ConsumerWidget {
               height: 130,
               color: Colors.green,
             ),
-            UserTopSearchArea(),
+            Expanded(child: UserTopSearchArea()),
           ],
         ),
       ),
